@@ -70,7 +70,8 @@ function findElement(url, sessionId, cssSelector) {
       value: cssSelector
     }
   }).then(body => ({
-    sendKeys: sendKeys.bind(null, url, sessionId, body.value.ELEMENT)
+    sendKeys: sendKeys.bind(null, url, sessionId, body.value.ELEMENT),
+    click: click.bind(null, url, sessionId, body.value.ELEMENT)
   }));
 }
 
@@ -81,6 +82,13 @@ function sendKeys(url, sessionId, elementId, text) {
     body: {
       value: [text]
     }
+  });
+}
+
+function click(url, sessionId, elementId) {
+  return sendRequest({
+    url: `${url}/session/${sessionId}/element/${elementId}/click`,
+    method: 'post'
   });
 }
 
