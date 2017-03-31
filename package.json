@@ -1,0 +1,21 @@
+{
+  "name": "w3c-webdriver",
+  "version": "0.1.0",
+  "description": "W3C WebDriver client",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "mucsi96/w3c-webdriver",
+  "keywords": [
+    "w3c",
+    "webdriver",
+    "client"
+  ],
+  "author": "Igor Muchychka <mucsi_96@yahoo.com> (https://github.com/mucsi96)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mucsi96/w3c-webdriver/issues"
+  },
+  "homepage": "https://github.com/mucsi96/w3c-webdriver#readme"
+}
