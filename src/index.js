@@ -31,15 +31,15 @@ function newSession(url, desiredCapabilities) {
     }
   }).then(body => ({
     deleteSession: deleteSession.bind(null, url, body.sessionId),
-    go: go.bind(null, url, body.sessionId)
+    go: go.bind(null, url, body.sessionId),
+    getTitle: getTitle.bind(null, url, body.sessionId),
   }));
 }
 
 function deleteSession(url, sessionId) {
   return sendRequest({
     url: `${url}/session/${sessionId}`,
-    method: 'delete',
-    body: {}
+    method: 'delete'
   });
 }
 
@@ -51,6 +51,13 @@ function go(url, sessionId, targetUrl) {
       url: targetUrl
     }
   });
+}
+
+function getTitle(url, sessionId) {
+  return sendRequest({
+    url: `${url}/session/${sessionId}/title`,
+    method: 'get'
+  }).then(body => body.value);
 }
 
 module.exports = newSession;

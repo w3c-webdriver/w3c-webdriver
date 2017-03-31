@@ -8,5 +8,7 @@ webDriver(baseUrl, {
 })
 .then(s => session = s)
 .then(() => session.go('http://localhost:8087'))
+.then(() => session.getTitle())
+.then(title => console.log(title))
 .then(() => session.deleteSession())
 .catch(err => console.error(err));
