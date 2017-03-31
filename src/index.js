@@ -69,7 +69,19 @@ function findElement(url, sessionId, cssSelector) {
       using: 'css selector',
       value: cssSelector
     }
-  }).then(body => body.value.ELEMENT)
+  }).then(body => ({
+    sendKeys: sendKeys.bind(null, url, sessionId, body.value.ELEMENT)
+  }));
+}
+
+function sendKeys(url, sessionId, elementId, text) {
+  return sendRequest({
+    url: `${url}/session/${sessionId}/element/${elementId}/value`,
+    method: 'post',
+    body: {
+      value: [text]
+    }
+  });
 }
 
 module.exports = newSession;

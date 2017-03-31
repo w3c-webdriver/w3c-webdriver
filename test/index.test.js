@@ -11,6 +11,8 @@ webDriver(baseUrl, {
 .then(() => session.getTitle())
 .then(title => console.log(title))
 .then(() => session.findElement('#a'))
-.then(body => console.log(body))
-.then(() => session.deleteSession())
+.then(element => element.sendKeys('15'))
+.then(() => session.findElement('#b'))
+.then(element => element.sendKeys('6'))
+// .then(() => session.deleteSession())
 .catch(err => console.error(err));
