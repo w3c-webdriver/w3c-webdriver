@@ -3,21 +3,20 @@ const webDriver = require('../src');
 let session;
 const baseUrl = 'http://localhost:9515';
 
-webDriver(baseUrl, {
-  browserName: 'Chrome'
-})
-.then(s => session = s)
-.then(() => session.go('http://localhost:8087'))
-.then(() => session.getTitle())
-.then(title => console.log(title))
-.then(() => session.findElement('#a'))
-.then(element => element.sendKeys('15'))
-.then(() => session.findElement('#b'))
-.then(element => element.sendKeys('6'))
-.then(() => session.findElement('#add'))
-.then(element => element.click())
-.then(() => session.findElement('#result'))
-.then(element => element.getText())
-.then(text => console.log(text))
-.then(() => session.deleteSession())
-.catch(err => console.error(err));
+async function test() {
+  const session = await webDriver(baseUrl, {
+    browserName: 'Chrome'
+  });
+  await session.go('http://localhost:8087');
+  const title = await session.getTitle();
+  console.log(title);
+  await (await session.findElement('#a')).sendKeys('15');
+  await (await session.findElement('#b')).sendKeys('6');
+  await (await session.findElement('#add')).click();
+  const text = await (await session.findElement('#result')).getText();
+  console.log(text);
+  await session.deleteSession();
+}
+
+
+test().catch(err => console.error(err));
