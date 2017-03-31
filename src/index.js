@@ -30,7 +30,8 @@ function newSession(url, desiredCapabilities) {
       desiredCapabilities
     }
   }).then(body => ({
-    deleteSession: deleteSession.bind(null, url, body.sessionId)
+    deleteSession: deleteSession.bind(null, url, body.sessionId),
+    go: go.bind(null, url, body.sessionId)
   }));
 }
 
@@ -39,7 +40,17 @@ function deleteSession(url, sessionId) {
     url: `${url}/session/${sessionId}`,
     method: 'delete',
     body: {}
-  })
+  });
+}
+
+function go(url, sessionId, targetUrl) {
+  return sendRequest({
+    url: `${url}/session/${sessionId}/url`,
+    method: 'post',
+    body: {
+      url: targetUrl
+    }
+  });
 }
 
 module.exports = newSession;
