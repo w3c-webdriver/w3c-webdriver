@@ -16,5 +16,8 @@ webDriver(baseUrl, {
 .then(element => element.sendKeys('6'))
 .then(() => session.findElement('#add'))
 .then(element => element.click())
-// .then(() => session.deleteSession())
+.then(() => session.findElement('#result'))
+.then(element => element.getText())
+.then(text => console.log(text))
+.then(() => session.deleteSession())
 .catch(err => console.error(err));
