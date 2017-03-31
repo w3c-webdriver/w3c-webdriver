@@ -33,6 +33,7 @@ function newSession(url, desiredCapabilities) {
     deleteSession: deleteSession.bind(null, url, body.sessionId),
     go: go.bind(null, url, body.sessionId),
     getTitle: getTitle.bind(null, url, body.sessionId),
+    findElement: findElement.bind(null, url, body.sessionId)
   }));
 }
 
@@ -58,6 +59,17 @@ function getTitle(url, sessionId) {
     url: `${url}/session/${sessionId}/title`,
     method: 'get'
   }).then(body => body.value);
+}
+
+function findElement(url, sessionId, cssSelector) {
+  return sendRequest({
+    url: `${url}/session/${sessionId}/element`,
+    method: 'post',
+    body: {
+      using: 'css selector',
+      value: cssSelector
+    }
+  }).then(body => body.value.ELEMENT)
 }
 
 module.exports = newSession;
