@@ -4,6 +4,12 @@ const webDriver = require('../src');
 
 const baseUrl = 'http://localhost:9515';
 
+async function tearDownSession(session) {
+  if (session) {
+    await session.deleteSession();
+  }
+}
+
 async function testSummarizeInputs() {
   let session;
   try {
@@ -24,34 +30,34 @@ async function testSummarizeInputs() {
   } catch (err) {
     throw err;
   } finally {
-    await session.deleteSession();
+    await tearDownSession(session);
   }
 }
 
 async function testTitle() {
-    let session;
-    try {
-        //GIVEN
-        session = await webDriver(baseUrl, {
-            browserName: 'Chrome'
-        });
-        await session.go('http://localhost:8087');
+  let session;
+  try {
+    //GIVEN
+    session = await webDriver(baseUrl, {
+      browserName: 'Chrome'
+    });
+    await session.go('http://localhost:8087');
 
-        //WHEN
-        const title = await session.getTitle();
+    //WHEN
+    const title = await session.getTitle();
 
-        //THEN
-        title.should.equal('title');
-    } catch (err) {
-        throw err;
-    } finally {
-        await session.deleteSession();
-    }
+    //THEN
+    title.should.equal('title');
+  } catch (err) {
+    throw err;
+  } finally {
+    await tearDownSession(session);
+  }
 }
 
 function init() {
-    testSummarizeInputs().catch(err => console.error(err));
-    testTitle().catch(err => console.error(err));
+  testSummarizeInputs().catch(err => console.error(err));
+  testTitle().catch(err => console.error(err));
 }
 
 init();

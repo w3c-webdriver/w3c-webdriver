@@ -1,5 +1,19 @@
 const request = require("request");
 
+function findError(err, body) {
+  if (err) {
+    return err;
+  }
+
+  if (body.status) {
+    return new Error(body.value.message);
+  }
+
+  if (typeof body.status == 'undefined') {
+    return new Error('unknown command during sending request: ' + body);
+  }
+}
+
 function sendRequest(options) {
   return new Promise((resolve, reject) => {
     request({
@@ -8,13 +22,11 @@ function sendRequest(options) {
       json: true,
       body: options.body
     }, (err, response, body) => {
-      if (err) {
-        reject(err);
-        return;
-      }
+      const error = findError(err, body);
 
-      if (body.status) {
-        reject(new Error(body.value.message));
+      if (error) {
+        reject(error);
+        return;
       }
 
       resolve(body);
