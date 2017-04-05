@@ -1,4 +1,4 @@
-const request = require("request");
+const request = require('request');
 
 function findError(err, body) {
   if (err) {
@@ -10,8 +10,10 @@ function findError(err, body) {
   }
 
   if (typeof body.status === 'undefined') {
-    return new Error('unknown command during sending request: ' + body);
+    return new Error(`Unknown command during sending request: ${body}`);
   }
+
+  return null;
 }
 
 function sendRequest(options) {
@@ -34,23 +36,47 @@ function sendRequest(options) {
   });
 }
 
-class Session {
-  constructor(url, body) {
-    this.deleteSession = deleteSession.bind(null, url, body.sessionId);
-    this.go = go.bind(null, url, body.sessionId);
-    this.getTitle = getTitle.bind(null, url, body.sessionId);
-    this.findElement = findElement.bind(null, url, body.sessionId);
+function sendKeys(url, sessionId, elementId, text) {
+  return sendRequest({
+    url: `${url}/session/${sessionId}/element/${elementId}/value`,
+    method: 'post',
+    body: {
+      value: [text]
+    }
+  });
+}
+
+function click(url, sessionId, elementId) {
+  return sendRequest({
+    url: `${url}/session/${sessionId}/element/${elementId}/click`,
+    method: 'post'
+  });
+}
+
+function getText(url, sessionId, elementId) {
+  return sendRequest({
+    url: `${url}/session/${sessionId}/element/${elementId}/text`,
+    method: 'get'
+  }).then(body => body.value);
+}
+
+class Element {
+  constructor(url, sessionId, body) {
+    this.sendKeys = sendKeys.bind(null, url, sessionId, body.value.ELEMENT);
+    this.click = click.bind(null, url, sessionId, body.value.ELEMENT);
+    this.getText = getText.bind(null, url, sessionId, body.value.ELEMENT);
   }
 }
 
-function newSession(url, desiredCapabilities) {
+function findElement(url, sessionId, cssSelector) {
   return sendRequest({
-    url: `${url}/session`,
+    url: `${url}/session/${sessionId}/element`,
     method: 'post',
     body: {
-      desiredCapabilities
+      using: 'css selector',
+      value: cssSelector
     }
-  }).then(body => new Session(url, body));
+  }).then(body => new Element(url, sessionId, body));
 }
 
 function deleteSession(url, sessionId) {
@@ -77,47 +103,23 @@ function getTitle(url, sessionId) {
   }).then(body => body.value);
 }
 
-class Element {
-  constructor(url, sessionId, body) {
-    this.sendKeys = sendKeys.bind(null, url, sessionId, body.value.ELEMENT);
-    this.click = click.bind(null, url, sessionId, body.value.ELEMENT);
-    this.getText = getText.bind(null, url, sessionId, body.value.ELEMENT);
+class Session {
+  constructor(url, body) {
+    this.deleteSession = deleteSession.bind(null, url, body.sessionId);
+    this.go = go.bind(null, url, body.sessionId);
+    this.getTitle = getTitle.bind(null, url, body.sessionId);
+    this.findElement = findElement.bind(null, url, body.sessionId);
   }
 }
 
-function findElement(url, sessionId, cssSelector) {
+function newSession(url, desiredCapabilities) {
   return sendRequest({
-    url: `${url}/session/${sessionId}/element`,
+    url: `${url}/session`,
     method: 'post',
     body: {
-      using: 'css selector',
-      value: cssSelector
+      desiredCapabilities
     }
-  }).then(body => new Element(url, sessionId, body));
-}
-
-function sendKeys(url, sessionId, elementId, text) {
-  return sendRequest({
-    url: `${url}/session/${sessionId}/element/${elementId}/value`,
-    method: 'post',
-    body: {
-      value: [text]
-    }
-  });
-}
-
-function click(url, sessionId, elementId) {
-  return sendRequest({
-    url: `${url}/session/${sessionId}/element/${elementId}/click`,
-    method: 'post'
-  });
-}
-
-function getText(url, sessionId, elementId) {
-  return sendRequest({
-    url: `${url}/session/${sessionId}/element/${elementId}/text`,
-    method: 'get'
-  }).then(body => body.value);
+  }).then(body => new Session(url, body));
 }
 
 module.exports = newSession;

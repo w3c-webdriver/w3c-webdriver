@@ -1,7 +1,8 @@
 const chai = require('chai');
-chai.should();
+
 const webDriver = require('../src');
 
+chai.should();
 const baseUrl = 'http://localhost:9515';
 
 async function tearDownSession(session) {
@@ -13,19 +14,19 @@ async function tearDownSession(session) {
 async function testSummarizeInputs() {
   let session;
   try {
-    //GIVEN
+    // GIVEN
     session = await webDriver(baseUrl, {
       browserName: 'Chrome'
     });
     await session.go('http://localhost:8087');
 
-    //WHEN
+    // WHEN
     await (await session.findElement('#a')).sendKeys('15');
     await (await session.findElement('#b')).sendKeys('6');
     await (await session.findElement('#add')).click();
     const text = await (await session.findElement('#result')).getText();
 
-    //THEN
+    // THEN
     text.should.equal('21');
   } catch (err) {
     throw err;
@@ -37,16 +38,16 @@ async function testSummarizeInputs() {
 async function testTitle() {
   let session;
   try {
-    //GIVEN
+    // GIVEN
     session = await webDriver(baseUrl, {
       browserName: 'Chrome'
     });
     await session.go('http://localhost:8087');
 
-    //WHEN
+    // WHEN
     const title = await session.getTitle();
 
-    //THEN
+    // THEN
     title.should.equal('title');
   } catch (err) {
     throw err;
@@ -56,8 +57,8 @@ async function testTitle() {
 }
 
 function init() {
-  testSummarizeInputs().catch(err => console.error(err));
-  testTitle().catch(err => console.error(err));
+  testSummarizeInputs().catch(err => process.stderr.write(`${err.stack}\n`));
+  testTitle().catch(err => process.stderr.write(`${err.stack}\n`));
 }
 
 init();

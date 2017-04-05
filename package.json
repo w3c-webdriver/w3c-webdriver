@@ -4,6 +4,7 @@
   "description": "W3C WebDriver client",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint src test test-app",
     "test": "babel-node test/index.test.js",
     "start:test-app": "node test-app/index.js",
     "start:chromedriver": "node_modules/.bin/chromedriver.cmd"
@@ -28,6 +29,9 @@
     "babel-plugin-transform-es2015-modules-commonjs": "^6.24.0",
     "chai": "^3.5.0",
     "chromedriver": "^2.28.0",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.1.3",
+    "eslint-plugin-import": "^2.2.0",
     "jest": "^19.0.2"
   },
   "dependencies": {
