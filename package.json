@@ -4,10 +4,8 @@
   "description": "W3C WebDriver client",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint src test test-app",
-    "test": "babel-node test/index.test.js",
-    "start:test-app": "node test-app/index.js",
-    "start:chromedriver": "node_modules/.bin/chromedriver.cmd"
+    "pretest": "eslint src test test-app",
+    "test": "jest"
   },
   "repository": {
     "type": "git",

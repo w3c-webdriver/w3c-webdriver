@@ -34,11 +34,15 @@ const server = http.createServer((req, res) => {
 });
 
 function start() {
-  server.listen(8087);
+  return new Promise((resolve) => {
+    server.listen(8087, resolve);
+  });
 }
 
 function stop() {
-  server.close();
+  return new Promise((resolve) => {
+    server.close(resolve);
+  });
 }
 
 if (require.main === module) {
