@@ -1,18 +1,18 @@
 /* eslint-env jest */
-const chromedriver = require('chromedriver');
+const phantomjs = require('phantomjs-prebuilt');
 const WebDriver = require('../src');
 const testApp = require('../test-app');
 
 const session = new WebDriver.Session({
-  port: 9515,
   capabilities: {
     browserName: 'Chrome'
   }
 });
+let phantomjsProcess;
 
 describe('Session', () => {
   it('should contain sessionId', async () => {
-    expect(session.sessionId).toMatch(/[A-Z0-9a-z]{32}/);
+    expect(session.sessionId).toMatch(/[a-z0-9-]+/);
   });
 
   describe('title method', () => {
@@ -25,7 +25,7 @@ describe('Session', () => {
   describe('findElement method', () => {
     it('should find element by CSS selector', async () => {
       const element = await session.findElement('css', 'h2');
-      expect(element.elementId).toMatch(/[.\-0-9]+/);
+      expect(element.elementId).toMatch(/[0-9.-]+/);
     });
   });
 });
@@ -65,7 +65,7 @@ describe('Element', () => {
 });
 
 beforeAll(async () => {
-  chromedriver.start();
+  phantomjsProcess = await phantomjs.run('--webdriver=4444');
   await testApp.start();
   await session.start();
   await session.url('http://localhost:8087');
@@ -73,6 +73,6 @@ beforeAll(async () => {
 
 afterAll(async () => {
   await session.end();
-  chromedriver.stop();
+  phantomjsProcess.kill();
   await testApp.stop();
 });
