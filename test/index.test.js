@@ -1,23 +1,15 @@
 /* eslint-env jest */
 const phantomjs = require('phantomjs-prebuilt');
-const WebDriver = require('../src');
+const { newSession } = require('../src');
 const testApp = require('../test-app');
 
-const session = new WebDriver.Session({
-    capabilities: {
-        browserName: 'Chrome'
-    }
-});
+let session;
 let phantomjsProcess;
 
 describe('Session', () => {
-    it('should contain sessionId', async () => {
-        expect(session.sessionId).toMatch(/[a-z0-9-]+/);
-    });
-
-    describe('title method', () => {
+    describe('getTitle method', () => {
         it('should return page title', async () => {
-            const title = await session.title();
+            const title = await session.getTitle();
             expect(title).toEqual('title');
         });
     });
@@ -25,16 +17,16 @@ describe('Session', () => {
     describe('findElement method', () => {
         it('should find element by CSS selector', async () => {
             const element = await session.findElement('css', 'h2');
-            expect(element.elementId).toMatch(/[0-9.-]+/);
+            expect(element).toBeDefined();
         });
     });
 });
 
 describe('Element', () => {
-    describe('text method', () => {
+    describe('getText method', () => {
         it('should return text from element', async () => {
             const element = await session.findElement('css', 'h2');
-            const text = await element.text();
+            const text = await element.getText();
             expect(text).toEqual('Simple calculator');
         });
     });
@@ -44,7 +36,7 @@ describe('Element', () => {
             const element = await session.findElement('css', '#before-features');
             await element.click();
             const hookResult = await session.findElement('css', '#hook-result');
-            const text = await hookResult.text();
+            const text = await hookResult.getText();
             expect(text).toEqual('<F');
         });
     });
@@ -58,7 +50,7 @@ describe('Element', () => {
             const add = await session.findElement('css', '#add');
             await add.click();
             const result = await session.findElement('css', '#result');
-            const resultText = await result.text();
+            const resultText = await result.getText();
             expect(resultText).toEqual('20');
         });
     });
@@ -67,12 +59,14 @@ describe('Element', () => {
 beforeAll(async () => {
     phantomjsProcess = await phantomjs.run('--webdriver=4444');
     await testApp.start();
-    await session.start();
-    await session.url('http://localhost:8087');
+    session = await newSession('http://localhost:4444', {
+        browserName: 'Chrome'
+    });
+    await session.go('http://localhost:8087');
 });
 
 afterAll(async () => {
-    await session.end();
+    await session.delete();
     phantomjsProcess.kill();
     await testApp.stop();
 });

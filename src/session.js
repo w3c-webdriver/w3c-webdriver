@@ -1,52 +1,40 @@
 const utils = require('./utils');
 const Element = require('./element');
 
-class Session {
-    constructor(options) {
-        this.options = Object.assign({
-            host: 'localhost',
-            port: 4444,
-            capabilities: {}
-        }, options);
-        this.options.url = `http://${this.options.host}${this.options.port ? `:${this.options.port}` : ''}`;
-    }
-
-    sendCommand(method, uri, body) {
-        return utils.sendRequest(method, `${this.options.url}${utils.formatUri(uri)}`, body);
-    }
-
-    sendSessionCommand(method, uri, body) {
-        if (!this.sessionId) throw new Error('Session is not started yet. Use start() method for that.');
-        return this.sendCommand(method, `session/${this.sessionId}${utils.formatUri(uri)}`, body)
-      .then(responseBody => responseBody.value);
-    }
-
-    start() {
-        return this.sendCommand('POST', 'session', {
-            desiredCapabilities: this.options.capabilities
-        }).then((body) => {
-            this.sessionId = body.sessionId;
-        });
-    }
-
-    end() {
-        return this.sendSessionCommand('DELETE');
-    }
-
-    url(pageUrl) {
-        return this.sendSessionCommand('POST', 'url', { url: pageUrl });
-    }
-
-    title() {
-        return this.sendSessionCommand('GET', 'title');
-    }
-
-    findElement(strategy, selector) {
-        return this.sendSessionCommand('POST', 'element', {
-            using: strategy,
-            value: selector
-        }).then(value => new Element(this, value.ELEMENT));
-    }
+function sendCommand(baseUrl, sessionId, method, uri, body) {
+    return utils.sendRequest(method, `${baseUrl}/session/${sessionId}${utils.formatUri(uri)}`, body)
+        .then(responseBody => responseBody.value);
 }
 
-module.exports = Session;
+function deleteSession(sendSessionCommand) {
+    return sendSessionCommand('DELETE');
+}
+
+function go(sendSessionCommand, targetUrl) {
+    return sendSessionCommand('POST', 'url', {
+        url: targetUrl
+    });
+}
+
+function getTitle(sendSessionCommand) {
+    return sendSessionCommand('GET', 'title');
+}
+
+function newSession(url, desiredCapabilities) {
+    return utils.sendRequest('POST', `${url}/session`, {
+        desiredCapabilities
+    }).then((body) => {
+        const sendSessionCommand = sendCommand.bind(null, url, body.sessionId);
+
+        return {
+            delete: deleteSession.bind(null, sendSessionCommand),
+            go: go.bind(null, sendSessionCommand),
+            getTitle: getTitle.bind(null, sendSessionCommand),
+            findElement: Element.findElement.bind(null, sendSessionCommand)
+        };
+    });
+}
+
+module.exports = {
+    newSession
+};
