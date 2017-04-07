@@ -1,6 +1,7 @@
 {
   "extends": "airbnb-base",
   "rules": {
-    "comma-dangle": "off"
+    "comma-dangle": "off",
+    "indent": ["error", 4]
   }
 }
