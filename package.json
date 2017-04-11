@@ -1,8 +1,8 @@
 {
   "name": "w3c-webdriver",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "W3C WebDriver client",
-  "main": "index.js",
+  "main": "src/index.js",
   "engines": {
     "node": ">= 6.0.0"
   },
