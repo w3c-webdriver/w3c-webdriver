@@ -1,26 +1,37 @@
 const utils = require('./utils');
 
-class Element {
-    constructor(session, elementId) {
-        this.session = session;
-        this.elementId = elementId;
-    }
-
-    sendElementCommand(method, uri, body) {
-        return this.session.sendSessionCommand(method, `element/${this.elementId}${utils.formatUri(uri)}`, body);
-    }
-
-    text() {
-        return this.sendElementCommand('GET', 'text');
-    }
-
-    click() {
-        return this.sendElementCommand('POST', 'click');
-    }
-
-    sendKeys(text) {
-        return this.sendElementCommand('POST', 'value', { value: [text] });
-    }
+function sendCommand(sendSessionCommand, elementId, method, uri, body) {
+    return sendSessionCommand(method, `element/${elementId}${utils.formatUri(uri)}`, body);
 }
 
-module.exports = Element;
+function sendKeys(sendElementCommand, text) {
+    return sendElementCommand('POST', 'value', {
+        value: [text]
+    });
+}
+
+function click(sendElementCommand) {
+    return sendElementCommand('POST', 'click');
+}
+
+function getText(sendElementCommand) {
+    return sendElementCommand('GET', 'text');
+}
+
+function findElement(sendSessionCommand, strategy, selector) {
+    return sendSessionCommand('POST', 'element', {
+        using: strategy,
+        value: selector
+    }).then((body) => {
+        const sendElementCommand = sendCommand.bind(null, sendSessionCommand, body.ELEMENT);
+        return {
+            sendKeys: sendKeys.bind(null, sendElementCommand),
+            click: click.bind(null, sendElementCommand),
+            getText: getText.bind(null, sendElementCommand)
+        };
+    });
+}
+
+module.exports = {
+    findElement
+};
