@@ -18,6 +18,10 @@ function getText(sendElementCommand) {
     return sendElementCommand('GET', 'text');
 }
 
+function getCss(sendElementCommand, propertyName) {
+    return sendElementCommand('GET', `css/${propertyName}`);
+}
+
 function findElement(sendSessionCommand, strategy, selector) {
     return sendSessionCommand('POST', 'element', {
         using: strategy,
@@ -27,7 +31,8 @@ function findElement(sendSessionCommand, strategy, selector) {
         return {
             sendKeys: sendKeys.bind(null, sendElementCommand),
             click: click.bind(null, sendElementCommand),
-            getText: getText.bind(null, sendElementCommand)
+            getText: getText.bind(null, sendElementCommand),
+            getCss: getCss.bind(null, sendElementCommand)
         };
     });
 }
