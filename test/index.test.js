@@ -10,7 +10,7 @@ describe('Session', () => {
     describe('getTitle method', () => {
         it('should return page title', async () => {
             const title = await session.getTitle();
-            expect(title).toEqual('title');
+            expect(title).toEqual('The simple calculator');
         });
     });
 
@@ -33,11 +33,11 @@ describe('Element', () => {
 
     describe('click method', () => {
         it('should simulate mouse click on element', async () => {
-            const element = await session.findElement('css', '#before-features');
-            await element.click();
-            const hookResult = await session.findElement('css', '#hook-result');
-            const text = await hookResult.getText();
-            expect(text).toEqual('<F');
+            const addButton = await session.findElement('css', '#add');
+            await addButton.click();
+            const result = await session.findElement('css', '#result');
+            const text = await result.getText();
+            expect(text).toEqual('NaN');
         });
     });
 
@@ -54,6 +54,14 @@ describe('Element', () => {
             expect(resultText).toEqual('20');
         });
     });
+
+    describe('getCss method', () => {
+        it('should return the provided style property of an element', async () => {
+            const result = await session.findElement('css', '#result');
+            const backgroundColor = await result.getCss('background-color');
+            expect(backgroundColor).toEqual('rgba(211, 211, 211, 1)');
+        });
+    });
 });
 
 beforeAll(async () => {
@@ -62,6 +70,9 @@ beforeAll(async () => {
     session = await newSession('http://localhost:4444', {
         browserName: 'Chrome'
     });
+});
+
+beforeEach(async () => {
     await session.go('http://localhost:8087');
 });
 
