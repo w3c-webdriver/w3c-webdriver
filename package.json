@@ -8,7 +8,7 @@
   },
   "scripts": {
     "pretest": "eslint src test test-app",
-    "test": "jest --verbose --logTransformErrors"
+    "test": "jest --verbose"
   },
   "repository": {
     "type": "git",
