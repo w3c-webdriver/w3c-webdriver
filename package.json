@@ -1,10 +1,10 @@
 {
   "name": "w3c-webdriver",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "W3C WebDriver client",
   "main": "src/index.js",
   "engines": {
-    "node": ">= 6.0.0"
+    "node": ">= 4.0.0"
   },
   "scripts": {
     "pretest": "eslint src test test-app",
