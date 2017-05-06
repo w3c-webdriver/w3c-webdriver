@@ -1,4 +1,7 @@
 /* eslint-env jest */
+
+'use strict';
+
 const phantomjs = require('phantomjs-prebuilt');
 const webdriver = require('../src');
 const testApp = require('../test-app');

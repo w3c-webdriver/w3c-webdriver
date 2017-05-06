@@ -1,3 +1,5 @@
+'use strict';
+
 const utils = require('./utils');
 
 function sendCommand(sendSessionCommand, elementId, method, uri, body) {
