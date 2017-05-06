@@ -1,6 +1,6 @@
 /* eslint-env jest */
 const phantomjs = require('phantomjs-prebuilt');
-const { newSession } = require('../src');
+const webdriver = require('../src');
 const testApp = require('../test-app');
 
 let session;
@@ -67,7 +67,7 @@ describe('Element', () => {
 beforeAll(async () => {
     phantomjsProcess = await phantomjs.run('--webdriver=4444');
     await testApp.start();
-    session = await newSession('http://localhost:4444', {
+    session = await webdriver.newSession('http://localhost:4444', {
         browserName: 'Chrome'
     });
 });
