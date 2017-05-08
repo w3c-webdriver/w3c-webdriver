@@ -21,6 +21,11 @@ describe('Session', () => {
             const element = await session.findElement('css', 'h2');
             expect(element).toBeDefined();
         });
+
+        it('should find element appearing delayed by CSS selector', async () => {
+            const element = await session.findElement('css', '#delayedItem', 1000);
+            expect(element).toBeDefined();
+        });
     });
 });
 
