@@ -2,12 +2,11 @@
 
 'use strict';
 
-const phantomjs = require('phantomjs-prebuilt');
 const webdriver = require('../src');
+const chromedriver = require('chromedriver');
 const testApp = require('../test-app');
 
 let session;
-let phantomjsProcess;
 
 describe('Session', () => {
     describe('getTitle method', () => {
@@ -68,7 +67,8 @@ describe('Element', () => {
 });
 
 beforeAll(async () => {
-    phantomjsProcess = await phantomjs.run('--webdriver=4444');
+    // Add '--headless' and '--disable-gpu' when it becomes implemented
+    chromedriver.start(['--port=4444']);
     await testApp.start();
     session = await webdriver.newSession('http://localhost:4444', {
         browserName: 'Chrome'
@@ -81,6 +81,6 @@ beforeEach(async () => {
 
 afterAll(async () => {
     await session.delete();
-    phantomjsProcess.kill();
+    chromedriver.stop();
     await testApp.stop();
 });
