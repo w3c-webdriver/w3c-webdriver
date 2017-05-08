@@ -24,7 +24,7 @@ function getCss(sendElementCommand, propertyName) {
     return sendElementCommand('GET', `css/${propertyName}`);
 }
 
-function findElement(sendSessionCommand, strategy, selector) {
+function findDOMElement(sendSessionCommand, strategy, selector) {
     return sendSessionCommand('POST', 'element', {
         using: strategy,
         value: selector
@@ -36,7 +36,21 @@ function findElement(sendSessionCommand, strategy, selector) {
             getText: getText.bind(null, sendElementCommand),
             getCss: getCss.bind(null, sendElementCommand)
         };
-    });
+    }).catch(() => undefined);
+}
+
+async function findElement(sendSessionCommand, strategy, selector, maxWaitTime = 0) {
+    const QUERY_INTERVAL = 20;
+    let totalTime = 0;
+    let result = await findDOMElement(sendSessionCommand, strategy, selector);
+
+    while (!result && totalTime <= maxWaitTime) {
+        await utils.wait(QUERY_INTERVAL).then(async () => {
+            result = await findDOMElement(sendSessionCommand, strategy, selector);
+        });
+        totalTime += QUERY_INTERVAL;
+    }
+    return result;
 }
 
 module.exports = {
