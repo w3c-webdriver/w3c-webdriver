@@ -72,8 +72,7 @@ describe('Element', () => {
 });
 
 beforeAll(async () => {
-    // Add '--headless' and '--disable-gpu' when it becomes implemented
-    chromedriver.start(['--port=4444']);
+    chromedriver.start(['--port=4444', '--no-sandbox', '--headless', '--disable-gpu']);
     await testApp.start();
     session = await webdriver.newSession('http://localhost:4444', {
         browserName: 'Chrome'
