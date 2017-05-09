@@ -1,3 +1,4 @@
+os: linux
 sudo: required
 dist: trusty
 addons:
@@ -16,8 +17,11 @@ node_js:
   - '5'
   - '6'
   - '7'
+install:
+  - npm install
 before_script:
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
   - npm prune
+  - sh -e /etc/init.d/xvfb start
   - sleep 6
+script:
+  - npm test
