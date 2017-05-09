@@ -16,4 +16,7 @@ node_js:
   - '6'
   - '7'
 before_script:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
   - npm prune
+  - sleep 3
