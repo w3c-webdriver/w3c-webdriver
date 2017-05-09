@@ -1,4 +1,10 @@
-sudo: false
+sudo: required
+dist: trusty
+addons:
+  sources:
+    - google-chrome
+  packages:
+    - google-chrome-stable
 language: node_js
 cache:
   directories:
