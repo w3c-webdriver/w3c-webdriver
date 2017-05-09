@@ -19,4 +19,4 @@ before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
   - npm prune
-  - sleep 3
+  - sleep 6
