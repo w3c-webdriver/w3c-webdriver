@@ -18,7 +18,6 @@ matrix:
       env: HOMEBREW_CASK_OPTS='--appdir=/Applications'
 
 before_install:
-  - brew update > /dev/null
   - brew cask install google-chrome
 
 install:
