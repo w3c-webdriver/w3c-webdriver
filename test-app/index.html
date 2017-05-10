@@ -45,6 +45,13 @@
       }));
     }
 
+    setTimeout(() => {
+        document.querySelector('body')
+            .appendChild(document.createElement('div'))
+            .setAttribute('id',"delayedItem");
+        document.querySelector('#delayedItem').innerText = 'pop';
+    }, 1000);
+
     document.addEventListener("DOMContentLoaded", autorun, false)
   </script>
 </body>

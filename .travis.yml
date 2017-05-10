@@ -1,13 +1,27 @@
-sudo: false
 language: node_js
-cache:
-  directories:
-    - node_modules
-notifications:
-  email: false
-node_js:
-  - '5'
-  - '6'
-  - '7'
-before_script:
-  - npm prune
+
+matrix:
+  include:
+    - os: osx
+      sudo: required
+      env: DISPLAY=':99.0'
+      dist: trusty
+      addons:
+        apt:
+          sources:
+            - google-chrome
+          packages:
+            - google-chrome-stable
+      node_js:
+      - '6'
+      - '7'
+      env: HOMEBREW_CASK_OPTS='--appdir=/Applications'
+
+before_install:
+  - brew cask install google-chrome
+
+install:
+  - npm install
+
+script:
+  - npm test

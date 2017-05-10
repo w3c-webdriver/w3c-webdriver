@@ -2,12 +2,11 @@
 
 'use strict';
 
-const phantomjs = require('phantomjs-prebuilt');
 const webdriver = require('../src');
+const chromedriver = require('chromedriver');
 const testApp = require('../test-app');
 
 let session;
-let phantomjsProcess;
 
 describe('Session', () => {
     describe('getTitle method', () => {
@@ -20,6 +19,11 @@ describe('Session', () => {
     describe('findElement method', () => {
         it('should find element by CSS selector', async () => {
             const element = await session.findElement('css', 'h2');
+            expect(element).toBeDefined();
+        });
+
+        it('should find element appearing delayed by CSS selector', async () => {
+            const element = await session.findElement('css', '#delayedItem', 1000);
             expect(element).toBeDefined();
         });
     });
@@ -68,7 +72,7 @@ describe('Element', () => {
 });
 
 beforeAll(async () => {
-    phantomjsProcess = await phantomjs.run('--webdriver=4444');
+    chromedriver.start(['--port=4444', '--no-sandbox', '--headless', '--disable-gpu']);
     await testApp.start();
     session = await webdriver.newSession('http://localhost:4444', {
         browserName: 'Chrome'
@@ -81,6 +85,6 @@ beforeEach(async () => {
 
 afterAll(async () => {
     await session.delete();
-    phantomjsProcess.kill();
+    chromedriver.stop();
     await testApp.stop();
 });

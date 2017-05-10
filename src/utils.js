@@ -2,6 +2,10 @@
 
 const request = require('request');
 
+async function wait(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 function findError(err, body) {
     if (err) {
         return err;
@@ -46,5 +50,6 @@ function formatUri(uri) {
 
 module.exports = {
     sendRequest,
-    formatUri
+    formatUri,
+    wait
 };

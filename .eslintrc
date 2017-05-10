@@ -3,6 +3,8 @@
   "rules": {
     "comma-dangle": ["error", "never"],
     "indent": ["error", 4],
+    "no-loop-func": 0,
+    "no-await-in-loop": 0,
     "strict": "off"
   }
 }
