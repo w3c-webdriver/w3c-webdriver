@@ -25,6 +25,16 @@ This function creates a new WebDriver session.
 -   `url` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** WebDriver server URL
 -   `options` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** configuration object for creating the session
 
+**Examples**
+
+```javascript
+const session = await webdriver.newSession('http://localhost:4444', {
+desiredCapabilities: {
+browserName: 'Chrome'
+}
+});
+```
+
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Session](#session)>** session
 
 ## Session
@@ -47,6 +57,12 @@ Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
 
 Delete the session.
 
+**Examples**
+
+```javascript
+await session.delete();
+```
+
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
 
 ## Session.go
@@ -59,6 +75,12 @@ Navigate to a new URL.
 
 -   `targetUrl` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The URL to navigate to.
 
+**Examples**
+
+```javascript
+await session.go('http://localhost:8087');
+```
+
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
 
 ## Session.getTitle
@@ -66,6 +88,12 @@ Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refe
 -   **See: [WebDriver spec](https://www.w3.org/TR/webdriver/#get-title)**
 
 Get the current page title.
+
+**Examples**
+
+```javascript
+const title = await session.getTitle();
+```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>** The current page title.
 
@@ -80,6 +108,12 @@ Search for an element on the page, starting from the document root.
 -   `strategy` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Locator strategy
     ("css selector", "link text", "partial link text", "tag name", "xpath").
 -   `selector` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Selector string.
+
+**Examples**
+
+```javascript
+const element = await session.findElement('css', 'h2');
+```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Element](#element)>** 
 
@@ -107,6 +141,13 @@ Send a sequence of key strokes to an element.
 
 -   `text` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The sequence of keys to type.
 
+**Examples**
+
+```javascript
+const input = await session.findElement('css', '[name="first-name"]');
+await a.sendKeys('Hello World');
+```
+
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
 
 ## Element.click
@@ -115,6 +156,13 @@ Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refe
 
 Click on an element.
 
+**Examples**
+
+```javascript
+const submitButton = await session.findElement('css', 'button[type="submit"]');
+await submitButton.click();
+```
+
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
 
 ## Element.getText
@@ -122,6 +170,13 @@ Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refe
 -   **See: [WebDriver spec](https://www.w3.org/TR/webdriver/#get-element-text)**
 
 Returns the visible text for the element.
+
+**Examples**
+
+```javascript
+const result = await session.findElement('css', '#result');
+const text = await result.getText();
+```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>** Visible text for the element.
 
@@ -134,5 +189,12 @@ Returns the computed value of the given CSS property for the element.
 **Parameters**
 
 -   `propertyName` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** CSS property.
+
+**Examples**
+
+```javascript
+const button = await session.findElement('css', '#red-button');
+const backgroundColor = await button.getCss('background-color');
+```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>** Computed CSS property value for the element.

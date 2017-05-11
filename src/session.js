@@ -28,6 +28,12 @@ function getTitle(sendSessionCommand) {
  * @param {object} options configuration object for creating the session
  * @returns {Promise<Session>} session
  * @see {@link https://www.w3.org/TR/webdriver/#new-session|WebDriver spec}
+ * @example
+ * const session = await webdriver.newSession('http://localhost:4444', {
+        desiredCapabilities: {
+            browserName: 'Chrome'
+        }
+    });
  */
 function newSession(url, options) {
     return utils.sendRequest('POST', `${url}/session`, options).then((body) => {
@@ -49,6 +55,8 @@ function newSession(url, options) {
              * @function
              * @returns {Promise}
              * @see {@link https://www.w3.org/TR/webdriver/#delete-session|WebDriver spec}
+             * @example
+             * await session.delete();
              */
             delete: deleteSession.bind(null, sendSessionCommand),
             /**
@@ -58,6 +66,8 @@ function newSession(url, options) {
              * @param {string} targetUrl The URL to navigate to.
              * @returns {Promise}
              * @see {@link https://www.w3.org/TR/webdriver/#go|WebDriver spec}
+             * @example
+             * await session.go('http://localhost:8087');
              */
             go: go.bind(null, sendSessionCommand),
             /**
@@ -66,6 +76,8 @@ function newSession(url, options) {
              * @function
              * @returns {Promise<string>} The current page title.
              * @see {@link https://www.w3.org/TR/webdriver/#get-title|WebDriver spec}
+             * @example
+             * const title = await session.getTitle();
              */
             getTitle: getTitle.bind(null, sendSessionCommand),
             /**
@@ -77,6 +89,8 @@ function newSession(url, options) {
              * @param {string} selector Selector string.
              * @returns {Promise<Element>}
              * @see {@link https://www.w3.org/TR/webdriver/#find-element|WebDriver spec}
+             * @example
+             * const element = await session.findElement('css', 'h2');
              */
             findElement: Element.findElement.bind(null, sendSessionCommand)
         };

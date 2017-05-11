@@ -48,6 +48,9 @@ function findElement(sendSessionCommand, strategy, selector) {
              * @param {string} text The sequence of keys to type.
              * @returns {Promise}
              * @see {@link https://www.w3.org/TR/webdriver/#element-send-keys|WebDriver spec}
+             * @example
+             * const input = await session.findElement('css', '[name="first-name"]');
+               await a.sendKeys('Hello World');
              */
             sendKeys: sendKeys.bind(null, sendElementCommand),
             /**
@@ -56,6 +59,9 @@ function findElement(sendSessionCommand, strategy, selector) {
              * @function
              * @returns {Promise}
              * @see {@link https://www.w3.org/TR/webdriver/#element-click|WebDriver spec}
+             * @example
+             * const submitButton = await session.findElement('css', 'button[type="submit"]');
+               await submitButton.click();
              */
             click: click.bind(null, sendElementCommand),
             /**
@@ -64,6 +70,9 @@ function findElement(sendSessionCommand, strategy, selector) {
              * @function
              * @returns {Promise<string>} Visible text for the element.
              * @see {@link https://www.w3.org/TR/webdriver/#get-element-text|WebDriver spec}
+             * @example
+             * const result = await session.findElement('css', '#result');
+               const text = await result.getText();
              */
             getText: getText.bind(null, sendElementCommand),
             /**
@@ -73,6 +82,9 @@ function findElement(sendSessionCommand, strategy, selector) {
              * @param {string} propertyName CSS property.
              * @returns {Promise<string>} Computed CSS property value for the element.
              * @see {@link https://www.w3.org/TR/webdriver/#get-element-css-value|WebDriver spec}
+             * @example
+             * const button = await session.findElement('css', '#red-button');
+               const backgroundColor = await button.getCss('background-color');
              */
             getCss: getCss.bind(null, sendElementCommand)
         };
