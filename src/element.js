@@ -30,10 +30,50 @@ function findElement(sendSessionCommand, strategy, selector) {
         value: selector
     }).then((body) => {
         const sendElementCommand = sendCommand.bind(null, sendSessionCommand, body.ELEMENT);
+
+        /**
+         * This object represents a WebDriver element.
+         * @typedef {Object} Element
+         * @property {Element.sendKeys} sendKeys - Send a sequence of key strokes to an element.
+         * @property {Element.click} click - Click on an element.
+         * @property {Element.getText} getText - Returns the visible text for the element.
+         * @property {Element.getCss} getCss - Returns the computed value of the given CSS
+         * property for the element.
+         */
         return {
+            /**
+             * Send a sequence of key strokes to an element.
+             * @name Element.sendKeys
+             * @function
+             * @param {string} text The sequence of keys to type.
+             * @returns {Promise}
+             * @see {@link https://www.w3.org/TR/webdriver/#element-send-keys|WebDriver spec}
+             */
             sendKeys: sendKeys.bind(null, sendElementCommand),
+            /**
+             * Click on an element.
+             * @name Element.click
+             * @function
+             * @returns {Promise}
+             * @see {@link https://www.w3.org/TR/webdriver/#element-click|WebDriver spec}
+             */
             click: click.bind(null, sendElementCommand),
+            /**
+             * Returns the visible text for the element.
+             * @name Element.getText
+             * @function
+             * @returns {Promise<string>} Visible text for the element.
+             * @see {@link https://www.w3.org/TR/webdriver/#get-element-text|WebDriver spec}
+             */
             getText: getText.bind(null, sendElementCommand),
+            /**
+             * Returns the computed value of the given CSS property for the element.
+             * @name Element.getCss
+             * @function
+             * @param {string} propertyName CSS property.
+             * @returns {Promise<string>} Computed CSS property value for the element.
+             * @see {@link https://www.w3.org/TR/webdriver/#get-element-css-value|WebDriver spec}
+             */
             getCss: getCss.bind(null, sendElementCommand)
         };
     });
