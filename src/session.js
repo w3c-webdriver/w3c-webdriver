@@ -30,10 +30,10 @@ function getTitle(sendSessionCommand) {
  * @see {@link https://www.w3.org/TR/webdriver/#new-session|WebDriver spec}
  * @example
  * const session = await webdriver.newSession('http://localhost:4444', {
- *      desiredCapabilities: {
- *          browserName: 'Chrome'
- *      }
- *  });
+ *     desiredCapabilities: {
+ *         browserName: 'Chrome'
+ *     }
+ * });
  */
 function newSession(url, options) {
     return utils.sendRequest('POST', `${url}/session`, options).then((body) => {
