@@ -29,10 +29,10 @@ This function creates a new WebDriver session.
 
 ```javascript
 const session = await webdriver.newSession('http://localhost:4444', {
-desiredCapabilities: {
-browserName: 'Chrome'
-}
-});
+     desiredCapabilities: {
+         browserName: 'Chrome'
+     }
+ });
 ```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Session](#session)>** session
