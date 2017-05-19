@@ -121,7 +121,7 @@ Delete the session.
 await session.delete();
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
 
 ## Session.go
 
@@ -139,7 +139,7 @@ Navigate to a new URL.
 await session.go('http://localhost:8087');
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
 
 ## Session.getTitle
 
@@ -173,7 +173,7 @@ Search for an element on the page, starting from the document root.
 const element = await session.findElement('css', 'h2');
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Element](#element)>** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Element](#element)>**
 
 ## Element
 
@@ -206,7 +206,7 @@ const input = await session.findElement('css', '[name="first-name"]');
 await a.sendKeys('Hello World');
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
 
 ## Element.click
 
@@ -221,7 +221,7 @@ const submitButton = await session.findElement('css', 'button[type="submit"]');
 await submitButton.click();
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
 
 ## Element.getText
 
@@ -259,10 +259,10 @@ Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refe
 
 ## Contributors
 
-Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):
+Thanks goes to these wonderful people :
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-| [<img src="https://avatars3.githubusercontent.com/u/3163392?v=3" width="100px;"/><br /><sub>Igor Muchychka</sub>](https://twitter.com/mucsi96)<br /> | [<img src="https://avatars0.githubusercontent.com/u/6848578?v=3" width="100px;"/><br /><sub>Gabor Szalay</sub>](http://gaborszalay.github.io/)<br /> | [<img src="https://avatars1.githubusercontent.com/u/5919649?v=3" width="100px;"/><br /><sub>Adam Graf</sub>](https://github.com/netgrafe)<br /> | [<img src="https://avatars2.githubusercontent.com/u/4106395?v=3" width="100px;"/><br /><sub>Roland Orosz</sub>](https://github.com/Blodwynn)<br /> |
+| [<img src="https://avatars3.githubusercontent.com/u/3163392?v=3" width="100px;"/><br /><sub>Igor Muchychka</sub>](https://github.com/mucsi96)<br /> | [<img src="https://avatars0.githubusercontent.com/u/6848578?v=3" width="100px;"/><br /><sub>Gabor Szalay</sub>](https://github.com/GaborSzalay)<br /> | [<img src="https://avatars1.githubusercontent.com/u/5919649?v=3" width="100px;"/><br /><sub>Adam Graf</sub>](https://github.com/netgrafe)<br /> | [<img src="https://avatars2.githubusercontent.com/u/4106395?v=3" width="100px;"/><br /><sub>Roland Orosz</sub>](https://github.com/Blodwynn)<br /> |
 | :---: | :---: | :---: | :---: |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
