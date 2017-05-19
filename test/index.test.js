@@ -71,7 +71,9 @@ beforeAll(async () => {
     phantomjsProcess = await phantomjs.run('--webdriver=4444');
     await testApp.start();
     session = await webdriver.newSession('http://localhost:4444', {
-        browserName: 'Chrome'
+        desiredCapabilities: {
+            browserName: 'Chrome'
+        }
     });
 });
 
