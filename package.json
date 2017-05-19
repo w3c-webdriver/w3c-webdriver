@@ -1,6 +1,6 @@
 {
   "name": "w3c-webdriver",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "W3C WebDriver client",
   "main": "src/index.js",
   "engines": {
@@ -9,7 +9,9 @@
   "scripts": {
     "pretest": "eslint src test test-app",
     "test": "jest --verbose",
-    "docs": "documentation readme src/index.js --section=API"
+    "docs": "documentation readme src/index.js --section=API",
+    "add:contributor": "all-contributors add",
+    "generate:contributors": "all-contributors generate"
   },
   "repository": {
     "type": "git",
@@ -26,6 +28,7 @@
   },
   "homepage": "https://github.com/mucsi96/w3c-webdriver#readme",
   "devDependencies": {
+    "all-contributors-cli": "^4.3.0",
     "babel-cli": "^6.24.0",
     "babel-plugin-transform-async-to-generator": "^6.22.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.24.0",
