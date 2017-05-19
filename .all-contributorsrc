@@ -1,0 +1,18 @@
+{
+  "projectName": "w3c-webdriver",
+  "projectOwner": "mucsi96",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "contributors": [
+    {
+      "login": "mucsi96",
+      "name": "Igor Muchychka",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/3163392?v=3",
+      "profile": "https://twitter.com/mucsi96",
+      "contributions": []
+    }
+  ]
+}
