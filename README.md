@@ -1,9 +1,12 @@
 # WebDriver client for JavaScript
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
 
 [![npm version](https://badge.fury.io/js/w3c-webdriver.svg)](https://badge.fury.io/js/w3c-webdriver)
 [![Build Status](https://travis-ci.org/mucsi96/w3c-webdriver.svg?branch=master)](https://travis-ci.org/mucsi96/w3c-webdriver)
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
 [![Dependency Status](https://dependencyci.com/github/mucsi96/w3c-webdriver/badge)](https://dependencyci.com/github/mucsi96/w3c-webdriver)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+
+[![NPM](https://nodei.co/npm-dl/w3c-webdriver.png?months=3)](https://nodei.co/npm/w3c-webdriver/)
 
 This package provides JavaScript bindings
 that conform to the [W3C WebDriver standard](https://w3c.github.io/webdriver/webdriver-spec.html),
