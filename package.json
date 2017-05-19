@@ -1,6 +1,6 @@
 {
   "name": "w3c-webdriver",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "W3C WebDriver client",
   "main": "src/index.js",
   "engines": {
@@ -19,7 +19,14 @@
   },
   "keywords": [
     "webdriver",
-    "selenium"
+    "selenium",
+    "browser",
+    "automation",
+    "testing",
+    "test",
+    "end-to-end",
+    "e2e",
+    "integration"
   ],
   "author": "",
   "license": "MIT",
