@@ -11,7 +11,7 @@ which specifies a remote control protocol for web browsers.
 # :construction: Work in progress...
 
 | Method | URI Template                                                   | Command                                 | Implementation     |
-|--------|----------------------------------------------------------------|-----------------------------------------|--------------------|
+|--------|----------------------------------------------------------------|-----------------------------------------|:------------------:|
 | POST   | /session                                                       | [New Session](#newsession)              | :white_check_mark: |
 | DELETE | /session/{session id}                                          | [Delete Session](#sessiondelete)        | :white_check_mark: |
 | GET    | /status                                                        | Status                                  |                    |
