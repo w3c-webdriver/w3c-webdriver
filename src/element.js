@@ -1,9 +1,4 @@
-'use strict';
-
-const REST = require('./rest');
-
-const POST = REST.POST;
-const GET = REST.GET;
+const { GET, POST } = require('./rest');
 
 module.exports = (url, sessionId, elementId) => (
     /**

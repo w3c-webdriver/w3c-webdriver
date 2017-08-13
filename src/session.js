@@ -1,11 +1,5 @@
-'use strict';
-
-const REST = require('./rest');
+const { GET, POST, DELETE } = require('./rest');
 const elementFactory = require('./element');
-
-const POST = REST.POST;
-const GET = REST.GET;
-const DELETE = REST.DELETE;
 
 module.exports = (url, sessionId) => (
     /**

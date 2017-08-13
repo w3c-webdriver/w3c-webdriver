@@ -1,10 +1,6 @@
 /* eslint-env jest */
 
-'use strict';
-
-const sessionProvider = require('./session-provider');
-
-const session = sessionProvider.session;
+const { session } = require('./session-provider');
 
 describe('Session', () => {
     describe('getTitle method', () => {

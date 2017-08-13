@@ -1,9 +1,5 @@
-'use strict';
-
-const REST = require('./rest');
+const { POST } = require('./rest');
 const sessionFactory = require('./session');
-
-const POST = REST.POST;
 
 module.exports = {
     /**

@@ -1,6 +1,4 @@
-'use strict';
-
-const newSession = require('../src').newSession;
+const { newSession } = require('../src');
 
 let session;
 
