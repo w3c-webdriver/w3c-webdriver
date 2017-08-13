@@ -4,7 +4,7 @@ const { session } = require('./session-provider');
 
 describe('Element', () => {
     describe('getText method', () => {
-        it('should return text from element', async () => {
+        it('returns text from element', async () => {
             const element = await session.findElement('css', 'h2');
             const text = await element.getText();
             expect(text).toEqual('Simple calculator');
@@ -12,7 +12,7 @@ describe('Element', () => {
     });
 
     describe('click method', () => {
-        it('should simulate mouse click on element', async () => {
+        it('simulates mouse click on element', async () => {
             const addButton = await session.findElement('css', '#add');
             await addButton.click();
             const result = await session.findElement('css', '#result');
@@ -22,7 +22,7 @@ describe('Element', () => {
     });
 
     describe('sendKeys method', () => {
-        it('should simulate typing in element', async () => {
+        it('simulates typing in element', async () => {
             const a = await session.findElement('css', '#a');
             await a.sendKeys('13');
             const b = await session.findElement('css', '#b');
@@ -36,7 +36,7 @@ describe('Element', () => {
     });
 
     describe('getCss method', () => {
-        it('should return the provided style property of an element', async () => {
+        it('returns the provided style property of an element', async () => {
             const result = await session.findElement('css', '#result');
             const backgroundColor = await result.getCss('background-color');
             expect(backgroundColor).toEqual('rgba(211, 211, 211, 1)');

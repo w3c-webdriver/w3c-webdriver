@@ -1,4 +1,4 @@
-const { POST } = require('./rest');
+const { GET, POST } = require('./rest');
 const sessionFactory = require('./session');
 
 module.exports = {
@@ -15,5 +15,14 @@ module.exports = {
      *     }
      * });
      */
-    newSession: (url, options) => POST(`${url}/session`, options).then(body => sessionFactory(url, body.sessionId))
+    newSession: (url, options) => POST(`${url}/session`, options).then(body => sessionFactory(url, body.sessionId)),
+    /**
+     * This function queries the WebDriver server's current status.
+     * @param {string} url WebDriver server URL
+     * @returns {Promise<Object>} status
+     * @see {@link https://www.w3.org/TR/webdriver/#status|WebDriver spec}
+     * @example
+     * await webdriver.status('http://localhost:4444');
+     */
+    status: url => GET(`${url}/status`).then(body => body.value)
 };

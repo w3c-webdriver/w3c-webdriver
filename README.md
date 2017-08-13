@@ -16,7 +16,7 @@ which specifies a remote control protocol for web browsers.
 | ------ | -------------------------------------------------------------- | --------------------------------------- | :----------------: |
 | POST   | /session                                                       | [New Session](#newsession)              | :white_check_mark: |
 | DELETE | /session/{session id}                                          | [Delete Session](#sessiondelete)        | :white_check_mark: |
-| GET    | /status                                                        | Status                                  |                    |
+| GET    | /status                                                        | [Status](#status)                       | :white_check_mark: |
 | GET    | /session/{session id}/timeouts                                 | Get Timeouts                            |                    |
 | POST   | /session/{session id}/timeouts                                 | Set Timeouts                            |                    |
 | POST   | /session/{session id}/url                                      | [Go](#sessiongo)                        | :white_check_mark: |
@@ -96,6 +96,24 @@ const session = await webdriver.newSession('http://localhost:4444', {
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Session](#session)>** session
 
+## status
+
+-   **See: [WebDriver spec](https://www.w3.org/TR/webdriver/#status)**
+
+This function queries the WebDriver server's current status.
+
+**Parameters**
+
+-   `url` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** WebDriver server URL
+
+**Examples**
+
+```javascript
+await webdriver.status('http://localhost:4444');
+```
+
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)>** status
+
 ## Session
 
 This object represents a WebDriver session.
@@ -122,7 +140,7 @@ Delete the session.
 await session.delete();
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
 
 ## Session.go
 
@@ -140,7 +158,7 @@ Navigate to a new URL.
 await session.go('http://localhost:8087');
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
 
 ## Session.getTitle
 
@@ -174,7 +192,7 @@ Search for an element on the page, starting from the document root.
 const element = await session.findElement('css', 'h2');
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Element](#element)>**
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Element](#element)>** 
 
 ## Element
 
@@ -207,7 +225,7 @@ const input = await session.findElement('css', '[name="first-name"]');
 await a.sendKeys('Hello World');
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
 
 ## Element.click
 
@@ -222,7 +240,7 @@ const submitButton = await session.findElement('css', 'button[type="submit"]');
 await submitButton.click();
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
 
 ## Element.getText
 
@@ -263,8 +281,10 @@ Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refe
 Thanks goes to these wonderful people :
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+
 | [<img src="https://avatars3.githubusercontent.com/u/3163392?v=3" width="100px;"/><br /><sub>Igor Muchychka</sub>](https://github.com/mucsi96)<br /> | [<img src="https://avatars0.githubusercontent.com/u/6848578?v=3" width="100px;"/><br /><sub>Gabor Szalay</sub>](https://github.com/GaborSzalay)<br /> | [<img src="https://avatars1.githubusercontent.com/u/5919649?v=3" width="100px;"/><br /><sub>Adam Graf</sub>](https://github.com/netgrafe)<br /> | [<img src="https://avatars2.githubusercontent.com/u/4106395?v=3" width="100px;"/><br /><sub>Roland Orosz</sub>](https://github.com/Blodwynn)<br /> |
-| :---: | :---: | :---: | :---: |
+| :-------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------: |
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
