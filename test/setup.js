@@ -1,5 +1,7 @@
 /* eslint-env jest */
 
+'use strict';
+
 const sessionProvider = require('./session-provider');
 const phantomjs = require('phantomjs-prebuilt');
 const testApp = require('../test-app');

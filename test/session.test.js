@@ -1,5 +1,7 @@
 /* eslint-env jest */
 
+'use strict';
+
 const { session } = require('./session-provider');
 
 describe('Session', () => {
