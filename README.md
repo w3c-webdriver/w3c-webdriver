@@ -6,8 +6,6 @@
 [![Dependency Status](https://dependencyci.com/github/mucsi96/w3c-webdriver/badge)](https://dependencyci.com/github/mucsi96/w3c-webdriver)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-[![NPM](https://nodei.co/npm-dl/w3c-webdriver.png?months=3)](https://nodei.co/npm/w3c-webdriver/)
-
 This package provides JavaScript bindings
 that conform to the [W3C WebDriver standard](https://w3c.github.io/webdriver/webdriver-spec.html),
 which specifies a remote control protocol for web browsers.
@@ -260,7 +258,7 @@ const backgroundColor = await button.getCss('background-color');
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>** Computed CSS property value for the element.
 
-## Contributors
+# Contributors
 
 Thanks goes to these wonderful people :
 

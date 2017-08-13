@@ -1,5 +1,3 @@
-'use strict';
-
 const request = require('request');
 
 function findError(err, body) {
@@ -38,13 +36,8 @@ function sendRequest(method, url, body) {
     });
 }
 
-function formatUri(uri) {
-    if (!uri) return '';
-    if (uri.startsWith('/')) return uri;
-    return `/${uri}`;
-}
-
 module.exports = {
-    sendRequest,
-    formatUri
+    GET: (url, body) => sendRequest('GET', url, body),
+    POST: (url, body) => sendRequest('POST', url, body),
+    DELETE: (url, body) => sendRequest('DELETE', url, body)
 };
