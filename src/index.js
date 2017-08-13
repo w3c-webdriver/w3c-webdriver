@@ -23,6 +23,10 @@ module.exports = {
      * @see {@link https://www.w3.org/TR/webdriver/#status|WebDriver spec}
      * @example
      * await webdriver.status('http://localhost:4444');
+     * // {
+     * //   build: { version: '1.2.0' },
+     * //   os: { name: 'mac', version: 'unknown', arch: '64bit' }
+     * // }
      */
     status: url => GET(`${url}/status`).then(body => body.value)
 };

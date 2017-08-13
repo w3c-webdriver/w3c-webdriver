@@ -110,6 +110,10 @@ This function queries the WebDriver server's current status.
 
 ```javascript
 await webdriver.status('http://localhost:4444');
+// {
+//   build: { version: '1.2.0' },
+//   os: { name: 'mac', version: 'unknown', arch: '64bit' }
+// }
 ```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)>** status
