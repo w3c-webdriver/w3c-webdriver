@@ -2,7 +2,9 @@
 
 'use strict';
 
-const { session } = require('./session-provider');
+const sessionProvider = require('./session-provider');
+
+const session = sessionProvider.session;
 
 describe('Session', () => {
     describe('getTitle method', () => {
