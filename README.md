@@ -260,7 +260,7 @@ const backgroundColor = await button.getCss('background-color');
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>** Computed CSS property value for the element.
 
-## Contributors
+# Contributors
 
 Thanks goes to these wonderful people :
 
