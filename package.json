@@ -49,5 +49,8 @@
   },
   "dependencies": {
     "request": "^2.81.0"
+  },
+  "jest": {
+    "setupTestFrameworkScriptFile": "./test/setup.js"
   }
 }

@@ -1,29 +1,6 @@
 /* eslint-env jest */
 
-'use strict';
-
-const phantomjs = require('phantomjs-prebuilt');
-const webdriver = require('../src');
-const testApp = require('../test-app');
-
-let session;
-let phantomjsProcess;
-
-describe('Session', () => {
-    describe('getTitle method', () => {
-        it('should return page title', async () => {
-            const title = await session.getTitle();
-            expect(title).toEqual('The simple calculator');
-        });
-    });
-
-    describe('findElement method', () => {
-        it('should find element by CSS selector', async () => {
-            const element = await session.findElement('css', 'h2');
-            expect(element).toBeDefined();
-        });
-    });
-});
+const { session } = require('./session-provider');
 
 describe('Element', () => {
     describe('getText method', () => {
@@ -65,24 +42,4 @@ describe('Element', () => {
             expect(backgroundColor).toEqual('rgba(211, 211, 211, 1)');
         });
     });
-});
-
-beforeAll(async () => {
-    phantomjsProcess = await phantomjs.run('--webdriver=4444');
-    await testApp.start();
-    session = await webdriver.newSession('http://localhost:4444', {
-        desiredCapabilities: {
-            browserName: 'Chrome'
-        }
-    });
-});
-
-beforeEach(async () => {
-    await session.go('http://localhost:8087');
-});
-
-afterAll(async () => {
-    await session.delete();
-    phantomjsProcess.kill();
-    await testApp.stop();
 });
