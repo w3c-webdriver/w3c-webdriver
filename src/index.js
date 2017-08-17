@@ -15,7 +15,7 @@ module.exports = {
      *     }
      * });
      */
-    newSession: (url, options) => POST(`${url}/session`, options).then(body => sessionFactory(url, body.sessionId)),
+    newSession: (url, options) => POST(`${url}/session`, options).then(body => sessionFactory(url, body.value.sessionId)),
     /**
      * This function queries the WebDriver server's current status.
      * @param {string} url WebDriver server URL

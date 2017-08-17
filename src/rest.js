@@ -5,12 +5,8 @@ function findError(err, body) {
         return err;
     }
 
-    if (body.status) {
-        return new Error(body.value.message);
-    }
-
-    if (typeof body.status === 'undefined') {
-        return new Error(`Unknown command during sending request: ${body}`);
+    if (body.status || body.value.error) {
+        return new Error(`WebDriverError: ${body.value.message}`);
     }
 
     return null;

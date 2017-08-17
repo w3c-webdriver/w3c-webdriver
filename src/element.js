@@ -22,7 +22,7 @@ module.exports = (url, sessionId, elementId) => (
          * const input = await session.findElement('css', '[name="first-name"]');
          * await a.sendKeys('Hello World');
          */
-        sendKeys: text => POST(`${url}/session/${sessionId}/element/${elementId}/value`, { value: [text] }),
+        sendKeys: text => POST(`${url}/session/${sessionId}/element/${elementId}/value`, { text }),
         /**
          * Click on an element.
          * @name Element.click
@@ -33,7 +33,7 @@ module.exports = (url, sessionId, elementId) => (
          * const submitButton = await session.findElement('css', 'button[type="submit"]');
          * await submitButton.click();
          */
-        click: () => POST(`${url}/session/${sessionId}/element/${elementId}/click`),
+        click: () => POST(`${url}/session/${sessionId}/element/${elementId}/click`, {}),
         /**
          * Returns the visible text for the element.
          * @name Element.getText

@@ -1,14 +1,22 @@
 /* eslint-env jest */
 
 const sessionProvider = require('./session-provider');
-const phantomjs = require('phantomjs-prebuilt');
-const testApp = require('../test-app');
-
-let phantomjsProcess;
+// const geckodriver = require('geckodriver');
+// const testApp = require('../test-app');
 
 beforeAll(async () => {
-    phantomjsProcess = await phantomjs.run('--webdriver=4444');
-    await testApp.start();
+    // console.log('beforeAll');
+    // await new Promise((resolve, reject) => {
+    //     geckodriver.start((error) => {
+    //         if (error) {
+    //             reject(error);
+    //             return;
+    //         }
+
+    //         resolve();
+    //     });
+    // });
+    // await testApp.start();
     await sessionProvider.start();
 });
 
@@ -18,6 +26,6 @@ beforeEach(async () => {
 
 afterAll(async () => {
     await sessionProvider.stop();
-    phantomjsProcess.kill();
-    await testApp.stop();
+    // geckodriver.stop();
+    // await testApp.stop();
 });

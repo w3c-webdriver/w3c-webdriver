@@ -12,8 +12,15 @@ describe('Session', () => {
 
     describe('findElement method', () => {
         it('finds element by CSS selector', async () => {
-            const element = await session.findElement('css', 'h2');
+            const element = await session.findElement('css selector', 'h2');
             expect(element).toBeDefined();
         });
     });
+
+    // describe('getScriptTimeout methods', () => {
+    //     it('retrieves script interrupt timeout', async () => {
+    //         const timeout = await session.getScriptTimeout();
+    //         expect(timeout).toEqual(3);
+    //     });
+    // });
 });

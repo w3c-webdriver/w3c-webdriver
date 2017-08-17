@@ -58,6 +58,18 @@ module.exports = (url, sessionId) => (
         findElement: (strategy, selector) => POST(`${url}/session/${sessionId}/element`, {
             using: strategy,
             value: selector
-        }).then(body => elementFactory(url, sessionId, body.value.ELEMENT))
+        }).then(body => elementFactory(url, sessionId, Object.values(body.value)[0])),
+
+        /**
+         * Retrieves session script timeout that specifies a time to wait for scripts to run.
+         * @name Session.getScriptTimeout
+         * @function
+         * @return {Promise<number>} session script timeout in milliseconds.
+         * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#get-timeouts|WebDriver spec}
+         * @example
+         * const timeout = await session.getScriptTimeout();
+         * // 30000
+         */
+        getScriptTimeout: () => GET(`${url}/session/${sessionId}/timeouts`).then(body => body.value.script)
     }
 );
