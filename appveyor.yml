@@ -13,12 +13,12 @@ cache:
   - '%LocalAppData%\NuGet\v3-cache' # NuGet v3
 
 install:
+  - node --version
+  - npm --version
+  - nvm --version
   - npm install
 
 test_script:
-  - node --version
-  - npm --version
   - npm test
-  - nvm --version
 
 build: off
