@@ -4,7 +4,7 @@
   "description": "W3C WebDriver client",
   "main": "src/index.js",
   "engines": {
-    "node": ">= 4.0.0"
+    "node": ">= 6.0.0"
   },
   "scripts": {
     "pretest": "eslint src test test-app",
