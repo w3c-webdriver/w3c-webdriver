@@ -1,6 +1,6 @@
 const { GET, POST } = require('./rest');
 
-module.exports = (url, sessionId, elementId) => (
+module.exports = (url, sessionId, elementId, { JsonWire }) => (
     /**
      * This object represents a WebDriver element.
      * @typedef {Object} Element
@@ -22,7 +22,7 @@ module.exports = (url, sessionId, elementId) => (
          * const input = await session.findElement('css', '[name="first-name"]');
          * await a.sendKeys('Hello World');
          */
-        sendKeys: text => POST(`${url}/session/${sessionId}/element/${elementId}/value`, { text }),
+        sendKeys: text => POST(`${url}/session/${sessionId}/element/${elementId}/value`, !JsonWire ? { text } : { value: [text] }),
         /**
          * Click on an element.
          * @name Element.click

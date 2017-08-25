@@ -1,7 +1,7 @@
 const { GET, POST, DELETE } = require('./rest');
 const elementFactory = require('./element');
 
-module.exports = (url, sessionId) => (
+module.exports = (url, sessionId, { JsonWire }) => (
     /**
      * This object represents a WebDriver session.
      * @typedef {Object} Session
@@ -58,7 +58,13 @@ module.exports = (url, sessionId) => (
         findElement: (strategy, selector) => POST(`${url}/session/${sessionId}/element`, {
             using: strategy,
             value: selector
-        }).then(body => elementFactory(url, sessionId, Object.values(body.value)[0])),
+        }).then(body => elementFactory(
+            url,
+            sessionId,
+            // JSON Wire       || Web Driver
+            body.value.ELEMENT || Object.values(body.value)[0],
+            { JsonWire }
+        )),
 
         /**
          * Retrieves session script timeout that specifies a time to wait for scripts to run.
