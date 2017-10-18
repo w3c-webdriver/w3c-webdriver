@@ -41,8 +41,12 @@ function start(port) {
   return new Promise((resolve, reject) => {
     const chunks = [];
     instance = execFile(path, childArgs);
-    const onClose = () => reject();
+    const onClose = () => {
+      logger.info(`[webdriver:start] ${name} terminated`);
+      reject();
+    }
     const onData = (chunk) => {
+      logger.info(`[webdriver:start] ${chunk}`);
       chunks.push(chunk);
       if (chunks.join('').includes(ready)) {
         logger.info(`[webdriver:start] ${name} started on port ${port}`);
