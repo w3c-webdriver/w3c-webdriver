@@ -19,9 +19,9 @@ function start(port) {
     phantomjs: [`--webdriver=${port}`]
   }[browser];
   const path = {
-    chrome: chromedriverPath,
-    'chrome-headless': chromedriverPath,
-    firefox: geckodriverPath,
+    chrome: process.env.CI ? 'chromedriver' : chromedriverPath,
+    'chrome-headless': process.env.CI ? 'chromedriver' : chromedriverPath,
+    firefox: process.env.CI ? 'geckodriver' : geckodriverPath,
     phantomjs: phantomjsPath
   }[browser];
   const name = {
