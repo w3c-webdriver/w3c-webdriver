@@ -5,13 +5,13 @@ image: Visual Studio 2017
 environment:
   matrix:
     - nodejs_version: "6"
-      browser: chrome
+      BROWSER: chrome
     - nodejs_version: "7"
-      browser: firefox
+      BROWSER: firefox
     - nodejs_version: "8"
-      browser: chrome-headless
+      BROWSER: chrome-headless
     - nodejs_version: "8"
-      browser: phantomjs
+      BROWSER: phantomjs
 
 cache:
   - node_modules                    # local npm modules
@@ -25,7 +25,6 @@ install:
 test_script:
   - node --version
   - npm --version
-  - BROWSER=$env:browser
   - npm test
 
 build: off
