@@ -8,10 +8,11 @@
   },
   "scripts": {
     "lint": "eslint src test test-app",
-    "test:chrome": "cross-env BROWSER=chrome jest --runInBand",
-    "test:chrome-headless": "cross-env BROWSER=chrome-headless jest --runInBand",
-    "test:firefox": "cross-env BROWSER=firefox jest --runInBand",
-    "test:phantomjs": "cross-env BROWSER=phantomjs jest --runInBand",
+    "test": "jest --runInBand",
+    "test:chrome": "cross-env BROWSER=chrome npm test",
+    "test:chrome-headless": "cross-env BROWSER=chrome-headless npm test",
+    "test:firefox": "cross-env BROWSER=firefox npm test",
+    "test:phantomjs": "cross-env BROWSER=phantomjs npm test",
     "docs": "documentation readme src/index.js --section=API",
     "add:contributor": "all-contributors add",
     "generate:contributors": "all-contributors generate"
