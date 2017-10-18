@@ -15,7 +15,7 @@ module.exports = {
      *     }
      * });
      */
-    newSession: (url, options) => POST(`${url}/session`, options).then(body => sessionFactory(
+  newSession: (url, options) => POST(`${url}/session`, options).then(body => sessionFactory(
         url,
         // JSON Wire   || W3C Web Driver
         body.sessionId || body.value.sessionId,
@@ -33,5 +33,5 @@ module.exports = {
      * //   os: { name: 'mac', version: 'unknown', arch: '64bit' }
      * // }
      */
-    status: url => GET(`${url}/status`).then(body => body.value)
+  status: url => GET(`${url}/status`).then(body => body.value)
 };

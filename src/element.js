@@ -10,7 +10,7 @@ module.exports = (url, sessionId, elementId, { JsonWire }) => (
      * @property {Element.getCss} getCss - Returns the computed value of the given CSS
      * property for the element.
      */
-    {
+  {
         /**
          * Send a sequence of key strokes to an element.
          * @name Element.sendKeys
@@ -22,7 +22,7 @@ module.exports = (url, sessionId, elementId, { JsonWire }) => (
          * const input = await session.findElement('css', '[name="first-name"]');
          * await a.sendKeys('Hello World');
          */
-        sendKeys: text => POST(`${url}/session/${sessionId}/element/${elementId}/value`, !JsonWire ? { text } : { value: [text] }),
+    sendKeys: text => POST(`${url}/session/${sessionId}/element/${elementId}/value`, !JsonWire ? { text } : { value: [text] }),
         /**
          * Click on an element.
          * @name Element.click
@@ -33,7 +33,7 @@ module.exports = (url, sessionId, elementId, { JsonWire }) => (
          * const submitButton = await session.findElement('css', 'button[type="submit"]');
          * await submitButton.click();
          */
-        click: () => POST(`${url}/session/${sessionId}/element/${elementId}/click`, {}),
+    click: () => POST(`${url}/session/${sessionId}/element/${elementId}/click`, {}),
         /**
          * Returns the visible text for the element.
          * @name Element.getText
@@ -44,7 +44,7 @@ module.exports = (url, sessionId, elementId, { JsonWire }) => (
          * const result = await session.findElement('css', '#result');
          * const text = await result.getText();
          */
-        getText: () => GET(`${url}/session/${sessionId}/element/${elementId}/text`).then(body => body.value),
+    getText: () => GET(`${url}/session/${sessionId}/element/${elementId}/text`).then(body => body.value),
         /**
          * Returns the computed value of the given CSS property for the element.
          * @name Element.getCss
@@ -56,6 +56,6 @@ module.exports = (url, sessionId, elementId, { JsonWire }) => (
          * const button = await session.findElement('css', '#red-button');
          * const backgroundColor = await button.getCss('background-color');
          */
-        getCss: propertyName => GET(`${url}/session/${sessionId}/element/${elementId}/css/${propertyName}`).then(body => body.value)
-    }
+    getCss: propertyName => GET(`${url}/session/${sessionId}/element/${elementId}/css/${propertyName}`).then(body => body.value)
+  }
 );

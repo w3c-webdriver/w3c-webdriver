@@ -11,7 +11,7 @@ module.exports = (url, sessionId, { JsonWire }) => (
      * @property {Session.findElement} findElement - Search for an element on the page,
      *  starting from the document root.
      */
-    {
+  {
         /**
          * Delete the session.
          * @name Session.delete
@@ -21,7 +21,7 @@ module.exports = (url, sessionId, { JsonWire }) => (
          * @example
          * await session.delete();
          */
-        delete: () => DELETE(`${url}/session/${sessionId}`),
+    delete: () => DELETE(`${url}/session/${sessionId}`),
         /**
          * Navigate to a new URL.
          * @name Session.go
@@ -32,7 +32,7 @@ module.exports = (url, sessionId, { JsonWire }) => (
          * @example
          * await session.go('http://localhost:8087');
          */
-        go: targetUrl => POST(`${url}/session/${sessionId}/url`, { url: targetUrl }),
+    go: targetUrl => POST(`${url}/session/${sessionId}/url`, { url: targetUrl }),
         /**
          * Get the current page title.
          * @name Session.getTitle
@@ -42,7 +42,7 @@ module.exports = (url, sessionId, { JsonWire }) => (
          * @example
          * const title = await session.getTitle();
          */
-        getTitle: () => GET(`${url}/session/${sessionId}/title`).then(body => body.value),
+    getTitle: () => GET(`${url}/session/${sessionId}/title`).then(body => body.value),
         /**
          * Search for an element on the page, starting from the document root.
          * @name Session.findElement
@@ -55,10 +55,10 @@ module.exports = (url, sessionId, { JsonWire }) => (
          * @example
          * const element = await session.findElement('css', 'h2');
          */
-        findElement: (strategy, selector) => POST(`${url}/session/${sessionId}/element`, {
-            using: strategy,
-            value: selector
-        }).then(body => elementFactory(
+    findElement: (strategy, selector) => POST(`${url}/session/${sessionId}/element`, {
+      using: strategy,
+      value: selector
+    }).then(body => elementFactory(
             url,
             sessionId,
             // JSON Wire       || Web Driver
@@ -76,6 +76,6 @@ module.exports = (url, sessionId, { JsonWire }) => (
          * const timeout = await session.getScriptTimeout();
          * // 30000
          */
-        getScriptTimeout: () => GET(`${url}/session/${sessionId}/timeouts`).then(body => body.value.script)
-    }
+    getScriptTimeout: () => GET(`${url}/session/${sessionId}/timeouts`).then(body => body.value.script)
+  }
 );

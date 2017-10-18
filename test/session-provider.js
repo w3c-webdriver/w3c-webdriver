@@ -2,25 +2,42 @@ const { newSession } = require('../src');
 
 let session;
 
-async function start() {
-    if (session) return;
-    session = await newSession('http://localhost:4444', {
-        desiredCapabilities: {
-            browserName: 'firefox',
-            marionette: true,
-            javascriptEnabled: true
+async function start(port) {
+  if (session) return;
+  session = await newSession(`http://localhost:${port}`, {
+    desiredCapabilities: {
+      chrome: {
+        browserName: 'chrome',
+        javascriptEnabled: true
+      },
+      'chrome-headless': {
+        browserName: 'chrome',
+        javascriptEnabled: true,
+        chromeOptions: {
+          args: ['incognito', 'headless', 'no-sandbox', 'disable-gpu']
         }
-    });
+      },
+      firefox: {
+        browserName: 'firefox',
+        marionette: true,
+        javascriptEnabled: true
+      },
+      phantomjs: {
+        browserName: 'phantomjs',
+        javascriptEnabled: true
+      }
+    }[process.env.BROWSER]
+  });
 }
 
 async function stop() {
-    await session.delete();
+  await session.delete();
 }
 
 module.exports = {
-    start,
-    stop,
-    session: new Proxy({}, {
-        get: (target, name) => session[name]
-    })
+  start,
+  stop,
+  session: new Proxy({}, {
+    get: (target, name) => session[name]
+  })
 };

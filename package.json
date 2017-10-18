@@ -7,8 +7,11 @@
     "node": ">= 6.0.0"
   },
   "scripts": {
-    "pretest": "eslint src test test-app",
-    "test": "jest --verbose",
+    "lint": "eslint src test test-app",
+    "test:chrome": "cross-env BROWSER=chrome jest --runInBand",
+    "test:chrome-headless": "cross-env BROWSER=chrome-headless jest --runInBand",
+    "test:firefox": "cross-env BROWSER=firefox jest --runInBand",
+    "test:phantomjs": "cross-env BROWSER=phantomjs jest --runInBand",
     "docs": "documentation readme src/index.js --section=API",
     "add:contributor": "all-contributors add",
     "generate:contributors": "all-contributors generate"
@@ -37,21 +40,27 @@
   "devDependencies": {
     "all-contributors-cli": "^4.3.0",
     "babel-cli": "^6.24.0",
-    "babel-plugin-transform-async-to-generator": "^6.22.0",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.24.0",
-    "chai": "^3.5.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "chromedriver": "^2.33.1",
+    "cross-env": "5.1.0",
     "documentation": "^4.0.0-rc.1",
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.1.3",
     "eslint-plugin-import": "^2.2.0",
-    "geckodriver": "^1.8.0",
+    "geckodriver": "^1.9.0",
     "jest": "^19.0.2",
-    "phantomjs-prebuilt": "^2.1.14"
+    "phantomjs-prebuilt": "^2.1.15",
+    "portscanner": "^2.1.1",
+    "winston": "^2.4.0"
   },
   "dependencies": {
     "request": "^2.81.0"
   },
   "jest": {
+    "verbose": true,
+    "bail": true,
+    "expand": true,
     "setupTestFrameworkScriptFile": "./test/setup.js"
   }
 }
