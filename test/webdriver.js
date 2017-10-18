@@ -54,16 +54,18 @@ function start(port) {
       chunks.push(chunk);
       if (chunks.join('').includes(ready)) {
         logger.info(`[webdriver:start] ${name} started on port ${port}`);
-        instance.stdout.removeListener('data', onOut);
-        instance.removeListener('close', onClose);
-        resolve();
+        /* eslint-disable no-use-before-define */
+        done();
       }
     };
-    const onErr = (chunk) => {
-      logger.info(`[webdriver:start] ${chunk}`);
-    };
+    const done = () => {
+      instance.stdout.removeListener('data', onOut);
+      instance.stderr.removeListener('data', onOut);
+      instance.removeListener('close', onClose);
+      resolve();
+    }
     instance.stdout.on('data', onOut);
-    instance.stderr.on('data', onErr);
+    instance.stderr.on('data', onOut);
     instance.on('close', onClose);
   });
 }
