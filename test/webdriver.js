@@ -48,18 +48,22 @@ function start(port) {
     const onClose = () => {
       logger.info(`[webdriver:start] ${name} terminated`);
       reject();
-    }
-    const onData = (chunk) => {
+    };
+    const onOut = (chunk) => {
       logger.info(`[webdriver:start] ${chunk}`);
       chunks.push(chunk);
       if (chunks.join('').includes(ready)) {
         logger.info(`[webdriver:start] ${name} started on port ${port}`);
-        instance.stdout.removeListener('data', onData);
+        instance.stdout.removeListener('data', onOut);
         instance.removeListener('close', onClose);
         resolve();
       }
     };
-    instance.stdout.on('data', onData);
+    const onErr = (chunk) => {
+      logger.info(`[webdriver:start] ${chunk}`);
+    };
+    instance.stdout.on('data', onOut);
+    instance.stderr.on('data', onErr);
     instance.on('close', onClose);
   });
 }
