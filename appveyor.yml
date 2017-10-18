@@ -12,6 +12,8 @@ environment:
       BROWSER: chrome-headless
     - NODEJS_VERSION: "8"
       BROWSER: phantomjs
+    - NODEJS_VERSION: "8"
+      BROWSER: internet-explorer
 
 cache:
   - node_modules                    # local npm modules

@@ -25,6 +25,10 @@ async function start(port) {
       phantomjs: {
         browserName: 'phantomjs',
         javascriptEnabled: true
+      },
+      'internet-explorer': {
+        browserName: 'internet explorer',
+        javascriptEnabled: true
       }
     }[process.env.BROWSER]
   });

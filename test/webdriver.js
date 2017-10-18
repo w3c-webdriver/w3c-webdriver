@@ -16,25 +16,29 @@ function start(port) {
     chrome: [`--port=${port}`],
     'chrome-headless': [`--port=${port}`],
     firefox: [`--port=${port}`],
-    phantomjs: [`--webdriver=${port}`]
+    phantomjs: [`--webdriver=${port}`],
+    'internet-explorer': [`--port=${port}`]
   }[browser];
   const path = {
     chrome: process.env.CI ? 'chromedriver' : chromedriverPath,
     'chrome-headless': process.env.CI ? 'chromedriver' : chromedriverPath,
     firefox: process.env.CI ? 'geckodriver' : geckodriverPath,
-    phantomjs: phantomjsPath
+    phantomjs: phantomjsPath,
+    'internet-explorer': process.env.CI ? 'IEDriverServer' : null
   }[browser];
   const name = {
     chrome: 'Chromedriver',
     'chrome-headless': 'Chromedriver',
     firefox: 'Geckodriver',
-    phantomjs: 'GhostDriver'
+    phantomjs: 'GhostDriver',
+    'internet-explorer': 'InternetExplorerDriver'
   }[browser];
   const ready = {
     chrome: 'on port',
     'chrome-headless': 'on port',
     firefox: 'Listening on',
-    phantomjs: 'running on port'
+    phantomjs: 'running on port',
+    'internet-explorer': 'on port'
   }[browser];
 
   logger.info(`[webdriver:start] path: ${path}, childArgs: ${childArgs}`);

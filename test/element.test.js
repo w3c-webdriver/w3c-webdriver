@@ -51,6 +51,9 @@ describe('Element', () => {
         },
         phantomjs: () => {
           expect(backgroundColor).toEqual('rgba(211, 211, 211, 1)');
+        },
+        'internet-explorer': () => {
+          expect(backgroundColor).toEqual('rgb(211, 211, 211)');
         }
       }[process.env.BROWSER];
       check();

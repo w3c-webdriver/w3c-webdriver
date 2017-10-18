@@ -21,6 +21,10 @@ describe('WebDriver', () => {
       phantomjs: () => {
         expect(result.build).toBeDefined();
         expect(result.os).toBeDefined();
+      },
+      'internet-explorer': () => {
+        expect(result.build).toBeDefined();
+        expect(result.os).toBeDefined();
       }
     }[process.env.BROWSER];
     check();
