@@ -10,13 +10,17 @@ This package provides JavaScript bindings
 that conform to the [W3C WebDriver standard](https://w3c.github.io/webdriver/webdriver-spec.html),
 which specifies a remote control protocol for web browsers.
 
-Tested on most browsers
+Tested on major browsers
 
 | ![Chrome](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/chrome/chrome_24x24.png) | ![FireFox](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/firefox/firefox_24x24.png) | ![Safari](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/safari/safari_24x24.png) | ![Internet Explorer](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/archive/internet-explorer_9-11/internet-explorer_9-11_24x24.png) | ![PhantomJS](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/archive/phantomjs/phantomjs_24x24.png)
 | ---- | ---- | ---- | ----- | ----- |
 | :white_check_mark: | :white_check_mark: | | :white_check_mark: | :white_check_mark: |
 
-Tested on Node.js 6, 7, 8
+Tested on most popular Node.js versions
+
+| 6 | 7 | 8 |
+| - | - | - |
+| :white_check_mark: | :white_check_mark: | :white_check_mark: |
 
 # :construction: Work in progress...
 
