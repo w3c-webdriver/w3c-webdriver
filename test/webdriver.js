@@ -11,7 +11,6 @@ const browser = process.env.BROWSER;
 assert(browser, 'BROWSER environment variable is not set');
 
 function start(port) {
-  logger.info(`[webdriver:start] port: ${port}`);
   const childArgs = {
     chrome: [`--port=${port}`],
     'chrome-headless': [`--port=${port}`],
@@ -38,30 +37,29 @@ function start(port) {
     'chrome-headless': 'on port',
     firefox: 'Listening on',
     phantomjs: 'running on port',
-    'internet-explorer': 'on port'
+    'internet-explorer': 'Listening on port'
   }[browser];
 
   logger.info(`[webdriver:start] path: ${path}, childArgs: ${childArgs}`);
   return new Promise((resolve, reject) => {
+    let started = false;
     const chunks = [];
     instance = execFile(path, childArgs);
     const onClose = () => {
       logger.info(`[webdriver:start] ${name} terminated`);
-      reject();
+      if (!started) reject();
     };
     const onOut = (chunk) => {
-      logger.info(`[webdriver:start] ${chunk}`);
+      logger.info(`[webdriver] ${chunk}`);
       chunks.push(chunk);
-      if (chunks.join('').includes(ready)) {
+      if (!started && chunks.join('').includes(ready)) {
         logger.info(`[webdriver:start] ${name} started on port ${port}`);
         /* eslint-disable no-use-before-define */
         done();
       }
     };
     const done = () => {
-      instance.stdout.removeListener('data', onOut);
-      instance.stderr.removeListener('data', onOut);
-      instance.removeListener('close', onClose);
+      started = true;
       resolve();
     }
     instance.stdout.on('data', onOut);

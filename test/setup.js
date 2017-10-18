@@ -4,19 +4,15 @@ const webdriver = require('./webdriver');
 const sessionProvider = require('./session-provider');
 const testApp = require('../test-app');
 const portscanner = require('portscanner');
-const logger = require('./logger');
 
 const getFreePorts = async (startPort, endPort, n) => {
-  logger.info('[getFreePorts] start');
   let port = startPort - 1;
   const ports = [];
   while (ports.length < n) {
     /* eslint-disable no-await-in-loop */
     port = await portscanner.findAPortNotInUse(port + 1, 3050, '127.0.0.1');
-    logger.info(`[getFreePorts] port found ${port}`);
     ports.push(port);
   }
-  logger.info(`[getFreePorts] ports: ${ports}`);
   return ports;
 };
 
