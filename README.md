@@ -12,14 +12,14 @@ which specifies a remote control protocol for web browsers.
 
 Tested on major browsers
 
-| ![Chrome](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/chrome/chrome_24x24.png) | ![FireFox](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/firefox/firefox_24x24.png) | ![Safari](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/safari/safari_24x24.png) | ![Internet Explorer](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/archive/internet-explorer_9-11/internet-explorer_9-11_24x24.png) | ![PhantomJS](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/archive/phantomjs/phantomjs_24x24.png)
-| ---- | ---- | ---- | ----- | ----- |
-| :white_check_mark: | :white_check_mark: | | :white_check_mark: | :white_check_mark: |
+| ![Chrome](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/chrome/chrome_24x24.png) | ![FireFox](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/firefox/firefox_24x24.png) | ![Safari](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/safari/safari_24x24.png) | ![Internet Explorer](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/archive/internet-explorer_9-11/internet-explorer_9-11_24x24.png) | ![PhantomJS](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/archive/phantomjs/phantomjs_24x24.png) |
+| ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| :white_check_mark:                                                                             | :white_check_mark:                                                                                |                                                                                                | :white_check_mark:                                                                                                                                | :white_check_mark:                                                                                              |
 
 Tested on most popular Node.js versions
 
-| 6 | 7 | 8 |
-| - | - | - |
+| 6                  | 7                  | 8                  |
+| ------------------ | ------------------ | ------------------ |
 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 
 # :construction: Work in progress...
@@ -156,7 +156,7 @@ Delete the session.
 await session.delete();
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
 
 ## Session.go
 
@@ -174,7 +174,7 @@ Navigate to a new URL.
 await session.go('http://localhost:8087');
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
 
 ## Session.getTitle
 
@@ -208,7 +208,22 @@ Search for an element on the page, starting from the document root.
 const element = await session.findElement('css', 'h2');
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Element](#element)>**
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Element](#element)>** 
+
+## Session.getScriptTimeout
+
+-   **See: [WebDriver spec](https://w3c.github.io/webdriver/webdriver-spec.html#get-timeouts)**
+
+Retrieves session script timeout that specifies a time to wait for scripts to run.
+
+**Examples**
+
+```javascript
+const timeout = await session.getScriptTimeout();
+// 30000
+```
+
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)>** session script timeout in milliseconds.
 
 ## Element
 
@@ -241,7 +256,7 @@ const input = await session.findElement('css', '[name="first-name"]');
 await a.sendKeys('Hello World');
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
 
 ## Element.click
 
@@ -256,7 +271,7 @@ const submitButton = await session.findElement('css', 'button[type="submit"]');
 await submitButton.click();
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
 
 ## Element.getText
 

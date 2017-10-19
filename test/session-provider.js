@@ -27,8 +27,7 @@ async function start(port) {
         javascriptEnabled: true
       },
       'internet-explorer': {
-        browserName: 'internet explorer',
-        javascriptEnabled: true
+        browserName: 'internet explorer'
       }
     }[process.env.BROWSER]
   });

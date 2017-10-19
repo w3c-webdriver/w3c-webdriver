@@ -2,7 +2,7 @@ const { GET, POST, DELETE } = require('./rest');
 const elementFactory = require('./element');
 
 module.exports = (url, sessionId, { JsonWire }) => (
-    /**
+  /**
      * This object represents a WebDriver session.
      * @typedef {Object} Session
      * @property {Session.delete} delete - Delete the session.
@@ -12,7 +12,7 @@ module.exports = (url, sessionId, { JsonWire }) => (
      *  starting from the document root.
      */
   {
-        /**
+    /**
          * Delete the session.
          * @name Session.delete
          * @function
@@ -22,7 +22,7 @@ module.exports = (url, sessionId, { JsonWire }) => (
          * await session.delete();
          */
     delete: () => DELETE(`${url}/session/${sessionId}`),
-        /**
+    /**
          * Navigate to a new URL.
          * @name Session.go
          * @function
@@ -33,7 +33,7 @@ module.exports = (url, sessionId, { JsonWire }) => (
          * await session.go('http://localhost:8087');
          */
     go: targetUrl => POST(`${url}/session/${sessionId}/url`, { url: targetUrl }),
-        /**
+    /**
          * Get the current page title.
          * @name Session.getTitle
          * @function
@@ -43,7 +43,7 @@ module.exports = (url, sessionId, { JsonWire }) => (
          * const title = await session.getTitle();
          */
     getTitle: () => GET(`${url}/session/${sessionId}/title`).then(body => body.value),
-        /**
+    /**
          * Search for an element on the page, starting from the document root.
          * @name Session.findElement
          * @function
@@ -59,14 +59,14 @@ module.exports = (url, sessionId, { JsonWire }) => (
       using: strategy,
       value: selector
     }).then(body => elementFactory(
-            url,
-            sessionId,
-            // JSON Wire       || Web Driver
-            body.value.ELEMENT || Object.values(body.value)[0],
-            { JsonWire }
-        )),
+      url,
+      sessionId,
+      // JSON Wire       || Web Driver
+      body.value.ELEMENT || Object.values(body.value)[0],
+      { JsonWire }
+    )),
 
-        /**
+    /**
          * Retrieves session script timeout that specifies a time to wait for scripts to run.
          * @name Session.getScriptTimeout
          * @function

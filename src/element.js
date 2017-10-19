@@ -1,7 +1,7 @@
 const { GET, POST } = require('./rest');
 
 module.exports = (url, sessionId, elementId, { JsonWire }) => (
-    /**
+  /**
      * This object represents a WebDriver element.
      * @typedef {Object} Element
      * @property {Element.sendKeys} sendKeys - Send a sequence of key strokes to an element.
@@ -11,7 +11,7 @@ module.exports = (url, sessionId, elementId, { JsonWire }) => (
      * property for the element.
      */
   {
-        /**
+    /**
          * Send a sequence of key strokes to an element.
          * @name Element.sendKeys
          * @function
@@ -23,7 +23,7 @@ module.exports = (url, sessionId, elementId, { JsonWire }) => (
          * await a.sendKeys('Hello World');
          */
     sendKeys: text => POST(`${url}/session/${sessionId}/element/${elementId}/value`, !JsonWire ? { text } : { value: [text] }),
-        /**
+    /**
          * Click on an element.
          * @name Element.click
          * @function
@@ -34,7 +34,7 @@ module.exports = (url, sessionId, elementId, { JsonWire }) => (
          * await submitButton.click();
          */
     click: () => POST(`${url}/session/${sessionId}/element/${elementId}/click`, {}),
-        /**
+    /**
          * Returns the visible text for the element.
          * @name Element.getText
          * @function
@@ -45,7 +45,7 @@ module.exports = (url, sessionId, elementId, { JsonWire }) => (
          * const text = await result.getText();
          */
     getText: () => GET(`${url}/session/${sessionId}/element/${elementId}/text`).then(body => body.value),
-        /**
+    /**
          * Returns the computed value of the given CSS property for the element.
          * @name Element.getCss
          * @function

@@ -23,14 +23,14 @@ beforeAll(async () => {
   await webdriver.start(webDriverPort);
   await testApp.start(testAppPort);
   await sessionProvider.start(webDriverPort);
-}, 60000);
+});
 
 beforeEach(async () => {
   await sessionProvider.session.go(`http://localhost:${process.env.TEST_APP_PORT}`);
-}, 60000);
+});
 
 afterAll(async () => {
   await sessionProvider.stop();
   await webdriver.stop();
   await testApp.stop();
-}, 60000);
+});

@@ -3,6 +3,7 @@ const assert = require('assert');
 const { path: chromedriverPath } = require('chromedriver');
 const { path: geckodriverPath } = require('geckodriver');
 const { path: phantomjsPath } = require('phantomjs-prebuilt');
+const { path: iedriverPath } = require('iedriver');
 const logger = require('./logger');
 
 let instance;
@@ -23,7 +24,7 @@ function start(port) {
     'chrome-headless': process.env.CI ? 'chromedriver' : chromedriverPath,
     firefox: process.env.CI ? 'geckodriver' : geckodriverPath,
     phantomjs: phantomjsPath,
-    'internet-explorer': process.env.CI ? 'IEDriverServer' : null
+    'internet-explorer': process.env.CI ? 'IEDriverServer' : iedriverPath
   }[browser];
   const name = {
     chrome: 'Chromedriver',
@@ -37,7 +38,7 @@ function start(port) {
     'chrome-headless': 'on port',
     firefox: 'Listening on',
     phantomjs: 'running on port',
-    'internet-explorer': 'Listening on port'
+    'internet-explorer': 'Only local connections are allowed'
   }[browser];
 
   logger.info(`[webdriver:start] path: ${path}, childArgs: ${childArgs}`);
@@ -61,7 +62,7 @@ function start(port) {
     const done = () => {
       started = true;
       resolve();
-    }
+    };
     instance.stdout.on('data', onOut);
     instance.stderr.on('data', onOut);
     instance.on('close', onClose);
