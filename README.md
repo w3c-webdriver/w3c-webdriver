@@ -1,7 +1,7 @@
 # WebDriver client for JavaScript
 
 [![npm version](https://badge.fury.io/js/w3c-webdriver.svg)](https://badge.fury.io/js/w3c-webdriver)
-[![Build Status](https://travis-ci.org/mucsi96/w3c-webdriver.svg?branch=master)](https://travis-ci.org/mucsi96/w3c-webdriver)
+[![Build Status](https://ci.appveyor.com/api/projects/status/github/mucsi96/w3c-webdriver?branch=master&svg=true)](https://ci.appveyor.com/project/mucsi96/w3c-webdriver)
 [![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
 [![Dependency Status](https://dependencyci.com/github/mucsi96/w3c-webdriver/badge)](https://dependencyci.com/github/mucsi96/w3c-webdriver)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
@@ -9,6 +9,18 @@
 This package provides JavaScript bindings
 that conform to the [W3C WebDriver standard](https://w3c.github.io/webdriver/webdriver-spec.html),
 which specifies a remote control protocol for web browsers.
+
+Tested on major browsers
+
+| ![Chrome](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/chrome/chrome_24x24.png) | ![FireFox](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/firefox/firefox_24x24.png) | ![Safari](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/safari/safari_24x24.png) | ![Internet Explorer](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/archive/internet-explorer_9-11/internet-explorer_9-11_24x24.png) | ![PhantomJS](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/archive/phantomjs/phantomjs_24x24.png) |
+| ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| :white_check_mark:                                                                             | :white_check_mark:                                                                                |                                                                                                | :white_check_mark:                                                                                                                                | :white_check_mark:                                                                                              |
+
+Tested on most popular Node.js versions
+
+| 6                  | 7                  | 8                  |
+| ------------------ | ------------------ | ------------------ |
+| :white_check_mark: | :white_check_mark: | :white_check_mark: |
 
 # :construction: Work in progress...
 
@@ -197,6 +209,21 @@ const element = await session.findElement('css', 'h2');
 ```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Element](#element)>** 
+
+## Session.getScriptTimeout
+
+-   **See: [WebDriver spec](https://w3c.github.io/webdriver/webdriver-spec.html#get-timeouts)**
+
+Retrieves session script timeout that specifies a time to wait for scripts to run.
+
+**Examples**
+
+```javascript
+const timeout = await session.getScriptTimeout();
+// 30000
+```
+
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)>** session script timeout in milliseconds.
 
 ## Element
 

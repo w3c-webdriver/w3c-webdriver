@@ -1,23 +1,38 @@
-/* eslint-env jest */
+/* eslint-env jest,jasmine */
 
+const webdriver = require('./webdriver');
 const sessionProvider = require('./session-provider');
-const phantomjs = require('phantomjs-prebuilt');
 const testApp = require('../test-app');
+const portscanner = require('portscanner');
 
-let phantomjsProcess;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
+
+const getFreePorts = async (startPort, endPort, n) => {
+  let port = startPort - 1;
+  const ports = [];
+  while (ports.length < n) {
+    /* eslint-disable no-await-in-loop */
+    port = await portscanner.findAPortNotInUse(port + 1, 3050, '127.0.0.1');
+    ports.push(port);
+  }
+  return ports;
+};
 
 beforeAll(async () => {
-    phantomjsProcess = await phantomjs.run('--webdriver=4444');
-    await testApp.start();
-    await sessionProvider.start();
+  const [webDriverPort, testAppPort] = await getFreePorts(3000, 3050, 2);
+  process.env.WEB_DRIVER_PORT = webDriverPort;
+  process.env.TEST_APP_PORT = testAppPort;
+  await webdriver.start(webDriverPort);
+  await testApp.start(testAppPort);
+  await sessionProvider.start(webDriverPort);
 });
 
 beforeEach(async () => {
-    await sessionProvider.session.go('http://localhost:8087');
+  await sessionProvider.session.go(`http://localhost:${process.env.TEST_APP_PORT}`);
 });
 
 afterAll(async () => {
-    await sessionProvider.stop();
-    phantomjsProcess.kill();
-    await testApp.stop();
+  await sessionProvider.stop();
+  await webdriver.stop();
+  await testApp.stop();
 });

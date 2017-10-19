@@ -1,0 +1,36 @@
+version: "{build}"
+
+image: Visual Studio 2017
+
+environment:
+  matrix:
+    - NODEJS_VERSION: "6"
+      BROWSER: chrome
+    - NODEJS_VERSION: "7"
+      BROWSER: firefox
+    - NODEJS_VERSION: "8"
+      BROWSER: chrome-headless
+    - NODEJS_VERSION: "8"
+      BROWSER: phantomjs
+    - NODEJS_VERSION: "8"
+      BROWSER: internet-explorer
+
+cache:
+  - node_modules                    # local npm modules
+  - '%LocalAppData%\NuGet\Cache'    # NuGet < v3
+  - '%LocalAppData%\NuGet\v3-cache' # NuGet v3
+
+install:
+  - ps: Install-Product node $env:NODEJS_VERSION
+  - yarn install
+
+test_script:
+  - node --version
+  - yarn --version
+  - yarn lint
+  - yarn test
+
+build: off
+
+matrix:
+  fast_finish: true

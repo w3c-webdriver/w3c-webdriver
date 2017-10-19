@@ -1,8 +1,8 @@
 const { GET, POST, DELETE } = require('./rest');
 const elementFactory = require('./element');
 
-module.exports = (url, sessionId) => (
-    /**
+module.exports = (url, sessionId, { JsonWire }) => (
+  /**
      * This object represents a WebDriver session.
      * @typedef {Object} Session
      * @property {Session.delete} delete - Delete the session.
@@ -11,8 +11,8 @@ module.exports = (url, sessionId) => (
      * @property {Session.findElement} findElement - Search for an element on the page,
      *  starting from the document root.
      */
-    {
-        /**
+  {
+    /**
          * Delete the session.
          * @name Session.delete
          * @function
@@ -21,8 +21,8 @@ module.exports = (url, sessionId) => (
          * @example
          * await session.delete();
          */
-        delete: () => DELETE(`${url}/session/${sessionId}`),
-        /**
+    delete: () => DELETE(`${url}/session/${sessionId}`),
+    /**
          * Navigate to a new URL.
          * @name Session.go
          * @function
@@ -32,8 +32,8 @@ module.exports = (url, sessionId) => (
          * @example
          * await session.go('http://localhost:8087');
          */
-        go: targetUrl => POST(`${url}/session/${sessionId}/url`, { url: targetUrl }),
-        /**
+    go: targetUrl => POST(`${url}/session/${sessionId}/url`, { url: targetUrl }),
+    /**
          * Get the current page title.
          * @name Session.getTitle
          * @function
@@ -42,8 +42,8 @@ module.exports = (url, sessionId) => (
          * @example
          * const title = await session.getTitle();
          */
-        getTitle: () => GET(`${url}/session/${sessionId}/title`).then(body => body.value),
-        /**
+    getTitle: () => GET(`${url}/session/${sessionId}/title`).then(body => body.value),
+    /**
          * Search for an element on the page, starting from the document root.
          * @name Session.findElement
          * @function
@@ -55,9 +55,27 @@ module.exports = (url, sessionId) => (
          * @example
          * const element = await session.findElement('css', 'h2');
          */
-        findElement: (strategy, selector) => POST(`${url}/session/${sessionId}/element`, {
-            using: strategy,
-            value: selector
-        }).then(body => elementFactory(url, sessionId, body.value.ELEMENT))
-    }
+    findElement: (strategy, selector) => POST(`${url}/session/${sessionId}/element`, {
+      using: strategy,
+      value: selector
+    }).then(body => elementFactory(
+      url,
+      sessionId,
+      // JSON Wire       || Web Driver
+      body.value.ELEMENT || Object.values(body.value)[0],
+      { JsonWire }
+    )),
+
+    /**
+         * Retrieves session script timeout that specifies a time to wait for scripts to run.
+         * @name Session.getScriptTimeout
+         * @function
+         * @return {Promise<number>} session script timeout in milliseconds.
+         * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#get-timeouts|WebDriver spec}
+         * @example
+         * const timeout = await session.getScriptTimeout();
+         * // 30000
+         */
+    getScriptTimeout: () => GET(`${url}/session/${sessionId}/timeouts`).then(body => body.value.script)
+  }
 );
