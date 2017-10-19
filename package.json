@@ -62,8 +62,6 @@
     "verbose": true,
     "bail": true,
     "expand": true,
-    "setupFiles": ["./test/timeout.js"],
-    "setupTestFrameworkScriptFile": "./test/setup.js",
-    "testEnvironment": "node"
+    "setupTestFrameworkScriptFile": "./test/setup.js"
   }
 }

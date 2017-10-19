@@ -1,4 +1,4 @@
-/* eslint-env jest */
+/* eslint-env jest,jasmine */
 
 const webdriver = require('./webdriver');
 const sessionProvider = require('./session-provider');
