@@ -52,7 +52,7 @@
     "eslint-plugin-import": "^2.2.0",
     "geckodriver": "^1.9.0",
     "iedriver": "^3.5.1",
-    "jest": "^21.2.1",
+    "jest": "^19.0.2",
     "phantomjs-prebuilt": "^2.1.15",
     "portscanner": "^2.1.1",
     "winston": "^2.4.0"
@@ -63,6 +63,7 @@
     "bail": true,
     "expand": true,
     "setupFiles": ["./test/timeout.js"],
-    "setupTestFrameworkScriptFile": "./test/setup.js"
+    "setupTestFrameworkScriptFile": "./test/setup.js",
+    "testEnvironment": "node"
   }
 }

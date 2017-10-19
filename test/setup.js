@@ -5,6 +5,8 @@ const sessionProvider = require('./session-provider');
 const testApp = require('../test-app');
 const portscanner = require('portscanner');
 
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
+
 const getFreePorts = async (startPort, endPort, n) => {
   let port = startPort - 1;
   const ports = [];

@@ -1,7 +1,6 @@
 const util = require('util');
 const http = require('http');
 const urlParser = require('url');
-const Logger = require('../test/logger');
 
 function findError(err, response, body) {
   if (err) {
@@ -33,9 +32,7 @@ function sendRequest(method, url, body) {
 
 
   return new Promise((resolve, reject) => {
-    Logger.info(options);
     const request = http.request(options, (response) => {
-      Logger.info(response.statusCode);
       const chunks = [];
       response.setEncoding('utf8');
       response.on('data', (chunk) => {

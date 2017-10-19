@@ -27,7 +27,10 @@ async function start(port) {
         javascriptEnabled: true
       },
       'internet-explorer': {
-        browserName: 'internet explorer'
+        browserName: 'internet explorer',
+        ignoreProtectedModeSettings: true,
+        ignoreZoomSetting: true,
+        'ie.ensureCleanSession': true
       }
     }[process.env.BROWSER]
   });
