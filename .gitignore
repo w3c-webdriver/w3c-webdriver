@@ -5,3 +5,4 @@ node_modules
 *-compiled.js
 *-compiled.js.map
 npm-debug.log
+test.log

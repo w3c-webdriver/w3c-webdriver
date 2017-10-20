@@ -55,6 +55,7 @@
     "jest": "^19.0.2",
     "phantomjs-prebuilt": "^2.1.15",
     "portscanner": "^2.1.1",
+    "wait-for-port": "^0.0.2",
     "winston": "^2.4.0"
   },
   "dependencies": {},
