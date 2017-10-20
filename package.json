@@ -2,7 +2,7 @@
   "name": "w3c-webdriver",
   "version": "0.0.8",
   "description": "W3C WebDriver client",
-  "main": "src/index.js",
+  "main": "./lib/index.js",
   "engines": {
     "node": ">= 6.0.0"
   },
@@ -15,6 +15,8 @@
     "test:phantomjs": "cross-env BROWSER=phantomjs npm test",
     "test:internet-explorer": "cross-env BROWSER=internet-explorer npm test",
     "docs": "documentation readme src/index.js --section=API",
+    "build": "babel src --out-dir lib --ignore __tests__,__mocks__",
+    "prepack": "npm run build && npm run docs",
     "add:contributor": "all-contributors add",
     "generate:contributors": "all-contributors generate"
   },
@@ -58,7 +60,9 @@
     "wait-for-port": "^0.0.2",
     "winston": "^2.4.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "5to6-codemod": "^1.7.1"
+  },
   "jest": {
     "verbose": true,
     "bail": true,

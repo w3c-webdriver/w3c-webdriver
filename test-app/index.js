@@ -1,10 +1,10 @@
 'use strict';
 
-const http = require('http');
-const url = require('url');
-const path = require('path');
-const fs = require('fs');
-const logger = require('../test/logger');
+import http from 'http';
+import url from 'url';
+import path from 'path';
+import fs from 'fs';
+import logger from '../test/logger';
 
 const mimeTypes = {
   html: 'text/html',
@@ -36,13 +36,13 @@ const server = http.createServer((req, res) => {
   });
 });
 
-function start(port) {
+export function start(port) {
   return new Promise((resolve) => {
     server.listen(port, resolve);
   }).then(() => logger.info(`Test app started on port ${port}`));
 }
 
-function stop() {
+export function stop() {
   return new Promise((resolve) => {
     server.close(resolve);
   });
@@ -51,8 +51,3 @@ function stop() {
 if (require.main === module) {
   start(8087);
 }
-
-module.exports = {
-  start,
-  stop
-};

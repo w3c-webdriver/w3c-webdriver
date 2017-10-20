@@ -1,6 +1,6 @@
-const util = require('util');
-const http = require('http');
-const urlParser = require('url');
+import util from 'util';
+import http from 'http';
+import urlParser from 'url';
 
 function findError(err, response, body) {
   if (err) {
@@ -77,8 +77,6 @@ function sendRequest(method, url, body) {
   });
 }
 
-module.exports = {
-  GET: url => sendRequest('GET', url),
-  POST: (url, body) => sendRequest('POST', url, body),
-  DELETE: (url, body) => sendRequest('DELETE', url, body)
-};
+export const GET = url => sendRequest('GET', url);
+export const POST = (url, body) => sendRequest('POST', url, body);
+export const DELETE = (url, body) => sendRequest('DELETE', url, body);

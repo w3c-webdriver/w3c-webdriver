@@ -1,9 +1,10 @@
 /* eslint-env jest,jasmine */
 
-const webdriver = require('./webdriver');
-const sessionProvider = require('./session-provider');
-const testApp = require('../test-app');
-const portscanner = require('portscanner');
+import portscanner from 'portscanner';
+
+import { start as startDriver, stop as stopDriver } from './webdriver';
+import { start as createSession, stop as removeSession, session } from './session-provider';
+import { start as startTestApp, stop as stopTestApp } from '../test-app';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
 
@@ -22,17 +23,17 @@ beforeAll(async () => {
   const [webDriverPort, testAppPort] = await getFreePorts(3000, 3050, 2);
   process.env.WEB_DRIVER_PORT = webDriverPort;
   process.env.TEST_APP_PORT = testAppPort;
-  await webdriver.start(webDriverPort);
-  await testApp.start(testAppPort);
-  await sessionProvider.start(webDriverPort);
+  await startDriver.start(webDriverPort);
+  await startTestApp.start(testAppPort);
+  await createSession(webDriverPort);
 });
 
 beforeEach(async () => {
-  await sessionProvider.session.go(`http://localhost:${process.env.TEST_APP_PORT}`);
+  await session.go(`http://localhost:${process.env.TEST_APP_PORT}`);
 });
 
 afterAll(async () => {
-  await sessionProvider.stop();
-  await webdriver.stop();
-  await testApp.stop();
+  await removeSession();
+  await stopDriver.stop();
+  await stopTestApp.stop();
 });

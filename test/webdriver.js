@@ -1,11 +1,11 @@
-const { execFile } = require('child_process');
-const assert = require('assert');
-const { path: chromedriverPath } = require('chromedriver');
-const { path: geckodriverPath } = require('geckodriver');
-const { path: phantomjsPath } = require('phantomjs-prebuilt');
-const { path: iedriverPath } = require('iedriver');
-const logger = require('./logger');
-const waitForPort = require('wait-for-port');
+import { execFile } from 'child_process';
+import assert from 'assert';
+import { path as chromedriverPath } from 'chromedriver';
+import { path as geckodriverPath } from 'geckodriver';
+import { path as phantomjsPath } from 'phantomjs-prebuilt';
+import { path as iedriverPath } from 'iedriver';
+import waitForPort from 'wait-for-port';
+import logger from './logger';
 
 const waitForBusyPort = port => new Promise((resolve, reject) => {
   waitForPort('127.0.0.1', port, err => (err ? reject(err) : resolve()));
@@ -21,7 +21,7 @@ let usedPort;
 const browser = process.env.BROWSER;
 assert(browser, 'BROWSER environment variable is not set');
 
-async function start(port) {
+export async function start(port) {
   const childArgs = {
     chrome: [`--port=${port}`],
     'chrome-headless': [`--port=${port}`],
@@ -56,14 +56,9 @@ async function start(port) {
   logger.info(`[webdriver:start] ${name} started on port ${port}`);
 }
 
-async function stop() {
+export async function stop() {
   if (usedPort) {
     instance.kill();
     await waitForFreePort(usedPort);
   }
 }
-
-module.exports = {
-  start,
-  stop
-};

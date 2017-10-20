@@ -1,10 +1,10 @@
-const { newSession } = require('../src');
+import { newSession } from '../src';
 
-let session;
+let sessionInstance;
 
-async function start(port) {
-  if (session) return;
-  session = await newSession(`http://localhost:${port}`, {
+export async function start(port) {
+  if (sessionInstance) return;
+  sessionInstance = await newSession(`http://localhost:${port}`, {
     desiredCapabilities: {
       chrome: {
         browserName: 'chrome',
@@ -36,14 +36,10 @@ async function start(port) {
   });
 }
 
-async function stop() {
-  await session.delete();
+export async function stop() {
+  await sessionInstance.delete();
 }
 
-module.exports = {
-  start,
-  stop,
-  session: new Proxy({}, {
-    get: (target, name) => session[name]
-  })
-};
+export const session = new Proxy({}, {
+  get: (target, name) => sessionInstance[name]
+});
