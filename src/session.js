@@ -111,6 +111,26 @@ export default (url, sessionId, { JsonWire }) => (
       script,
       pageLoad,
       implicit
-    })
+    }),
+
+    /**
+     * Inject a snippet of JavaScript into the page for execution in the context of the
+     * currently selected frame. The executed script is assumed to be synchronous and
+     * the result of evaluating the script is returned to the client.
+     *
+     * @name Session.executeScript
+     * @param {string} script -  The script to execute.
+     * @param {array} args - The script arguments.
+     * @return {Promise<*>} - The script result.
+     * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#execute-script|WebDriver spec}
+     * @example
+     * const script = 'const [from] = arguments; return `Hello from ${from}!`;';
+     * const message = await session.executeScript(script, ['WebDriver']);
+     * // message = 'Hello from WebDriver!'
+     */
+    executeScript: (script, args) => POST(`${url}/session/${sessionId}/execute/sync`, {
+      script,
+      args
+    }).then(body => body.value)
   })
 );

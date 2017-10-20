@@ -60,9 +60,7 @@
     "wait-for-port": "^0.0.2",
     "winston": "^2.4.0"
   },
-  "dependencies": {
-    "5to6-codemod": "^1.7.1"
-  },
+  "dependencies": {},
   "jest": {
     "verbose": true,
     "bail": true,

@@ -42,4 +42,12 @@ describe('Session', () => {
       await check();
     });
   });
+
+  describe('executeScript method', () => {
+    it('executes script in browser context', async () => {
+      // eslint-disable-next-line no-template-curly-in-string
+      const message = await session.executeScript('return arguments[0] * arguments[1]', [3, 5]);
+      expect(message).toBe(15);
+    });
+  });
 });
