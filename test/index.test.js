@@ -1,6 +1,6 @@
 /* eslint-env jest */
 
-const { status } = require('../src');
+import { status } from '../src';
 
 describe('WebDriver', () => {
   it('returns server status', async () => {

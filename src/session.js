@@ -1,7 +1,7 @@
-const { GET, POST, DELETE } = require('./rest');
-const elementFactory = require('./element');
+import { GET, POST, DELETE } from './rest';
+import elementFactory from './element';
 
-module.exports = (url, sessionId, { JsonWire }) => (
+export default (url, sessionId, { JsonWire }) => (
   /**
      * This object represents a WebDriver session.
      * @typedef {Object} Session
@@ -11,7 +11,7 @@ module.exports = (url, sessionId, { JsonWire }) => (
      * @property {Session.findElement} findElement - Search for an element on the page,
      *  starting from the document root.
      */
-  {
+  ({
     /**
          * Delete the session.
          * @name Session.delete
@@ -22,6 +22,7 @@ module.exports = (url, sessionId, { JsonWire }) => (
          * await session.delete();
          */
     delete: () => DELETE(`${url}/session/${sessionId}`),
+
     /**
          * Navigate to a new URL.
          * @name Session.go
@@ -33,6 +34,7 @@ module.exports = (url, sessionId, { JsonWire }) => (
          * await session.go('http://localhost:8087');
          */
     go: targetUrl => POST(`${url}/session/${sessionId}/url`, { url: targetUrl }),
+
     /**
          * Get the current page title.
          * @name Session.getTitle
@@ -43,6 +45,7 @@ module.exports = (url, sessionId, { JsonWire }) => (
          * const title = await session.getTitle();
          */
     getTitle: () => GET(`${url}/session/${sessionId}/title`).then(body => body.value),
+
     /**
          * Search for an element on the page, starting from the document root.
          * @name Session.findElement
@@ -109,5 +112,5 @@ module.exports = (url, sessionId, { JsonWire }) => (
       pageLoad,
       implicit
     })
-  }
+  })
 );

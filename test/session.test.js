@@ -1,6 +1,6 @@
 /* eslint-env jest */
 
-const { session } = require('./session-provider');
+import { session } from './session-provider';
 
 describe('Session', () => {
   describe('getTitle method', () => {
