@@ -65,7 +65,7 @@ Tested on most popular Node.js versions
 | POST   | /session/{session id}/element/{element id}/clear               | Element Clear                           |                    |
 | POST   | /session/{session id}/element/{element id}/value               | [Element Send Keys](#elementsendkeys)   | :white_check_mark: |
 | GET    | /session/{session id}/source                                   | Get Page Source                         |                    |
-| POST   | /session/{session id}/execute/sync                             | Execute Script                          |                    |
+| POST   | /session/{session id}/execute/sync                             | [Execute Script](#sessionexecutescript) | :white_check_mark: |
 | POST   | /session/{session id}/execute/async                            | Execute Async Script                    |                    |
 | GET    | /session/{session id}/cookie                                   | Get All Cookies                         |                    |
 | GET    | /session/{session id}/cookie/{name}                            | Get Named Cookie                        |                    |
@@ -258,6 +258,29 @@ await session.setTimeout({
 ```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+
+## Session.executeScript
+
+-   **See: [WebDriver spec](https://w3c.github.io/webdriver/webdriver-spec.html#execute-script)**
+
+Inject a snippet of JavaScript into the page for execution in the context of the
+currently selected frame. The executed script is assumed to be synchronous and
+the result of evaluating the script is returned to the client.
+
+**Parameters**
+
+-   `script` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)**  The script to execute.
+-   `args` **[array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** The script arguments.
+
+**Examples**
+
+```javascript
+const script = 'const [from] = arguments; return `Hello from ${from}!`;';
+const message = await session.executeScript(script, ['WebDriver']);
+// message = 'Hello from WebDriver!'
+```
+
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;any>** The script result.
 
 ## Element
 
