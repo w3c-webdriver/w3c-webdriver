@@ -23,8 +23,8 @@ beforeAll(async () => {
   const [webDriverPort, testAppPort] = await getFreePorts(3000, 3050, 2);
   process.env.WEB_DRIVER_PORT = webDriverPort;
   process.env.TEST_APP_PORT = testAppPort;
-  await startDriver.start(webDriverPort);
-  await startTestApp.start(testAppPort);
+  await startDriver(webDriverPort);
+  await startTestApp(testAppPort);
   await createSession(webDriverPort);
 });
 
@@ -34,6 +34,6 @@ beforeEach(async () => {
 
 afterAll(async () => {
   await removeSession();
-  await stopDriver.stop();
-  await stopTestApp.stop();
+  await stopDriver();
+  await stopTestApp();
 });
