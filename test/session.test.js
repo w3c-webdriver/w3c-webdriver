@@ -46,8 +46,8 @@ describe('Session', () => {
   describe('executeScript method', () => {
     it('executes script in browser context', async () => {
       // eslint-disable-next-line no-template-curly-in-string
-      const message = await session.executeScript('return arguments[0] * arguments[1]', [3, 5]);
-      expect(message).toBe(15);
+      const result = await session.executeScript('return arguments[0] * arguments[1]', [3, 5]);
+      expect(result).toBe(15);
     });
   });
 });
