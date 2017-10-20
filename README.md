@@ -6,7 +6,7 @@
 [![Dependency Status](https://dependencyci.com/github/mucsi96/w3c-webdriver/badge)](https://dependencyci.com/github/mucsi96/w3c-webdriver)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-This package provides JavaScript bindings
+Zero dependency minimal JavaScript bindings
 that conform to the [W3C WebDriver standard](https://w3c.github.io/webdriver/webdriver-spec.html),
 which specifies a remote control protocol for web browsers.
 
@@ -210,20 +210,54 @@ const element = await session.findElement('css', 'h2');
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Element](#element)>** 
 
-## Session.getScriptTimeout
+## Session.getTimeout
 
 -   **See: [WebDriver spec](https://w3c.github.io/webdriver/webdriver-spec.html#get-timeouts)**
 
-Retrieves session script timeout that specifies a time to wait for scripts to run.
+Gets timeout durations associated with the current session.
 
 **Examples**
 
 ```javascript
-const timeout = await session.getScriptTimeout();
-// 30000
+const timeout = await session.getTimeout();
+// {
+//  script: 30000,
+//  pageLoad: 60000,
+//  implicit: 40000
+// }
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)>** session script timeout in milliseconds.
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)>** Timeout durations associated with the current session
+in milliseconds.
+
+## Session.setTimeout
+
+-   **See: [WebDriver spec](https://w3c.github.io/webdriver/webdriver-spec.html#set-timeouts)**
+
+Configure the amount of time that a particular type of operation can execute for before
+they are aborted and a |Timeout| error is returned to the client.
+
+**Parameters**
+
+-   `timeouts` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Timout configuration object with values in milliseconds.
+    -   `timeouts.script` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Session script timeout - Determines when to interrupt
+         a script that is being evaluated.
+    -   `timeouts.pageLoad` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Session page load timeout - Provides the timeout
+         limit used to interrupt navigation of the browsing context.
+    -   `timeouts.implicit` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Session implicit wait timeout -Gives the timeout
+          of when to abort locating an element.
+
+**Examples**
+
+```javascript
+const timeout = await session.setTimeout({
+  script: 30000,
+  pageLoad: 60000,
+  implicit: 40000
+});
+```
+
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
 
 ## Element
 
