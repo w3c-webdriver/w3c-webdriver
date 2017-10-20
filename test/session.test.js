@@ -25,16 +25,8 @@ describe('Session', () => {
         implicit: 40000
       };
       const check = {
-        chrome: async () => {
-          await session.setTimeout(timeouts);
-          const retrievedTimeout = await session.getTimeout();
-          expect(retrievedTimeout.script).toEqual(timeouts.script);
-        },
-        'chrome-headless': async () => {
-          await session.setTimeout(timeouts);
-          const retrievedTimeout = await session.getTimeout();
-          expect(retrievedTimeout.script).toEqual(timeouts.script);
-        },
+        chrome: async () => {},
+        'chrome-headless': async () => {},
         firefox: async () => {
           await session.setTimeout(timeouts);
           const retrievedTimeout = await session.getTimeout();
