@@ -29,8 +29,8 @@ Tested on most popular Node.js versions
 | POST   | /session                                                       | [New Session](#newsession)              | :white_check_mark: |
 | DELETE | /session/{session id}                                          | [Delete Session](#sessiondelete)        | :white_check_mark: |
 | GET    | /status                                                        | [Status](#status)                       | :white_check_mark: |
-| GET    | /session/{session id}/timeouts                                 | Get Timeouts                            |                    |
-| POST   | /session/{session id}/timeouts                                 | Set Timeouts                            |                    |
+| GET    | /session/{session id}/timeouts                                 | [Get Timeouts](#sessiongettimeout)                            | :white_check_mark: |
+| POST   | /session/{session id}/timeouts                                 | [Set Timeouts](#sessionsettimeout)                            | :white_check_mark: |
 | POST   | /session/{session id}/url                                      | [Go](#sessiongo)                        | :white_check_mark: |
 | GET    | /session/{session id}/url                                      | Get Current URL                         |                    |
 | POST   | /session/{session id}/back                                     | Back                                    |                    |
@@ -156,7 +156,7 @@ Delete the session.
 await session.delete();
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
 
 ## Session.go
 
@@ -174,7 +174,7 @@ Navigate to a new URL.
 await session.go('http://localhost:8087');
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
 
 ## Session.getTitle
 
@@ -208,7 +208,7 @@ Search for an element on the page, starting from the document root.
 const element = await session.findElement('css', 'h2');
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Element](#element)>** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Element](#element)>**
 
 ## Session.getTimeout
 
@@ -257,7 +257,7 @@ const timeout = await session.setTimeout({
 });
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
 
 ## Element
 
@@ -290,7 +290,7 @@ const input = await session.findElement('css', '[name="first-name"]');
 await a.sendKeys('Hello World');
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
 
 ## Element.click
 
@@ -305,7 +305,7 @@ const submitButton = await session.findElement('css', 'button[type="submit"]');
 await submitButton.click();
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
 
 ## Element.getText
 
