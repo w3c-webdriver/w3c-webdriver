@@ -17,10 +17,29 @@ describe('Session', () => {
     });
   });
 
-  // describe('getScriptTimeout methods', () => {
-  //     it('retrieves script interrupt timeout', async () => {
-  //         const timeout = await session.getScriptTimeout();
-  //         expect(timeout).toEqual(3);
-  //     });
-  // });
+  describe('set/getTimeout methods', () => {
+    it('sets and retrieves session timeouts', async () => {
+      const timeouts = {
+        script: 30000,
+        pageLoad: 60000,
+        implicit: 40000
+      };
+      const check = {
+        chrome: async () => {},
+        'chrome-headless': async () => {},
+        firefox: async () => {
+          await session.setTimeout(timeouts);
+          const retrievedTimeout = await session.getTimeout();
+          expect(retrievedTimeout).toEqual(timeouts);
+        },
+        phantomjs: async () => {},
+        'internet-explorer': async () => {
+          await session.setTimeout(timeouts);
+          const retrievedTimeout = await session.getTimeout();
+          expect(retrievedTimeout).toEqual(timeouts);
+        }
+      }[process.env.BROWSER];
+      await check();
+    });
+  });
 });

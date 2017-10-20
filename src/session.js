@@ -67,15 +67,47 @@ module.exports = (url, sessionId, { JsonWire }) => (
     )),
 
     /**
-         * Retrieves session script timeout that specifies a time to wait for scripts to run.
-         * @name Session.getScriptTimeout
-         * @function
-         * @return {Promise<number>} session script timeout in milliseconds.
-         * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#get-timeouts|WebDriver spec}
-         * @example
-         * const timeout = await session.getScriptTimeout();
-         * // 30000
-         */
-    getScriptTimeout: () => GET(`${url}/session/${sessionId}/timeouts`).then(body => body.value.script)
+     * Gets timeout durations associated with the current session.
+     * @name Session.getTimeout
+     * @function
+     * @return {Promise<object>} - Timeout durations associated with the current session
+     * in milliseconds.
+     * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#get-timeouts|WebDriver spec}
+     * @example
+     * const timeout = await session.getTimeout();
+     * // {
+     * //  script: 30000,
+     * //  pageLoad: 60000,
+     * //  implicit: 40000
+     * // }
+     */
+    getTimeout: () => GET(`${url}/session/${sessionId}/timeouts`).then(body => body.value),
+
+    /**
+     * Configure the amount of time that a particular type of operation can execute for before
+     * they are aborted and a |Timeout| error is returned to the client.
+     * @name Session.setTimeout
+     * @function
+     * @param {object} timeouts - Timout configuration object with values in milliseconds.
+     * @param {number} timeouts.script - Session script timeout - Determines when to interrupt
+     *  a script that is being evaluated.
+     * @param {number} timeouts.pageLoad - Session page load timeout - Provides the timeout
+     *  limit used to interrupt navigation of the browsing context.
+     * @param {number} timeouts.implicit - Session implicit wait timeout -Gives the timeout
+     *   of when to abort locating an element.
+     * @return {Promise}
+     * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#set-timeouts|WebDriver spec}
+     * @example
+     * await session.setTimeout({
+     *   script: 30000,
+     *   pageLoad: 60000,
+     *   implicit: 40000
+     * });
+     */
+    setTimeout: ({ script, pageLoad, implicit }) => POST(`${url}/session/${sessionId}/timeouts`, {
+      script,
+      pageLoad,
+      implicit
+    })
   }
 );
