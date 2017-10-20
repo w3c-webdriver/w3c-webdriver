@@ -98,7 +98,7 @@ module.exports = (url, sessionId, { JsonWire }) => (
      * @return {Promise}
      * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#set-timeouts|WebDriver spec}
      * @example
-     * const timeout = await session.setTimeout({
+     * await session.setTimeout({
      *   script: 30000,
      *   pageLoad: 60000,
      *   implicit: 40000
