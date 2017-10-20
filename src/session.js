@@ -128,7 +128,7 @@ export default (url, sessionId, { JsonWire }) => (
      * const message = await session.executeScript(script, ['WebDriver']);
      * // message = 'Hello from WebDriver!'
      */
-    executeScript: (script, args) => POST(`${url}/session/${sessionId}/execute/sync`, {
+    executeScript: (script, args) => POST(`${url}/session/${sessionId}/execute${!JsonWire ? '/sync' : ''}`, {
       script,
       args
     }).then(body => body.value)
