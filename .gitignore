@@ -6,3 +6,4 @@ node_modules
 *-compiled.js.map
 npm-debug.log
 test.log
+lib
