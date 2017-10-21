@@ -26,41 +26,34 @@ Tested on most popular Node.js versions
 
 ### 1. Install the package
 
-```
-npm install w3c-webdriver
-```
+    npm install w3c-webdriver
 
 or
 
-```
-yarn add w3c-webdriver
-```
+    yarn add w3c-webdriver
 
 ### 2. Install a browser driver for WebDriver protocoll
 
-| Browser | Driver package |
-| :-----: | :------------: |
-| ![Chrome](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/chrome/chrome_24x24.png) | [chromedriver](https://www.npmjs.com/package/chromedriver) |
-| ![FireFox](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/firefox/firefox_24x24.png) | [geckodriver](https://www.npmjs.com/package/geckodriver) |
-| ![Safari](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/safari/safari_24x24.png) |
-| ![Internet Explorer](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/archive/internet-explorer_9-11/internet-explorer_9-11_24x24.png) | [iedriver](https://www.npmjs.com/package/iedriver) |
-| ![PhantomJS](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/archive/phantomjs/phantomjs_24x24.png) | [phantomjs-prebuilt](https://www.npmjs.com/package/phantomjs-prebuilt) |
+|                                                                      Browser                                                                      |                             Driver package                             |
+| :-----------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------: |
+|                           ![Chrome](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/chrome/chrome_24x24.png)                          |       [chromedriver](https://www.npmjs.com/package/chromedriver)       |
+|                         ![FireFox](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/firefox/firefox_24x24.png)                         |        [geckodriver](https://www.npmjs.com/package/geckodriver)        |
+|                           ![Safari](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/safari/safari_24x24.png)                          |                                                                        |
+| ![Internet Explorer](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/archive/internet-explorer_9-11/internet-explorer_9-11_24x24.png) |           [iedriver](https://www.npmjs.com/package/iedriver)           |
+|                  ![PhantomJS](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/archive/phantomjs/phantomjs_24x24.png)                  | [phantomjs-prebuilt](https://www.npmjs.com/package/phantomjs-prebuilt) |
 
 For example in case of Google Chrome or its headless version you can do.
 
-```
-npm install chromedriver
-```
+    npm install chromedriver
 
 or
 
-```
-yarn add chromedriver
-```
+    yarn add chromedriver
 
 Also you can manage the drivers using [webdriver-manager](https://www.npmjs.com/package/webdriver-manager)
 
 ### 3. Start the driver as described in the docs
+
 ### 4. Control the browser through WebDriver protocoll
 
 ```javascript
@@ -248,7 +241,7 @@ start()
  .then(() => session.delete());
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
 
 ## Session.go
 
@@ -281,7 +274,7 @@ start()
  .then(() => session.delete());
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
 
 ## Session.getTitle
 
@@ -349,7 +342,7 @@ start()
  .then(() => session.delete());
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Element](#element)>**
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Element](#element)>** 
 
 ## Session.getTimeout
 
@@ -428,7 +421,7 @@ start()
  .then(() => session.delete());
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
 
 ## Session.executeScript
 
@@ -516,7 +509,7 @@ start()
  .then(() => session.delete());
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
 
 ## Element.click
 
@@ -547,7 +540,7 @@ start()
  .then(() => session.delete());
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
 
 ## Element.getText
 
