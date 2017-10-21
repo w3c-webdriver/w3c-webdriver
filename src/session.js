@@ -213,7 +213,7 @@ export default (url, sessionId, { JsonWire }) => (
      *
      * @name Session.executeScript
      * @param {string} script -  The script to execute.
-     * @param {array} args - The script arguments.
+     * @param {array} [args] - The script arguments.
      * @return {Promise<*>} - The script result.
      * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#execute-script|WebDriver spec}
      * @example
@@ -237,7 +237,7 @@ export default (url, sessionId, { JsonWire }) => (
      *  .catch(err => console.log(err.stack))
      *  .then(() => session.delete());
      */
-    executeScript: (script, args) => POST(`${url}/session/${sessionId}/execute${!JsonWire ? '/sync' : ''}`, {
+    executeScript: (script, args = []) => POST(`${url}/session/${sessionId}/execute${!JsonWire ? '/sync' : ''}`, {
       script,
       args
     }).then(body => body.value)
