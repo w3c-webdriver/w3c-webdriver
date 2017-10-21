@@ -39,7 +39,7 @@ yarn add w3c-webdriver
 ### 2. Install a browser driver for WebDriver protocoll
 
 | Browser | Driver package |
-| ------- | -------------- |
+| :-----: | :------------: |
 | ![Chrome](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/chrome/chrome_24x24.png) | [chromedriver](https://www.npmjs.com/package/chromedriver) |
 | ![FireFox](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/firefox/firefox_24x24.png) | [geckodriver](https://www.npmjs.com/package/geckodriver) |
 | ![Safari](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/safari/safari_24x24.png) |
