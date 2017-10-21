@@ -4,15 +4,15 @@ import { path as chromedriverPath } from 'chromedriver';
 import { path as geckodriverPath } from 'geckodriver';
 import { path as phantomjsPath } from 'phantomjs-prebuilt';
 import { path as iedriverPath } from 'iedriver';
-import waitForPort from 'wait-for-port';
+import waitOn from 'wait-on';
 import logger from './logger';
 
 const waitForBusyPort = port => new Promise((resolve, reject) => {
-  waitForPort('127.0.0.1', port, err => (err ? reject(err) : resolve()));
+  waitOn({ resources: [`tcp:127.0.0.1:${port}`] }, err => (err ? reject(err) : resolve()));
 });
 
 const waitForFreePort = port => new Promise((resolve, reject) => {
-  waitForPort('127.0.0.1', port, { reverse: true }, err => (err ? reject(err) : resolve()));
+  waitOn({ resources: [`tcp:127.0.0.1:${port}`], reverse: true }, err => (err ? reject(err) : resolve()));
 });
 
 let instance;
