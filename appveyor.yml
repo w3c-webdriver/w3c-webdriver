@@ -32,5 +32,9 @@ test_script:
 
 build: off
 
+branches:
+  only:
+    - master
+
 matrix:
   fast_finish: true
