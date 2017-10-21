@@ -1,7 +1,7 @@
 # WebDriver client for JavaScript
 
 [![npm version](https://badge.fury.io/js/w3c-webdriver.svg)](https://badge.fury.io/js/w3c-webdriver)
-[![Build Status](https://ci.appveyor.com/api/projects/status/github/mucsi96/w3c-webdriver?branch=master&svg=true)](https://ci.appveyor.com/project/mucsi96/w3c-webdriver)
+[![Build status](https://ci.appveyor.com/api/projects/status/4evx9ibdbw5vgis4/branch/master?svg=true)](https://ci.appveyor.com/project/mucsi96/w3c-webdriver/branch/master)
 [![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
 [![Dependency Status](https://dependencyci.com/github/mucsi96/w3c-webdriver/badge)](https://dependencyci.com/github/mucsi96/w3c-webdriver)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
@@ -241,7 +241,7 @@ start()
  .then(() => session.delete());
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
 
 ## Session.go
 
@@ -274,7 +274,7 @@ start()
  .then(() => session.delete());
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
 
 ## Session.getTitle
 
@@ -342,7 +342,7 @@ start()
  .then(() => session.delete());
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Element](#element)>** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Element](#element)>**
 
 ## Session.getTimeout
 
@@ -421,7 +421,7 @@ start()
  .then(() => session.delete());
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
 
 ## Session.executeScript
 
@@ -509,7 +509,7 @@ start()
  .then(() => session.delete());
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
 
 ## Element.click
 
@@ -540,7 +540,7 @@ start()
  .then(() => session.delete());
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
 
 ## Element.getText
 
