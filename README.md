@@ -99,11 +99,21 @@ This function creates a new WebDriver session.
 **Examples**
 
 ```javascript
-const session = await webdriver.newSession('http://localhost:4444', {
-    desiredCapabilities: {
-        browserName: 'Chrome'
-    }
-});
+import webdriver from 'w3c-webdriver';
+
+let session;
+
+const start = async () => {
+  session = await webdriver.newSession('http://localhost:4444', {
+      desiredCapabilities: {
+          browserName: 'Chrome'
+      }
+  });
+};
+
+start()
+ .catch(err => console.log(err.stack))
+ .then(() => session.delete());
 ```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Session](#session)>** session
@@ -121,11 +131,17 @@ This function queries the WebDriver server's current status.
 **Examples**
 
 ```javascript
-await webdriver.status('http://localhost:4444');
-// {
-//   build: { version: '1.2.0' },
-//   os: { name: 'mac', version: 'unknown', arch: '64bit' }
-// }
+import webdriver from 'w3c-webdriver';
+
+const start = async () => {
+  const status = await webdriver.status('http://localhost:4444');
+  // status = {
+  //   build: { version: '1.2.0' },
+  //   os: { name: 'mac', version: 'unknown', arch: '64bit' }
+  // }
+};
+
+start().catch(err => console.log(err.stack));
 ```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)>** status
@@ -153,7 +169,21 @@ Delete the session.
 **Examples**
 
 ```javascript
-await session.delete();
+import webdriver from 'w3c-webdriver';
+
+let session;
+
+const start = async () => {
+  session = await webdriver.newSession('http://localhost:4444', {
+      desiredCapabilities: {
+          browserName: 'Chrome'
+      }
+  });
+};
+
+start()
+ .catch(err => console.log(err.stack))
+ .then(() => session.delete());
 ```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
@@ -171,7 +201,22 @@ Navigate to a new URL.
 **Examples**
 
 ```javascript
-await session.go('http://localhost:8087');
+import webdriver from 'w3c-webdriver';
+
+let session;
+
+const start = async () => {
+  session = await webdriver.newSession('http://localhost:4444', {
+      desiredCapabilities: {
+          browserName: 'Chrome'
+      }
+  });
+  await session.go('http://localhost:8080');
+};
+
+start()
+ .catch(err => console.log(err.stack))
+ .then(() => session.delete());
 ```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
@@ -185,7 +230,24 @@ Get the current page title.
 **Examples**
 
 ```javascript
-const title = await session.getTitle();
+import webdriver from 'w3c-webdriver';
+
+let session;
+
+const start = async () => {
+  session = await webdriver.newSession('http://localhost:4444', {
+      desiredCapabilities: {
+          browserName: 'Chrome'
+      }
+  });
+  await session.go('http://localhost:8080');
+  const title = await session.getTitle();
+  // title = 'web page title'
+};
+
+start()
+ .catch(err => console.log(err.stack))
+ .then(() => session.delete());
 ```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>** The current page title.
@@ -205,7 +267,24 @@ Search for an element on the page, starting from the document root.
 **Examples**
 
 ```javascript
-const element = await session.findElement('css', 'h2');
+import webdriver from 'w3c-webdriver';
+
+let session;
+
+const start = async () => {
+  session = await webdriver.newSession('http://localhost:4444', {
+      desiredCapabilities: {
+          browserName: 'Chrome'
+      }
+  });
+  await session.go('http://localhost:8080');
+  const element = await session.findElement('css', 'h2');
+  // element = <webdriver element>
+};
+
+start()
+ .catch(err => console.log(err.stack))
+ .then(() => session.delete());
 ```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Element](#element)>** 
@@ -219,12 +298,27 @@ Gets timeout durations associated with the current session.
 **Examples**
 
 ```javascript
-const timeout = await session.getTimeout();
-// {
-//  script: 30000,
-//  pageLoad: 60000,
-//  implicit: 40000
-// }
+import webdriver from 'w3c-webdriver';
+
+let session;
+
+const start = async () => {
+  session = await webdriver.newSession('http://localhost:4444', {
+      desiredCapabilities: {
+          browserName: 'Chrome'
+      }
+  });
+  const timeout = await session.getTimeout();
+  // timeout = {
+  //   script: 30000,
+  //   pageLoad: 60000,
+  //   implicit: 40000
+  // }
+};
+
+start()
+ .catch(err => console.log(err.stack))
+ .then(() => session.delete());
 ```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)>** Timeout durations associated with the current session
@@ -250,11 +344,26 @@ they are aborted and a |Timeout| error is returned to the client.
 **Examples**
 
 ```javascript
-await session.setTimeout({
-  script: 30000,
-  pageLoad: 60000,
-  implicit: 40000
-});
+import webdriver from 'w3c-webdriver';
+
+let session;
+
+const start = async () => {
+  session = await webdriver.newSession('http://localhost:4444', {
+      desiredCapabilities: {
+          browserName: 'Chrome'
+      }
+  });
+  await session.setTimeout({
+    script: 30000,
+    pageLoad: 60000,
+    implicit: 40000
+  });
+};
+
+start()
+ .catch(err => console.log(err.stack))
+ .then(() => session.delete());
 ```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
@@ -275,9 +384,25 @@ the result of evaluating the script is returned to the client.
 **Examples**
 
 ```javascript
-const script = 'const [from] = arguments; return `Hello from ${from}!`;';
-const message = await session.executeScript(script, ['WebDriver']);
-// message = 'Hello from WebDriver!'
+import webdriver from 'w3c-webdriver';
+
+let session;
+
+const start = async () => {
+  session = await webdriver.newSession('http://localhost:4444', {
+      desiredCapabilities: {
+          browserName: 'Chrome'
+      }
+  });
+  await session.go('http://localhost:8080');
+  const script = 'const [from] = arguments; return `Hello from ${from}!`;';
+  const message = await session.executeScript(script, ['WebDriver']);
+  // message = 'Hello from WebDriver!'
+};
+
+start()
+ .catch(err => console.log(err.stack))
+ .then(() => session.delete());
 ```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;any>** The script result.
@@ -309,8 +434,24 @@ Send a sequence of key strokes to an element.
 **Examples**
 
 ```javascript
-const input = await session.findElement('css', '[name="first-name"]');
-await a.sendKeys('Hello World');
+import webdriver from 'w3c-webdriver';
+
+let session;
+
+const start = async () => {
+  session = await webdriver.newSession('http://localhost:4444', {
+      desiredCapabilities: {
+          browserName: 'Chrome'
+      }
+  });
+  await session.go('http://localhost:8080');
+  const input = await session.findElement('css', '[name="first-name"]');
+  await a.sendKeys('Hello World');
+};
+
+start()
+ .catch(err => console.log(err.stack))
+ .then(() => session.delete());
 ```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
@@ -324,8 +465,24 @@ Click on an element.
 **Examples**
 
 ```javascript
-const submitButton = await session.findElement('css', 'button[type="submit"]');
-await submitButton.click();
+import webdriver from 'w3c-webdriver';
+
+let session;
+
+const start = async () => {
+  session = await webdriver.newSession('http://localhost:4444', {
+      desiredCapabilities: {
+          browserName: 'Chrome'
+      }
+  });
+  await session.go('http://localhost:8080');
+  const submitButton = await session.findElement('css', 'button[type="submit"]');
+  await submitButton.click();
+};
+
+start()
+ .catch(err => console.log(err.stack))
+ .then(() => session.delete());
 ```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
@@ -339,8 +496,25 @@ Returns the visible text for the element.
 **Examples**
 
 ```javascript
-const result = await session.findElement('css', '#result');
-const text = await result.getText();
+import webdriver from 'w3c-webdriver';
+
+let session;
+
+const start = async () => {
+  session = await webdriver.newSession('http://localhost:4444', {
+      desiredCapabilities: {
+          browserName: 'Chrome'
+      }
+  });
+  await session.go('http://localhost:8080');
+  const result = await session.findElement('css', '#result');
+  const text = await result.getText();
+  // test = <result>
+};
+
+start()
+ .catch(err => console.log(err.stack))
+ .then(() => session.delete());
 ```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>** Visible text for the element.
@@ -358,8 +532,25 @@ Returns the computed value of the given CSS property for the element.
 **Examples**
 
 ```javascript
-const button = await session.findElement('css', '#red-button');
-const backgroundColor = await button.getCss('background-color');
+import webdriver from 'w3c-webdriver';
+
+let session;
+
+const start = async () => {
+  session = await webdriver.newSession('http://localhost:4444', {
+      desiredCapabilities: {
+          browserName: 'Chrome'
+      }
+  });
+  await session.go('http://localhost:8080');
+  const button = await session.findElement('css', '#red-button');
+  const backgroundColor = await button.getCss('background-color');
+  // backgroundColor = 'rgba(255, 0, 0, 1)'
+};
+
+start()
+ .catch(err => console.log(err.stack))
+ .then(() => session.delete());
 ```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>** Computed CSS property value for the element.
