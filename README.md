@@ -434,7 +434,7 @@ the result of evaluating the script is returned to the client.
 **Parameters**
 
 -   `script` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)**  The script to execute.
--   `args` **[array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** The script arguments.
+-   `args` **[array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)?** The script arguments.
 
 **Examples**
 
