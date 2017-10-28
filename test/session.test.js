@@ -54,7 +54,7 @@ describe('Session', () => {
   describe('getPageSource method', () => {
     it('get the current page source', async () => {
       const result = await session.getPageSource();
-      expect(result).toMatch(/^<!DOCTYPE html>/);
+      expect(result).toContain('<title>The simple calculator</title>');
     });
   });
 });
