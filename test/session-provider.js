@@ -30,7 +30,8 @@ export async function start(port) {
         browserName: 'internet explorer',
         ignoreProtectedModeSettings: true,
         ignoreZoomSetting: true,
-        'ie.ensureCleanSession': true
+        'ie.ensureCleanSession': true,
+        logLevel: 'INFO'
       }
     }[process.env.BROWSER]
   });
