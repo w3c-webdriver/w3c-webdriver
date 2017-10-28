@@ -59,22 +59,22 @@ Also you can manage the drivers using [webdriver-manager](https://www.npmjs.com/
 ```javascript
 import webdriver from 'w3c-webdriver';
 
-let session;
-
-const start = async () => {
-  session = await webdriver.newSession('http://localhost:4444', {
+(async () => {
+  try {
+    session = await webdriver.newSession('http://localhost:4444', {
       desiredCapabilities: {
-          browserName: 'Chrome'
+        browserName: 'Chrome'
       }
-  });
-  await session.go('http://localhost:8080');
-  const input = await session.findElement('css', '[name="first-name"]');
-  await a.sendKeys('Hello World');
-};
-
-start()
- .catch(err => console.log(err.stack))
- .then(() => session.delete());
+    });
+    await session.go('http://localhost:8080');
+    const input = await session.findElement('css', '[name="first-name"]');
+    await a.sendKeys('Hello World');
+  } catch (err) {
+    console.log(err.stack);
+  } finally {
+    session.delete();
+  }
+})();
 ```
 
 # :construction: Work in progress...
@@ -249,7 +249,7 @@ let session;
 })();
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
 
 ## Session.go
 
@@ -284,7 +284,7 @@ let session;
 })();
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
 
 ## Session.getTitle
 
@@ -356,7 +356,7 @@ let session;
 })();
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Element](#element)>** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Element](#element)>**
 
 ## Session.getTimeout
 
@@ -439,7 +439,7 @@ let session;
 })();
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
 
 ## Session.getPageSource
 
@@ -564,7 +564,7 @@ let session;
 })();
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
 
 ## Element.click
 
@@ -597,7 +597,7 @@ let session;
 })();
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
 
 ## Element.getText
 
