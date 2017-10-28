@@ -23,17 +23,19 @@ export default (url, sessionId, { JsonWire }) => (
      *
      * let session;
      *
-     * const start = async () => {
-     *   session = await webdriver.newSession('http://localhost:4444', {
+     * (async () => {
+     *   try {
+     *     session = await webdriver.newSession('http://localhost:4444', {
      *       desiredCapabilities: {
-     *           browserName: 'Chrome'
+     *         browserName: 'Chrome'
      *       }
-     *   });
-     * };
-     *
-     * start()
-     *  .catch(err => console.log(err.stack))
-     *  .then(() => session.delete());
+     *     });
+     *   } catch (err) {
+     *     console.log(err.stack);
+     *   } finally {
+     *     session.delete();
+     *   }
+     * })();
      */
     delete: () => DELETE(`${url}/session/${sessionId}`),
 
@@ -49,18 +51,20 @@ export default (url, sessionId, { JsonWire }) => (
      *
      * let session;
      *
-     * const start = async () => {
-     *   session = await webdriver.newSession('http://localhost:4444', {
+     * (async () => {
+     *   try {
+     *     session = await webdriver.newSession('http://localhost:4444', {
      *       desiredCapabilities: {
-     *           browserName: 'Chrome'
+     *         browserName: 'Chrome'
      *       }
-     *   });
-     *   await session.go('http://localhost:8080');
-     * };
-     *
-     * start()
-     *  .catch(err => console.log(err.stack))
-     *  .then(() => session.delete());
+     *     });
+     *     await session.go('http://localhost:8080');
+     *   } catch (err) {
+     *     console.log(err.stack);
+     *   } finally {
+     *     session.delete();
+     *   }
+     * })();
      */
     go: targetUrl => POST(`${url}/session/${sessionId}/url`, { url: targetUrl }),
 
@@ -75,20 +79,22 @@ export default (url, sessionId, { JsonWire }) => (
      *
      * let session;
      *
-     * const start = async () => {
-     *   session = await webdriver.newSession('http://localhost:4444', {
+     * (async () => {
+     *   try {
+     *     session = await webdriver.newSession('http://localhost:4444', {
      *       desiredCapabilities: {
-     *           browserName: 'Chrome'
+     *         browserName: 'Chrome'
      *       }
-     *   });
-     *   await session.go('http://localhost:8080');
-     *   const title = await session.getTitle();
-     *   // title = 'web page title'
-     * };
-     *
-     * start()
-     *  .catch(err => console.log(err.stack))
-     *  .then(() => session.delete());
+     *     });
+     *     await session.go('http://localhost:8080');
+     *     const title = await session.getTitle();
+     *     // title = 'web page title'
+     *   } catch (err) {
+     *     console.log(err.stack);
+     *   } finally {
+     *     session.delete();
+     *   }
+     * })();
      */
     getTitle: () => GET(`${url}/session/${sessionId}/title`).then(body => body.value),
 
@@ -106,20 +112,22 @@ export default (url, sessionId, { JsonWire }) => (
      *
      * let session;
      *
-     * const start = async () => {
-     *   session = await webdriver.newSession('http://localhost:4444', {
+     * (async () => {
+     *   try {
+     *     session = await webdriver.newSession('http://localhost:4444', {
      *       desiredCapabilities: {
-     *           browserName: 'Chrome'
+     *         browserName: 'Chrome'
      *       }
-     *   });
-     *   await session.go('http://localhost:8080');
-     *   const element = await session.findElement('css', 'h2');
-     *   // element = <webdriver element>
-     * };
-     *
-     * start()
-     *  .catch(err => console.log(err.stack))
-     *  .then(() => session.delete());
+     *     });
+     *     await session.go('http://localhost:8080');
+     *     const element = await session.findElement('css', 'h2');
+     *     // element = <webdriver element>
+     *   } catch (err) {
+     *     console.log(err.stack);
+     *   } finally {
+     *     session.delete();
+     *   }
+     * })();
      */
     findElement: (strategy, selector) => POST(`${url}/session/${sessionId}/element`, {
       using: strategy,
@@ -144,23 +152,25 @@ export default (url, sessionId, { JsonWire }) => (
      *
      * let session;
      *
-     * const start = async () => {
-     *   session = await webdriver.newSession('http://localhost:4444', {
+     * (async () => {
+     *   try {
+     *     session = await webdriver.newSession('http://localhost:4444', {
      *       desiredCapabilities: {
-     *           browserName: 'Chrome'
+     *         browserName: 'Chrome'
      *       }
-     *   });
-     *   const timeout = await session.getTimeout();
-     *   // timeout = {
-     *   //   script: 30000,
-     *   //   pageLoad: 60000,
-     *   //   implicit: 40000
-     *   // }
-     * };
-     *
-     * start()
-     *  .catch(err => console.log(err.stack))
-     *  .then(() => session.delete());
+     *     });
+     *     const timeout = await session.getTimeout();
+     *     // timeout = {
+     *     //   script: 30000,
+     *     //   pageLoad: 60000,
+     *     //   implicit: 40000
+     *     // }
+     *   } catch (err) {
+     *     console.log(err.stack);
+     *   } finally {
+     *     session.delete();
+     *   }
+     * })();
      */
     getTimeout: () => GET(`${url}/session/${sessionId}/timeouts`).then(body => body.value),
 
@@ -183,28 +193,60 @@ export default (url, sessionId, { JsonWire }) => (
      *
      * let session;
      *
-     * const start = async () => {
-     *   session = await webdriver.newSession('http://localhost:4444', {
+     * (async () => {
+     *   try {
+     *     session = await webdriver.newSession('http://localhost:4444', {
      *       desiredCapabilities: {
-     *           browserName: 'Chrome'
+     *         browserName: 'Chrome'
      *       }
-     *   });
-     *   await session.setTimeout({
-     *     script: 30000,
-     *     pageLoad: 60000,
-     *     implicit: 40000
-     *   });
-     * };
-     *
-     * start()
-     *  .catch(err => console.log(err.stack))
-     *  .then(() => session.delete());
+     *     });
+     *     await session.setTimeout({
+     *       script: 30000,
+     *       pageLoad: 60000,
+     *       implicit: 40000
+     *     });
+     *   } catch (err) {
+     *     console.log(err.stack);
+     *   } finally {
+     *     session.delete();
+     *   }
+     * })();
      */
     setTimeout: ({ script, pageLoad, implicit }) => POST(`${url}/session/${sessionId}/timeouts`, {
       script,
       pageLoad,
       implicit
     }),
+
+    /**
+     * Returns a string serialization of the DOM of the current browsing context active document.
+     *
+     * @name Session.getPageSource
+     * @return {Promise<string>} - The current page source.
+     * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#getting-page-source|WebDriver spec}
+     * @example
+     * import webdriver from 'w3c-webdriver';
+     *
+     * let session;
+     *
+     * (async () => {
+     *   try {
+     *     session = await webdriver.newSession('http://localhost:4444', {
+     *       desiredCapabilities: {
+     *         browserName: 'Chrome'
+     *       }
+     *     });
+     *     await session.go('http://localhost:8080');
+     *     const source = await session.getPageSource();
+     *     // source = '<!DOCTYPE html><head><title>...'
+     *   } catch (err) {
+     *     console.log(err.stack);
+     *   } finally {
+     *     session.delete();
+     *   }
+     * })();
+     */
+    getPageSource: () => GET(`${url}/session/${sessionId}/source`).then(body => body.value),
 
     /**
      * Inject a snippet of JavaScript into the page for execution in the context of the
@@ -221,21 +263,23 @@ export default (url, sessionId, { JsonWire }) => (
      *
      * let session;
      *
-     * const start = async () => {
-     *   session = await webdriver.newSession('http://localhost:4444', {
+     * (async () => {
+     *   try {
+     *     session = await webdriver.newSession('http://localhost:4444', {
      *       desiredCapabilities: {
-     *           browserName: 'Chrome'
+     *         browserName: 'Chrome'
      *       }
-     *   });
-     *   await session.go('http://localhost:8080');
-     *   const script = 'const [from] = arguments; return `Hello from ${from}!`;';
-     *   const message = await session.executeScript(script, ['WebDriver']);
-     *   // message = 'Hello from WebDriver!'
-     * };
-     *
-     * start()
-     *  .catch(err => console.log(err.stack))
-     *  .then(() => session.delete());
+     *     });
+     *     await session.go('http://localhost:8080');
+     *     const script = 'const [from] = arguments; return `Hello from ${from}!`;';
+     *     const message = await session.executeScript(script, ['WebDriver']);
+     *     // message = 'Hello from WebDriver!'
+     *   } catch (err) {
+     *     console.log(err.stack);
+     *   } finally {
+     *     session.delete();
+     *   }
+     * })();
      */
     executeScript: (script, args = []) => POST(`${url}/session/${sessionId}/execute${!JsonWire ? '/sync' : ''}`, {
       script,
