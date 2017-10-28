@@ -79,62 +79,62 @@ start()
 
 # :construction: Work in progress...
 
-| Method | URI Template                                                   | Command                                 |   Implementation   |
-| ------ | -------------------------------------------------------------- | --------------------------------------- | :----------------: |
-| POST   | /session                                                       | [New Session](#newsession)              | :white_check_mark: |
-| DELETE | /session/{session id}                                          | [Delete Session](#sessiondelete)        | :white_check_mark: |
-| GET    | /status                                                        | [Status](#status)                       | :white_check_mark: |
-| GET    | /session/{session id}/timeouts                                 | [Get Timeouts](#sessiongettimeout)      | :white_check_mark: |
-| POST   | /session/{session id}/timeouts                                 | [Set Timeouts](#sessionsettimeout)      | :white_check_mark: |
-| POST   | /session/{session id}/url                                      | [Go](#sessiongo)                        | :white_check_mark: |
-| GET    | /session/{session id}/url                                      | Get Current URL                         |                    |
-| POST   | /session/{session id}/back                                     | Back                                    |                    |
-| POST   | /session/{session id}/forward                                  | Forward                                 |                    |
-| POST   | /session/{session id}/refresh                                  | Refresh                                 |                    |
-| GET    | /session/{session id}/title                                    | [Get Title](#sessiongettitle)           | :white_check_mark: |
-| GET    | /session/{session id}/window                                   | Get Window Handle                       |                    |
-| DELETE | /session/{session id}/window                                   | Close Window                            |                    |
-| POST   | /session/{session id}/window                                   | Switch To Window                        |                    |
-| GET    | /session/{session id}/window/handles                           | Get Window Handles                      |                    |
-| POST   | /session/{session id}/frame                                    | Switch To Frame                         |                    |
-| POST   | /session/{session id}/frame/parent                             | Switch To Parent Frame                  |                    |
-| GET    | /session/{session id}/window/rect                              | Get Window Rect                         |                    |
-| POST   | /session/{session id}/window/rect                              | Set Window Rect                         |                    |
-| POST   | /session/{session id}/window/maximize                          | Maximize Window                         |                    |
-| POST   | /session/{session id}/window/minimize                          | Minimize Window                         |                    |
-| POST   | /session/{session id}/window/fullscreen                        | Fullscreen Window                       |                    |
-| GET    | /session/{session id}/element/active                           | Get Active Element                      |                    |
-| POST   | /session/{session id}/element                                  | [Find Element](#sessionfindelement)     | :white_check_mark: |
-| POST   | /session/{session id}/elements                                 | Find Elements                           |                    |
-| POST   | /session/{session id}/element/{element id}/element             | Find Element From Element               |                    |
-| POST   | /session/{session id}/element/{element id}/elements            | Find Elements From Element              |                    |
-| GET    | /session/{session id}/element/{element id}/selected            | Is Element Selected                     |                    |
-| GET    | /session/{session id}/element/{element id}/attribute/{name}    | Get Element Attribute                   |                    |
-| GET    | /session/{session id}/element/{element id}/property/{name}     | Get Element Property                    |                    |
-| GET    | /session/{session id}/element/{element id}/css/{property name} | [Get Element CSS Value](#elementgetcss) | :white_check_mark: |
-| GET    | /session/{session id}/element/{element id}/text                | [Get Element Text](#elementgettext)     | :white_check_mark: |
-| GET    | /session/{session id}/element/{element id}/name                | Get Element Tag Name                    |                    |
-| GET    | /session/{session id}/element/{element id}/rect                | Get Element Rect                        |                    |
-| GET    | /session/{session id}/element/{element id}/enabled             | Is Element Enabled                      |                    |
-| POST   | /session/{session id}/element/{element id}/click               | [Element Click](#elementclick)          | :white_check_mark: |
-| POST   | /session/{session id}/element/{element id}/clear               | Element Clear                           |                    |
-| POST   | /session/{session id}/element/{element id}/value               | [Element Send Keys](#elementsendkeys)   | :white_check_mark: |
-| GET    | /session/{session id}/source                                   | Get Page Source                         |                    |
-| POST   | /session/{session id}/execute/sync                             | [Execute Script](#sessionexecutescript) | :white_check_mark: |
-| POST   | /session/{session id}/execute/async                            | Execute Async Script                    |                    |
-| GET    | /session/{session id}/cookie                                   | Get All Cookies                         |                    |
-| GET    | /session/{session id}/cookie/{name}                            | Get Named Cookie                        |                    |
-| POST   | /session/{session id}/cookie                                   | Add Cookie                              |                    |
-| DELETE | /session/{session id}/cookie/{name}                            | Delete Cookie                           |                    |
-| DELETE | /session/{session id)/cookie                                   | Delete All Cookies                      |                    |
-| POST   | /session/{session id}/actions                                  | Perform Actions                         |                    |
-| DELETE | /session/{session id}/actions                                  | Release Actions                         |                    |
-| POST   | /session/{session id}/alert/dismiss                            | Dismiss Alert                           |                    |
-| POST   | /session/{session id}/alert/accept                             | Accept Alert                            |                    |
-| GET    | /session/{session id}/alert/text                               | Get Alert Text                          |                    |
-| POST   | /session/{session id}/alert/text                               | Send Alert Text                         |                    |
-| GET    | /session/{session id}/screenshot                               | Take Screenshot                         |                    |
-| GET    | /session/{session id}/element/{element id}/screenshot          | Take Element Screenshot                 |                    |
+| Method | URI Template                                                   | Command                                  |   Implementation   |
+| ------ | -------------------------------------------------------------- | ---------------------------------------- | :----------------: |
+| POST   | /session                                                       | [New Session](#newsession)               | :white_check_mark: |
+| DELETE | /session/{session id}                                          | [Delete Session](#sessiondelete)         | :white_check_mark: |
+| GET    | /status                                                        | [Status](#status)                        | :white_check_mark: |
+| GET    | /session/{session id}/timeouts                                 | [Get Timeouts](#sessiongettimeout)       | :white_check_mark: |
+| POST   | /session/{session id}/timeouts                                 | [Set Timeouts](#sessionsettimeout)       | :white_check_mark: |
+| POST   | /session/{session id}/url                                      | [Go](#sessiongo)                         | :white_check_mark: |
+| GET    | /session/{session id}/url                                      | Get Current URL                          |                    |
+| POST   | /session/{session id}/back                                     | Back                                     |                    |
+| POST   | /session/{session id}/forward                                  | Forward                                  |                    |
+| POST   | /session/{session id}/refresh                                  | Refresh                                  |                    |
+| GET    | /session/{session id}/title                                    | [Get Title](#sessiongettitle)            | :white_check_mark: |
+| GET    | /session/{session id}/window                                   | Get Window Handle                        |                    |
+| DELETE | /session/{session id}/window                                   | Close Window                             |                    |
+| POST   | /session/{session id}/window                                   | Switch To Window                         |                    |
+| GET    | /session/{session id}/window/handles                           | Get Window Handles                       |                    |
+| POST   | /session/{session id}/frame                                    | Switch To Frame                          |                    |
+| POST   | /session/{session id}/frame/parent                             | Switch To Parent Frame                   |                    |
+| GET    | /session/{session id}/window/rect                              | Get Window Rect                          |                    |
+| POST   | /session/{session id}/window/rect                              | Set Window Rect                          |                    |
+| POST   | /session/{session id}/window/maximize                          | Maximize Window                          |                    |
+| POST   | /session/{session id}/window/minimize                          | Minimize Window                          |                    |
+| POST   | /session/{session id}/window/fullscreen                        | Fullscreen Window                        |                    |
+| GET    | /session/{session id}/element/active                           | Get Active Element                       |                    |
+| POST   | /session/{session id}/element                                  | [Find Element](#sessionfindelement)      | :white_check_mark: |
+| POST   | /session/{session id}/elements                                 | Find Elements                            |                    |
+| POST   | /session/{session id}/element/{element id}/element             | Find Element From Element                |                    |
+| POST   | /session/{session id}/element/{element id}/elements            | Find Elements From Element               |                    |
+| GET    | /session/{session id}/element/{element id}/selected            | Is Element Selected                      |                    |
+| GET    | /session/{session id}/element/{element id}/attribute/{name}    | Get Element Attribute                    |                    |
+| GET    | /session/{session id}/element/{element id}/property/{name}     | Get Element Property                     |                    |
+| GET    | /session/{session id}/element/{element id}/css/{property name} | [Get Element CSS Value](#elementgetcss)  | :white_check_mark: |
+| GET    | /session/{session id}/element/{element id}/text                | [Get Element Text](#elementgettext)      | :white_check_mark: |
+| GET    | /session/{session id}/element/{element id}/name                | Get Element Tag Name                     |                    |
+| GET    | /session/{session id}/element/{element id}/rect                | Get Element Rect                         |                    |
+| GET    | /session/{session id}/element/{element id}/enabled             | Is Element Enabled                       |                    |
+| POST   | /session/{session id}/element/{element id}/click               | [Element Click](#elementclick)           | :white_check_mark: |
+| POST   | /session/{session id}/element/{element id}/clear               | Element Clear                            |                    |
+| POST   | /session/{session id}/element/{element id}/value               | [Element Send Keys](#elementsendkeys)    | :white_check_mark: |
+| GET    | /session/{session id}/source                                   | [Get Page Source](#sessiongetpagesource) | :white_check_mark: |
+| POST   | /session/{session id}/execute/sync                             | [Execute Script](#sessionexecutescript)  | :white_check_mark: |
+| POST   | /session/{session id}/execute/async                            | Execute Async Script                     |                    |
+| GET    | /session/{session id}/cookie                                   | Get All Cookies                          |                    |
+| GET    | /session/{session id}/cookie/{name}                            | Get Named Cookie                         |                    |
+| POST   | /session/{session id}/cookie                                   | Add Cookie                               |                    |
+| DELETE | /session/{session id}/cookie/{name}                            | Delete Cookie                            |                    |
+| DELETE | /session/{session id)/cookie                                   | Delete All Cookies                       |                    |
+| POST   | /session/{session id}/actions                                  | Perform Actions                          |                    |
+| DELETE | /session/{session id}/actions                                  | Release Actions                          |                    |
+| POST   | /session/{session id}/alert/dismiss                            | Dismiss Alert                            |                    |
+| POST   | /session/{session id}/alert/accept                             | Accept Alert                             |                    |
+| GET    | /session/{session id}/alert/text                               | Get Alert Text                           |                    |
+| POST   | /session/{session id}/alert/text                               | Send Alert Text                          |                    |
+| GET    | /session/{session id}/screenshot                               | Take Screenshot                          |                    |
+| GET    | /session/{session id}/element/{element id}/screenshot          | Take Element Screenshot                  |                    |
 
 # API
 
@@ -158,17 +158,19 @@ import webdriver from 'w3c-webdriver';
 
 let session;
 
-const start = async () => {
-  session = await webdriver.newSession('http://localhost:4444', {
+(async () => {
+  try {
+    session = await webdriver.newSession('http://localhost:4444', {
       desiredCapabilities: {
-          browserName: 'Chrome'
+        browserName: 'Chrome'
       }
-  });
-};
-
-start()
- .catch(err => console.log(err.stack))
- .then(() => session.delete());
+    });
+  } catch (err) {
+    console.log(err.stack);
+  } finally {
+    session.delete();
+  }
+})();
 ```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Session](#session)>** session
@@ -188,15 +190,19 @@ This function queries the WebDriver server's current status.
 ```javascript
 import webdriver from 'w3c-webdriver';
 
-const start = async () => {
-  const status = await webdriver.status('http://localhost:4444');
-  // status = {
-  //   build: { version: '1.2.0' },
-  //   os: { name: 'mac', version: 'unknown', arch: '64bit' }
-  // }
-};
-
-start().catch(err => console.log(err.stack));
+(async () => {
+  try {
+    const status = await webdriver.status('http://localhost:4444');
+    // status = {
+    //   build: { version: '1.2.0' },
+    //   os: { name: 'mac', version: 'unknown', arch: '64bit' }
+    // }
+  } catch (err) {
+    console.log(err.stack);
+  } finally {
+    session.delete();
+  }
+})();
 ```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)>** status
@@ -228,17 +234,19 @@ import webdriver from 'w3c-webdriver';
 
 let session;
 
-const start = async () => {
-  session = await webdriver.newSession('http://localhost:4444', {
+(async () => {
+  try {
+    session = await webdriver.newSession('http://localhost:4444', {
       desiredCapabilities: {
-          browserName: 'Chrome'
+        browserName: 'Chrome'
       }
-  });
-};
-
-start()
- .catch(err => console.log(err.stack))
- .then(() => session.delete());
+    });
+  } catch (err) {
+    console.log(err.stack);
+  } finally {
+    session.delete();
+  }
+})();
 ```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
@@ -260,18 +268,20 @@ import webdriver from 'w3c-webdriver';
 
 let session;
 
-const start = async () => {
-  session = await webdriver.newSession('http://localhost:4444', {
+(async () => {
+  try {
+    session = await webdriver.newSession('http://localhost:4444', {
       desiredCapabilities: {
-          browserName: 'Chrome'
+        browserName: 'Chrome'
       }
-  });
-  await session.go('http://localhost:8080');
-};
-
-start()
- .catch(err => console.log(err.stack))
- .then(() => session.delete());
+    });
+    await session.go('http://localhost:8080');
+  } catch (err) {
+    console.log(err.stack);
+  } finally {
+    session.delete();
+  }
+})();
 ```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
@@ -289,20 +299,22 @@ import webdriver from 'w3c-webdriver';
 
 let session;
 
-const start = async () => {
-  session = await webdriver.newSession('http://localhost:4444', {
+(async () => {
+  try {
+    session = await webdriver.newSession('http://localhost:4444', {
       desiredCapabilities: {
-          browserName: 'Chrome'
+        browserName: 'Chrome'
       }
-  });
-  await session.go('http://localhost:8080');
-  const title = await session.getTitle();
-  // title = 'web page title'
-};
-
-start()
- .catch(err => console.log(err.stack))
- .then(() => session.delete());
+    });
+    await session.go('http://localhost:8080');
+    const title = await session.getTitle();
+    // title = 'web page title'
+  } catch (err) {
+    console.log(err.stack);
+  } finally {
+    session.delete();
+  }
+})();
 ```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>** The current page title.
@@ -326,20 +338,22 @@ import webdriver from 'w3c-webdriver';
 
 let session;
 
-const start = async () => {
-  session = await webdriver.newSession('http://localhost:4444', {
+(async () => {
+  try {
+    session = await webdriver.newSession('http://localhost:4444', {
       desiredCapabilities: {
-          browserName: 'Chrome'
+        browserName: 'Chrome'
       }
-  });
-  await session.go('http://localhost:8080');
-  const element = await session.findElement('css', 'h2');
-  // element = <webdriver element>
-};
-
-start()
- .catch(err => console.log(err.stack))
- .then(() => session.delete());
+    });
+    await session.go('http://localhost:8080');
+    const element = await session.findElement('css', 'h2');
+    // element = <webdriver element>
+  } catch (err) {
+    console.log(err.stack);
+  } finally {
+    session.delete();
+  }
+})();
 ```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Element](#element)>** 
@@ -357,23 +371,25 @@ import webdriver from 'w3c-webdriver';
 
 let session;
 
-const start = async () => {
-  session = await webdriver.newSession('http://localhost:4444', {
+(async () => {
+  try {
+    session = await webdriver.newSession('http://localhost:4444', {
       desiredCapabilities: {
-          browserName: 'Chrome'
+        browserName: 'Chrome'
       }
-  });
-  const timeout = await session.getTimeout();
-  // timeout = {
-  //   script: 30000,
-  //   pageLoad: 60000,
-  //   implicit: 40000
-  // }
-};
-
-start()
- .catch(err => console.log(err.stack))
- .then(() => session.delete());
+    });
+    const timeout = await session.getTimeout();
+    // timeout = {
+    //   script: 30000,
+    //   pageLoad: 60000,
+    //   implicit: 40000
+    // }
+  } catch (err) {
+    console.log(err.stack);
+  } finally {
+    session.delete();
+  }
+})();
 ```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)>** Timeout durations associated with the current session
@@ -403,25 +419,60 @@ import webdriver from 'w3c-webdriver';
 
 let session;
 
-const start = async () => {
-  session = await webdriver.newSession('http://localhost:4444', {
+(async () => {
+  try {
+    session = await webdriver.newSession('http://localhost:4444', {
       desiredCapabilities: {
-          browserName: 'Chrome'
+        browserName: 'Chrome'
       }
-  });
-  await session.setTimeout({
-    script: 30000,
-    pageLoad: 60000,
-    implicit: 40000
-  });
-};
-
-start()
- .catch(err => console.log(err.stack))
- .then(() => session.delete());
+    });
+    await session.setTimeout({
+      script: 30000,
+      pageLoad: 60000,
+      implicit: 40000
+    });
+  } catch (err) {
+    console.log(err.stack);
+  } finally {
+    session.delete();
+  }
+})();
 ```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+
+## Session.getPageSource
+
+-   **See: [WebDriver spec](https://w3c.github.io/webdriver/webdriver-spec.html#getting-page-source)**
+
+Returns a string serialization of the DOM of the current browsing context active document.
+
+**Examples**
+
+```javascript
+import webdriver from 'w3c-webdriver';
+
+let session;
+
+(async () => {
+  try {
+    session = await webdriver.newSession('http://localhost:4444', {
+      desiredCapabilities: {
+        browserName: 'Chrome'
+      }
+    });
+    await session.go('http://localhost:8080');
+    const source = await session.getPageSource();
+    // source = '<!DOCTYPE html><head><title>...'
+  } catch (err) {
+    console.log(err.stack);
+  } finally {
+    session.delete();
+  }
+})();
+```
+
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>** The current page source.
 
 ## Session.executeScript
 
@@ -443,21 +494,23 @@ import webdriver from 'w3c-webdriver';
 
 let session;
 
-const start = async () => {
-  session = await webdriver.newSession('http://localhost:4444', {
+(async () => {
+  try {
+    session = await webdriver.newSession('http://localhost:4444', {
       desiredCapabilities: {
-          browserName: 'Chrome'
+        browserName: 'Chrome'
       }
-  });
-  await session.go('http://localhost:8080');
-  const script = 'const [from] = arguments; return `Hello from ${from}!`;';
-  const message = await session.executeScript(script, ['WebDriver']);
-  // message = 'Hello from WebDriver!'
-};
-
-start()
- .catch(err => console.log(err.stack))
- .then(() => session.delete());
+    });
+    await session.go('http://localhost:8080');
+    const script = 'const [from] = arguments; return `Hello from ${from}!`;';
+    const message = await session.executeScript(script, ['WebDriver']);
+    // message = 'Hello from WebDriver!'
+  } catch (err) {
+    console.log(err.stack);
+  } finally {
+    session.delete();
+  }
+})();
 ```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;any>** The script result.
@@ -493,20 +546,22 @@ import webdriver from 'w3c-webdriver';
 
 let session;
 
-const start = async () => {
-  session = await webdriver.newSession('http://localhost:4444', {
+(async () => {
+  try {
+    session = await webdriver.newSession('http://localhost:4444', {
       desiredCapabilities: {
-          browserName: 'Chrome'
+        browserName: 'Chrome'
       }
-  });
-  await session.go('http://localhost:8080');
-  const input = await session.findElement('css', '[name="first-name"]');
-  await a.sendKeys('Hello World');
-};
-
-start()
- .catch(err => console.log(err.stack))
- .then(() => session.delete());
+    });
+    await session.go('http://localhost:8080');
+    const input = await session.findElement('css', '[name="first-name"]');
+    await a.sendKeys('Hello World');
+  } catch (err) {
+    console.log(err.stack);
+  } finally {
+    session.delete();
+  }
+})();
 ```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
@@ -524,20 +579,22 @@ import webdriver from 'w3c-webdriver';
 
 let session;
 
-const start = async () => {
-  session = await webdriver.newSession('http://localhost:4444', {
+(async () => {
+  try {
+    session = await webdriver.newSession('http://localhost:4444', {
       desiredCapabilities: {
-          browserName: 'Chrome'
+        browserName: 'Chrome'
       }
-  });
-  await session.go('http://localhost:8080');
-  const submitButton = await session.findElement('css', 'button[type="submit"]');
-  await submitButton.click();
-};
-
-start()
- .catch(err => console.log(err.stack))
- .then(() => session.delete());
+    });
+    await session.go('http://localhost:8080');
+    const submitButton = await session.findElement('css', 'button[type="submit"]');
+    await submitButton.click();
+  } catch (err) {
+    console.log(err.stack);
+  } finally {
+    session.delete();
+  }
+})();
 ```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
@@ -555,21 +612,23 @@ import webdriver from 'w3c-webdriver';
 
 let session;
 
-const start = async () => {
-  session = await webdriver.newSession('http://localhost:4444', {
+(async () => {
+  try {
+    session = await webdriver.newSession('http://localhost:4444', {
       desiredCapabilities: {
-          browserName: 'Chrome'
+        browserName: 'Chrome'
       }
-  });
-  await session.go('http://localhost:8080');
-  const result = await session.findElement('css', '#result');
-  const text = await result.getText();
-  // test = <result>
-};
-
-start()
- .catch(err => console.log(err.stack))
- .then(() => session.delete());
+    });
+    await session.go('http://localhost:8080');
+    const result = await session.findElement('css', '#result');
+    const text = await result.getText();
+    // test = <result>
+  } catch (err) {
+    console.log(err.stack);
+  } finally {
+    session.delete();
+  }
+})();
 ```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>** Visible text for the element.
@@ -591,21 +650,23 @@ import webdriver from 'w3c-webdriver';
 
 let session;
 
-const start = async () => {
-  session = await webdriver.newSession('http://localhost:4444', {
+(async () => {
+  try {
+    session = await webdriver.newSession('http://localhost:4444', {
       desiredCapabilities: {
-          browserName: 'Chrome'
+        browserName: 'Chrome'
       }
-  });
-  await session.go('http://localhost:8080');
-  const button = await session.findElement('css', '#red-button');
-  const backgroundColor = await button.getCss('background-color');
-  // backgroundColor = 'rgba(255, 0, 0, 1)'
-};
-
-start()
- .catch(err => console.log(err.stack))
- .then(() => session.delete());
+    });
+    await session.go('http://localhost:8080');
+    const button = await session.findElement('css', '#red-button');
+    const backgroundColor = await button.getCss('background-color');
+    // backgroundColor = 'rgba(255, 0, 0, 1)'
+  } catch (err) {
+    console.log(err.stack);
+  } finally {
+    session.delete();
+  }
+})();
 ```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>** Computed CSS property value for the element.

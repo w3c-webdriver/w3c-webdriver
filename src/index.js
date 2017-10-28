@@ -12,17 +12,19 @@ import sessionFactory from './session';
  *
  * let session;
  *
- * const start = async () => {
- *   session = await webdriver.newSession('http://localhost:4444', {
+ * (async () => {
+ *   try {
+ *     session = await webdriver.newSession('http://localhost:4444', {
  *       desiredCapabilities: {
- *           browserName: 'Chrome'
+ *         browserName: 'Chrome'
  *       }
- *   });
- * };
- *
- * start()
- *  .catch(err => console.log(err.stack))
- *  .then(() => session.delete());
+ *     });
+ *   } catch (err) {
+ *     console.log(err.stack);
+ *   } finally {
+ *     session.delete();
+ *   }
+ * })();
  */
 export const newSession = (url, options) => POST(`${url}/session`, options).then(body => sessionFactory(
   url,
@@ -37,14 +39,18 @@ export const newSession = (url, options) => POST(`${url}/session`, options).then
  * @example
  * import webdriver from 'w3c-webdriver';
  *
- * const start = async () => {
- *   const status = await webdriver.status('http://localhost:4444');
- *   // status = {
- *   //   build: { version: '1.2.0' },
- *   //   os: { name: 'mac', version: 'unknown', arch: '64bit' }
- *   // }
- * };
- *
- * start().catch(err => console.log(err.stack));
+ * (async () => {
+ *   try {
+ *     const status = await webdriver.status('http://localhost:4444');
+ *     // status = {
+ *     //   build: { version: '1.2.0' },
+ *     //   os: { name: 'mac', version: 'unknown', arch: '64bit' }
+ *     // }
+ *   } catch (err) {
+ *     console.log(err.stack);
+ *   } finally {
+ *     session.delete();
+ *   }
+ * })();
  */
 export const status = url => GET(`${url}/status`).then(body => body.value);

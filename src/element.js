@@ -23,20 +23,22 @@ export default (url, sessionId, elementId, { JsonWire }) => (
      *
      * let session;
      *
-     * const start = async () => {
-     *   session = await webdriver.newSession('http://localhost:4444', {
+     * (async () => {
+     *   try {
+     *     session = await webdriver.newSession('http://localhost:4444', {
      *       desiredCapabilities: {
-     *           browserName: 'Chrome'
+     *         browserName: 'Chrome'
      *       }
-     *   });
-     *   await session.go('http://localhost:8080');
-     *   const input = await session.findElement('css', '[name="first-name"]');
-     *   await a.sendKeys('Hello World');
-     * };
-     *
-     * start()
-     *  .catch(err => console.log(err.stack))
-     *  .then(() => session.delete());
+     *     });
+     *     await session.go('http://localhost:8080');
+     *     const input = await session.findElement('css', '[name="first-name"]');
+     *     await a.sendKeys('Hello World');
+     *   } catch (err) {
+     *     console.log(err.stack);
+     *   } finally {
+     *     session.delete();
+     *   }
+     * })();
      */
     sendKeys: text => POST(`${url}/session/${sessionId}/element/${elementId}/value`, !JsonWire ? { text } : { value: [text] }),
 
@@ -51,20 +53,22 @@ export default (url, sessionId, elementId, { JsonWire }) => (
      *
      * let session;
      *
-     * const start = async () => {
-     *   session = await webdriver.newSession('http://localhost:4444', {
+     * (async () => {
+     *   try {
+     *     session = await webdriver.newSession('http://localhost:4444', {
      *       desiredCapabilities: {
-     *           browserName: 'Chrome'
+     *         browserName: 'Chrome'
      *       }
-     *   });
-     *   await session.go('http://localhost:8080');
-     *   const submitButton = await session.findElement('css', 'button[type="submit"]');
-     *   await submitButton.click();
-     * };
-     *
-     * start()
-     *  .catch(err => console.log(err.stack))
-     *  .then(() => session.delete());
+     *     });
+     *     await session.go('http://localhost:8080');
+     *     const submitButton = await session.findElement('css', 'button[type="submit"]');
+     *     await submitButton.click();
+     *   } catch (err) {
+     *     console.log(err.stack);
+     *   } finally {
+     *     session.delete();
+     *   }
+     * })();
      */
     click: () => POST(`${url}/session/${sessionId}/element/${elementId}/click`, {}),
 
@@ -79,21 +83,23 @@ export default (url, sessionId, elementId, { JsonWire }) => (
      *
      * let session;
      *
-     * const start = async () => {
-     *   session = await webdriver.newSession('http://localhost:4444', {
+     * (async () => {
+     *   try {
+     *     session = await webdriver.newSession('http://localhost:4444', {
      *       desiredCapabilities: {
-     *           browserName: 'Chrome'
+     *         browserName: 'Chrome'
      *       }
-     *   });
-     *   await session.go('http://localhost:8080');
-     *   const result = await session.findElement('css', '#result');
-     *   const text = await result.getText();
-     *   // test = <result>
-     * };
-     *
-     * start()
-     *  .catch(err => console.log(err.stack))
-     *  .then(() => session.delete());
+     *     });
+     *     await session.go('http://localhost:8080');
+     *     const result = await session.findElement('css', '#result');
+     *     const text = await result.getText();
+     *     // test = <result>
+     *   } catch (err) {
+     *     console.log(err.stack);
+     *   } finally {
+     *     session.delete();
+     *   }
+     * })();
      */
     getText: () => GET(`${url}/session/${sessionId}/element/${elementId}/text`).then(body => body.value),
 
@@ -109,21 +115,23 @@ export default (url, sessionId, elementId, { JsonWire }) => (
      *
      * let session;
      *
-     * const start = async () => {
-     *   session = await webdriver.newSession('http://localhost:4444', {
+     * (async () => {
+     *   try {
+     *     session = await webdriver.newSession('http://localhost:4444', {
      *       desiredCapabilities: {
-     *           browserName: 'Chrome'
+     *         browserName: 'Chrome'
      *       }
-     *   });
-     *   await session.go('http://localhost:8080');
-     *   const button = await session.findElement('css', '#red-button');
-     *   const backgroundColor = await button.getCss('background-color');
-     *   // backgroundColor = 'rgba(255, 0, 0, 1)'
-     * };
-     *
-     * start()
-     *  .catch(err => console.log(err.stack))
-     *  .then(() => session.delete());
+     *     });
+     *     await session.go('http://localhost:8080');
+     *     const button = await session.findElement('css', '#red-button');
+     *     const backgroundColor = await button.getCss('background-color');
+     *     // backgroundColor = 'rgba(255, 0, 0, 1)'
+     *   } catch (err) {
+     *     console.log(err.stack);
+     *   } finally {
+     *     session.delete();
+     *   }
+     * })();
      */
     getCss: propertyName => GET(`${url}/session/${sessionId}/element/${elementId}/css/${propertyName}`).then(body => body.value)
   })
