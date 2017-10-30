@@ -537,7 +537,7 @@ let session;
     });
     await session.go('http://localhost:8080');
     const screenshot = await session.takeScreenshot();
-    // message = 'Hello from WebDriver!'
+    // screenshot = Buffer containing PNG
   } catch (err) {
     console.log(err.stack);
   } finally {
