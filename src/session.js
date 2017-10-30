@@ -284,6 +284,36 @@ export default (url, sessionId, { JsonWire }) => (
     executeScript: (script, args = []) => POST(`${url}/session/${sessionId}/execute${!JsonWire ? '/sync' : ''}`, {
       script,
       args
-    }).then(body => body.value)
+    }).then(body => body.value),
+
+    /**
+     * The Take Screenshot command takes a screenshot of the top-level browsing context’s viewport.
+     *
+     * @name Session.takeScreenshot
+     * @return {Promise<Buffer>} - The screenshot as a PNG.
+     * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#take-screenshot|WebDriver spec}
+     * @example
+     * import webdriver from 'w3c-webdriver';
+     *
+     * let session;
+     *
+     * (async () => {
+     *   try {
+     *     session = await webdriver.newSession('http://localhost:4444', {
+     *       desiredCapabilities: {
+     *         browserName: 'Chrome'
+     *       }
+     *     });
+     *     await session.go('http://localhost:8080');
+     *     const screenshot = await session.takeScreenshot();
+     *     // screenshot = Buffer containing PNG
+     *   } catch (err) {
+     *     console.log(err.stack);
+     *   } finally {
+     *     session.delete();
+     *   }
+     * })();
+     */
+    takeScreenshot: () => GET(`${url}/session/${sessionId}/screenshot`).then(body => Buffer.from(body.value, 'base64'))
   })
 );
