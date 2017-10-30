@@ -43,6 +43,13 @@ describe('Session', () => {
     });
   });
 
+  describe('getPageSource method', () => {
+    it('get the current page source', async () => {
+      const result = await session.getPageSource();
+      expect(result).toContain('<title>The simple calculator</title>');
+    });
+  });
+
   describe('executeScript method', () => {
     it('executes script in browser context', async () => {
       // eslint-disable-next-line no-template-curly-in-string
@@ -51,10 +58,10 @@ describe('Session', () => {
     });
   });
 
-  describe('getPageSource method', () => {
-    it('get the current page source', async () => {
-      const result = await session.getPageSource();
-      expect(result).toContain('<title>The simple calculator</title>');
+  describe('takeScreenshot method', () => {
+    it('takes a screenshot of the current page', async () => {
+      const screenshot = await session.takeScreenshot();
+      expect(screenshot.toString('base64')).toMatch(/^iVBOR/);
     });
   });
 });
