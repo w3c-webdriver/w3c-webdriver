@@ -79,6 +79,8 @@ import webdriver from 'w3c-webdriver';
 
 # :construction: Work in progress...
 
+## Sessions
+
 | Method | URI Template                                                   | Command                                   |   Implementation   |
 | ------ | -------------------------------------------------------------- | ----------------------------------------- | :----------------: |
 | POST   | /session                                                       | [New Session](#newsession)                | :white_check_mark: |
@@ -86,12 +88,22 @@ import webdriver from 'w3c-webdriver';
 | GET    | /status                                                        | [Status](#status)                         | :white_check_mark: |
 | GET    | /session/{session id}/timeouts                                 | [Get Timeouts](#sessiongettimeout)        | :white_check_mark: |
 | POST   | /session/{session id}/timeouts                                 | [Set Timeouts](#sessionsettimeout)        | :white_check_mark: |
+
+## Navigation
+
+| Method | URI Template                                                   | Command                                   |   Implementation   |
+| ------ | -------------------------------------------------------------- | ----------------------------------------- | :----------------: |
 | POST   | /session/{session id}/url                                      | [Go](#sessiongo)                          | :white_check_mark: |
 | GET    | /session/{session id}/url                                      | Get Current URL                           |                    |
 | POST   | /session/{session id}/back                                     | Back                                      |                    |
 | POST   | /session/{session id}/forward                                  | Forward                                   |                    |
 | POST   | /session/{session id}/refresh                                  | Refresh                                   |                    |
 | GET    | /session/{session id}/title                                    | [Get Title](#sessiongettitle)             | :white_check_mark: |
+
+## Command Contexts
+
+| Method | URI Template                                                   | Command                                   |   Implementation   |
+| ------ | -------------------------------------------------------------- | ----------------------------------------- | :----------------: |
 | GET    | /session/{session id}/window                                   | Get Window Handle                         |                    |
 | DELETE | /session/{session id}/window                                   | Close Window                              |                    |
 | POST   | /session/{session id}/window                                   | Switch To Window                          |                    |
@@ -103,11 +115,26 @@ import webdriver from 'w3c-webdriver';
 | POST   | /session/{session id}/window/maximize                          | Maximize Window                           |                    |
 | POST   | /session/{session id}/window/minimize                          | Minimize Window                           |                    |
 | POST   | /session/{session id}/window/fullscreen                        | Fullscreen Window                         |                    |
+
+## Elements
+
+| Method | URI Template                                                   | Command                                   |   Implementation   |
+| ------ | -------------------------------------------------------------- | ----------------------------------------- | :----------------: |
 | GET    | /session/{session id}/element/active                           | Get Active Element                        |                    |
+
+## Element Retrieval
+
+| Method | URI Template                                                   | Command                                   |   Implementation   |
+| ------ | -------------------------------------------------------------- | ----------------------------------------- | :----------------: |
 | POST   | /session/{session id}/element                                  | [Find Element](#sessionfindelement)       | :white_check_mark: |
 | POST   | /session/{session id}/elements                                 | Find Elements                             |                    |
 | POST   | /session/{session id}/element/{element id}/element             | Find Element From Element                 |                    |
 | POST   | /session/{session id}/element/{element id}/elements            | Find Elements From Element                |                    |
+
+## Element State
+
+| Method | URI Template                                                   | Command                                   |   Implementation   |
+| ------ | -------------------------------------------------------------- | ----------------------------------------- | :----------------: |
 | GET    | /session/{session id}/element/{element id}/selected            | Is Element Selected                       |                    |
 | GET    | /session/{session id}/element/{element id}/attribute/{name}    | Get Element Attribute                     |                    |
 | GET    | /session/{session id}/element/{element id}/property/{name}     | Get Element Property                      |                    |
@@ -116,23 +143,53 @@ import webdriver from 'w3c-webdriver';
 | GET    | /session/{session id}/element/{element id}/name                | Get Element Tag Name                      |                    |
 | GET    | /session/{session id}/element/{element id}/rect                | Get Element Rect                          |                    |
 | GET    | /session/{session id}/element/{element id}/enabled             | Is Element Enabled                        |                    |
+
+## Element Interaction
+
+| Method | URI Template                                                   | Command                                   |   Implementation   |
+| ------ | -------------------------------------------------------------- | ----------------------------------------- | :----------------: |
 | POST   | /session/{session id}/element/{element id}/click               | [Element Click](#elementclick)            | :white_check_mark: |
 | POST   | /session/{session id}/element/{element id}/clear               | Element Clear                             |                    |
 | POST   | /session/{session id}/element/{element id}/value               | [Element Send Keys](#elementsendkeys)     | :white_check_mark: |
+
+## Document Handling
+
+| Method | URI Template                                                   | Command                                   |   Implementation   |
+| ------ | -------------------------------------------------------------- | ----------------------------------------- | :----------------: |
 | GET    | /session/{session id}/source                                   | [Get Page Source](#sessiongetpagesource)  | :white_check_mark: |
 | POST   | /session/{session id}/execute/sync                             | [Execute Script](#sessionexecutescript)   | :white_check_mark: |
 | POST   | /session/{session id}/execute/async                            | Execute Async Script                      |                    |
+
+## Cookies
+
+| Method | URI Template                                                   | Command                                   |   Implementation   |
+| ------ | -------------------------------------------------------------- | ----------------------------------------- | :----------------: |
 | GET    | /session/{session id}/cookie                                   | Get All Cookies                           |                    |
 | GET    | /session/{session id}/cookie/{name}                            | Get Named Cookie                          |                    |
 | POST   | /session/{session id}/cookie                                   | Add Cookie                                |                    |
 | DELETE | /session/{session id}/cookie/{name}                            | Delete Cookie                             |                    |
 | DELETE | /session/{session id)/cookie                                   | Delete All Cookies                        |                    |
+
+## Actions
+
+| Method | URI Template                                                   | Command                                   |   Implementation   |
+| ------ | -------------------------------------------------------------- | ----------------------------------------- | :----------------: |
 | POST   | /session/{session id}/actions                                  | Perform Actions                           |                    |
 | DELETE | /session/{session id}/actions                                  | Release Actions                           |                    |
+
+## User Prompts
+
+| Method | URI Template                                                   | Command                                   |   Implementation   |
+| ------ | -------------------------------------------------------------- | ----------------------------------------- | :----------------: |
 | POST   | /session/{session id}/alert/dismiss                            | Dismiss Alert                             |                    |
 | POST   | /session/{session id}/alert/accept                             | Accept Alert                              |                    |
 | GET    | /session/{session id}/alert/text                               | Get Alert Text                            |                    |
 | POST   | /session/{session id}/alert/text                               | Send Alert Text                           |                    |
+
+## Screen Capture
+
+| Method | URI Template                                                   | Command                                   |   Implementation   |
+| ------ | -------------------------------------------------------------- | ----------------------------------------- | :----------------: |
 | GET    | /session/{session id}/screenshot                               | [Take Screenshot](#sessiontakescreenshot) | :white_check_mark: |
 | GET    | /session/{session id}/element/{element id}/screenshot          | Take Element Screenshot                   |                    |
 
@@ -249,7 +306,7 @@ let session;
 })();
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
 
 ## Session.go
 
@@ -284,7 +341,7 @@ let session;
 })();
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
 
 ## Session.getTitle
 
@@ -356,7 +413,7 @@ let session;
 })();
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Element](#element)>** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Element](#element)>**
 
 ## Session.getTimeout
 
@@ -439,7 +496,7 @@ let session;
 })();
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
 
 ## Session.getPageSource
 
@@ -597,7 +654,7 @@ let session;
 })();
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
 
 ## Element.click
 
@@ -630,7 +687,7 @@ let session;
 })();
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
 
 ## Element.getText
 
