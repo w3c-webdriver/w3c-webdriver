@@ -31,7 +31,7 @@ export default (url, sessionId, elementId, { JsonWire }) => (
      *       }
      *     });
      *     await session.go('http://localhost:8080');
-     *     const input = await session.findElement('css', '[name="first-name"]');
+     *     const input = await session.findElement('css selector', '[name="first-name"]');
      *     await a.sendKeys('Hello World');
      *   } catch (err) {
      *     console.log(err.stack);
@@ -61,7 +61,7 @@ export default (url, sessionId, elementId, { JsonWire }) => (
      *       }
      *     });
      *     await session.go('http://localhost:8080');
-     *     const submitButton = await session.findElement('css', 'button[type="submit"]');
+     *     const submitButton = await session.findElement('css selector', 'button[type="submit"]');
      *     await submitButton.click();
      *   } catch (err) {
      *     console.log(err.stack);
@@ -91,7 +91,7 @@ export default (url, sessionId, elementId, { JsonWire }) => (
      *       }
      *     });
      *     await session.go('http://localhost:8080');
-     *     const result = await session.findElement('css', '#result');
+     *     const result = await session.findElement('css selector', '#result');
      *     const text = await result.getText();
      *     // test = <result>
      *   } catch (err) {
@@ -101,7 +101,7 @@ export default (url, sessionId, elementId, { JsonWire }) => (
      *   }
      * })();
      */
-    getText: () => GET(`${url}/session/${sessionId}/element/${elementId}/text`).then(body => body.value),
+    getText: () => GET(`${url}/session/${sessionId}/element/${elementId}/text`).then(({ value }) => value),
 
     /**
      * Returns the computed value of the given CSS property for the element.
@@ -123,7 +123,7 @@ export default (url, sessionId, elementId, { JsonWire }) => (
      *       }
      *     });
      *     await session.go('http://localhost:8080');
-     *     const button = await session.findElement('css', '#red-button');
+     *     const button = await session.findElement('css selector', '#red-button');
      *     const backgroundColor = await button.getCss('background-color');
      *     // backgroundColor = 'rgba(255, 0, 0, 1)'
      *   } catch (err) {
@@ -133,6 +133,6 @@ export default (url, sessionId, elementId, { JsonWire }) => (
      *   }
      * })();
      */
-    getCss: propertyName => GET(`${url}/session/${sessionId}/element/${elementId}/css/${propertyName}`).then(body => body.value)
+    getCss: propertyName => GET(`${url}/session/${sessionId}/element/${elementId}/css/${propertyName}`).then(({ value }) => value)
   })
 );
