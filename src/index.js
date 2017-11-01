@@ -26,10 +26,9 @@ import sessionFactory from './session';
  *   }
  * })();
  */
-export const newSession = (url, options) => POST(`${url}/session`, options).then(body => sessionFactory(
+export const newSession = (url, options) => POST(`${url}/session`, options).then(({ value, sessionId }) => sessionFactory(
   url,
-  // JSON Wire   || W3C Web Driver
-  body.sessionId || body.value.sessionId, { JsonWire: !!body.sessionId }
+  sessionId || value.sessionId, { JsonWire: !!sessionId }
 ));
 /**
  * This function queries the WebDriver server's current status.
@@ -53,4 +52,4 @@ export const newSession = (url, options) => POST(`${url}/session`, options).then
  *   }
  * })();
  */
-export const status = url => GET(`${url}/status`).then(body => body.value);
+export const status = url => GET(`${url}/status`).then(({ value }) => value);

@@ -96,7 +96,7 @@ export default (url, sessionId, { JsonWire }) => (
      *   }
      * })();
      */
-    getTitle: () => GET(`${url}/session/${sessionId}/title`).then(body => body.value),
+    getTitle: () => GET(`${url}/session/${sessionId}/title`).then(({ value }) => value),
 
     /**
      * Search for an element on the page, starting from the document root.
@@ -132,13 +132,62 @@ export default (url, sessionId, { JsonWire }) => (
     findElement: (strategy, selector) => POST(`${url}/session/${sessionId}/element`, {
       using: strategy,
       value: selector
-    }).then(body => elementFactory(
+    }).then(({ value: element }) => elementFactory(
       url,
       sessionId,
-      // JSON Wire       || Web Driver
-      body.value.ELEMENT || Object.values(body.value)[0],
+      // JSON Wire    || Web Driver
+      element.ELEMENT || Object.values(element)[0],
       { JsonWire }
     )),
+
+    /**
+     * Search for multiple elements on the page, starting from the identified element. The located
+     * elements will be returned as a WebElement JSON objects. The table below lists the locator
+     * strategies that each server should support. Elements should be returned in the order located
+     * in the DOM.
+     * @name Session.findElements
+     * @function
+     * @param {string} strategy Locator strategy
+     * ("css selector", "link text", "partial link text", "tag name", "xpath").
+     * @param {string} selector Selector string.
+     * @returns {Promise<array<Element>>}
+     * @see {@link https://www.w3.org/TR/webdriver/#find-elements|WebDriver spec}
+     * @example
+     * import webdriver from 'w3c-webdriver';
+     *
+     * let session;
+     *
+     * (async () => {
+     *   try {
+     *     session = await webdriver.newSession('http://localhost:4444', {
+     *       desiredCapabilities: {
+     *         browserName: 'Chrome'
+     *       }
+     *     });
+     *     await session.go('http://localhost:8080');
+     *     const elements = await session.findElements('css', 'h2');
+     *     // elements = [<webdriver element>]
+     *   } catch (err) {
+     *     console.log(err.stack);
+     *   } finally {
+     *     session.delete();
+     *   }
+     * })();
+     */
+    findElements: (strategy, selector) => POST(`${url}/session/${sessionId}/elements`, {
+      using: strategy,
+      value: selector
+    }).then(({ value: elements }) => {
+      //                                         JSON Wire       || Web Driver
+      const elementIds = elements.map(element => element.ELEMENT || Object.values(element)[0]);
+
+      return elementIds.map(elementId => elementFactory(
+        url,
+        sessionId,
+        elementId,
+        { JsonWire }
+      ));
+    }),
 
     /**
      * Gets timeout durations associated with the current session.
@@ -172,7 +221,7 @@ export default (url, sessionId, { JsonWire }) => (
      *   }
      * })();
      */
-    getTimeout: () => GET(`${url}/session/${sessionId}/timeouts`).then(body => body.value),
+    getTimeout: () => GET(`${url}/session/${sessionId}/timeouts`).then(({ value }) => value),
 
     /**
      * Configure the amount of time that a particular type of operation can execute for before
@@ -246,7 +295,7 @@ export default (url, sessionId, { JsonWire }) => (
      *   }
      * })();
      */
-    getPageSource: () => GET(`${url}/session/${sessionId}/source`).then(body => body.value),
+    getPageSource: () => GET(`${url}/session/${sessionId}/source`).then(({ value }) => value),
 
     /**
      * Inject a snippet of JavaScript into the page for execution in the context of the
@@ -284,7 +333,7 @@ export default (url, sessionId, { JsonWire }) => (
     executeScript: (script, args = []) => POST(`${url}/session/${sessionId}/execute${!JsonWire ? '/sync' : ''}`, {
       script,
       args
-    }).then(body => body.value),
+    }).then(({ value }) => value),
 
     /**
      * Returns all cookies associated with the address of the current browsing context’s active
@@ -324,7 +373,7 @@ export default (url, sessionId, { JsonWire }) => (
      *   }
      * })();
      */
-    getAllCookies: () => GET(`${url}/session/${sessionId}/cookie`).then(body => body.value),
+    getAllCookies: () => GET(`${url}/session/${sessionId}/cookie`).then(({ value }) => value),
 
     /**
      * Adds a single cookie to the cookie store associated with the active document’s address.
@@ -396,6 +445,6 @@ export default (url, sessionId, { JsonWire }) => (
      *   }
      * })();
      */
-    takeScreenshot: () => GET(`${url}/session/${sessionId}/screenshot`).then(body => Buffer.from(body.value, 'base64'))
+    takeScreenshot: () => GET(`${url}/session/${sessionId}/screenshot`).then(({ value }) => Buffer.from(value, 'base64'))
   })
 );

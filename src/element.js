@@ -101,7 +101,7 @@ export default (url, sessionId, elementId, { JsonWire }) => (
      *   }
      * })();
      */
-    getText: () => GET(`${url}/session/${sessionId}/element/${elementId}/text`).then(body => body.value),
+    getText: () => GET(`${url}/session/${sessionId}/element/${elementId}/text`).then(({ value }) => value),
 
     /**
      * Returns the computed value of the given CSS property for the element.
@@ -133,6 +133,6 @@ export default (url, sessionId, elementId, { JsonWire }) => (
      *   }
      * })();
      */
-    getCss: propertyName => GET(`${url}/session/${sessionId}/element/${elementId}/css/${propertyName}`).then(body => body.value)
+    getCss: propertyName => GET(`${url}/session/${sessionId}/element/${elementId}/css/${propertyName}`).then(({ value }) => value)
   })
 );

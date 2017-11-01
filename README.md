@@ -124,12 +124,12 @@ import webdriver from 'w3c-webdriver';
 
 ## Element Retrieval
 
-| Method | URI Template                                        | Command                             |   Implementation   |
-| ------ | --------------------------------------------------- | ----------------------------------- | :----------------: |
-| POST   | /session/{session id}/element                       | [Find Element](#sessionfindelement) | :white_check_mark: |
-| POST   | /session/{session id}/elements                      | Find Elements                       |                    |
-| POST   | /session/{session id}/element/{element id}/element  | Find Element From Element           |                    |
-| POST   | /session/{session id}/element/{element id}/elements | Find Elements From Element          |                    |
+| Method | URI Template                                        | Command                               |   Implementation   |
+| ------ | --------------------------------------------------- | ------------------------------------- | :----------------: |
+| POST   | /session/{session id}/element                       | [Find Element](#sessionfindelement)   | :white_check_mark: |
+| POST   | /session/{session id}/elements                      | [Find Elements](#sessionfindelements) | :white_check_mark: |
+| POST   | /session/{session id}/element/{element id}/element  | Find Element From Element             |                    |
+| POST   | /session/{session id}/element/{element id}/elements | Find Elements From Element            |                    |
 
 ## Element State
 
@@ -414,6 +414,48 @@ let session;
 ```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Element](#element)>** 
+
+## Session.findElements
+
+-   **See: [WebDriver spec](https://www.w3.org/TR/webdriver/#find-elements)**
+
+Search for multiple elements on the page, starting from the identified element. The located
+elements will be returned as a WebElement JSON objects. The table below lists the locator
+strategies that each server should support. Elements should be returned in the order located
+in the DOM.
+
+**Parameters**
+
+-   `strategy` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Locator strategy
+    ("css selector", "link text", "partial link text", "tag name", "xpath").
+-   `selector` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Selector string.
+
+**Examples**
+
+```javascript
+import webdriver from 'w3c-webdriver';
+
+let session;
+
+(async () => {
+  try {
+    session = await webdriver.newSession('http://localhost:4444', {
+      desiredCapabilities: {
+        browserName: 'Chrome'
+      }
+    });
+    await session.go('http://localhost:8080');
+    const elements = await session.findElements('css', 'h2');
+    // elements = [<webdriver element>]
+  } catch (err) {
+    console.log(err.stack);
+  } finally {
+    session.delete();
+  }
+})();
+```
+
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Element](#element)>>** 
 
 ## Session.getTimeout
 

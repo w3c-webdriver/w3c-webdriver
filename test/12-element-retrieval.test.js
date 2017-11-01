@@ -9,4 +9,11 @@ describe('Element Retrieval', () => {
       expect(element).toBeDefined();
     });
   });
+
+  describe('findElements method', () => {
+    it('finds all elements by CSS selector', async () => {
+      const elements = await session.findElements('css selector', 'button');
+      expect(elements).toHaveLength(4);
+    });
+  });
 });
