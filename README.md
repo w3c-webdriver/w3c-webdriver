@@ -162,13 +162,13 @@ import webdriver from 'w3c-webdriver';
 
 ## Cookies
 
-| Method | URI Template                        | Command            | Implementation |
-| ------ | ----------------------------------- | ------------------ | :------------: |
-| GET    | /session/{session id}/cookie        | Get All Cookies    |                |
-| GET    | /session/{session id}/cookie/{name} | Get Named Cookie   |                |
-| POST   | /session/{session id}/cookie        | Add Cookie         |                |
-| DELETE | /session/{session id}/cookie/{name} | Delete Cookie      |                |
-| DELETE | /session/{session id)/cookie        | Delete All Cookies |                |
+| Method | URI Template                        | Command                                  |   Implementation   |
+| ------ | ----------------------------------- | ---------------------------------------- | :----------------: |
+| GET    | /session/{session id}/cookie        | [Get All Cookies](#sessiongetallcookies) | :white_check_mark: |
+| GET    | /session/{session id}/cookie/{name} | Get Named Cookie                         |                    |
+| POST   | /session/{session id}/cookie        | [Add Cookie](#sessionaddcookie)          | :white_check_mark: |
+| DELETE | /session/{session id}/cookie/{name} | Delete Cookie                            |                    |
+| DELETE | /session/{session id)/cookie        | Delete All Cookies                       |                    |
 
 ## Actions
 
