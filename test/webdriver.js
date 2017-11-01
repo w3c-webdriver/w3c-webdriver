@@ -27,7 +27,7 @@ export async function start(port) {
     'chrome-headless': [`--port=${port}`],
     firefox: [`--port=${port}`],
     phantomjs: [`--webdriver=${port}`],
-    'internet-explorer': [`--port=${port}`]
+    'internet-explorer': [`--port=${port}`, '--log-level=INFO']
   }[browser];
   const path = {
     chrome: process.env.CI ? 'chromedriver' : chromedriverPath,

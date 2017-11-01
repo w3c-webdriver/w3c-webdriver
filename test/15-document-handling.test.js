@@ -21,6 +21,11 @@ describe('Document Handling', () => {
   describe('executeAsyncScript method', () => {
     it('executes asynchronous script in browser context', async () => {
       // eslint-disable-next-line no-template-curly-in-string
+      if (process.env.BROWSER === 'internet-explorer') {
+        await session.setTimeout({
+          script: 30000
+        });
+      }
       const script = `
         var a = arguments[0];
         var b = arguments[1];
@@ -28,7 +33,7 @@ describe('Document Handling', () => {
 
         window.setTimeout(function () {
           callback(a * b);
-        }, 100);
+        }, 1000);
       `;
       const result = await session.executeAsyncScript(script, [3, 5]);
       expect(result).toBe(15);
