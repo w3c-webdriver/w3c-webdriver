@@ -8,16 +8,20 @@ describe('Cookies', () => {
       const testCookie = {
         name: 'test_cookie',
         value: 'test_value',
-        domain: 'localhost'
+        path: '/',
+        domain: 'localhost',
+        secure: false,
+        httpOnly: true
       };
 
+      // See: https://github.com/detro/ghostdriver/issues/365 and https://github.com/ariya/phantomjs/issues/14047
       if (process.env.BROWSER === 'phantomjs') {
-        return; // See: https://github.com/detro/ghostdriver/issues/365 and https://github.com/ariya/phantomjs/issues/14047
+        return;
       }
 
       await session.addCookie({
         ...testCookie,
-        expiry: (Date.now() / 1000) + 5
+        expiry: Date.now() + 60000
       });
       const cookies = await session.getAllCookies();
       expect(cookies).toEqual([expect.objectContaining(testCookie)]);
