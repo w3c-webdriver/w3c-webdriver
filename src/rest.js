@@ -1,17 +1,14 @@
-import util from 'util';
 import http from 'http';
 import urlParser from 'url';
 
-function findError(err, response, body) {
-  if (err) {
-    return err;
+function findError({ status, value }) {
+  if (!status && (!value || !value.error)) {
+    return null;
   }
 
-  if (response.statusCode !== 200 || (body.value && body.value.error)) {
-    return new Error(`WebDriverError: status: ${response.statusCode} ${util.inspect(body, false, 10, true)}`);
-  }
+  const { message, error } = value;
 
-  return null;
+  return new Error(`WebDriverError(${error || status}): ${message}`);
 }
 
 function sendRequest(method, url, body) {
@@ -40,24 +37,14 @@ function sendRequest(method, url, body) {
       });
       response.on('end', () => {
         let responseBody;
-        if (response.statusCode !== 200) {
-          reject(new Error([
-            'HTTPError',
-            '\nrequest:',
-            util.inspect(Object.assign({}, options, { body }), false, null),
-            '\nresponse:',
-            util.inspect({
-              statusCode: response.statusCode,
-              body: chunks.join('')
-            }, false, null)
-          ].join(' ')));
-        }
+
         try {
           responseBody = JSON.parse(chunks.join(''));
         } catch (err) {
           reject(err);
         }
-        const error = findError(null, response, responseBody);
+
+        const error = findError(responseBody);
 
         if (error) {
           reject(error);

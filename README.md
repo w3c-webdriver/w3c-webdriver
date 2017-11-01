@@ -6,7 +6,7 @@
 [![Dependency Status](https://dependencyci.com/github/mucsi96/w3c-webdriver/badge)](https://dependencyci.com/github/mucsi96/w3c-webdriver)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-Zero dependency minimal JavaScript bindings
+Zero dependency minimal future proof JavaScript bindings
 that conform to the [W3C WebDriver standard](https://w3c.github.io/webdriver/webdriver-spec.html),
 which specifies a remote control protocol for web browsers.
 
@@ -154,11 +154,11 @@ import webdriver from 'w3c-webdriver';
 
 ## Document Handling
 
-| Method | URI Template                        | Command                                  |   Implementation   |
-| ------ | ----------------------------------- | ---------------------------------------- | :----------------: |
-| GET    | /session/{session id}/source        | [Get Page Source](#sessiongetpagesource) | :white_check_mark: |
-| POST   | /session/{session id}/execute/sync  | [Execute Script](#sessionexecutescript)  | :white_check_mark: |
-| POST   | /session/{session id}/execute/async | Execute Async Script                     |                    |
+| Method | URI Template                        | Command                                            |   Implementation   |
+| ------ | ----------------------------------- | -------------------------------------------------- | :----------------: |
+| GET    | /session/{session id}/source        | [Get Page Source](#sessiongetpagesource)           | :white_check_mark: |
+| POST   | /session/{session id}/execute/sync  | [Execute Script](#sessionexecutescript)            | :white_check_mark: |
+| POST   | /session/{session id}/execute/async | [Execute Async Script](#sessionexecuteasyncscript) | :white_check_mark: |
 
 ## Cookies
 
@@ -601,9 +601,57 @@ let session;
       }
     });
     await session.go('http://localhost:8080');
-    const script = 'const [from] = arguments; return `Hello from ${from}!`;';
+    const script = `
+      const [from] = arguments;
+      return `Hello from ${from}!`;
+    `;
     const message = await session.executeScript(script, ['WebDriver']);
     // message = 'Hello from WebDriver!'
+  } catch (err) {
+    console.log(err.stack);
+  } finally {
+    session.delete();
+  }
+})();
+```
+
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;any>** The script result.
+
+## Session.executeAsyncScript
+
+-   **See: [WebDriver spec](https://w3c.github.io/webdriver/webdriver-spec.html#execute-async-script)**
+
+causes JavaScript to execute as an anonymous function. Unlike the Execute Script command, the
+result of the function is ignored. Instead an additional argument is provided as the final
+argument to the function. This is a function that, when called, returns its first argument
+as the response.
+
+**Parameters**
+
+-   `script` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)**  The script to execute.
+-   `args` **[array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)?** The script arguments.
+
+**Examples**
+
+```javascript
+import webdriver from 'w3c-webdriver';
+
+let session;
+
+(async () => {
+  try {
+    session = await webdriver.newSession('http://localhost:4444', {
+      desiredCapabilities: {
+        browserName: 'Chrome'
+      }
+    });
+    await session.go('http://localhost:8080');
+    const script = `
+      const [a, b, callback] = arguments;
+      setTimeout(() => callback(a * b), 1000);
+    `;
+    const message = await session.executeAsyncScript(script, [5, 3]);
+    // message = 15
   } catch (err) {
     console.log(err.stack);
   } finally {

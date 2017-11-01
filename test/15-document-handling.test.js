@@ -17,4 +17,21 @@ describe('Document Handling', () => {
       expect(result).toBe(15);
     });
   });
+
+  describe('executeAsyncScript method', () => {
+    it('executes asynchronous script in browser context', async () => {
+      // eslint-disable-next-line no-template-curly-in-string
+      const script = `
+        var a = arguments[0];
+        var b = arguments[1];
+        var callback = arguments[arguments.length - 1];
+
+        window.setTimeout(function () {
+          callback(a * b);
+        }, 1000);
+      `;
+      const result = await session.executeAsyncScript(script, [3, 5]);
+      expect(result).toBe(15);
+    });
+  });
 });

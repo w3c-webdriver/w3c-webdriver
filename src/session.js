@@ -320,7 +320,10 @@ export default (url, sessionId, { JsonWire }) => (
      *       }
      *     });
      *     await session.go('http://localhost:8080');
-     *     const script = 'const [from] = arguments; return `Hello from ${from}!`;';
+     *     const script = `
+     *       const [from] = arguments;
+     *       return `Hello from ${from}!`;
+     *     `;
      *     const message = await session.executeScript(script, ['WebDriver']);
      *     // message = 'Hello from WebDriver!'
      *   } catch (err) {
@@ -331,6 +334,47 @@ export default (url, sessionId, { JsonWire }) => (
      * })();
      */
     executeScript: (script, args = []) => POST(`${url}/session/${sessionId}/execute${!JsonWire ? '/sync' : ''}`, {
+      script,
+      args
+    }).then(({ value }) => value),
+
+    /**
+     * causes JavaScript to execute as an anonymous function. Unlike the Execute Script command, the
+     * result of the function is ignored. Instead an additional argument is provided as the final
+     * argument to the function. This is a function that, when called, returns its first argument
+     * as the response.
+     * @name Session.executeAsyncScript
+     * @param {string} script -  The script to execute.
+     * @param {array} [args] - The script arguments.
+     * @return {Promise<*>} - The script result.
+     * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#execute-async-script|WebDriver spec}
+     * @example
+     * import webdriver from 'w3c-webdriver';
+     *
+     * let session;
+     *
+     * (async () => {
+     *   try {
+     *     session = await webdriver.newSession('http://localhost:4444', {
+     *       desiredCapabilities: {
+     *         browserName: 'Chrome'
+     *       }
+     *     });
+     *     await session.go('http://localhost:8080');
+     *     const script = `
+     *       const [a, b, callback] = arguments;
+     *       setTimeout(() => callback(a * b), 1000);
+     *     `;
+     *     const message = await session.executeAsyncScript(script, [5, 3]);
+     *     // message = 15
+     *   } catch (err) {
+     *     console.log(err.stack);
+     *   } finally {
+     *     session.delete();
+     *   }
+     * })();
+     */
+    executeAsyncScript: (script, args = []) => POST(`${url}/session/${sessionId}/execute${!JsonWire ? '/async' : '_async'}`, {
       script,
       args
     }).then(({ value }) => value),
