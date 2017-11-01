@@ -28,7 +28,7 @@ describe('Document Handling', () => {
 
         window.setTimeout(function () {
           callback(a * b);
-        }, 1000);
+        }, 100);
       `;
       const result = await session.executeAsyncScript(script, [3, 5]);
       expect(result).toBe(15);
