@@ -287,6 +287,86 @@ export default (url, sessionId, { JsonWire }) => (
     }).then(body => body.value),
 
     /**
+     * Returns all cookies associated with the address of the current browsing context’s active
+     * document.
+     *
+     * @name Session.getAllCookies
+     * @return {Promise<array<object>>} - A list of cookies.
+     * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#get-all-cookies|WebDriver spec}
+     * @example
+     * import webdriver from 'w3c-webdriver';
+     *
+     * let session;
+     *
+     * (async () => {
+     *   try {
+     *     session = await webdriver.newSession('http://localhost:4444', {
+     *       desiredCapabilities: {
+     *         browserName: 'Chrome'
+     *       }
+     *     });
+     *     await session.go('http://localhost:8080');
+     *     const cookies = await session.getAllCookies();
+     *     // cookies = [
+     *     //   name: 'cookie name',
+     *     //   value: 'cookie value',
+     *     //   path: '/',
+     *     //   domain: 'localhost',
+     *     //   secure: false,
+     *     //   httpOnly: true
+     *     // ]
+     *   } catch (err) {
+     *     console.log(err.stack);
+     *   } finally {
+     *     session.delete();
+     *   }
+     * })();
+     */
+    getAllCookies: () => GET(`${url}/session/${sessionId}/cookie`).then(body => body.value),
+
+    /**
+     * Adds a single cookie to the cookie store associated with the active document’s address.
+     *
+     * @name Session.addCookie
+     * @param {object} cookie -  An object defining the cookie to add.
+     * @param {string} cookie.name - The name of the cookie.
+     * @param {string} cookie.value - The cookie value.
+     * @param {string} [cookie.path] - The cookie path. Defaults to "/" if omitted when adding a
+     * cookie.
+     * @param {string} [cookie.domain] - The domain the cookie is visible to. Defaults to the
+     * current browsing context’s document’s URL domain if omitted when adding a cookie.
+     * @param {string} [cookie.secure] - Whether the cookie is a secure cookie. Defaults to false
+     * if omitted when adding a cookie.
+     * @param {string} [cookie.httpOnly] - Whether the cookie is an HTTP only cookie. Defaults to
+     * false if omitted when adding a cookie.
+     * @param {string} [cookie.expiry] - When the cookie expires, specified in seconds since Unix
+     * Epoch. Defaults to 20 years into the future if omitted when adding a cookie.
+     * @return {Promise}
+     * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#add-cookie|WebDriver spec}
+     * @example
+     * import webdriver from 'w3c-webdriver';
+     *
+     * let session;
+     *
+     * (async () => {
+     *   try {
+     *     session = await webdriver.newSession('http://localhost:4444', {
+     *       desiredCapabilities: {
+     *         browserName: 'Chrome'
+     *       }
+     *     });
+     *     await session.go('http://localhost:8080');
+     *     await session.addCookie({ name: 'test cookie', value: 'test value });
+     *   } catch (err) {
+     *     console.log(err.stack);
+     *   } finally {
+     *     session.delete();
+     *   }
+     * })();
+     */
+    addCookie: cookie => POST(`${url}/session/${sessionId}/cookie`, { cookie }),
+
+    /**
      * The Take Screenshot command takes a screenshot of the top-level browsing context’s viewport.
      *
      * @name Session.takeScreenshot
