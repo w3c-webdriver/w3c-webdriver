@@ -120,7 +120,7 @@ export default (url, sessionId, { JsonWire }) => (
      *       }
      *     });
      *     await session.go('http://localhost:8080');
-     *     const element = await session.findElement('css', 'h2');
+     *     const element = await session.findElement('css selector', 'h2');
      *     // element = <webdriver element>
      *   } catch (err) {
      *     console.log(err.stack);
@@ -165,7 +165,7 @@ export default (url, sessionId, { JsonWire }) => (
      *       }
      *     });
      *     await session.go('http://localhost:8080');
-     *     const elements = await session.findElements('css', 'h2');
+     *     const elements = await session.findElements('css selector', 'h2');
      *     // elements = [<webdriver element>]
      *   } catch (err) {
      *     console.log(err.stack);

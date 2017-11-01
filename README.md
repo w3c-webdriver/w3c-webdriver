@@ -67,7 +67,7 @@ import webdriver from 'w3c-webdriver';
       }
     });
     await session.go('http://localhost:8080');
-    const input = await session.findElement('css', '[name="first-name"]');
+    const input = await session.findElement('css selector', '[name="first-name"]');
     await a.sendKeys('Hello World');
   } catch (err) {
     console.log(err.stack);
@@ -306,7 +306,7 @@ let session;
 })();
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
 
 ## Session.go
 
@@ -341,7 +341,7 @@ let session;
 })();
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
 
 ## Session.getTitle
 
@@ -403,7 +403,7 @@ let session;
       }
     });
     await session.go('http://localhost:8080');
-    const element = await session.findElement('css', 'h2');
+    const element = await session.findElement('css selector', 'h2');
     // element = <webdriver element>
   } catch (err) {
     console.log(err.stack);
@@ -413,7 +413,7 @@ let session;
 })();
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Element](#element)>** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Element](#element)>**
 
 ## Session.findElements
 
@@ -445,7 +445,7 @@ let session;
       }
     });
     await session.go('http://localhost:8080');
-    const elements = await session.findElements('css', 'h2');
+    const elements = await session.findElements('css selector', 'h2');
     // elements = [<webdriver element>]
   } catch (err) {
     console.log(err.stack);
@@ -455,7 +455,7 @@ let session;
 })();
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Element](#element)>>** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Element](#element)>>**
 
 ## Session.getTimeout
 
@@ -538,7 +538,7 @@ let session;
 })();
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
 
 ## Session.getPageSource
 
@@ -703,7 +703,7 @@ let session;
 })();
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
 
 ## Session.takeScreenshot
 
@@ -777,7 +777,7 @@ let session;
       }
     });
     await session.go('http://localhost:8080');
-    const input = await session.findElement('css', '[name="first-name"]');
+    const input = await session.findElement('css selector', '[name="first-name"]');
     await a.sendKeys('Hello World');
   } catch (err) {
     console.log(err.stack);
@@ -787,7 +787,7 @@ let session;
 })();
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
 
 ## Element.click
 
@@ -810,7 +810,7 @@ let session;
       }
     });
     await session.go('http://localhost:8080');
-    const submitButton = await session.findElement('css', 'button[type="submit"]');
+    const submitButton = await session.findElement('css selector', 'button[type="submit"]');
     await submitButton.click();
   } catch (err) {
     console.log(err.stack);
@@ -820,7 +820,7 @@ let session;
 })();
 ```
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
 
 ## Element.getText
 
@@ -843,7 +843,7 @@ let session;
       }
     });
     await session.go('http://localhost:8080');
-    const result = await session.findElement('css', '#result');
+    const result = await session.findElement('css selector', '#result');
     const text = await result.getText();
     // test = <result>
   } catch (err) {
@@ -881,7 +881,7 @@ let session;
       }
     });
     await session.go('http://localhost:8080');
-    const button = await session.findElement('css', '#red-button');
+    const button = await session.findElement('css selector', '#red-button');
     const backgroundColor = await button.getCss('background-color');
     // backgroundColor = 'rgba(255, 0, 0, 1)'
   } catch (err) {
