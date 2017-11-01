@@ -308,12 +308,14 @@ export default (url, sessionId, { JsonWire }) => (
      *     await session.go('http://localhost:8080');
      *     const cookies = await session.getAllCookies();
      *     // cookies = [
-     *     //   name: 'cookie name',
-     *     //   value: 'cookie value',
-     *     //   path: '/',
-     *     //   domain: 'localhost',
-     *     //   secure: false,
-     *     //   httpOnly: true
+     *     //   {
+     *     //     name: 'cookie name',
+     *     //     value: 'cookie value',
+     *     //     path: '/',
+     *     //     domain: 'localhost',
+     *     //     secure: false,
+     *     //     httpOnly: true
+     *     //   }
      *     // ]
      *   } catch (err) {
      *     console.log(err.stack);
