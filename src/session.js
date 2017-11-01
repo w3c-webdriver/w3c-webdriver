@@ -358,7 +358,7 @@ export default (url, sessionId, { JsonWire }) => (
      *       }
      *     });
      *     await session.go('http://localhost:8080');
-     *     await session.addCookie({ name: 'test cookie', value: 'test value });
+     *     await session.addCookie({ name: 'test cookie', value: 'test value' });
      *   } catch (err) {
      *     console.log(err.stack);
      *   } finally {
