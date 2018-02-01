@@ -1,5 +1,7 @@
 # WebDriver client for JavaScript
 
+[![Join the chat at https://gitter.im/mucsi96/w3c-webdriver](https://badges.gitter.im/mucsi96/w3c-webdriver.svg)](https://gitter.im/mucsi96/w3c-webdriver?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![npm version](https://badge.fury.io/js/w3c-webdriver.svg)](https://badge.fury.io/js/w3c-webdriver)
 [![Build status](https://ci.appveyor.com/api/projects/status/4evx9ibdbw5vgis4/branch/master?svg=true)](https://ci.appveyor.com/project/mucsi96/w3c-webdriver/branch/master)
 [![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
