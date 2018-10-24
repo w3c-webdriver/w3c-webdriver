@@ -9,14 +9,15 @@ describe('Cookies', () => {
         name: 'test_cookie',
         value: 'test_value',
         path: '/',
-        domain: '127.0.1.1',
+        domain: 'localhost',
         secure: false,
         httpOnly: true
       };
 
       // See:
       // https://github.com/seleniumhq/selenium/issues/962
-      if (['internet-explorer'].includes(process.env.BROWSER)) {
+      // https://bugzilla.mozilla.org/show_bug.cgi?id=1488225
+      if (['internet-explorer', 'firefox'].includes(process.env.BROWSER)) {
         return;
       }
 
