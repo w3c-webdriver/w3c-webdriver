@@ -20,10 +20,6 @@ describe('Sessions', () => {
           expect(result.message).toBeDefined();
           expect(result.ready).toBeDefined();
         },
-        phantomjs: () => {
-          expect(result.build).toBeDefined();
-          expect(result.os).toBeDefined();
-        },
         'internet-explorer': () => {
           expect(result.build).toBeDefined();
           expect(result.os).toBeDefined();
@@ -48,7 +44,6 @@ describe('Sessions', () => {
           const retrievedTimeout = await session.getTimeout();
           expect(retrievedTimeout).toEqual(timeouts);
         },
-        phantomjs: async () => {},
         'internet-explorer': async () => {
           await session.setTimeout(timeouts);
           const retrievedTimeout = await session.getTimeout();

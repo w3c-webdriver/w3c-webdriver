@@ -15,10 +15,9 @@ describe('Cookies', () => {
       };
 
       // See:
-      // https://github.com/detro/ghostdriver/issues/365
-      // https://github.com/ariya/phantomjs/issues/14047
       // https://github.com/seleniumhq/selenium/issues/962
-      if (['phantomjs', 'internet-explorer'].includes(process.env.BROWSER)) {
+      // https://bugzilla.mozilla.org/show_bug.cgi?id=1488225
+      if (['internet-explorer', 'firefox'].includes(process.env.BROWSER)) {
         return;
       }
 
