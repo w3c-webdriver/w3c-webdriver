@@ -9,7 +9,7 @@ describe('Cookies', () => {
         name: 'test_cookie',
         value: 'test_value',
         path: '/',
-        domain: 'localhost',
+        domain: '127.0.1.1',
         secure: false,
         httpOnly: true
       };
