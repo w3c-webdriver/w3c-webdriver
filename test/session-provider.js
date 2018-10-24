@@ -22,10 +22,6 @@ export async function start(port) {
         marionette: true,
         javascriptEnabled: true
       },
-      phantomjs: {
-        browserName: 'phantomjs',
-        javascriptEnabled: true
-      },
       'internet-explorer': {
         browserName: 'internet explorer',
         ignoreProtectedModeSettings: true,

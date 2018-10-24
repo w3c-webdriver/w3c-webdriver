@@ -12,7 +12,6 @@
     "test:chrome": "cross-env BROWSER=chrome npm test",
     "test:chrome-headless": "cross-env BROWSER=chrome-headless npm test",
     "test:firefox": "cross-env BROWSER=firefox npm test",
-    "test:phantomjs": "cross-env BROWSER=phantomjs npm test",
     "test:internet-explorer": "cross-env BROWSER=internet-explorer npm test",
     "docs": "documentation readme src/index.js --section=API",
     "build": "babel src --out-dir lib --ignore __tests__,__mocks__",
@@ -55,7 +54,6 @@
     "geckodriver": "^1.12.2",
     "iedriver": "^3.9.2",
     "jest": "^23.6.0",
-    "phantomjs-prebuilt": "^2.1.16",
     "portscanner": "^2.2.0",
     "wait-on": "^3.1.0",
     "winston": "^3.1.0"
