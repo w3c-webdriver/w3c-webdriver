@@ -53,7 +53,7 @@
     "eslint-plugin-import": "^2.14.0",
     "geckodriver": "^1.12.2",
     "iedriver": "^3.9.2",
-    "jest": "^23.6.0",
+    "jest": "^24.0.0",
     "portscanner": "^2.2.0",
     "wait-on": "^3.1.0",
     "winston": "^3.1.0"
