@@ -1,6 +1,4 @@
-/* eslint-env jest */
-
-import { session } from './session-provider';
+import { session } from '../jest-config/session-provider';
 
 describe('Element Retrieval', () => {
   describe('findElement method', () => {

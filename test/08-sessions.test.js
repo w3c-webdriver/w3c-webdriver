@@ -1,6 +1,4 @@
-/* eslint-env jest */
-
-import { session } from './session-provider';
+import { session } from '../jest-config/session-provider';
 import { status } from '../src';
 
 describe('Sessions', () => {

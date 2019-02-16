@@ -1,6 +1,4 @@
-/* eslint-env jest */
-
-import { session } from './session-provider';
+import { session } from '../jest-config/session-provider';
 
 describe('Cookies', () => {
   describe('addCookie/getAllCookies methods', () => {

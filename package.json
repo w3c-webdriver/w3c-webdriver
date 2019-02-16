@@ -13,7 +13,7 @@
   },
   "scripts": {
     "lint": "eslint src test test-app",
-    "test": "jest --runInBand",
+    "test": "jest",
     "test:chrome": "cross-env BROWSER=chrome npm test",
     "test:chrome-headless": "cross-env BROWSER=chrome-headless npm test",
     "test:firefox": "cross-env BROWSER=firefox npm test",
@@ -38,10 +38,11 @@
   "repository": "git@github.com:mucsi96/w3c-webdriver.git",
   "author": "Igor Mucsicska <mucsi_96@yahoo.com>",
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.3",
+    "@babel/plugin-proposal-object-rest-spread": "^7.3.2",
+    "@babel/preset-env": "^7.3.1",
     "all-contributors-cli": "^6.0.0",
-    "babel-cli": "^6.26.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
     "chromedriver": "^2.43.0",
     "cross-env": "5.2.0",
     "documentation": "^9.1.1",
@@ -54,11 +55,5 @@
     "portscanner": "^2.2.0",
     "wait-on": "^3.1.0",
     "winston": "^3.1.0"
-  },
-  "jest": {
-    "verbose": true,
-    "bail": true,
-    "expand": true,
-    "setupTestFrameworkScriptFile": "./test/setup.js"
   }
 }
