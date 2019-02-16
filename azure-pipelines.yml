@@ -1,3 +1,6 @@
+trigger:
+- master
+
 jobs:
 - template: azure-pipelines-template.yml
   parameters:
