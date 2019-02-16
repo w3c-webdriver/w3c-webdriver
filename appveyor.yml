@@ -4,14 +4,10 @@ image: Visual Studio 2017
 
 environment:
   matrix:
-    - NODEJS_VERSION: "6"
-      BROWSER: chrome
-    - NODEJS_VERSION: "7"
+    - NODEJS_VERSION: "8"
       BROWSER: firefox
-    - NODEJS_VERSION: "8"
+    - NODEJS_VERSION: "10"
       BROWSER: chrome-headless
-    - NODEJS_VERSION: "8"
-      BROWSER: phantomjs
     - NODEJS_VERSION: "8"
       BROWSER: internet-explorer
 
@@ -22,13 +18,13 @@ cache:
 
 install:
   - ps: Install-Product node $env:NODEJS_VERSION
-  - yarn install
+  - npm install
 
 test_script:
   - node --version
-  - yarn --version
-  - yarn lint
-  - yarn test
+  - npm --version
+  - npm run lint
+  - npm run test
 
 build: off
 

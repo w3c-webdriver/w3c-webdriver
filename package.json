@@ -9,7 +9,7 @@
     "README.md"
   ],
   "engines": {
-    "node": ">= 6.0.0"
+    "node": ">= 8.0.0"
   },
   "scripts": {
     "lint": "eslint src test test-app",
@@ -17,7 +17,6 @@
     "test:chrome": "cross-env BROWSER=chrome npm test",
     "test:chrome-headless": "cross-env BROWSER=chrome-headless npm test",
     "test:firefox": "cross-env BROWSER=firefox npm test",
-    "test:phantomjs": "cross-env BROWSER=phantomjs npm test",
     "test:internet-explorer": "cross-env BROWSER=internet-explorer npm test",
     "docs": "documentation readme src/index.js --section=API",
     "build": "babel src --out-dir lib",
@@ -39,23 +38,22 @@
   "repository": "git@github.com:mucsi96/w3c-webdriver.git",
   "author": "Igor Mucsicska <mucsi_96@yahoo.com>",
   "devDependencies": {
-    "all-contributors-cli": "^4.3.0",
-    "babel-cli": "^6.24.0",
+    "all-contributors-cli": "^6.0.0",
+    "babel-cli": "^6.26.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "chromedriver": "^2.33.1",
-    "cross-env": "5.1.0",
-    "documentation": "^5.3.3",
-    "eslint": "^4.9.0",
-    "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.2.0",
-    "geckodriver": "^1.9.0",
-    "iedriver": "^3.5.1",
-    "jest": "^19.0.2",
-    "phantomjs-prebuilt": "^2.1.15",
-    "portscanner": "^2.1.1",
-    "wait-on": "^2.0.2",
-    "winston": "^2.4.0"
+    "babel-preset-env": "^1.7.0",
+    "chromedriver": "^2.43.0",
+    "cross-env": "5.2.0",
+    "documentation": "^9.1.1",
+    "eslint": "^5.7.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "geckodriver": "^1.12.2",
+    "iedriver": "^3.9.2",
+    "jest": "^24.0.0",
+    "portscanner": "^2.2.0",
+    "wait-on": "^3.1.0",
+    "winston": "^3.1.0"
   },
   "jest": {
     "verbose": true,

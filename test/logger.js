@@ -1,5 +1,10 @@
 import winston from 'winston';
 
-winston.add(winston.transports.File, { filename: 'test.log' });
+const logger = winston.createLogger({
+  level: 'info',
+  transports: [
+    new winston.transports.File({ filename: 'test.log' })
+  ]
+});
 
-export default winston;
+export default logger;

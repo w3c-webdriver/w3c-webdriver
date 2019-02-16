@@ -2,7 +2,6 @@ import { execFile } from 'child_process';
 import assert from 'assert';
 import { path as chromedriverPath } from 'chromedriver';
 import { path as geckodriverPath } from 'geckodriver';
-import { path as phantomjsPath } from 'phantomjs-prebuilt';
 import { path as iedriverPath } from 'iedriver';
 import waitOn from 'wait-on';
 import logger from './logger';
@@ -26,21 +25,18 @@ export async function start(port) {
     chrome: [`--port=${port}`],
     'chrome-headless': [`--port=${port}`],
     firefox: [`--port=${port}`],
-    phantomjs: [`--webdriver=${port}`],
     'internet-explorer': [`--port=${port}`, '--log-level=INFO']
   }[browser];
   const path = {
     chrome: process.env.CI ? 'chromedriver' : chromedriverPath,
     'chrome-headless': process.env.CI ? 'chromedriver' : chromedriverPath,
     firefox: process.env.CI ? 'geckodriver' : geckodriverPath,
-    phantomjs: phantomjsPath,
     'internet-explorer': process.env.CI ? 'IEDriverServer' : iedriverPath
   }[browser];
   const name = {
     chrome: 'Chromedriver',
     'chrome-headless': 'Chromedriver',
     firefox: 'Geckodriver',
-    phantomjs: 'GhostDriver',
     'internet-explorer': 'InternetExplorerDriver'
   }[browser];
 

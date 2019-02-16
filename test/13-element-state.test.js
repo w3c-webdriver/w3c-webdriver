@@ -25,9 +25,6 @@ describe('Element State', () => {
         firefox: () => {
           expect(backgroundColor).toEqual('rgb(211, 211, 211)');
         },
-        phantomjs: () => {
-          expect(backgroundColor).toEqual('rgba(211, 211, 211, 1)');
-        },
         'internet-explorer': () => {
           expect(backgroundColor).toEqual('rgba(211, 211, 211, 1)');
         }
