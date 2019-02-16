@@ -1,0 +1,19 @@
+parameters:
+  name: ''
+  vmImage: ''
+  nodeVersion: ''
+  browser: ''
+
+jobs:
+- job: ${{ parameters.name }}
+  pool:
+    vmImage: ${{ parameters.vmImage }}
+  variables:
+    BROWSER: ${{ parameters.browser }}
+  - task: NodeTool@0
+    inputs:
+      versionSpec: ${{ parameters.nodeVersion }}
+  steps:
+  - script: npm install
+  - script: npm run lint
+  - script: npm test
