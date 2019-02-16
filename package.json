@@ -3,6 +3,11 @@
   "version": "0.14.0",
   "description": "W3C WebDriver client",
   "main": "./lib/index.js",
+  "files": [
+    "lib",
+    "LICENSE",
+    "README.md"
+  ],
   "engines": {
     "node": ">= 6.0.0"
   },
@@ -15,14 +20,10 @@
     "test:phantomjs": "cross-env BROWSER=phantomjs npm test",
     "test:internet-explorer": "cross-env BROWSER=internet-explorer npm test",
     "docs": "documentation readme src/index.js --section=API",
-    "build": "babel src --out-dir lib --ignore __tests__,__mocks__",
+    "build": "babel src --out-dir lib",
     "prepack": "npm run build && npm run docs",
     "add:contributor": "all-contributors add",
     "generate:contributors": "all-contributors generate"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mucsi96/w3c-webdriver.git"
   },
   "keywords": [
     "webdriver",
@@ -35,12 +36,8 @@
     "e2e",
     "integration"
   ],
-  "author": "",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/mucsi96/w3c-webdriver/issues"
-  },
-  "homepage": "https://github.com/mucsi96/w3c-webdriver#readme",
+  "repository": "git@github.com:mucsi96/w3c-webdriver.git",
+  "author": "Igor Mucsicska <mucsi_96@yahoo.com>",
   "devDependencies": {
     "all-contributors-cli": "^4.3.0",
     "babel-cli": "^6.24.0",
@@ -60,7 +57,6 @@
     "wait-on": "^2.0.2",
     "winston": "^2.4.0"
   },
-  "dependencies": {},
   "jest": {
     "verbose": true,
     "bail": true,
