@@ -10,10 +10,10 @@ jobs:
     vmImage: ${{ parameters.vmImage }}
   variables:
     BROWSER: ${{ parameters.browser }}
+  steps:
   - task: NodeTool@0
     inputs:
       versionSpec: ${{ parameters.nodeVersion }}
-  steps:
   - script: npm install
   - script: npm run lint
   - script: npm test
