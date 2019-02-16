@@ -34,9 +34,14 @@ export async function start(port) {
 }
 
 export async function stop() {
-  await sessionInstance.delete();
+  if (sessionInstance) {
+    await sessionInstance.delete();
+  }
 }
 
-export const session = new Proxy({}, {
-  get: (target, name) => sessionInstance[name]
-});
+export const session = new Proxy(
+  {},
+  {
+    get: (target, name) => sessionInstance[name]
+  }
+);
