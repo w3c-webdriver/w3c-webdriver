@@ -3,6 +3,7 @@ parameters:
   vmImage: ''
   nodeVersion: ''
   browser: ''
+  preBuild: []
 
 jobs:
 - job: ${{ parameters.name }}
@@ -15,6 +16,8 @@ jobs:
     inputs:
       versionSpec: ${{ parameters.nodeVersion }}
     displayName: Install Node.js
+
+  - ${{ parameters.preBuild }}
 
   - script: npm install
     displayName: Install dependencies

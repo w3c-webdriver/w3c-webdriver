@@ -15,6 +15,9 @@ jobs:
     vmImage: 'macOS-10.13'
     nodeVersion: '9.x'
     browser: chrome-headless
+    preBuild:
+    - script: /usr/bin/safaridriver --help
+    - script: printenv
 
 - template: azure-pipelines-template.yml
   parameters:
@@ -22,3 +25,5 @@ jobs:
     vmImage: 'vs2017-win2016'
     nodeVersion: '10.x'
     browser: internet-explorer
+    preBuild:
+    - script: printenv
