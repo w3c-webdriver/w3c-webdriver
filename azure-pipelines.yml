@@ -8,6 +8,8 @@ jobs:
     vmImage: 'ubuntu-16.04'
     nodeVersion: '8.x'
     browser: firefox
+    preBuild:
+    - script: env
 
 - template: azure-pipelines-template.yml
   parameters:
@@ -16,8 +18,8 @@ jobs:
     nodeVersion: '9.x'
     browser: chrome-headless
     preBuild:
-    - script: /usr/bin/safaridriver --help
-    - script: printenv
+    # - script: /usr/bin/safaridriver --help
+    - script: env
 
 - template: azure-pipelines-template.yml
   parameters:
@@ -25,5 +27,3 @@ jobs:
     vmImage: 'vs2017-win2016'
     nodeVersion: '10.x'
     browser: internet-explorer
-    preBuild:
-    - script: printenv
