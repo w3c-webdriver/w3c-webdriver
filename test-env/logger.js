@@ -1,10 +1,7 @@
-import winston from 'winston';
+import debug from 'debug';
 
-const logger = winston.createLogger({
-  level: 'info',
-  transports: [
-    new winston.transports.Console()
-  ]
-});
+const logger = debug('w3c-webdriver');
+
+logger.enabled();
 
 export default logger;

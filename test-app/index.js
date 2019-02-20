@@ -4,7 +4,7 @@ import http from 'http';
 import url from 'url';
 import path from 'path';
 import fs from 'fs';
-import logger from '../test-env/logger';
+import log from '../test-env/logger';
 
 const mimeTypes = {
   html: 'text/html',
@@ -39,7 +39,7 @@ const server = http.createServer((req, res) => {
 export function start(port) {
   return new Promise((resolve) => {
     server.listen(port, resolve);
-  }).then(() => logger.info(`Test app started on port ${port}`));
+  }).then(() => log(`Test app started on port ${port}`));
 }
 
 export function stop() {

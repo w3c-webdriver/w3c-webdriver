@@ -45,6 +45,7 @@
     "all-contributors-cli": "^6.0.0",
     "chromedriver": "^2.43.0",
     "cross-env": "5.2.0",
+    "debug": "^4.1.1",
     "documentation": "^9.1.1",
     "eslint": "^5.7.0",
     "eslint-config-airbnb-base": "^13.1.0",
@@ -54,7 +55,6 @@
     "iedriver": "^3.9.2",
     "jest": "^24.0.0",
     "portscanner": "^2.2.0",
-    "wait-on": "^3.1.0",
-    "winston": "^3.1.0"
+    "wait-on": "^3.1.0"
   }
 }
