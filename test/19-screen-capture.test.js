@@ -1,4 +1,4 @@
-import { session } from '../jest-config/session-provider';
+import session from '../jest-config/session';
 
 describe('Screen Capture', () => {
   describe('takeScreenshot method', () => {

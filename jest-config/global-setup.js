@@ -1,23 +1,33 @@
-import portscanner from 'portscanner';
-import { start as startDriver } from './webdriver';
+import { execFile } from 'child_process';
+import browser from './browser';
+import logger from './logger';
 import { start as startTestApp } from '../test-app';
+import { getFreePorts, waitForBusyPort } from './ports';
 
-const getFreePorts = async (startPort, endPort, n) => {
-  let port = startPort - 1;
-  const ports = [];
-  while (ports.length < n) {
-    /* eslint-disable no-await-in-loop */
-    port = await portscanner.findAPortNotInUse(port + 1, endPort, '127.0.0.1');
-    ports.push(port);
-  }
-  return ports;
-};
+async function startDriver(port) {
+  const {
+    driver: { args, path, name }
+  } = browser;
+  const childArgs = args({ port });
+  const onClose = () => logger.info(`[webdriver:start] ${name} terminated`);
+  const onOut = chunk => logger.info(`[webdriver] ${chunk}`);
+
+  logger.info(`[webdriver:start] Starting ${name} ${path} ${childArgs.join(' ')}`);
+  const instance = execFile(path, childArgs);
+  instance.stdout.on('data', onOut);
+  instance.stderr.on('data', onOut);
+  instance.on('close', onClose);
+  await waitForBusyPort(port);
+  logger.info(`[webdriver:start] ${name} started on port ${port}`);
+  return instance;
+}
 
 async function setup() {
   const [webDriverPort, testAppPort] = await getFreePorts(3000, 3050, 2);
   process.env.WEB_DRIVER_PORT = webDriverPort;
   process.env.TEST_APP_PORT = testAppPort;
-  await startDriver(webDriverPort);
+
+  global.webDriverInstance = await startDriver(webDriverPort);
   await startTestApp(testAppPort);
 }
 

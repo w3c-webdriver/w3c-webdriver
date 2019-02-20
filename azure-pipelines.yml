@@ -25,7 +25,7 @@ jobs:
 
 - template: azure-pipelines-template.yml
   parameters:
-    name: Internet Explorer
+    name: Internet_Explorer
     vmImage: 'vs2017-win2016'
     nodeVersion: '10.x'
     browser: internet-explorer

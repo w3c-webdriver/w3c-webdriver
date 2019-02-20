@@ -1,4 +1,4 @@
-import { session } from '../jest-config/session-provider';
+import session from '../jest-config/session';
 
 describe('Cookies', () => {
   describe('addCookie/getAllCookies methods', () => {

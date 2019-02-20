@@ -1,11 +1,15 @@
 /* eslint-env jest,jasmine */
 
-import { start as createSession, stop as removeSession, session } from './session-provider';
+import { newSession } from '../src';
+import browser from './browser';
+import session from './session';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
 
 beforeAll(async () => {
-  await createSession(process.env.WEB_DRIVER_PORT);
+  global.sessionInstance = await newSession(`http://localhost:${process.env.WEB_DRIVER_PORT}`, {
+    desiredCapabilities: browser.desiredCapabilities
+  });
 });
 
 beforeEach(async () => {
@@ -13,5 +17,7 @@ beforeEach(async () => {
 });
 
 afterAll(async () => {
-  await removeSession();
+  if (session.delete) {
+    await session.delete();
+  }
 });
