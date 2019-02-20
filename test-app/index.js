@@ -4,7 +4,7 @@ import http from 'http';
 import url from 'url';
 import path from 'path';
 import fs from 'fs';
-import logger from '../jest-config/logger';
+import logger from '../test-env/logger';
 
 const mimeTypes = {
   html: 'text/html',

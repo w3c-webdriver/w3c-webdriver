@@ -1,5 +1,5 @@
 module.exports = {
-  globalSetup: './jest-config/global-setup.js',
-  globalTeardown: './jest-config/global-teardown.js',
-  setupFilesAfterEnv: ['./jest-config/setup']
+  globalSetup: './test-env/global-setup.js',
+  globalTeardown: './test-env/global-teardown.js',
+  setupFilesAfterEnv: ['./test-env/setup']
 };

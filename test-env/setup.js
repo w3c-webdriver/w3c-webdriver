@@ -1,5 +1,3 @@
-/* eslint-env jest,jasmine */
-
 import { newSession } from '../src';
 import browser from './browser';
 import session from './session';

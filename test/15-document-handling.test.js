@@ -1,4 +1,4 @@
-import session from '../jest-config/session';
+import session from '../test-env/session';
 
 describe('Document Handling', () => {
   describe('getPageSource method', () => {
