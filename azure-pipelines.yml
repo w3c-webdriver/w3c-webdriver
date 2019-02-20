@@ -4,26 +4,31 @@ trigger:
 jobs:
 - template: azure-pipelines-template.yml
   parameters:
-    name: Chrome
+    name: Firefox
     vmImage: 'ubuntu-16.04'
     nodeVersion: '8.x'
     browser: firefox
     preBuild:
     - script: env
+      displayName: Log environment variables
 
 - template: azure-pipelines-template.yml
   parameters:
-    name: Safari
+    name: Chrome
     vmImage: 'macOS-10.13'
     nodeVersion: '9.x'
     browser: chrome-headless
     preBuild:
     # - script: /usr/bin/safaridriver --help
     - script: env
+      displayName: Log environment variables
 
 - template: azure-pipelines-template.yml
   parameters:
-    name: Windows
+    name: Internet Explorer
     vmImage: 'vs2017-win2016'
     nodeVersion: '10.x'
     browser: internet-explorer
+    preBuild:
+    - script: set
+      displayName: Log environment variables

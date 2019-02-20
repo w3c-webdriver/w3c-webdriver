@@ -15,7 +15,8 @@ export async function start(port) {
         javascriptEnabled: true,
         chromeOptions: {
           args: ['incognito', 'headless', 'no-sandbox', 'disable-gpu']
-        }
+        },
+        chrome_binary: process.env.CHROME_BIN
       },
       firefox: {
         browserName: 'firefox',
