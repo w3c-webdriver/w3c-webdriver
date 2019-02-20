@@ -13,7 +13,7 @@ const browsers = [
     },
     driver: {
       name: 'Chromedriver',
-      path: process.env.CI ? 'chromedriver' : chromedriverPath,
+      path: chromedriverPath,
       args: ({ port }) => [`--port=${port}`]
     }
   },
@@ -29,7 +29,7 @@ const browsers = [
     },
     driver: {
       name: 'Chromedriver',
-      path: process.env.CI ? 'chromedriver' : chromedriverPath,
+      path: chromedriverPath,
       args: ({ port }) => [`--port=${port}`]
     }
   },
@@ -42,7 +42,19 @@ const browsers = [
     },
     driver: {
       name: 'Geckodriver',
-      path: process.env.CI ? 'geckodriver' : geckodriverPath,
+      path: geckodriverPath,
+      args: ({ port }) => [`--port=${port}`]
+    }
+  },
+  {
+    id: 'safari',
+    desiredCapabilities: {
+      browserName: 'safari',
+      javascriptEnabled: true,
+    },
+    driver: {
+      name: 'SafariDriver',
+      path: '/usr/bin/safaridriver',
       args: ({ port }) => [`--port=${port}`]
     }
   },
@@ -57,7 +69,7 @@ const browsers = [
     },
     driver: {
       name: 'InternetExplorerDriver',
-      path: process.env.CI ? 'IEDriverServer' : iedriverPath,
+      path: iedriverPath,
       args: ({ port }) => [`--port=${port}`, '--log-level=INFO']
     }
   }

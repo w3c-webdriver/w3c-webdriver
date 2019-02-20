@@ -15,11 +15,20 @@ jobs:
 - template: azure-pipelines-template.yml
   parameters:
     name: Chrome
-    vmImage: 'macOS-10.13'
-    nodeVersion: '9.x'
+    vmImage: 'ubuntu-16.04'
+    nodeVersion: '10.x'
     browser: chrome-headless
     preBuild:
-    # - script: /usr/bin/safaridriver --help
+    - script: env
+      displayName: Log environment variables
+
+- template: azure-pipelines-template.yml
+  parameters:
+    name: Safari
+    vmImage: 'macOS-10.13'
+    nodeVersion: '10.x'
+    browser: safari
+    preBuild:
     - script: env
       displayName: Log environment variables
 
