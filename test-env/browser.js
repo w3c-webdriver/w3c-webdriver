@@ -38,7 +38,10 @@ const browsers = [
     desiredCapabilities: {
       browserName: 'firefox',
       marionette: true,
-      javascriptEnabled: true
+      javascriptEnabled: true,
+      'moz:firefoxOptions': {
+        args: ['-headless']
+      }
     },
     driver: {
       name: 'Geckodriver',
@@ -50,7 +53,7 @@ const browsers = [
     id: 'safari',
     desiredCapabilities: {
       browserName: 'safari',
-      javascriptEnabled: true,
+      javascriptEnabled: true
     },
     driver: {
       name: 'SafariDriver',
