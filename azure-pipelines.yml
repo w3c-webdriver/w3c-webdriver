@@ -27,7 +27,7 @@ jobs:
     #   displayName: Install X virtual framebuffer
     # - script: export DISPLAY=:99.0 && sh -e /etc/init.d/xvfb start
     #   displayName: Start X virtual framebuffer
-    - script: sudo safaridriver — enable
+    - script: sudo safaridriver --enable
       displayName: Configure Safari to Enable WebDriver Support
 
 - template: azure-pipelines-template.yml
