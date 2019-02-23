@@ -23,10 +23,8 @@ jobs:
     nodeVersion: '10.x'
     browser: safari
     preBuild:
-    - script: /usr/bin/safaridriver --help
-      displayName: Show safaridriver help
-    - script: env
-      displayName: Log environment variables
+    - script: /usr/bin/safaridriver --enable
+      displayName: Enable WebDriver in Safari
 
 - template: azure-pipelines-template.yml
   parameters:
