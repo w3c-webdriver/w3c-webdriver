@@ -24,7 +24,7 @@ jobs:
     browser: safari
     preBuild:
     - script: /usr/bin/safaridriver --enable
-      displayName: Enable WebDriver in Safari
+      displayName: Configure Safari to Enable WebDriver Support
 
 - template: azure-pipelines-template.yml
   parameters:
