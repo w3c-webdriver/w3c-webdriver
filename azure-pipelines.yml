@@ -7,10 +7,7 @@ jobs:
     name: Firefox
     vmImage: 'ubuntu-16.04'
     nodeVersion: '8.x'
-    browser: firefox
-    preBuild:
-    - script: env
-      displayName: Log environment variables
+    browser: firefox-headless
 
 - template: azure-pipelines-template.yml
   parameters:
@@ -18,9 +15,6 @@ jobs:
     vmImage: 'ubuntu-16.04'
     nodeVersion: '10.x'
     browser: chrome-headless
-    preBuild:
-    - script: env
-      displayName: Log environment variables
 
 - template: azure-pipelines-template.yml
   parameters:
@@ -29,6 +23,8 @@ jobs:
     nodeVersion: '10.x'
     browser: safari
     preBuild:
+    - script: /usr/bin/safaridriver --help
+      displayName: Show safaridriver help
     - script: env
       displayName: Log environment variables
 
@@ -38,6 +34,3 @@ jobs:
     vmImage: 'vs2017-win2016'
     nodeVersion: '10.x'
     browser: internet-explorer
-    preBuild:
-    - script: set
-      displayName: Log environment variables

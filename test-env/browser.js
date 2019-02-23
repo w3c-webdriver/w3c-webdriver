@@ -38,6 +38,19 @@ const browsers = [
     desiredCapabilities: {
       browserName: 'firefox',
       marionette: true,
+      javascriptEnabled: true
+    },
+    driver: {
+      name: 'Geckodriver',
+      path: geckodriverPath,
+      args: ({ port }) => [`--port=${port}`]
+    }
+  },
+  {
+    id: 'firefox-headless',
+    desiredCapabilities: {
+      browserName: 'firefox',
+      marionette: true,
       javascriptEnabled: true,
       'moz:firefoxOptions': {
         args: ['-headless']
