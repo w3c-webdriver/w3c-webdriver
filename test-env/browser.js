@@ -99,3 +99,5 @@ assert(
 );
 
 export default selectedBrowser;
+
+export const name = selectedBrowser.desiredCapabilities.browserName;
