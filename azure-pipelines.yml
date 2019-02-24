@@ -22,9 +22,9 @@ jobs:
     vmImage: 'macOS-10.13'
     nodeVersion: '10.x'
     browser: safari
-    # preBuild:
-    # - script: sudo safaridriver --enable
-      # displayName: Configure Safari to Enable WebDriver Support
+    preBuild:
+    - script: sudo safaridriver --enable
+      displayName: Configure Safari to Enable WebDriver Support
 
 - template: azure-pipelines-template.yml
   parameters:
