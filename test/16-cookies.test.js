@@ -8,7 +8,7 @@ describe('Cookies', () => {
         name: 'test_cookie',
         value: 'test_value',
         path: '/',
-        domain: 'localhost',
+        domain: '.localhost',
         secure: false,
         httpOnly: true
       };
@@ -16,9 +16,9 @@ describe('Cookies', () => {
       // See:
       // https://github.com/seleniumhq/selenium/issues/962
       // https://bugzilla.mozilla.org/show_bug.cgi?id=1488225
-      if (['internet explorer', 'firefox'].includes(name)) {
-        return;
-      }
+      // if (['internet explorer', 'firefox'].includes(name)) {
+      //   return;
+      // }
 
       await session.addCookie({
         ...testCookie,

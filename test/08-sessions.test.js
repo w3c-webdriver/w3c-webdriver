@@ -10,6 +10,9 @@ describe('Sessions', () => {
         firefox: () => {
           expect(result.message).toBeDefined();
           expect(result.ready).toBeDefined();
+        },
+        safari: () => {
+          console.log(result);
         }
       }[name] || (() => {
         expect(result.build).toBeDefined();
