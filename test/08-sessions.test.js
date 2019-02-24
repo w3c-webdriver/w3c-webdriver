@@ -1,6 +1,5 @@
-/* eslint-env jest */
-
-import { session } from './session-provider';
+import session from '../test-env/session';
+import { name } from '../test-env/browser';
 import { status } from '../src';
 
 describe('Sessions', () => {
@@ -8,23 +7,18 @@ describe('Sessions', () => {
     it('returns server status', async () => {
       const result = await status(`http://localhost:${process.env.WEB_DRIVER_PORT}`);
       const check = {
-        chrome: () => {
-          expect(result.build).toBeDefined();
-          expect(result.os).toBeDefined();
-        },
-        'chrome-headless': () => {
-          expect(result.build).toBeDefined();
-          expect(result.os).toBeDefined();
-        },
         firefox: () => {
           expect(result.message).toBeDefined();
           expect(result.ready).toBeDefined();
         },
-        'internet-explorer': () => {
-          expect(result.build).toBeDefined();
-          expect(result.os).toBeDefined();
+        safari: () => {
+          process.stdout.write(JSON.stringify(result));
         }
-      }[process.env.BROWSER];
+      }[name] || (() => {
+        expect(result.build).toBeDefined();
+        expect(result.os).toBeDefined();
+      });
+
       check();
     });
   });
@@ -38,18 +32,14 @@ describe('Sessions', () => {
       };
       const check = {
         chrome: async () => {},
-        'chrome-headless': async () => {},
-        firefox: async () => {
-          await session.setTimeout(timeouts);
-          const retrievedTimeout = await session.getTimeout();
-          expect(retrievedTimeout).toEqual(timeouts);
-        },
-        'internet-explorer': async () => {
-          await session.setTimeout(timeouts);
-          const retrievedTimeout = await session.getTimeout();
-          expect(retrievedTimeout).toEqual(timeouts);
-        }
-      }[process.env.BROWSER];
+      }[name] || (async () => {
+        await session.setTimeout(timeouts);
+
+        const retrievedTimeout = await session.getTimeout();
+
+        expect(retrievedTimeout).toEqual(timeouts);
+      });
+
       await check();
     });
   });

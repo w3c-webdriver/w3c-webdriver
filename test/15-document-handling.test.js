@@ -1,11 +1,11 @@
-/* eslint-env jest */
-
-import { session } from './session-provider';
+import session from '../test-env/session';
+import { name } from '../test-env/browser';
 
 describe('Document Handling', () => {
   describe('getPageSource method', () => {
     it('get the current page source', async () => {
       const result = await session.getPageSource();
+
       expect(result).toContain('<title>The simple calculator</title>');
     });
   });
@@ -14,6 +14,7 @@ describe('Document Handling', () => {
     it('executes script in browser context', async () => {
       // eslint-disable-next-line no-template-curly-in-string
       const result = await session.executeScript('return arguments[0] * arguments[1]', [3, 5]);
+
       expect(result).toBe(15);
     });
   });
@@ -21,7 +22,7 @@ describe('Document Handling', () => {
   describe('executeAsyncScript method', () => {
     it('executes asynchronous script in browser context', async () => {
       // eslint-disable-next-line no-template-curly-in-string
-      if (process.env.BROWSER === 'internet-explorer') {
+      if (name === 'internet explorer') {
         await session.setTimeout({
           script: 30000
         });

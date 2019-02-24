@@ -1,8 +1,12 @@
 import http from 'http';
+import util from 'util';
 import urlParser from 'url';
+import log from './logger';
 
 function findError({ status, value }) {
-  if (!status && (!value || !value.error)) {
+  const hasError = !!(status || (value && value.error));
+
+  if (!hasError) {
     return null;
   }
 
@@ -12,6 +16,8 @@ function findError({ status, value }) {
 }
 
 function sendRequest(method, url, body) {
+  log(`WebDriver request: ${method} ${url} ${util.inspect(body, false, 10)}`);
+
   const jsonBody = JSON.stringify(body);
   const urlParts = urlParser.parse(url);
   const options = {
@@ -27,12 +33,11 @@ function sendRequest(method, url, body) {
     options.headers['Content-Type'] = 'application/json';
   }
 
-
   return new Promise((resolve, reject) => {
-    const request = http.request(options, (response) => {
+    const request = http.request(options, response => {
       const chunks = [];
       response.setEncoding('utf8');
-      response.on('data', (chunk) => {
+      response.on('data', chunk => {
         chunks.push(chunk);
       });
       response.on('end', () => {
@@ -43,6 +48,8 @@ function sendRequest(method, url, body) {
         } catch (err) {
           reject(err);
         }
+
+        log(`WebDriver response: ${chunks.join('')}`);
 
         const error = findError(responseBody);
 

@@ -1,16 +1,11 @@
 # WebDriver client for JavaScript
 
-[![Join the chat at https://gitter.im/mucsi96/w3c-webdriver](https://badges.gitter.im/mucsi96/w3c-webdriver.svg)](https://gitter.im/mucsi96/w3c-webdriver?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 [![npm version](https://badge.fury.io/js/w3c-webdriver.svg)](https://badge.fury.io/js/w3c-webdriver)
-[![Build status](https://ci.appveyor.com/api/projects/status/4evx9ibdbw5vgis4/branch/master?svg=true)](https://ci.appveyor.com/project/mucsi96/w3c-webdriver/branch/master)
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
-[![Dependency Status](https://dependencyci.com/github/mucsi96/w3c-webdriver/badge)](https://dependencyci.com/github/mucsi96/w3c-webdriver)
-[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+[![Build Status](https://dev.azure.com/mucsi96/w3c-webdriver/_apis/build/status/mucsi96.w3c-webdriver?branchName=master)](https://dev.azure.com/mucsi96/w3c-webdriver/_build/latest?definitionId=1&branchName=master)
 
-Zero dependency minimal future proof JavaScript bindings
+Very minimal future proof JavaScript bindings
 that conform to the [W3C WebDriver standard](https://w3c.github.io/webdriver/webdriver-spec.html),
-which specifies a remote control protocol for web browsers.
+which specifies a remote control protocol for web browsers. No magic just pure promise based REST client.
 
 Tested on major browsers
 

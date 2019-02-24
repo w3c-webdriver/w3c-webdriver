@@ -1,6 +1,4 @@
-/* eslint-env jest */
-
-import { session } from './session-provider';
+import session from '../test-env/session';
 
 describe('Screen Capture', () => {
   describe('takeScreenshot method', () => {
