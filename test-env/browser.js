@@ -94,17 +94,6 @@ const browsers = [
       path: iedriverPath,
       args: ({ port }) => [`--port=${port}`, '--log-level=INFO']
     }
-  },
-  {
-    id: 'edge',
-    capability: {
-      browserName: 'edge',
-    },
-    driver: {
-      name: 'Microsoft WebDriver',
-      path: 'MicrosoftWebDriver',
-      args: ({ port }) => [`--port=${port}`, '--log-level=INFO']
-    }
   }
 ];
 

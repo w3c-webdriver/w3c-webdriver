@@ -22,7 +22,7 @@ jobs:
     vmImage: 'macOS-10.13'
     nodeVersion: '10.x'
     browser: safari
-    preBuild:
+    # preBuild:
     # - script: sudo safaridriver --enable
       # displayName: Configure Safari to Enable WebDriver Support
 
@@ -32,13 +32,3 @@ jobs:
     vmImage: 'vs2017-win2016'
     nodeVersion: '10.x'
     browser: internet-explorer
-
-- template: azure-pipelines-template.yml
-  parameters:
-    name: Edge
-    vmImage: 'vs2017-win2016'
-    nodeVersion: '10.x'
-    browser: edge
-    preBuild:
-    - script: DISM.exe /Online /Add-Capability /CapabilityName:Microsoft.WebDriver~~~~0.0.1.0
-      displayName: Enable Microsoft WebDriver
