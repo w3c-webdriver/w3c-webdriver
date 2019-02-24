@@ -17,6 +17,7 @@ beforeAll(async () => {
     log(`Session created.`);
   } catch (error) {
     log(error.stack);
+    throw error;
   }
 });
 
