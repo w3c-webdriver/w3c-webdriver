@@ -4,14 +4,7 @@ import urlParser from 'url';
 import log from './logger';
 
 function findError({ status, value }) {
-  const hasError = status || (value && value.error);
-  log(
-    `Looking for error in status: ${status}, value: ${util.inspect(
-      value,
-      false,
-      10
-    )}, hasError: ${hasError}`
-  );
+  const hasError = !!(status || (value && value.error));
 
   if (!hasError) {
     return null;
@@ -23,6 +16,8 @@ function findError({ status, value }) {
 }
 
 function sendRequest(method, url, body) {
+  log(`WebDriver request: ${method} ${url} ${util.inspect(body, false, 10)}`);
+
   const jsonBody = JSON.stringify(body);
   const urlParts = urlParser.parse(url);
   const options = {
@@ -39,7 +34,6 @@ function sendRequest(method, url, body) {
   }
 
   return new Promise((resolve, reject) => {
-    log(`WebDriver request: ${options.url} ${options.body}`);
     const request = http.request(options, response => {
       const chunks = [];
       response.setEncoding('utf8');
