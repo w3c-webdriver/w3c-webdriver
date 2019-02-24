@@ -11,6 +11,7 @@ jobs:
     vmImage: ${{ parameters.vmImage }}
   variables:
     BROWSER: ${{ parameters.browser }}
+    DEBUG: w3c-webdriver
   steps:
   - task: NodeTool@0
     inputs:

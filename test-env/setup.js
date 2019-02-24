@@ -1,4 +1,4 @@
-import log from './logger';
+import log from '../src/logger';
 import { newSession } from '../src';
 import browser from './browser';
 import session from './session';

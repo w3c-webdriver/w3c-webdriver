@@ -4,7 +4,7 @@ import http from 'http';
 import url from 'url';
 import path from 'path';
 import fs from 'fs';
-import log from '../test-env/logger';
+import log from '../src/logger';
 
 const mimeTypes = {
   html: 'text/html',

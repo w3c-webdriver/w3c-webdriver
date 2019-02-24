@@ -1,6 +1,6 @@
 import { execFile } from 'child_process';
 import browser from './browser';
-import log from './logger';
+import log from '../src/logger';
 import { start as startTestApp } from '../test-app';
 import { getFreePorts, waitForBusyPort } from './ports';
 

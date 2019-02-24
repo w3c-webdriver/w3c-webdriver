@@ -1,8 +1,6 @@
 import http from 'http';
 import urlParser from 'url';
-import debug from 'debug';
-
-const log = debug('w3c-webdriver');
+import log from './logger';
 
 function findError({ status, value }) {
   if (!status && (!value || !value.error)) {
