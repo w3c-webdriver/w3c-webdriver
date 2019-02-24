@@ -9,6 +9,7 @@ const browsers = [
     capability: {
       browserName: 'chrome',
       'goog:chromeOptions': {
+        w3c: true,
         binary: process.env.CHROME_BIN
       }
     },
@@ -23,8 +24,9 @@ const browsers = [
     capability: {
       browserName: 'chrome',
       'goog:chromeOptions': {
-        args: ['--headless'],
-        binary: process.env.CHROME_BIN
+        w3c: true,
+        binary: process.env.CHROME_BIN,
+        args: ['--headless']
       }
     },
     driver: {
@@ -81,10 +83,6 @@ const browsers = [
     id: 'internet-explorer',
     capability: {
       browserName: 'internet explorer',
-      ignoreProtectedModeSettings: true,
-      ignoreZoomSetting: true,
-      'ie.ensureCleanSession': true,
-      logLevel: 'INFO'
     },
     driver: {
       name: 'InternetExplorerDriver',
