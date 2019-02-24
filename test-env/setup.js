@@ -10,10 +10,14 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
 
 beforeAll(async () => {
   log(`Creating session on port ${webDriverPort}.`);
-  global.sessionInstance = await newSession(`http://localhost:${webDriverPort}`, {
-    desiredCapabilities: browser.desiredCapabilities
-  });
-  log(`Session created.`);
+  try {
+    global.sessionInstance = await newSession(`http://localhost:${webDriverPort}`, {
+      desiredCapabilities: browser.desiredCapabilities
+    });
+    log(`Session created.`);
+  } catch (error) {
+    log(error.stack);
+  }
 });
 
 beforeEach(async () => {
