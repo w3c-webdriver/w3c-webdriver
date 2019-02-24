@@ -32,6 +32,7 @@ function sendRequest(method, url, body) {
 
 
   return new Promise((resolve, reject) => {
+    log(`WebDriver request: ${options.url} ${options.body}`);
     const request = http.request(options, (response) => {
       const chunks = [];
       response.setEncoding('utf8');
