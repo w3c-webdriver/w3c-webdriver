@@ -1,5 +1,4 @@
 import session from '../test-env/session';
-import { name } from '../test-env/browser';
 
 describe('Cookies', () => {
   describe('addCookie/getAllCookies methods', () => {

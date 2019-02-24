@@ -12,7 +12,7 @@ describe('Sessions', () => {
           expect(result.ready).toBeDefined();
         },
         safari: () => {
-          console.log(result);
+          process.stdout.write(JSON.stringify(result));
         }
       }[name] || (() => {
         expect(result.build).toBeDefined();
