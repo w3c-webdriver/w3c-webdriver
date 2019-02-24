@@ -1,6 +1,9 @@
 trigger:
 - master
 
+variables:
+  coreDirectory: $(Build.SourcesDirectory)/packages/w3c-webdriver
+
 jobs:
 - template: azure-pipelines-template.yml
   parameters:
