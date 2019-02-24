@@ -1,15 +1,23 @@
 import http from 'http';
+import util from 'util';
 import urlParser from 'url';
 import log from './logger';
 
 function findError({ status, value }) {
-  log(`Looking for error in status: ${status}, value: ${value}`);
-  if (!status && (!value || !value.error)) {
+  const hasError = status || (value && value.error);
+  log(
+    `Looking for error in status: ${status}, value: ${util.inspect(
+      value,
+      false,
+      10
+    )}, hasError: ${hasError}`
+  );
+
+  if (!hasError) {
     return null;
   }
 
   const { message, error } = value;
-
 
   return new Error(`WebDriverError(${error || status}): ${message}`);
 }
@@ -30,13 +38,12 @@ function sendRequest(method, url, body) {
     options.headers['Content-Type'] = 'application/json';
   }
 
-
   return new Promise((resolve, reject) => {
     log(`WebDriver request: ${options.url} ${options.body}`);
-    const request = http.request(options, (response) => {
+    const request = http.request(options, response => {
       const chunks = [];
       response.setEncoding('utf8');
-      response.on('data', (chunk) => {
+      response.on('data', chunk => {
         chunks.push(chunk);
       });
       response.on('end', () => {
