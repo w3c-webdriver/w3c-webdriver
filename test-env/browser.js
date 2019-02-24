@@ -70,7 +70,7 @@ const browsers = [
     },
     driver: {
       name: 'SafariDriver',
-      path: 'sudo safaridriver',
+      path: 'safaridriver',
       args: ({ port }) => [`--port ${port}`]
     }
   },
