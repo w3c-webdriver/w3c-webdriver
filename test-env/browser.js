@@ -83,6 +83,11 @@ const browsers = [
     id: 'internet-explorer',
     capability: {
       browserName: 'internet explorer',
+      'se:ieOptions': {
+        ignoreProtectedModeSettings: true,
+        ignoreZoomSetting: true,
+        'ie.ensureCleanSession': true
+      }
     },
     driver: {
       name: 'InternetExplorerDriver',
