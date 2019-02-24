@@ -22,9 +22,12 @@ jobs:
 
   - script: npm install
     displayName: Install dependencies
+    workingDirectory: $(coreDirectory)
 
   - script: npm run lint
     displayName: Lint
+    workingDirectory: $(coreDirectory)
 
-  - script: npm test -- --runInBand
+  - script: npm test -- --ci --runInBand
     displayName: Test
+    workingDirectory: $(coreDirectory)
