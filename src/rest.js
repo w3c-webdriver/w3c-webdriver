@@ -1,5 +1,8 @@
 import http from 'http';
 import urlParser from 'url';
+import debug from 'debug';
+
+const log = debug('w3c-webdriver');
 
 function findError({ status, value }) {
   if (!status && (!value || !value.error)) {
@@ -43,6 +46,8 @@ function sendRequest(method, url, body) {
         } catch (err) {
           reject(err);
         }
+
+        log(`WebDriver response: ${chunks.join('')}`);
 
         const error = findError(responseBody);
 
