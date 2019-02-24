@@ -8,8 +8,9 @@ const browsers = [
     id: 'chrome',
     capability: {
       browserName: 'chrome',
-      javascriptEnabled: true,
-      chrome_binary: process.env.CHROME_BIN
+      'goog:chromeOptions': {
+        binary: process.env.CHROME_BIN
+      }
     },
     driver: {
       name: 'Chromedriver',
@@ -21,11 +22,10 @@ const browsers = [
     id: 'chrome-headless',
     capability: {
       browserName: 'chrome',
-      javascriptEnabled: true,
-      chromeOptions: {
-        args: ['incognito', 'headless', 'no-sandbox', 'disable-gpu']
-      },
-      chrome_binary: process.env.CHROME_BIN
+      'goog:chromeOptions': {
+        args: ['--headless', '--disable-gpu'],
+        binary: process.env.CHROME_BIN
+      }
     },
     driver: {
       name: 'Chromedriver',
@@ -36,9 +36,7 @@ const browsers = [
   {
     id: 'firefox',
     capability: {
-      browserName: 'firefox',
-      marionette: true,
-      javascriptEnabled: true
+      browserName: 'firefox'
     },
     driver: {
       name: 'Geckodriver',
@@ -50,10 +48,11 @@ const browsers = [
     id: 'firefox-headless',
     capability: {
       browserName: 'firefox',
-      marionette: true,
-      javascriptEnabled: true,
       'moz:firefoxOptions': {
-        args: ['-headless']
+        args: ['-headless'],
+        log: {
+          level: 'trace'
+        }
       }
     },
     driver: {
@@ -65,8 +64,7 @@ const browsers = [
   {
     id: 'safari',
     capability: {
-      browserName: 'safari',
-      javascriptEnabled: true
+      browserName: 'safari'
     },
     driver: {
       name: 'SafariDriver',
