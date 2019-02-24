@@ -23,12 +23,8 @@ jobs:
     nodeVersion: '10.x'
     browser: safari
     preBuild:
-    # - script: sudo apt-get update && sudo apt-get install -y xvfb
-    #   displayName: Install X virtual framebuffer
-    # - script: export DISPLAY=:99.0 && sh -e /etc/init.d/xvfb start
-    #   displayName: Start X virtual framebuffer
-    - script: sudo safaridriver --enable
-      displayName: Configure Safari to Enable WebDriver Support
+    # - script: sudo safaridriver --enable
+      # displayName: Configure Safari to Enable WebDriver Support
 
 - template: azure-pipelines-template.yml
   parameters:
@@ -36,3 +32,13 @@ jobs:
     vmImage: 'vs2017-win2016'
     nodeVersion: '10.x'
     browser: internet-explorer
+
+- template: azure-pipelines-template.yml
+  parameters:
+    name: Edge
+    vmImage: 'vs2017-win2016'
+    nodeVersion: '10.x'
+    browser: edge
+    preBuild:
+    - script: DISM.exe /Online /Add-Capability /CapabilityName:Microsoft.WebDriver~~~~0.0.1.0
+      displayName: Enable Microsoft WebDriver
