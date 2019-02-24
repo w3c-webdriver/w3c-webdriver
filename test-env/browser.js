@@ -23,7 +23,7 @@ const browsers = [
     capability: {
       browserName: 'chrome',
       'goog:chromeOptions': {
-        args: ['--headless', '--disable-gpu'],
+        args: ['--headless'],
         binary: process.env.CHROME_BIN
       }
     },
@@ -36,7 +36,12 @@ const browsers = [
   {
     id: 'firefox',
     capability: {
-      browserName: 'firefox'
+      browserName: 'firefox',
+      'moz:firefoxOptions': {
+        log: {
+          level: 'debug'
+        }
+      }
     },
     driver: {
       name: 'Geckodriver',
@@ -51,7 +56,7 @@ const browsers = [
       'moz:firefoxOptions': {
         args: ['-headless'],
         log: {
-          level: 'trace'
+          level: 'debug'
         }
       }
     },

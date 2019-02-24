@@ -26,5 +26,5 @@ jobs:
   - script: npm run lint
     displayName: Lint
 
-  - script: npm test
+  - script: npm test -- --runInBand
     displayName: Test
