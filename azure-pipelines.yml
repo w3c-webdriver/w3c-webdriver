@@ -29,6 +29,8 @@ jobs:
     #   displayName: Start X virtual framebuffer
     - script: sudo safaridriver --enable
       displayName: Configure Safari to Enable WebDriver Support
+    - script: safaridriver --port 3000
+      displayName: Try start safaridriver
 
 - template: azure-pipelines-template.yml
   parameters:
