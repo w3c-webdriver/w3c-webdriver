@@ -71,7 +71,7 @@ const browsers = [
     driver: {
       name: 'SafariDriver',
       path: 'safaridriver',
-      args: ({ port }) => [`--port ${port}`]
+      args: ({ port }) => [`--port=${port}`]
     }
   },
   {
