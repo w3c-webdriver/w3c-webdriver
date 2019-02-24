@@ -16,15 +16,15 @@ async function startDriver(port) {
 
     throw new Error(`Webdriver ${name} exited unexpectedly with code ${code} and signal ${signal}.`);
   };
-  const onOut = chunk => log(`[webdriver] ${chunk}`);
+  const onOut = chunk => log(chunk);
 
-  log(`[webdriver:start] Starting ${name} ${path} ${childArgs.join(' ')}`);
+  log(`Starting ${name} ${path} ${childArgs.join(' ')}`);
   const instance = execFile(path, childArgs);
   instance.stdout.on('data', onOut);
   instance.stderr.on('data', onOut);
   instance.on('close', onClose);
   await waitForBusyPort(port);
-  log(`[webdriver:start] ${name} started on port ${port}`);
+  log(`${name} started on port ${port}`);
   return instance;
 }
 

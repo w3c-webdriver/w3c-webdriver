@@ -9,11 +9,11 @@ const testAppPort = process.env.TEST_APP_PORT;
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
 
 beforeAll(async () => {
-  log(`[webdriver:session] Creating session on port ${webDriverPort}.`);
+  log(`Creating session on port ${webDriverPort}.`);
   global.sessionInstance = await newSession(`http://localhost:${webDriverPort}`, {
     desiredCapabilities: browser.desiredCapabilities
   });
-  log(`[webdriver:session] Session created.`);
+  log(`Session created.`);
 });
 
 beforeEach(async () => {
@@ -21,9 +21,9 @@ beforeEach(async () => {
 });
 
 afterAll(async () => {
-  log(`[webdriver:session] Deleting session on port ${webDriverPort}.`);
+  log(`Deleting session on port ${webDriverPort}.`);
   if (session.delete) {
     await session.delete();
   }
-  log(`[webdriver:session] Session deleted.`);
+  log(`Session deleted.`);
 });
