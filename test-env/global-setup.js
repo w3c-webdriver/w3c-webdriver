@@ -10,6 +10,10 @@ async function startDriver(port) {
   } = browser;
   const childArgs = args({ port });
   const onClose = (code, signal) => {
+    if (!code) {
+      return;
+    }
+
     throw new Error(`Webdriver ${name} exited unexpectedly with code ${code} and signal ${signal}.`);
   };
   const onOut = chunk => log(`[webdriver] ${chunk}`);
