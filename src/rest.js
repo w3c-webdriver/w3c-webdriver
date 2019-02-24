@@ -3,11 +3,13 @@ import urlParser from 'url';
 import log from './logger';
 
 function findError({ status, value }) {
+  log(`Looking for error in status: ${status}, value: ${value}`);
   if (!status && (!value || !value.error)) {
     return null;
   }
 
   const { message, error } = value;
+
 
   return new Error(`WebDriverError(${error || status}): ${message}`);
 }
