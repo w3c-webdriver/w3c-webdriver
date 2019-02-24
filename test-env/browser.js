@@ -6,7 +6,7 @@ import { path as iedriverPath } from 'iedriver';
 const browsers = [
   {
     id: 'chrome',
-    desiredCapabilities: {
+    capabilities: {
       browserName: 'chrome',
       javascriptEnabled: true,
       chrome_binary: process.env.CHROME_BIN
@@ -19,7 +19,7 @@ const browsers = [
   },
   {
     id: 'chrome-headless',
-    desiredCapabilities: {
+    capabilities: {
       browserName: 'chrome',
       javascriptEnabled: true,
       chromeOptions: {
@@ -35,7 +35,7 @@ const browsers = [
   },
   {
     id: 'firefox',
-    desiredCapabilities: {
+    capabilities: {
       browserName: 'firefox',
       marionette: true,
       javascriptEnabled: true
@@ -48,7 +48,7 @@ const browsers = [
   },
   {
     id: 'firefox-headless',
-    desiredCapabilities: {
+    capabilities: {
       browserName: 'firefox',
       marionette: true,
       javascriptEnabled: true,
@@ -64,7 +64,7 @@ const browsers = [
   },
   {
     id: 'safari',
-    desiredCapabilities: {
+    capabilities: {
       browserName: 'safari',
       javascriptEnabled: true
     },
@@ -76,7 +76,7 @@ const browsers = [
   },
   {
     id: 'internet-explorer',
-    desiredCapabilities: {
+    capabilities: {
       browserName: 'internet explorer',
       ignoreProtectedModeSettings: true,
       ignoreZoomSetting: true,
@@ -100,4 +100,4 @@ assert(
 
 export default selectedBrowser;
 
-export const name = selectedBrowser.desiredCapabilities.browserName;
+export const name = selectedBrowser.capabilities.browserName;
