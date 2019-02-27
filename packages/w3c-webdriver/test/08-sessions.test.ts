@@ -1,46 +1,47 @@
 import session from '../test-env/session';
-import { name } from '../test-env/browser';
+import { name as browserName } from '../test-env/browser';
 import { status } from '../src';
+import WebDriver from '../types';
 
 describe('Sessions', () => {
   describe('status method', () => {
     it('returns server status', async () => {
       const result = await status(`http://localhost:${process.env.WEB_DRIVER_PORT}`);
-      const check = {
-        firefox: () => {
+
+      switch (browserName) {
+        case 'firefox': {
           expect(result.message).toBeDefined();
           expect(result.ready).toBeDefined();
-        },
-        safari: () => {
+        }
+        case 'safari': {
           process.stdout.write(JSON.stringify(result));
         }
-      }[name] || (() => {
-        expect(result.build).toBeDefined();
-        expect(result.os).toBeDefined();
-      });
-
-      check();
+        default: {
+          expect(result.build).toBeDefined();
+          expect(result.os).toBeDefined();
+        }
+      }
     });
   });
 
   describe('set/getTimeout methods', () => {
     it('sets and retrieves session timeouts', async () => {
-      const timeouts = {
+      const timeouts: WebDriver.Timeout = {
         script: 30000,
         pageLoad: 60000,
         implicit: 40000
       };
-      const check = {
-        chrome: async () => {},
-      }[name] || (async () => {
-        await session.setTimeout(timeouts);
+      switch (browserName) {
+        case 'chrome': {
+          await session.setTimeout(timeouts);
 
-        const retrievedTimeout = await session.getTimeout();
+          const retrievedTimeout = await session.getTimeout();
 
-        expect(retrievedTimeout).toEqual(timeouts);
-      });
-
-      await check();
+          expect(retrievedTimeout).toEqual(timeouts);
+        }
+        default: {
+        }
+      }
     });
   });
 });

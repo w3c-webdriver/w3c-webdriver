@@ -1,7 +1,9 @@
-export default new Proxy(
-  {},
+import IWebDriverSession from "session";
+
+export default new Proxy<IWebDriverSession>(
+  {} as IWebDriverSession,
   {
-    get: (obj, prop) => {
+    get: (obj: object, prop: string) => {
       if (!global.sessionInstance) {
         throw new Error('WebDriver session was not created yet.');
       }

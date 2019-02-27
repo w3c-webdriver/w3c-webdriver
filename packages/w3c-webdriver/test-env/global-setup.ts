@@ -4,19 +4,19 @@ import log from '../src/logger';
 import { start as startTestApp } from '../test-app';
 import { getFreePorts, waitForBusyPort } from './ports';
 
-async function startDriver(port) {
+async function startDriver(port: number) {
   const {
     driver: { args, path, name }
   } = browser;
   const childArgs = args({ port });
-  const onClose = (code, signal) => {
+  const onClose = (code: number, signal: string) => {
     if (!code) {
       return;
     }
 
     throw new Error(`Webdriver ${name} exited unexpectedly with code ${code} and signal ${signal}.`);
   };
-  const onOut = chunk => log(chunk);
+  const onOut = (chunk: string) => log(chunk);
 
   log(`Starting ${name} ${path} ${childArgs.join(' ')}`);
   const instance = execFile(path, childArgs);
@@ -30,8 +30,8 @@ async function startDriver(port) {
 
 async function setup() {
   const [webDriverPort, testAppPort] = await getFreePorts(3000, 3050, 2);
-  process.env.WEB_DRIVER_PORT = webDriverPort;
-  process.env.TEST_APP_PORT = testAppPort;
+  process.env.WEB_DRIVER_PORT = webDriverPort.toString();
+  process.env.TEST_APP_PORT = testAppPort.toString();
 
   global.webDriverInstance = await startDriver(webDriverPort);
   await startTestApp(testAppPort);

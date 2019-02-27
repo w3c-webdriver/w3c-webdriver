@@ -1,11 +1,10 @@
 import { GET, POST } from './rest';
-import sessionFactory from './session';
+import WebDriverSession from './session';
+import WebDriver from './types';
 
 /**
  * This function creates a new WebDriver session.
- * @param {string} url WebDriver server URL
- * @param {object} options configuration object for creating the session
- * @returns {Promise<Session>} session
+ * @returns session
  * @see {@link https://www.w3.org/TR/webdriver/#new-session|WebDriver spec}
  * @example
  * import webdriver from 'w3c-webdriver';
@@ -26,14 +25,22 @@ import sessionFactory from './session';
  *   }
  * })();
  */
-export const newSession = (url, options) => POST(`${url}/session`, options).then(({ value, sessionId }) => sessionFactory(
-  url,
-  sessionId || value.sessionId, { JsonWire: !!sessionId }
-));
+export async function newSession(
+  /* WebDriver server URL */
+  url: string,
+  /* configuration object for creating the session */
+  options: object
+): Promise<WebDriver.Session> {
+  const { sessionId, JsonWire } = await POST<{ sessionId: string, JsonWire: boolean }>(
+    `${url}/session`,
+    options
+  );
+
+  return new WebDriverSession(url, sessionId, { JsonWire })
+}
 /**
  * This function queries the WebDriver server's current status.
- * @param {string} url WebDriver server URL
- * @returns {Promise<Object>} status
+ * @returns status
  * @see {@link https://www.w3.org/TR/webdriver/#status|WebDriver spec}
  * @example
  * import webdriver from 'w3c-webdriver';
@@ -52,4 +59,13 @@ export const newSession = (url, options) => POST(`${url}/session`, options).then
  *   }
  * })();
  */
-export const status = url => GET(`${url}/status`).then(({ value }) => value);
+export async function status(
+  /* WebDriver server URL */
+  url: string
+): Promise<WebDriver.Status> {
+  const status = await GET<WebDriver.Status>(`${url}/status`);
+
+  return status;
+}
+
+export default WebDriver;
