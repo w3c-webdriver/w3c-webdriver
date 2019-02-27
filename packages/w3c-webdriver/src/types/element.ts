@@ -1,7 +1,7 @@
 /**
  * This object represents a WebDriver element.
  */
-export default interface IWebDriverElement {
+export default interface Element {
   /**
    * Send a sequence of key strokes to an element.
    * @see {@link https://www.w3.org/TR/webdriver/#element-send-keys|WebDriver spec}

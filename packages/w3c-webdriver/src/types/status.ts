@@ -1,4 +1,4 @@
-interface IWebDriverStatusOS {
+interface StatusOfOS {
   /**
    * Name of operating system
    */
@@ -15,7 +15,7 @@ interface IWebDriverStatusOS {
   arch: string;
 }
 
-interface IWebDriverStatusWebDriver {
+interface StatusOfWebDriver {
   /**
    * Version of driver
    */
@@ -25,9 +25,9 @@ interface IWebDriverStatusWebDriver {
 /**
  * WebDriver status object
  */
-export default interface IWebDriverStatus {
+export default interface Status {
   message: string;
   ready: boolean;
-  os: IWebDriverStatusOS;
-  build: IWebDriverStatusWebDriver;
+  os: StatusOfOS;
+  build: StatusOfWebDriver;
 }

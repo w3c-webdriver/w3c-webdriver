@@ -28,6 +28,10 @@ jobs:
     displayName: Lint
     workingDirectory: $(coreDirectory)
 
+  - script: npm run type-check
+    displayName: Lint
+    workingDirectory: $(coreDirectory)
+
   - script: npm test -- --ci --runInBand
     displayName: Test
     workingDirectory: $(coreDirectory)

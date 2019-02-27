@@ -1,12 +1,12 @@
-import IWebDriverElement from './element';
-import IWebDriverTimeout from './timeout';
-import IWebDriverCookie from './cookie';
-import WebDriverLocatorStrategy from './locatorStrategy';
+import Element from './element';
+import Timeout from './timeout';
+import Cookie from './cookie';
+import LocatorStrategy from './locatorStrategy';
 
 /**
  * This object represents a WebDriver session.
  */
-export default interface IWebDriverSession {
+export default interface Session {
   /**
    * Delete the session.
    * @see {@link https://www.w3.org/TR/webdriver/#delete-session|WebDriver spec}
@@ -113,10 +113,10 @@ export default interface IWebDriverSession {
    */
   findElement(
     /* Locator strategy */
-    strategy: WebDriverLocatorStrategy,
+    strategy: LocatorStrategy,
     /* Selector string */
     selector: string
-  ): Promise<IWebDriverElement>;
+  ): Promise<Element>;
 
   /**
    * Search for multiple elements on the page, starting from the identified element. The located
@@ -148,10 +148,10 @@ export default interface IWebDriverSession {
    */
   findElements: (
     /* Locator strategy */
-    strategy: WebDriverLocatorStrategy,
+    strategy: LocatorStrategy,
     /* Selector string */
     selector: string
-  ) => Promise<IWebDriverElement[]>;
+  ) => Promise<Element[]>;
 
   /**
    * Gets timeout durations associated with the current session.
@@ -183,7 +183,7 @@ export default interface IWebDriverSession {
    *   }
    * })();
    */
-  getTimeout: () => Promise<IWebDriverTimeout>;
+  getTimeout: () => Promise<Timeout>;
 
   /**
    * Configure the amount of time that a particular type of operation can execute for before
@@ -213,7 +213,7 @@ export default interface IWebDriverSession {
    *   }
    * })();
    */
-  setTimeout: (timeout: IWebDriverTimeout) => Promise<void>;
+  setTimeout: (timeout: Timeout) => Promise<void>;
 
   /**
    * Returns a string serialization of the DOM of the current browsing context active document.
@@ -361,7 +361,7 @@ export default interface IWebDriverSession {
    *   }
    * })();
    */
-  getAllCookies: () => Promise<IWebDriverCookie[]>;
+  getAllCookies: () => Promise<Cookie[]>;
 
   /**
    * Adds a single cookie to the cookie store associated with the active document’s address.
@@ -388,7 +388,7 @@ export default interface IWebDriverSession {
    *   }
    * })();
    */
-  addCookie: (cookie: IWebDriverCookie) => Promise<void>;
+  addCookie: (cookie: Cookie) => Promise<void>;
 
   /**
    * The Take Screenshot command takes a screenshot of the top-level browsing context’s viewport.

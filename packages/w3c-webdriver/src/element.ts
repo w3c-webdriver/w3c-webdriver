@@ -1,7 +1,7 @@
 import { GET, POST } from './rest';
 import WebDriver from './types';
 
-export default class WebDriverElement implements WebDriver.Element {
+export default class Element implements WebDriver.Element {
   private url: string;
   private sessionId: string;
   private elementId: string;

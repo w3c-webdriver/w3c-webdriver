@@ -15,7 +15,7 @@
   "scripts": {
     "lint": "eslint src test test-app",
     "type-check": "tsc --noEmit",
-    "test": "jest",
+    "test": "jest --detectOpenHandles",
     "test:chrome": "cross-env BROWSER=chrome npm test",
     "test:chrome-headless": "cross-env BROWSER=chrome-headless npm test",
     "test:firefox": "cross-env BROWSER=firefox npm test",

@@ -1,5 +1,5 @@
 import { GET, POST } from './rest';
-import WebDriverSession from './session';
+import Session from './session';
 import WebDriver from './types';
 
 /**
@@ -31,12 +31,12 @@ export async function newSession(
   /* configuration object for creating the session */
   options: object
 ): Promise<WebDriver.Session> {
-  const { sessionId, JsonWire } = await POST<{ sessionId: string, JsonWire: boolean }>(
+  const { sessionId, JsonWire } = await POST<{ sessionId: string; JsonWire: boolean }>(
     `${url}/session`,
     options
   );
 
-  return new WebDriverSession(url, sessionId, { JsonWire })
+  return new Session(url, sessionId, { JsonWire });
 }
 /**
  * This function queries the WebDriver server's current status.

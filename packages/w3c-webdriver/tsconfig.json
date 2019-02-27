@@ -1,13 +1,10 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "commonjs",
+    "baseUrl": ".",
+    "paths": { "*": ["types/*"] },
     "strict": true,
     "esModuleInterop": true,
     "declaration": true,
-    "outDir": "lib",
-    "typeRoots": ["./types", "./node_modules/@types"],
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "lib"]
+    "outDir": "lib"
+  }
 }

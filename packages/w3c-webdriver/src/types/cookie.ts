@@ -1,7 +1,7 @@
 /**
  * An object defining the cookie.
  */
-export default interface IWebDriverCookie {
+export default interface Cookie {
   /**
    * The name of the cookie.
    */

@@ -1,7 +1,6 @@
 import session from '../test-env/session';
 import { name as browserName } from '../test-env/browser';
-import { status } from '../src';
-import WebDriver from '../types';
+import WebDriver, { status } from '../src';
 
 describe('Sessions', () => {
   describe('status method', () => {

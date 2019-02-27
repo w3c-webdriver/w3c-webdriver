@@ -1,8 +1,8 @@
 import { GET, POST, DELETE } from './rest';
-import WebDriverElement from './element';
+import Element from './element';
 import WebDriver from './types';
 
-export default class WebDriverSession implements WebDriver.Session {
+export default class Session implements WebDriver.Session {
   private url: string;
   private sessionId: string;
   private options: { JsonWire: boolean };
@@ -39,7 +39,7 @@ export default class WebDriverSession implements WebDriver.Session {
       }
     );
 
-    return new WebDriverElement(
+    return new Element(
       this.url,
       this.sessionId,
       element.ELEMENT || Object.values(element)[0],
@@ -61,7 +61,7 @@ export default class WebDriverSession implements WebDriver.Session {
 
     return elements.map(
       element =>
-        new WebDriverElement(
+        new Element(
           this.url,
           this.sessionId,
           element.ELEMENT || Object.values(element)[0],

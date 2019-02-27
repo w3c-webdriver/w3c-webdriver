@@ -9,7 +9,7 @@ export interface IWebDriverResponse {
 }
 
 function findError({ status, value }: IWebDriverResponse): Error | null {
-  const hasError = !!(status || (typeof value === 'object' && value.error));
+  const hasError = !!(status || (typeof value === 'object' && value !== null && value.error));
 
   if (!hasError) {
     return null;
@@ -57,7 +57,7 @@ function sendRequest<T>(method: string, url: string, body?: object): Promise<T> 
             return;
           }
 
-          resolve(responseBody);
+          resolve(responseBody.value);
         } catch (err) {
           reject(err);
         }

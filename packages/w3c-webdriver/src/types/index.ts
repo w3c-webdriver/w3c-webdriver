@@ -1,17 +1,19 @@
-import IWebDriverCookie from "./cookie";
-import IWebDriverElement from "./element";
-import IWebDriverSession from "./session";
-import IWebDriverStatus from "./status";
-import IWebDriverTimeout from "./timeout";
-import WebDriverLocatorStrategy from "./locatorStrategy";
+import ICookie from './cookie';
+import IElement from './element';
+import ISession from './session';
+import IStatus from './status';
+import ITimeout from './timeout';
+import ILocatorStrategy from './locatorStrategy';
 
 declare namespace WebDriver {
-  type Cookie = IWebDriverCookie;
-  type Element = IWebDriverElement;
-  type LocatorStrategy = WebDriverLocatorStrategy;
-  type Session = IWebDriverSession;
-  type Status = IWebDriverStatus;
-  type Timeout = IWebDriverTimeout;
+  type Cookie = ICookie;
+  type Element = IElement;
+  type LocatorStrategy = ILocatorStrategy;
+  type Session = ISession;
+  type Status = IStatus;
+  type Timeout = ITimeout;
 }
+
+class WebDriver {}
 
 export default WebDriver;

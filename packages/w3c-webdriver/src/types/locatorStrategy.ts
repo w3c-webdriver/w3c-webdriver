@@ -1,3 +1,3 @@
-type WebDriverLocatorStrategy = 'css selector' | 'link text' | 'partial link text' | 'tag name' | 'xpath';
+type LocatorStrategy = 'css selector' | 'link text' | 'partial link text' | 'tag name' | 'xpath';
 
-export default WebDriverLocatorStrategy;
+export default LocatorStrategy;
