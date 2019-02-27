@@ -21,7 +21,7 @@
     "test:firefox": "cross-env BROWSER=firefox npm test",
     "test:internet-explorer": "cross-env BROWSER=internet-explorer npm test",
     "docs": "documentation ../../readme src/index.js --section=API",
-    "build": "del-cli lib && tsc --emitDeclarationOnly && babel src --out-dir lib --extensions \".ts\"",
+    "build": "del-cli lib && tsc --emitDeclarationOnly -p tsconfig.build.json && babel src --out-dir lib --extensions \".ts\"",
     "prepack": "npm run build && npm run docs",
     "add:contributor": "all-contributors add",
     "generate:contributors": "all-contributors generate"
