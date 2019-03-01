@@ -1,4 +1,3 @@
-import assert from 'assert';
 import { path as chromedriverPath } from 'chromedriver';
 import { path as geckodriverPath } from 'geckodriver';
 import { path as iedriverPath } from 'iedriver';
@@ -32,7 +31,7 @@ type BrowserCapability = {
 type BrowserDriver = {
   name: string;
   path: string;
-  args: ({ port }: { port: number }) => string[];
+  args({ port }: { port: number }): string[];
 };
 
 type Browser = {
@@ -135,13 +134,14 @@ const browsers: Browser[] = [
   }
 ];
 
-const selectedBrowser: Browser | undefined = browsers.find(browser => browser.id === process.env.BROWSER);
+const maybeBrowser: Browser | undefined = browsers.find(browser => browser.id === process.env.BROWSER);
 
-assert(
-  selectedBrowser,
-  'Environment variable BROWSER is not set or is not matching the supported browsers.'
-);
+if (maybeBrowser === undefined) {
+  throw new Error('Environment variable BROWSER is not set or is not matching the supported browsers.')
+}
 
-export default selectedBrowser as Browser;
+const selectedBrowser: Browser = maybeBrowser;
 
-export const name = (selectedBrowser as Browser).capability.browserName;
+export default selectedBrowser;
+
+export const name = selectedBrowser.capability.browserName;

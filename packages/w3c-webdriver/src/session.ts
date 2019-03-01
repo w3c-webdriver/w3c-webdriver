@@ -1,11 +1,14 @@
-import { GET, POST, DELETE } from './rest';
+import { ICookie, IElement, ISession, ITimeout, LocatorStrategy } from './core';
 import Element from './element';
-import WebDriver from './types';
+import { DELETE, GET, POST } from './rest';
 
-export default class Session implements WebDriver.Session {
-  private url: string;
-  private sessionId: string;
-  private options: { JsonWire: boolean };
+/**
+ * This object represents a WebDriver session.
+ */
+export default class Session implements ISession {
+  private readonly url: string;
+  private readonly sessionId: string;
+  private readonly options: { JsonWire: boolean };
 
   constructor(url: string, sessionId: string, options: { JsonWire: boolean }) {
     this.url = url;
@@ -13,24 +16,22 @@ export default class Session implements WebDriver.Session {
     this.options = options;
   }
 
-  async delete(): Promise<void> {
+  public async close(): Promise<void> {
     await DELETE(`${this.url}/session/${this.sessionId}`);
   }
 
-  async go(targetUrl: string): Promise<void> {
+  public async go(targetUrl: string): Promise<void> {
     await POST(`${this.url}/session/${this.sessionId}/url`, { url: targetUrl });
   }
 
-  async getTitle(): Promise<string> {
-    const title = await GET<string>(`${this.url}/session/${this.sessionId}/title`);
-
-    return title;
+  public async getTitle(): Promise<string> {
+    return GET<string>(`${this.url}/session/${this.sessionId}/title`);
   }
 
-  async findElement(
-    strategy: WebDriver.LocatorStrategy,
+  public async findElement(
+    strategy: LocatorStrategy,
     selector: string
-  ): Promise<WebDriver.Element> {
+  ): Promise<IElement> {
     const element = await POST<{ [name: string]: string }>(
       `${this.url}/session/${this.sessionId}/element`,
       {
@@ -47,8 +48,8 @@ export default class Session implements WebDriver.Session {
     );
   }
 
-  async findElements(
-    strategy: WebDriver.LocatorStrategy,
+  public async findElements(
+    strategy: LocatorStrategy,
     selector: string
   ) {
     const elements = await POST<[{ [name: string]: string }]>(
@@ -70,36 +71,34 @@ export default class Session implements WebDriver.Session {
     );
   }
 
-  async getTimeout(): Promise<WebDriver.Timeout> {
-    const timeouts = GET<WebDriver.Timeout>(`${this.url}/session/${this.sessionId}/timeouts`);
-
-    return timeouts;
+  public async getTimeout(): Promise<ITimeout> {
+    return GET<ITimeout>(`${this.url}/session/${this.sessionId}/timeouts`);
   }
 
-  async setTimeout(timeout: WebDriver.Timeout): Promise<void> {
+  public async setTimeout(timeout: ITimeout): Promise<void> {
     await POST(`${this.url}/session/${this.sessionId}/timeouts`, timeout);
   }
 
-  async getPageSource(): Promise<string> {
-    const pageSource = await GET<string>(`${this.url}/session/${this.sessionId}/source`);
-
-    return pageSource;
+  public async getPageSource(): Promise<string> {
+    return GET<string>(`${this.url}/session/${this.sessionId}/source`);
   }
 
-  async executeScript(script: string, args: any[] = []): Promise<any> {
-    const result = await POST<any>(
+  // tslint:disable-next-line:no-any
+  public async executeScript(script: string, args: any[] = []): Promise<any> {
+    // tslint:disable-next-line:no-any
+    return POST<any>(
       `${this.url}/session/${this.sessionId}/execute${!this.options.JsonWire ? '/sync' : ''}`,
       {
         script,
         args
       }
     );
-
-    return result;
   }
 
-  async executeAsyncScript(script: string, args: any[] = []): Promise<any> {
-    const result = await POST<any>(
+  // tslint:disable-next-line:no-any
+  public async executeAsyncScript(script: string, args: any[] = []): Promise<any> {
+    // tslint:disable-next-line:no-any
+    return POST<any>(
       `${this.url}/session/${this.sessionId}/execute${
         !this.options.JsonWire ? '/async' : '_async'
       }`,
@@ -108,21 +107,17 @@ export default class Session implements WebDriver.Session {
         args
       }
     );
-
-    return result;
   }
 
-  async getAllCookies(): Promise<WebDriver.Cookie[]> {
-    const cookies = GET<WebDriver.Cookie[]>(`${this.url}/session/${this.sessionId}/cookie`);
-
-    return cookies;
+  public async getAllCookies(): Promise<ICookie[]> {
+    return GET<ICookie[]>(`${this.url}/session/${this.sessionId}/cookie`);
   }
 
-  async addCookie(cookie: WebDriver.Cookie) {
+  public async addCookie(cookie: ICookie) {
     await POST(`${this.url}/session/${this.sessionId}/cookie`, { cookie });
   }
 
-  async takeScreenshot(): Promise<Buffer> {
+  public async takeScreenshot(): Promise<Buffer> {
     const screenshot = await GET<string>(`${this.url}/session/${this.sessionId}/screenshot`);
 
     return Buffer.from(screenshot, 'base64');

@@ -1,5 +1,5 @@
 module.exports = {
-  globalSetup: './test-env/global-setup.ts',
-  globalTeardown: './test-env/global-teardown.ts',
+  globalSetup: './test-env/globalSetup.ts',
+  globalTeardown: './test-env/globalTeardown.ts',
   setupFilesAfterEnv: ['./test-env/setup.ts']
 };

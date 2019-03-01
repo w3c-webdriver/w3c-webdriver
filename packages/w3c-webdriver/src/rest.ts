@@ -1,36 +1,38 @@
 import http from 'http';
-import util from 'util';
 import urlParser from 'url';
-import log from './logger';
+import util from 'util';
+import Logger from './Logger';
 
 export interface IWebDriverResponse {
   status?: number;
   value: { message: string; error: string } | string;
 }
 
-function findError({ status, value }: IWebDriverResponse): Error | null {
-  const hasError = !!(status || (typeof value === 'object' && value !== null && value.error));
-
-  if (!hasError) {
-    return null;
+function getErrorFromResponse({ status, value }: IWebDriverResponse): Error | undefined {
+  if (typeof status === 'number' && status !==0) {
+    return new Error(`WebDriverError(${status})`);
   }
 
-  const { message, error } = typeof value === 'object' ? value : { error: '', message: '' };
+  if (typeof value === 'object' && value !== null && 'error' in value) {
+    const { message, error } = value;
 
-  return new Error(`WebDriverError(${error || status}): ${message}`);
+    return new Error(`WebDriverError(${error}): ${message}`);
+  }
 }
 
-function sendRequest<T>(method: string, url: string, body?: object): Promise<T> {
-  log(`WebDriver request: ${method} ${url} ${util.inspect(body, false, 10)}`);
+type RequestMethod = 'GET' | 'POST' | 'DELETE';
 
-  const jsonBody = JSON.stringify(body);
-  const urlParts = urlParser.parse(url);
-  const options = {
+async function sendRequest<T>(method: RequestMethod, url: string, body?: object): Promise<T> {
+  Logger.log(`WebDriver request: ${method} ${url} ${util.inspect(body, false, 10)}`);
+
+  const jsonBody: string = JSON.stringify(body);
+  const urlParts: urlParser.UrlWithStringQuery = urlParser.parse(url);
+  const options: object = {
+    method,
     hostname: urlParts.hostname,
     port: urlParts.port,
     path: urlParts.path,
-    method,
-    headers: body
+    headers: body !== undefined
       ? {
           'Content-Length': Buffer.byteLength(jsonBody),
           'Content-Type': 'application/json'
@@ -42,37 +44,38 @@ function sendRequest<T>(method: string, url: string, body?: object): Promise<T> 
     const request = http.request(options, response => {
       const chunks: string[] = [];
       response.setEncoding('utf8');
-      response.on('data', chunk => {
+      response.on('data', (chunk: string) => {
         chunks.push(chunk);
       });
       response.on('end', () => {
         try {
-          const responseBody = JSON.parse(chunks.join(''));
-          log(`WebDriver response: ${chunks.join('')}`);
+          const responseBody = <IWebDriverResponse>JSON.parse(chunks.join(''));
+          Logger.log(`WebDriver response: ${chunks.join('')}`);
 
-          const error = findError(responseBody);
+          const error = getErrorFromResponse(responseBody);
 
-          if (error) {
+          if (error !== undefined) {
             reject(error);
+
             return;
           }
 
-          resolve(responseBody.value);
+          resolve(<T><unknown>responseBody.value);
         } catch (err) {
           reject(err);
         }
       });
     });
 
-    request.on('error', error => reject(error));
+    request.on('error', reject);
 
-    if (body) {
+    if (body !== undefined) {
       request.write(jsonBody);
     }
     request.end();
   });
 }
 
-export const GET = <T>(url: string) => sendRequest<T>('GET', url);
-export const POST = <T>(url: string, body: object) => sendRequest<T>('POST', url, body);
-export const DELETE = <T>(url: string, body?: object) => sendRequest<T>('DELETE', url, body);
+export const GET = async <T>(url: string) => sendRequest<T>('GET', url);
+export const POST = async <T>(url: string, body: object) => sendRequest<T>('POST', url, body);
+export const DELETE = async <T>(url: string, body?: object) => sendRequest<T>('DELETE', url, body);

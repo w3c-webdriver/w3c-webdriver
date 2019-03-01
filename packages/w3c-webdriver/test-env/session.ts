@@ -1,7 +1,10 @@
 import WebDriver from "../src";
 
+// tslint:disable-next-line:no-object-literal-type-assertion
+const target = <WebDriver.Session>{};
+
 export default new Proxy<WebDriver.Session>(
-  {} as WebDriver.Session,
+  target,
   {
     get: (obj: object, prop: string) => {
       if (!global.sessionInstance) {

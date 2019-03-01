@@ -56,7 +56,7 @@ import webdriver from 'w3c-webdriver';
   } catch (err) {
     console.log(err.stack);
   } finally {
-    session.delete();
+    session.close();
   }
 })();
 ```
@@ -216,7 +216,7 @@ let session;
   } catch (err) {
     console.log(err.stack);
   } finally {
-    session.delete();
+    session.close();
   }
 })();
 ```
@@ -248,7 +248,7 @@ import webdriver from 'w3c-webdriver';
   } catch (err) {
     console.log(err.stack);
   } finally {
-    session.delete();
+    session.close();
   }
 })();
 ```
@@ -263,13 +263,13 @@ Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
 
 **Properties**
 
--   `delete` **[Session.delete](#sessiondelete)** Delete the session.
+-   `delete` **[session.close](#sessiondelete)** Delete the session.
 -   `go` **[Session.go](#sessiongo)** Navigate to a new URL.
 -   `getTitle` **[Session.getTitle](#sessiongettitle)** Get the current page title.
 -   `findElement` **[Session.findElement](#sessionfindelement)** Search for an element on the page,
      starting from the document root.
 
-## Session.delete
+## session.close
 
 -   **See: [WebDriver spec](https://www.w3.org/TR/webdriver/#delete-session)**
 
@@ -292,7 +292,7 @@ let session;
   } catch (err) {
     console.log(err.stack);
   } finally {
-    session.delete();
+    session.close();
   }
 })();
 ```
@@ -327,7 +327,7 @@ let session;
   } catch (err) {
     console.log(err.stack);
   } finally {
-    session.delete();
+    session.close();
   }
 })();
 ```
@@ -360,7 +360,7 @@ let session;
   } catch (err) {
     console.log(err.stack);
   } finally {
-    session.delete();
+    session.close();
   }
 })();
 ```
@@ -399,7 +399,7 @@ let session;
   } catch (err) {
     console.log(err.stack);
   } finally {
-    session.delete();
+    session.close();
   }
 })();
 ```
@@ -441,7 +441,7 @@ let session;
   } catch (err) {
     console.log(err.stack);
   } finally {
-    session.delete();
+    session.close();
   }
 })();
 ```
@@ -477,7 +477,7 @@ let session;
   } catch (err) {
     console.log(err.stack);
   } finally {
-    session.delete();
+    session.close();
   }
 })();
 ```
@@ -524,7 +524,7 @@ let session;
   } catch (err) {
     console.log(err.stack);
   } finally {
-    session.delete();
+    session.close();
   }
 })();
 ```
@@ -557,7 +557,7 @@ let session;
   } catch (err) {
     console.log(err.stack);
   } finally {
-    session.delete();
+    session.close();
   }
 })();
 ```
@@ -601,7 +601,7 @@ let session;
   } catch (err) {
     console.log(err.stack);
   } finally {
-    session.delete();
+    session.close();
   }
 })();
 ```
@@ -646,7 +646,7 @@ let session;
   } catch (err) {
     console.log(err.stack);
   } finally {
-    session.delete();
+    session.close();
   }
 })();
 ```
@@ -689,7 +689,7 @@ let session;
   } catch (err) {
     console.log(err.stack);
   } finally {
-    session.delete();
+    session.close();
   }
 })();
 ```
@@ -737,7 +737,7 @@ let session;
   } catch (err) {
     console.log(err.stack);
   } finally {
-    session.delete();
+    session.close();
   }
 })();
 ```
@@ -770,7 +770,7 @@ let session;
   } catch (err) {
     console.log(err.stack);
   } finally {
-    session.delete();
+    session.close();
   }
 })();
 ```
@@ -821,7 +821,7 @@ let session;
   } catch (err) {
     console.log(err.stack);
   } finally {
-    session.delete();
+    session.close();
   }
 })();
 ```
@@ -854,7 +854,7 @@ let session;
   } catch (err) {
     console.log(err.stack);
   } finally {
-    session.delete();
+    session.close();
   }
 })();
 ```
@@ -888,7 +888,7 @@ let session;
   } catch (err) {
     console.log(err.stack);
   } finally {
-    session.delete();
+    session.close();
   }
 })();
 ```
@@ -926,7 +926,7 @@ let session;
   } catch (err) {
     console.log(err.stack);
   } finally {
-    session.delete();
+    session.close();
   }
 })();
 ```

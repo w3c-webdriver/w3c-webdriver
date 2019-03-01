@@ -1,7 +1,7 @@
 /**
  * This object represents a WebDriver element.
  */
-export default interface Element {
+export interface IElement {
   /**
    * Send a sequence of key strokes to an element.
    * @see {@link https://www.w3.org/TR/webdriver/#element-send-keys|WebDriver spec}
@@ -23,7 +23,7 @@ export default interface Element {
    *   } catch (err) {
    *     console.log(err.stack);
    *   } finally {
-   *     session.delete();
+   *     session.close();
    *   }
    * })();
    */
@@ -50,7 +50,7 @@ export default interface Element {
    *   } catch (err) {
    *     console.log(err.stack);
    *   } finally {
-   *     session.delete();
+   *     session.close();
    *   }
    * })();
    */
@@ -78,7 +78,7 @@ export default interface Element {
    *   } catch (err) {
    *     console.log(err.stack);
    *   } finally {
-   *     session.delete();
+   *     session.close();
    *   }
    * })();
    */
@@ -106,9 +106,9 @@ export default interface Element {
    *   } catch (err) {
    *     console.log(err.stack);
    *   } finally {
-   *     session.delete();
+   *     session.close();
    *   }
    * })();
    */
-  getCss(propertyName: string): object;
+  getCss(propertyName: string): Promise<string>;
 }

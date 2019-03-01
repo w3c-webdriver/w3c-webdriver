@@ -1,7 +1,0 @@
-{
-  "extends": ["airbnb-base", "prettier"],
-  "rules": {
-    "strict": "off",
-    "import/no-extraneous-dependencies": "off"
-  }
-}

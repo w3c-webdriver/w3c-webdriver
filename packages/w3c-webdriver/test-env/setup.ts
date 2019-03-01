@@ -1,5 +1,5 @@
-import log from '../src/logger';
 import { newSession } from '../src';
+import Logger from '../src/Logger';
 import browser from './browser';
 import session from './session';
 
@@ -9,13 +9,13 @@ const testAppPort = process.env.TEST_APP_PORT;
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
 
 beforeAll(async () => {
-  log(`Creating session on port ${webDriverPort}.`);
+  Logger.log(`Creating session on port ${webDriverPort}.`);
   try {
     const body = { capabilities: { alwaysMatch: browser.capability } };
     global.sessionInstance = await newSession(`http://localhost:${webDriverPort}`, body);
-    log(`Session created.`);
+    Logger.log(`Session created.`);
   } catch (error) {
-    log(error.stack);
+    Logger.log(error);
     throw error;
   }
 });
@@ -25,9 +25,7 @@ beforeEach(async () => {
 });
 
 afterAll(async () => {
-  log(`Deleting session on port ${webDriverPort}.`);
-  if (session.delete) {
-    await session.delete();
-  }
-  log(`Session deleted.`);
+  Logger.log(`Deleting session on port ${webDriverPort}.`);
+  await session.close();
+  Logger.log(`Session deleted.`);
 });

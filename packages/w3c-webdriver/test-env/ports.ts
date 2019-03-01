@@ -5,21 +5,31 @@ export const getFreePorts = async (startPort: number, endPort: number, numberOfP
   let port = startPort - 1;
   const ports = [];
   while (ports.length < numberOfPorts) {
-    /* eslint-disable no-await-in-loop */
     port = await portscanner.findAPortNotInUse(port + 1, endPort, '127.0.0.1');
     ports.push(port);
   }
+
   return ports;
 };
 
-export const waitForBusyPort = (port: number) =>
+export const waitForBusyPort = async (port: number) =>
   new Promise((resolve, reject) => {
-    waitOn({ resources: [`tcp:127.0.0.1:${port}`] }, err => (err ? reject(err) : resolve()));
+    waitOn({ resources: [`tcp:127.0.0.1:${port}`] }, err => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
+      }
+    });
   });
 
-export const waitForFreePort = (port: number) =>
+export const waitForFreePort = async (port: number) =>
   new Promise((resolve, reject) => {
-    waitOn({ resources: [`tcp:127.0.0.1:${port}`], reverse: true }, err =>
-      err ? reject(err) : resolve()
-    );
+    waitOn({ resources: [`tcp:127.0.0.1:${port}`], reverse: true }, err => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
+      }
+    });
   });

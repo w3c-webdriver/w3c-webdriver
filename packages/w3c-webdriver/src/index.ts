@@ -1,6 +1,13 @@
+import {
+  ICookie,
+  IElement,
+  ISession,
+  IStatus,
+  ITimeout,
+  LocatorStrategy as TLocatorStrategy
+} from './core';
 import { GET, POST } from './rest';
-import Session from './session';
-import WebDriver from './types';
+import Session from './Session';
 
 /**
  * This function creates a new WebDriver session.
@@ -13,7 +20,7 @@ import WebDriver from './types';
  *
  * (async () => {
  *   try {
- *     session = await webdriver.newSession('http://localhost:4444', {
+ *     session = await newSession('http://localhost:4444', {
  *       desiredCapabilities: {
  *         browserName: 'Chrome'
  *       }
@@ -21,16 +28,16 @@ import WebDriver from './types';
  *   } catch (err) {
  *     console.log(err.stack);
  *   } finally {
- *     session.delete();
+ *     session.close();
  *   }
  * })();
  */
 export async function newSession(
-  /* WebDriver server URL */
+  // WebDriver server URL
   url: string,
-  /* configuration object for creating the session */
+  // configuration object for creating the session
   options: object
-): Promise<WebDriver.Session> {
+): Promise<ISession> {
   const { sessionId, JsonWire } = await POST<{ sessionId: string; JsonWire: boolean }>(
     `${url}/session`,
     options
@@ -47,7 +54,7 @@ export async function newSession(
  *
  * (async () => {
  *   try {
- *     const status = await webdriver.status('http://localhost:4444');
+ *     const status = await status('http://localhost:4444');
  *     // status = {
  *     //   build: { version: '1.2.0' },
  *     //   os: { name: 'mac', version: 'unknown', arch: '64bit' }
@@ -55,17 +62,30 @@ export async function newSession(
  *   } catch (err) {
  *     console.log(err.stack);
  *   } finally {
- *     session.delete();
+ *     session.close();
  *   }
  * })();
  */
 export async function status(
-  /* WebDriver server URL */
+  // WebDriver server URL
   url: string
-): Promise<WebDriver.Status> {
-  const status = await GET<WebDriver.Status>(`${url}/status`);
-
-  return status;
+): Promise<IStatus> {
+  return GET<IStatus>(`${url}/status`);
 }
 
+declare namespace WebDriver {
+  type Cookie = ICookie;
+  type Element = IElement;
+  type Session = ISession;
+  type Status = IStatus;
+  type Timeout = ITimeout;
+  type LocatorStrategy = TLocatorStrategy;
+}
+
+/**
+ * TypeScript types for w3c-webdriver
+ */
+class WebDriver {}
+
+// tslint:disable-next-line:export-name
 export default WebDriver;

@@ -1,10 +1,10 @@
-import http from 'http';
-import url from 'url';
-import path from 'path';
 import fs from 'fs';
-import log from '../src/logger';
+import http from 'http';
+import path from 'path';
+import url from 'url';
+import Logger from '../src/Logger';
 
-const mimeTypes: { [type: string]: string } = {
+const mimeTypes: { [extension: string]: string } = {
   html: 'text/html',
   jpeg: 'image/jpeg',
   jpg: 'image/jpeg',
@@ -14,7 +14,7 @@ const mimeTypes: { [type: string]: string } = {
 };
 
 const server = http.createServer((req, res) => {
-  let uri = url.parse(req.url as string).pathname as string;
+  let uri = <string>url.parse(<string>req.url).pathname;
 
   if (uri === '/') uri = '/index.html';
 
@@ -24,6 +24,7 @@ const server = http.createServer((req, res) => {
       res.writeHead(404, { 'Content-Type': 'text/plain' });
       res.write('404 Not Found\n');
       res.end();
+
       return;
     }
     const mimeType = mimeTypes[path.extname(filename).split('.')[1]];
@@ -38,7 +39,7 @@ export async function start(port: number) {
   await new Promise(resolve => {
     server.listen(port, resolve);
   });
-  log(`Test app started on port ${port}`)
+  Logger.log(`Test app started on port ${port}`)
 }
 
 export async function stop() {
@@ -48,5 +49,7 @@ export async function stop() {
 }
 
 if (require.main === module) {
-  start(8087);
+  start(8087).catch(err => {
+    Logger.log(err);
+  });
 }
