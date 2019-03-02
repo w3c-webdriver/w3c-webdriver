@@ -7,7 +7,7 @@ import {
   LocatorStrategy as TLocatorStrategy
 } from './core';
 import { GET, POST } from './rest';
-import { Session } from './Session2';
+import { Session } from './Session';
 
 /**
  * This function creates a new WebDriver session.
