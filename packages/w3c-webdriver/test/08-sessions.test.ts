@@ -8,6 +8,7 @@ describe('Sessions', () => {
     it('returns server status', async () => {
       const result = await status(`http://localhost:${process.env.WEB_DRIVER_PORT}`);
 
+      // tslint:disable-next-line:no-console
       console.log('BROWSER -------------- NAME -------------- >', browserName, JSON.stringify(result));
 
       switch (browserName) {
