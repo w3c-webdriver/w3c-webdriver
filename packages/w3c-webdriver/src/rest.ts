@@ -1,23 +1,16 @@
-import http from 'http';
-import { parse as parseUrl } from 'url';
+// tslint:disable-next-line:import-name
+import fetch from 'node-fetch';
 import util from 'util';
 import { log } from './logger';
 
-export interface IWebDriverResponse {
-  status?: number;
-  value: { message: string; error: string } | string;
+interface IErrorValue {
+  error: string;
+  message: string;
 }
 
-function getErrorFromResponse({ status, value }: IWebDriverResponse): Error | undefined {
-  if (typeof status === 'number' && status !==0) {
-    return new Error(`WebDriverError(${status})`);
-  }
-
-  if (typeof value === 'object' && value !== null && 'error' in value) {
-    const { message, error } = value;
-
-    return new Error(`WebDriverError(${error}): ${message}`);
-  }
+// tslint:disable-next-line:no-any
+function isError(value: any): value is IErrorValue {
+  return typeof value === 'object' && value !== null && typeof (<IErrorValue>value).error === 'string';
 }
 
 type RequestMethod = 'GET' | 'POST' | 'DELETE';
@@ -25,55 +18,19 @@ type RequestMethod = 'GET' | 'POST' | 'DELETE';
 async function sendRequest<T>(method: RequestMethod, url: string, body?: object): Promise<T> {
   log(`WebDriver request: ${method} ${url} ${util.inspect(body, false, 10)}`);
 
-  const jsonBody = JSON.stringify(body);
-  const urlParts = parseUrl(url);
-  const options = {
-    method,
-    hostname: urlParts.hostname,
-    port: urlParts.port,
-    path: urlParts.path,
-    headers: body
-      ? {
-          'Content-Length': Buffer.byteLength(jsonBody),
-          'Content-Type': 'application/json'
-        }
-      : {}
-  };
+  const response = await fetch(url, { method, body: body && JSON.stringify(body) });
+  // tslint:disable-next-line:no-any
+  const { value } = <{ value: any }>await response.json();
 
-  return new Promise((resolve, reject) => {
-    const request = http.request(options, response => {
-      const chunks: string[] = [];
-      response.setEncoding('utf8');
-      response.on('data', (chunk: string) => {
-        chunks.push(chunk);
-      });
-      response.on('end', () => {
-        try {
-          const responseBody = <IWebDriverResponse>JSON.parse(chunks.join(''));
-          log(`WebDriver response: ${chunks.join('')}`);
+  log(`WebDriver response: ${value}`);
 
-          const error = getErrorFromResponse(responseBody);
+  if (isError(value)) {
+    const { message, error } = value;
 
-          if (error) {
-            reject(error);
+    throw new Error(`WebDriverError(${error}): ${message}`);
+  }
 
-            return;
-          }
-
-          resolve(<T><unknown>responseBody.value);
-        } catch (err) {
-          reject(err);
-        }
-      });
-    });
-
-    request.on('error', reject);
-
-    if (body) {
-      request.write(jsonBody);
-    }
-    request.end();
-  });
+  return <T>value;
 }
 
 export const GET = async <T>(url: string) => sendRequest<T>('GET', url);
