@@ -1,5 +1,5 @@
 import { ICookie, IElement, ISession, ITimeout, LocatorStrategy } from './core';
-import { Element } from './Element';
+import { Element } from './Element2';
 import { DELETE, GET, POST } from './rest';
 
 /**
