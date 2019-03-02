@@ -38,12 +38,12 @@ export async function newSession(
   // configuration object for creating the session
   options: object
 ): Promise<ISession> {
-  const { sessionId, JsonWire } = await POST<{ sessionId: string; JsonWire: boolean }>(
+  const { sessionId } = await POST<{ sessionId: string }>(
     `${url}/session`,
     options
   );
 
-  return new Session(url, sessionId, { JsonWire });
+  return new Session(url, sessionId);
 }
 /**
  * This function queries the WebDriver server's current status.
