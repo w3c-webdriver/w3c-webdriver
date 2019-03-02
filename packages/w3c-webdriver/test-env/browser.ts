@@ -1,9 +1,46 @@
-import assert from 'assert';
 import { path as chromedriverPath } from 'chromedriver';
 import { path as geckodriverPath } from 'geckodriver';
 import { path as iedriverPath } from 'iedriver';
 
-const browsers = [
+type ChromeOptions = {
+  w3c?: boolean;
+  binary?: string;
+  args?: string[];
+}
+
+type FirefoxOptions = {
+  log?: {
+    level?: string;
+  };
+  args?: string[];
+};
+
+type InternetExplorerOptions = {
+  ignoreProtectedModeSettings: boolean;
+  ignoreZoomSetting: boolean;
+  'ie.ensureCleanSession': boolean;
+};
+
+type BrowserCapability = {
+  browserName: string;
+  'goog:chromeOptions'?: ChromeOptions;
+  'moz:firefoxOptions'?: FirefoxOptions;
+  'se:ieOptions'?: InternetExplorerOptions;
+};
+
+type BrowserDriver = {
+  name: string;
+  path: string;
+  args({ port }: { port: number }): string[];
+};
+
+type Browser = {
+  id: string;
+  capability: BrowserCapability;
+  driver: BrowserDriver;
+};
+
+const browsers: Browser[] = [
   {
     id: 'chrome',
     capability: {
@@ -16,7 +53,7 @@ const browsers = [
     driver: {
       name: 'Chromedriver',
       path: chromedriverPath,
-      args: ({ port }) => [`--port=${port}`]
+      args: ({ port }: { port: number }) => [`--port=${port}`]
     }
   },
   {
@@ -32,7 +69,7 @@ const browsers = [
     driver: {
       name: 'Chromedriver',
       path: chromedriverPath,
-      args: ({ port }) => [`--port=${port}`]
+      args: ({ port }: { port: number }) => [`--port=${port}`]
     }
   },
   {
@@ -48,7 +85,7 @@ const browsers = [
     driver: {
       name: 'Geckodriver',
       path: geckodriverPath,
-      args: ({ port }) => [`--port=${port}`]
+      args: ({ port }: { port: number }) => [`--port=${port}`]
     }
   },
   {
@@ -65,7 +102,7 @@ const browsers = [
     driver: {
       name: 'Geckodriver',
       path: geckodriverPath,
-      args: ({ port }) => [`--port=${port}`]
+      args: ({ port }: { port: number }) => [`--port=${port}`]
     }
   },
   {
@@ -76,7 +113,7 @@ const browsers = [
     driver: {
       name: 'SafariDriver',
       path: 'safaridriver',
-      args: ({ port }) => [`--port=${port}`]
+      args: ({ port }: { port: number }) => [`--port=${port}`]
     }
   },
   {
@@ -92,18 +129,16 @@ const browsers = [
     driver: {
       name: 'InternetExplorerDriver',
       path: iedriverPath,
-      args: ({ port }) => [`--port=${port}`, '--log-level=INFO']
+      args: ({ port }: { port: number }) => [`--port=${port}`, '--log-level=INFO']
     }
   }
 ];
 
-const selectedBrowser = browsers.find(browser => browser.id === process.env.BROWSER);
+const maybeBrowser: Browser | undefined = browsers.find(browser => browser.id === process.env.BROWSER);
 
-assert(
-  selectedBrowser,
-  'Environment variable BROWSER is not set or is not matching the supported browsers.'
-);
+if (maybeBrowser === undefined) {
+  throw new Error('Environment variable BROWSER is not set or is not matching the supported browsers.')
+}
 
-export default selectedBrowser;
-
+export const selectedBrowser: Browser = maybeBrowser;
 export const name = selectedBrowser.capability.browserName;

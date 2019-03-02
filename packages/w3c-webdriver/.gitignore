@@ -1,9 +1,0 @@
-node_modules
-.idea
-.vscode
-.vs
-*-compiled.js
-*-compiled.js.map
-npm-debug.log
-test.log
-lib

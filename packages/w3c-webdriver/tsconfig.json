@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": { "*": ["types/*"] },
+    "strict": true,
+    "esModuleInterop": true,
+    "declaration": true,
+    "outDir": "lib"
+  }
+}

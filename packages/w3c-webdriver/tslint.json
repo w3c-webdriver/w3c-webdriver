@@ -1,0 +1,19 @@
+{
+  "extends": [
+    "tslint:latest",
+    "tslint-microsoft-contrib",
+    "tslint-config-airbnb",
+    "tslint-config-prettier"
+  ],
+  "rules": {
+    "no-relative-imports": false,
+    "typedef": false,
+    "radix": false,
+    "non-literal-fs-path": false,
+    "no-implicit-dependencies": [true, "dev", ["src"]],
+    "strict-boolean-expressions": false
+  },
+  "linterOptions": {
+    "exclude": ["node_modules/**"]
+  }
+}
