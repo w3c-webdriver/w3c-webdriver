@@ -1,7 +1,7 @@
 import http from 'http';
-import urlParser from 'url';
+import { parse as parseUrl } from 'url';
 import util from 'util';
-import Logger from './Logger';
+import { log } from './logger';
 
 export interface IWebDriverResponse {
   status?: number;
@@ -23,16 +23,16 @@ function getErrorFromResponse({ status, value }: IWebDriverResponse): Error | un
 type RequestMethod = 'GET' | 'POST' | 'DELETE';
 
 async function sendRequest<T>(method: RequestMethod, url: string, body?: object): Promise<T> {
-  Logger.log(`WebDriver request: ${method} ${url} ${util.inspect(body, false, 10)}`);
+  log(`WebDriver request: ${method} ${url} ${util.inspect(body, false, 10)}`);
 
-  const jsonBody: string = JSON.stringify(body);
-  const urlParts: urlParser.UrlWithStringQuery = urlParser.parse(url);
-  const options: object = {
+  const jsonBody = JSON.stringify(body);
+  const urlParts = parseUrl(url);
+  const options = {
     method,
     hostname: urlParts.hostname,
     port: urlParts.port,
     path: urlParts.path,
-    headers: body !== undefined
+    headers: body
       ? {
           'Content-Length': Buffer.byteLength(jsonBody),
           'Content-Type': 'application/json'
@@ -50,11 +50,11 @@ async function sendRequest<T>(method: RequestMethod, url: string, body?: object)
       response.on('end', () => {
         try {
           const responseBody = <IWebDriverResponse>JSON.parse(chunks.join(''));
-          Logger.log(`WebDriver response: ${chunks.join('')}`);
+          log(`WebDriver response: ${chunks.join('')}`);
 
           const error = getErrorFromResponse(responseBody);
 
-          if (error !== undefined) {
+          if (error) {
             reject(error);
 
             return;
@@ -69,7 +69,7 @@ async function sendRequest<T>(method: RequestMethod, url: string, body?: object)
 
     request.on('error', reject);
 
-    if (body !== undefined) {
+    if (body) {
       request.write(jsonBody);
     }
     request.end();

@@ -140,8 +140,5 @@ if (maybeBrowser === undefined) {
   throw new Error('Environment variable BROWSER is not set or is not matching the supported browsers.')
 }
 
-const selectedBrowser: Browser = maybeBrowser;
-
-export default selectedBrowser;
-
+export const selectedBrowser: Browser = maybeBrowser;
 export const name = selectedBrowser.capability.browserName;

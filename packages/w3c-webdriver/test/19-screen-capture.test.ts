@@ -1,4 +1,4 @@
-import session from '../test-env/session';
+import { session } from '../test-env/session';
 
 describe('Screen Capture', () => {
   describe('takeScreenshot method', () => {

@@ -2,7 +2,7 @@ import fs from 'fs';
 import http from 'http';
 import path from 'path';
 import url from 'url';
-import Logger from '../src/Logger';
+import { log } from '../src/logger';
 
 const mimeTypes: { [extension: string]: string } = {
   html: 'text/html',
@@ -39,7 +39,7 @@ export async function start(port: number) {
   await new Promise(resolve => {
     server.listen(port, resolve);
   });
-  Logger.log(`Test app started on port ${port}`)
+  log(`Test app started on port ${port}`)
 }
 
 export async function stop() {
@@ -50,6 +50,6 @@ export async function stop() {
 
 if (require.main === module) {
   start(8087).catch(err => {
-    Logger.log(err);
+    log(err);
   });
 }

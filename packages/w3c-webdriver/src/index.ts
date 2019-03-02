@@ -7,7 +7,7 @@ import {
   LocatorStrategy as TLocatorStrategy
 } from './core';
 import { GET, POST } from './rest';
-import Session from './Session';
+import { Session } from './Session';
 
 /**
  * This function creates a new WebDriver session.
@@ -85,7 +85,8 @@ declare namespace WebDriver {
 /**
  * TypeScript types for w3c-webdriver
  */
+// tslint:disable-next-line:no-unnecessary-class
 class WebDriver {}
 
-// tslint:disable-next-line:export-name
+// tslint:disable-next-line:no-default-export export-name
 export default WebDriver;

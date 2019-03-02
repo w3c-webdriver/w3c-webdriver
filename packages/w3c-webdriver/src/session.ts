@@ -1,11 +1,11 @@
 import { ICookie, IElement, ISession, ITimeout, LocatorStrategy } from './core';
-import Element from './element';
+import { Element } from './element';
 import { DELETE, GET, POST } from './rest';
 
 /**
  * This object represents a WebDriver session.
  */
-export default class Session implements ISession {
+export class Session implements ISession {
   private readonly url: string;
   private readonly sessionId: string;
   private readonly options: { JsonWire: boolean };

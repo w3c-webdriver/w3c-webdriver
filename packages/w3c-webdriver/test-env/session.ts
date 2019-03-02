@@ -1,17 +1,22 @@
-import WebDriver from "../src";
+// tslint:disable-next-line:import-name
+import WebDriver from '../src';
 
-// tslint:disable-next-line:no-object-literal-type-assertion
-const target = <WebDriver.Session>{};
+interface IProxyable {
+  [name: string]: Function;
+}
 
-export default new Proxy<WebDriver.Session>(
-  target,
-  {
-    get: (obj: object, prop: string) => {
-      if (!global.sessionInstance) {
-        throw new Error('WebDriver session was not created yet.');
-      }
+let currentSession: IProxyable;
 
-      return global.sessionInstance[prop]
+export const setSession = (newSession: WebDriver.Session) => {
+  currentSession = <IProxyable><unknown>newSession;
+};
+
+export const session = <WebDriver.Session>new Proxy({}, {
+  get: (obj: object, prop: string) => {
+    if (!currentSession) {
+      throw new Error('WebDriver session was not created yet.');
     }
+
+    return currentSession[prop];
   }
-);
+});

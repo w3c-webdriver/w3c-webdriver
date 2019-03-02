@@ -6,17 +6,11 @@
     "tslint-config-prettier"
   ],
   "rules": {
-    "no-default-export": false,
     "no-relative-imports": false,
-    "import-name": false,
-    "export-name": false,
-    "match-default-export-name": false,
-    "no-unnecessary-class": false,
     "typedef": false,
-    "no-empty": false,
     "radix": false,
     "non-literal-fs-path": false,
-    "no-implicit-dependencies": false,
+    "no-implicit-dependencies": [true, "dev", ["src"]],
     "strict-boolean-expressions": false
   },
   "linterOptions": {

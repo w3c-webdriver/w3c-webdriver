@@ -4,7 +4,7 @@ import { GET, POST } from './rest';
 /**
  * This object represents a WebDriver element.
  */
-export default class Element implements IElement {
+export class Element implements IElement {
   private readonly url: string;
   private readonly sessionId: string;
   private readonly elementId: string;

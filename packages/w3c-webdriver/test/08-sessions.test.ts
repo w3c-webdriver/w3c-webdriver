@@ -1,6 +1,7 @@
+// tslint:disable-next-line:import-name
 import WebDriver, { status } from '../src';
 import { name as browserName } from '../test-env/browser';
-import session from '../test-env/session';
+import { session } from '../test-env/session';
 
 describe('Sessions', () => {
   describe('status method', () => {
@@ -38,8 +39,7 @@ describe('Sessions', () => {
 
           expect(retrievedTimeout).toEqual(timeouts);
         }
-        default: {
-        }
+        default:
       }
     });
   });
