@@ -8,6 +8,8 @@ describe('Sessions', () => {
     it('returns server status', async () => {
       const result = await status(`http://localhost:${process.env.WEB_DRIVER_PORT}`);
 
+      console.log('BROWSER -------------- NAME -------------- >', browserName, JSON.stringify(result));
+
       switch (browserName) {
         case 'firefox': {
           expect(result.message).toBeDefined();
