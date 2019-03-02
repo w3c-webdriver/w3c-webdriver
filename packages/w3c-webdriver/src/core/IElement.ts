@@ -23,7 +23,7 @@ export interface IElement {
    *   } catch (err) {
    *     console.log(err.stack);
    *   } finally {
-   *     session.close();
+   *     session.deleteSession();
    *   }
    * })();
    */
@@ -50,7 +50,7 @@ export interface IElement {
    *   } catch (err) {
    *     console.log(err.stack);
    *   } finally {
-   *     session.close();
+   *     session.deleteSession();
    *   }
    * })();
    */
@@ -78,7 +78,7 @@ export interface IElement {
    *   } catch (err) {
    *     console.log(err.stack);
    *   } finally {
-   *     session.close();
+   *     session.deleteSession();
    *   }
    * })();
    */
@@ -106,7 +106,7 @@ export interface IElement {
    *   } catch (err) {
    *     console.log(err.stack);
    *   } finally {
-   *     session.close();
+   *     session.deleteSession();
    *   }
    * })();
    */

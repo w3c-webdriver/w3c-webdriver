@@ -28,7 +28,7 @@ import { Session } from './Session';
  *   } catch (err) {
  *     console.log(err.stack);
  *   } finally {
- *     session.close();
+ *     session.deleteSession();
  *   }
  * })();
  */
@@ -62,7 +62,7 @@ export async function newSession(
  *   } catch (err) {
  *     console.log(err.stack);
  *   } finally {
- *     session.close();
+ *     session.deleteSession();
  *   }
  * })();
  */

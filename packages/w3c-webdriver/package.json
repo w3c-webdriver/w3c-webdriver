@@ -67,6 +67,7 @@
     "iedriver": "^3.9.2",
     "jest": "^24.0.0",
     "portscanner": "^2.2.0",
+    "promise-retry": "^1.1.1",
     "tslint": "^5.13.0",
     "tslint-config-airbnb": "^5.11.1",
     "tslint-config-prettier": "^1.18.0",

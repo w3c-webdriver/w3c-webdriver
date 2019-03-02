@@ -29,7 +29,7 @@ export interface ISession {
    *   } catch (err) {
    *     console.log(err.stack);
    *   } finally {
-   *     session.close();
+   *     session.deleteSession();
    *   }
    * })();
    */
@@ -57,7 +57,7 @@ export interface ISession {
    *   } catch (err) {
    *     console.log(err.stack);
    *   } finally {
-   *     session.close();
+   *     session.deleteSession();
    *   }
    * })();
    */
@@ -92,7 +92,7 @@ export interface ISession {
    *   } catch (err) {
    *     console.log(err.stack);
    *   } finally {
-   *     session.close();
+   *     session.deleteSession();
    *   }
    * })();
    */
@@ -128,7 +128,7 @@ export interface ISession {
    *   } catch (err) {
    *     console.log(err.stack);
    *   } finally {
-   *     session.close();
+   *     session.deleteSession();
    *   }
    * })();
    */
@@ -168,7 +168,7 @@ export interface ISession {
    *   } catch (err) {
    *     console.log(err.stack);
    *   } finally {
-   *     session.close();
+   *     session.deleteSession();
    *   }
    * })();
    */
@@ -195,7 +195,7 @@ export interface ISession {
    *   } catch (err) {
    *     console.log(err.stack);
    *   } finally {
-   *     session.close();
+   *     session.deleteSession();
    *   }
    * })();
    */
@@ -224,7 +224,7 @@ export interface ISession {
    *   } catch (err) {
    *     console.log(err.stack);
    *   } finally {
-   *     session.close();
+   *     session.deleteSession();
    *   }
    * })();
    */
@@ -247,11 +247,11 @@ export interface ISession {
    *   } catch (err) {
    *     console.log(err.stack);
    *   } finally {
-   *     session.close();
+   *     session.deleteSession();
    *   }
    * })();
    */
-  close(): Promise<void>;
+  deleteSession(): Promise<void>;
 
   /**
    * Navigate to a new URL.
@@ -272,7 +272,7 @@ export interface ISession {
    *   } catch (err) {
    *     console.log(err.stack);
    *   } finally {
-   *     session.close();
+   *     session.deleteSession();
    *   }
    * })();
    */
@@ -302,7 +302,7 @@ export interface ISession {
    *   } catch (err) {
    *     console.log(err.stack);
    *   } finally {
-   *     session.close();
+   *     session.deleteSession();
    *   }
    * })();
    */
@@ -329,7 +329,7 @@ export interface ISession {
    *   } catch (err) {
    *     console.log(err.stack);
    *   } finally {
-   *     session.close();
+   *     session.deleteSession();
    *   }
    * })();
    */
@@ -364,7 +364,7 @@ export interface ISession {
    *   } catch (err) {
    *     console.log(err.stack);
    *   } finally {
-   *     session.close();
+   *     session.deleteSession();
    *   }
    * })();
    */
@@ -401,7 +401,7 @@ export interface ISession {
    *   } catch (err) {
    *     console.log(err.stack);
    *   } finally {
-   *     session.close();
+   *     session.deleteSession();
    *   }
    * })();
    */
