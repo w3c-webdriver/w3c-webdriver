@@ -1,4 +1,4 @@
-import { log } from '../src/Logger';
+import { log } from '../src/logger';
 import { selectedBrowser } from './browser';
 import { getInstance } from './driver';
 import { waitForFreePort } from './ports';
