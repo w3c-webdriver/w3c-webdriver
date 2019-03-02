@@ -1,8 +1,8 @@
 import { log } from '../src/Logger';
-import { stop as stopTestApp } from '../test-app';
 import { selectedBrowser } from './browser';
 import { getInstance } from './driver';
 import { waitForFreePort } from './ports';
+import { stop as stopTestApp } from './test-app';
 
 log.enabled = true;
 

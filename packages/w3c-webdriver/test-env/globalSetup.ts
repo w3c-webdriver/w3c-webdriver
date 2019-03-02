@@ -1,9 +1,9 @@
 import { execFile } from 'child_process';
 import { log } from '../src/logger';
-import { start as startTestApp } from '../test-app';
 import { selectedBrowser } from './browser';
 import { setInstance } from './driver';
 import { getFreePorts, waitForBusyPort } from './ports';
+import { start as startTestApp } from './test-app';
 
 log.enabled = true;
 

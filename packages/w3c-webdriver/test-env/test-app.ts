@@ -16,7 +16,7 @@ const mimeTypes: { [extension: string]: string } = {
 const server = http.createServer((req, res) => {
   let uri = <string>url.parse(<string>req.url).pathname;
 
-  if (uri === '/') uri = '/index.html';
+  if (uri === '/') uri = '/test-app.html';
 
   const filename = path.join(__dirname, uri);
   fs.exists(filename, exists => {
