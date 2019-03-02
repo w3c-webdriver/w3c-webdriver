@@ -16,7 +16,7 @@ export class Session implements ISession {
     this.options = options;
   }
 
-  public async close(): Promise<void> {
+  public async deleteSession(): Promise<void> {
     await DELETE(`${this.url}/session/${this.sessionId}`);
   }
 
