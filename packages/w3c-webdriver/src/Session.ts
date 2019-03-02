@@ -8,12 +8,10 @@ import { DELETE, GET, POST } from './rest';
 export class Session implements ISession {
   private readonly url: string;
   private readonly sessionId: string;
-  private readonly options: { JsonWire: boolean };
 
-  constructor(url: string, sessionId: string, options: { JsonWire: boolean }) {
+  constructor(url: string, sessionId: string) {
     this.url = url;
     this.sessionId = sessionId;
-    this.options = options;
   }
 
   public async close(): Promise<void> {
@@ -28,10 +26,7 @@ export class Session implements ISession {
     return GET<string>(`${this.url}/session/${this.sessionId}/title`);
   }
 
-  public async findElement(
-    strategy: LocatorStrategy,
-    selector: string
-  ): Promise<IElement> {
+  public async findElement(strategy: LocatorStrategy, selector: string): Promise<IElement> {
     const element = await POST<{ [name: string]: string }>(
       `${this.url}/session/${this.sessionId}/element`,
       {
@@ -40,18 +35,10 @@ export class Session implements ISession {
       }
     );
 
-    return new Element(
-      this.url,
-      this.sessionId,
-      element.ELEMENT || Object.values(element)[0],
-      this.options
-    );
+    return new Element(this.url, this.sessionId, Object.values(element)[0]);
   }
 
-  public async findElements(
-    strategy: LocatorStrategy,
-    selector: string
-  ) {
+  public async findElements(strategy: LocatorStrategy, selector: string) {
     const elements = await POST<[{ [name: string]: string }]>(
       `${this.url}/session/${this.sessionId}/elements`,
       {
@@ -61,13 +48,7 @@ export class Session implements ISession {
     );
 
     return elements.map(
-      element =>
-        new Element(
-          this.url,
-          this.sessionId,
-          element.ELEMENT || Object.values(element)[0],
-          this.options
-        )
+      element => new Element(this.url, this.sessionId, Object.values(element)[0])
     );
   }
 
@@ -86,27 +67,19 @@ export class Session implements ISession {
   // tslint:disable-next-line:no-any
   public async executeScript(script: string, args: any[] = []): Promise<any> {
     // tslint:disable-next-line:no-any
-    return POST<any>(
-      `${this.url}/session/${this.sessionId}/execute${!this.options.JsonWire ? '/sync' : ''}`,
-      {
-        script,
-        args
-      }
-    );
+    return POST<any>(`${this.url}/session/${this.sessionId}/execute/sync`, {
+      script,
+      args
+    });
   }
 
   // tslint:disable-next-line:no-any
   public async executeAsyncScript(script: string, args: any[] = []): Promise<any> {
     // tslint:disable-next-line:no-any
-    return POST<any>(
-      `${this.url}/session/${this.sessionId}/execute${
-        !this.options.JsonWire ? '/async' : '_async'
-      }`,
-      {
-        script,
-        args
-      }
-    );
+    return POST<any>(`${this.url}/session/${this.sessionId}/execute/async`, {
+      script,
+      args
+    });
   }
 
   public async getAllCookies(): Promise<ICookie[]> {
