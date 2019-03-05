@@ -11,8 +11,6 @@ jobs:
     vmImage: ${{ parameters.vmImage }}
   variables:
     BROWSER: ${{ parameters.browser }}
-    BROWSERSTACK_USERNAME: $(browserstack.user)
-    BROWSERSTACK_ACCESS_KEY: $(browserstack.key)
   steps:
   - task: NodeTool@0
     inputs:
