@@ -1,12 +1,15 @@
 import { path as chromedriverPath } from 'chromedriver';
+import { config } from 'dotenv-safe';
 import { path as geckodriverPath } from 'geckodriver';
 import { path as iedriverPath } from 'iedriver';
+
+config();
 
 type ChromeOptions = {
   w3c?: boolean;
   binary?: string;
   args?: string[];
-}
+};
 
 type FirefoxOptions = {
   log?: {
@@ -37,7 +40,9 @@ type BrowserDriver = {
 type Browser = {
   id: string;
   capability: BrowserCapability;
-  driver: BrowserDriver;
+  desiredCapabilities?: object;
+  driver?: BrowserDriver;
+  hub?: string;
 };
 
 const browsers: Browser[] = [
@@ -131,13 +136,32 @@ const browsers: Browser[] = [
       path: iedriverPath,
       args: ({ port }: { port: number }) => [`--port=${port}`, '--log-level=INFO']
     }
+  },
+  {
+    id: 'browserstack',
+    capability: {
+      browserName: 'firefox'
+    },
+    desiredCapabilities: {
+      'browserstack.use_w3c': true,
+      'browserstack.user': process.env.BROWSERSTACK_USERNAME,
+      'browserstack.key': process.env.BROWSERSTACK_ACCESS_KEY,
+      'browserstack.local': true,
+      // 'browserstack.localIdentifier': process.env.BROWSERSTACK_LOCAL_ID,
+      browserName: 'firefox'
+    },
+    hub: 'https://hub-cloud.browserstack.com/wd/hub'
   }
 ];
 
-const maybeBrowser: Browser | undefined = browsers.find(browser => browser.id === process.env.BROWSER);
+const maybeBrowser: Browser | undefined = browsers.find(
+  browser => browser.id === process.env.BROWSER
+);
 
 if (maybeBrowser === undefined) {
-  throw new Error('Environment variable BROWSER is not set or is not matching the supported browsers.')
+  throw new Error(
+    'Environment variable BROWSER is not set or is not matching the supported browsers.'
+  );
 }
 
 export const selectedBrowser: Browser = maybeBrowser;

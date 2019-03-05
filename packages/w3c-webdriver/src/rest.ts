@@ -1,7 +1,7 @@
 // tslint:disable-next-line:import-name
 import fetch from 'node-fetch';
 import util from 'util';
-import { log } from './logger';
+import { log, logRequest } from './logger';
 
 interface IErrorValue {
   error: string;
@@ -10,19 +10,25 @@ interface IErrorValue {
 
 // tslint:disable-next-line:no-any
 function isError(value: any): value is IErrorValue {
-  return typeof value === 'object' && value !== null && typeof (<IErrorValue>value).error === 'string';
+  return (
+    typeof value === 'object' && value !== null && typeof (<IErrorValue>value).error === 'string'
+  );
 }
 
-type RequestMethod = 'GET' | 'POST' | 'DELETE';
+export type RequestMethod = 'GET' | 'POST' | 'DELETE';
 
 async function sendRequest<T>(method: RequestMethod, url: string, body?: object): Promise<T> {
-  log(`WebDriver request: ${method} ${url} ${util.inspect(body, false, 10)}`);
+  if (log.enabled && body) {
+    logRequest(method, url, body);
+  }
 
   const response = await fetch(url, { method, body: body && JSON.stringify(body) });
   // tslint:disable-next-line:no-any
-  const { value } = <{ value: any }>await response.json();
+  const json = <{ value: any }>await response.json();
 
-  log(`WebDriver response: ${value}`);
+  log(`WebDriver response: ${util.inspect(json, false, 10)}`);
+
+  const { value } = json;
 
   if (isError(value)) {
     const { message, error } = value;
