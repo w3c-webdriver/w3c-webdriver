@@ -9,10 +9,6 @@ jobs:
 - job: ${{ parameters.name }}
   pool:
     vmImage: ${{ parameters.vmImage }}
-  env:
-    BROWSER: ${{ parameters.browser }}
-    BROWSERSTACK_USERNAME: $(browserstack.user)
-    BROWSERSTACK_ACCESS_KEY: $(browserstack.key)
   steps:
   - task: NodeTool@0
     inputs:
@@ -32,3 +28,7 @@ jobs:
   - script: npm test -- --ci --runInBand
     displayName: Test
     workingDirectory: $(coreDirectory)
+    env:
+      BROWSER: ${{ parameters.browser }}
+      BROWSERSTACK_USERNAME: $(browserstack.user)
+      BROWSERSTACK_ACCESS_KEY: $(browserstack.key)
