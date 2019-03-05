@@ -6,8 +6,6 @@ pr:
 
 variables:
   coreDirectory: $(Build.SourcesDirectory)/packages/w3c-webdriver
-  BROWSERSTACK_USERNAME: $(browserstack.user)
-  BROWSERSTACK_ACCESS_KEY: $(browserstack.key)
 
 jobs:
 - template: azure-pipelines-template.yml
