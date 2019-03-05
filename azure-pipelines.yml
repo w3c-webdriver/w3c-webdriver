@@ -6,6 +6,8 @@ pr:
 
 variables:
   coreDirectory: $(Build.SourcesDirectory)/packages/w3c-webdriver
+  BROWSERSTACK_USERNAME: $(browserstack.user)
+  BROWSERSTACK_ACCESS_KEY: $(browserstack.key)
 
 jobs:
 - template: azure-pipelines-template.yml
@@ -38,3 +40,10 @@ jobs:
     vmImage: 'vs2017-win2016'
     nodeVersion: '10.x'
     browser: internet-explorer
+
+- template: azure-pipelines-template.yml
+  parameters:
+    name: BrowserStack
+    vmImage: 'ubuntu-16.04'
+    nodeVersion: '10.x'
+    browser: browserstack

@@ -38,10 +38,16 @@ export async function newSession(
   // configuration object for creating the session
   options: object
 ): Promise<ISession> {
-  const { sessionId } = await POST<{ sessionId: string }>(
+  const { sessionId: localSessionId, 'webdriver.remote.sessionid': remoteSessionId } = await POST<{ sessionId?: string, 'webdriver.remote.sessionid'?: string }>(
     `${url}/session`,
     options
   );
+
+  const sessionId = localSessionId || remoteSessionId;
+
+  if (!sessionId) {
+    throw new Error('Session creation was not successful.');
+  }
 
   return new Session(url, sessionId);
 }

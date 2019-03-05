@@ -1,12 +1,18 @@
 // tslint:disable-next-line:import-name
 import WebDriver, { status } from '../src';
-import { name as browserName } from '../test-env/browser';
+import { name as browserName, selectedBrowser } from '../test-env/browser';
 import { session } from '../test-env/session';
 
 describe('Sessions', () => {
   describe('status method', () => {
     it('returns server status', async () => {
-      const result = await status(`http://localhost:${process.env.WEB_DRIVER_PORT}`);
+      const result = await status(<string>process.env.WEB_DRIVER_URL);
+
+      if (selectedBrowser.id === 'browserstack') {
+        expect(result.build.version).toBeDefined();
+
+        return;
+      }
 
       switch (browserName) {
         case 'firefox': {

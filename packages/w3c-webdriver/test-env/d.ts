@@ -1,10 +1,21 @@
+// tslint:disable
 declare module 'geckodriver' {
-  // tslint:disable-next-line:export-name
   export const path: string;
 }
 
 declare module 'iedriver' {
-  // tslint:disable-next-line:export-name
   export const path: string;
+}
+
+
+declare module 'browserstack-local' {
+  interface LocalStartOptions {
+    key: string;
+  }
+
+  export class Local {
+    start: (options: LocalStartOptions, callback: Function) => void;
+    stop: (callback: Function) => void;
+  }
 }
 
