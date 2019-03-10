@@ -1,4 +1,4 @@
-import { name } from '../test-env/browser';
+import { browserName } from '../test-env/browser';
 import { session } from '../test-env/session';
 
 describe('Document Handling', () => {
@@ -22,7 +22,7 @@ describe('Document Handling', () => {
   describe('executeAsyncScript method', () => {
     it('executes asynchronous script in browser context', async () => {
       // eslint-disable-next-line no-template-curly-in-string
-      if (name === 'internet explorer') {
+      if (browserName === 'internet explorer') {
         await session.setTimeout({
           script: 30000
         });

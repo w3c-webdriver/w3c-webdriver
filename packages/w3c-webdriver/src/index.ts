@@ -1,13 +1,48 @@
+import { HeaderInit } from 'node-fetch';
 import {
-  ICookie,
+  Capabilities as CapabilitiesType,
+  Cookie as CookieType,
   IElement,
   ISession,
-  IStatus,
-  ITimeout,
-  LocatorStrategy as TLocatorStrategy
+  LocatorStrategy as TLocatorStrategy,
+  Status as StatusType,
+  Timeout as TimeoutType
 } from './core';
+import { Capabilities } from './core/Capabilities';
 import { GET, POST } from './rest';
 import { Session } from './Session';
+
+type SessionOptions = {
+  /**
+   * WebDriver server URL
+   */
+  url: string;
+
+  /**
+   * WebDriver capabilities
+   */
+  capabilities: Capabilities;
+
+  /**
+   * Legacy WebDriver capabilities. Can be used to enable the new W3C dialect
+   */
+  desiredCapabilities?: {
+    'browserstack.use_w3c': boolean;
+  };
+
+  /**
+   * Session creation request headers. Can be used for authorization
+   * @example
+   * session = await newSession({
+   *   headers: {
+   *     Authorization: `Basic ${Buffer.from(
+   *       ['username', 'password'].join(':')
+   *     ).toString('base64')}`
+   *   }
+   * });
+   */
+  headers?: HeaderInit;
+};
 
 /**
  * This function creates a new WebDriver session.
@@ -20,9 +55,12 @@ import { Session } from './Session';
  *
  * (async () => {
  *   try {
- *     session = await newSession('http://localhost:4444', {
- *       desiredCapabilities: {
- *         browserName: 'Chrome'
+ *     session = await newSession({
+ *       url: 'http://localhost:4444',
+ *       capabilities: {
+ *         alwaysMatch: {
+ *           browserName: 'Chrome'
+ *         }
  *       }
  *     });
  *   } catch (err) {
@@ -32,15 +70,22 @@ import { Session } from './Session';
  *   }
  * })();
  */
-export async function newSession(
-  // WebDriver server URL
-  url: string,
-  // configuration object for creating the session
-  options: object
-): Promise<ISession> {
-  const { sessionId: localSessionId, 'webdriver.remote.sessionid': remoteSessionId } = await POST<{ sessionId?: string, 'webdriver.remote.sessionid'?: string }>(
+export async function newSession({
+  url,
+  capabilities,
+  desiredCapabilities,
+  headers
+}: SessionOptions): Promise<ISession> {
+  const { sessionId: localSessionId, 'webdriver.remote.sessionid': remoteSessionId } = await POST<{
+    sessionId?: string;
+    'webdriver.remote.sessionid'?: string;
+  }>(
     `${url}/session`,
-    options
+    {
+      capabilities,
+      desiredCapabilities
+    },
+    headers
   );
 
   const sessionId = localSessionId || remoteSessionId;
@@ -75,17 +120,18 @@ export async function newSession(
 export async function status(
   // WebDriver server URL
   url: string
-): Promise<IStatus> {
-  return GET<IStatus>(`${url}/status`);
+): Promise<StatusType> {
+  return GET<StatusType>(`${url}/status`);
 }
 
 declare namespace WebDriver {
-  type Cookie = ICookie;
+  type Cookie = CookieType;
   type Element = IElement;
   type Session = ISession;
-  type Status = IStatus;
-  type Timeout = ITimeout;
+  type Status = StatusType;
+  type Timeout = TimeoutType;
   type LocatorStrategy = TLocatorStrategy;
+  type Capabilities = CapabilitiesType;
 }
 
 /**

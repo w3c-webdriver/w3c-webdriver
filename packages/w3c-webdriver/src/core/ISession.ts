@@ -1,7 +1,7 @@
-import { ICookie } from "./ICookie";
+import { Cookie } from "./Cookie";
 import { IElement } from "./IElement";
-import { ITimeout } from "./ITimeout";
 import { LocatorStrategy } from "./LocatorStrategy";
+import { Timeout } from "./Timeout";
 
 export interface ISession {
 
@@ -33,7 +33,7 @@ export interface ISession {
    *   }
    * })();
    */
-  setTimeout(timeout: ITimeout): Promise<void>;
+  setTimeout(timeout: Timeout): Promise<void>;
 
   /**
    * Returns a string serialization of the DOM of the current browsing context active document.
@@ -172,7 +172,7 @@ export interface ISession {
    *   }
    * })();
    */
-  getAllCookies(): Promise<ICookie[]>;
+  getAllCookies(): Promise<Cookie[]>;
 
   /**
    * Adds a single cookie to the cookie store associated with the active document’s address.
@@ -199,7 +199,7 @@ export interface ISession {
    *   }
    * })();
    */
-  addCookie(cookie: ICookie): Promise<void>;
+  addCookie(cookie: Cookie): Promise<void>;
 
   /**
    * The Take Screenshot command takes a screenshot of the top-level browsing context’s viewport.
@@ -405,5 +405,5 @@ export interface ISession {
    *   }
    * })();
    */
-  getTimeout(): Promise<ITimeout>;
+  getTimeout(): Promise<Timeout>;
 }

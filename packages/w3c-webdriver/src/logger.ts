@@ -8,26 +8,7 @@ export const log = debug('w3c-webdriver');
 export function logRequest(method: RequestMethod, url: string, body: object) {
   const logSafeBody = {
     ...body,
-    ...('desiredCapabilities' in body
-      ? {
-          desiredCapabilities: Object.entries(
-            (<{ desiredCapabilities: object }>body).desiredCapabilities
-          )
-            .map(([key, val]) => {
-              if (['browserstack.user', 'browserstack.key'].includes(key)) {
-                return [key, '***'];
-              }
-
-              return [key, val];
-            })
-            .reduce((acc, [key, val]) => {
-              return {
-                ...acc,
-                [<string>key]: val
-              };
-            }, {})
-        }
-      : {})
+    auth: undefined
   };
 
   log(`WebDriver request: ${method} ${url} ${util.inspect(logSafeBody, false, 10)}`);

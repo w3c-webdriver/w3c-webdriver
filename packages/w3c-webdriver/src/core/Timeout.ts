@@ -1,7 +1,7 @@
 /**
  * WebDriver Timout configuration object
  */
-export interface ITimeout {
+export type Timeout = {
   /**
    * Session script timeout in milliseconds.
    * Determines when to interrupt a script that is being evaluated.

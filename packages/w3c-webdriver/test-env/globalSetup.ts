@@ -1,6 +1,6 @@
 import { execFile } from 'child_process';
 import { log } from '../src/logger';
-import { selectedBrowser } from './browser';
+import { browser } from './browser';
 import { startBrowserStackLocal } from './browserstack';
 import { setInstance } from './driver';
 import { getFreePorts, waitForBusyPort } from './ports';
@@ -11,7 +11,7 @@ log.enabled = true;
 async function startDriver(port: number) {
   const {
     driver
-  } = selectedBrowser;
+  } = browser;
 
   if (!driver) return;
 
@@ -43,10 +43,10 @@ async function startDriver(port: number) {
 async function globalSetup() {
   const [webDriverPort, testAppPort] = await getFreePorts(3000, 3050, 2);
   process.env.WEB_DRIVER_PORT = webDriverPort.toString();
-  process.env.WEB_DRIVER_URL = selectedBrowser.hub || `http://localhost:${webDriverPort}`;
+  process.env.WEB_DRIVER_URL = browser.hub || `http://localhost:${webDriverPort}`;
   process.env.TEST_APP_PORT = testAppPort.toString();
 
-  if (selectedBrowser.id === 'browserstack') {
+  if (browser.id === 'browserstack') {
     await startBrowserStackLocal();
   }
 

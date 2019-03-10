@@ -1,6 +1,6 @@
 // tslint:disable-next-line:import-name
 import WebDriver, { status } from '../src';
-import { name as browserName, selectedBrowser } from '../test-env/browser';
+import { browser, browserName } from '../test-env/browser';
 import { session } from '../test-env/session';
 
 describe('Sessions', () => {
@@ -8,7 +8,7 @@ describe('Sessions', () => {
     it('returns server status', async () => {
       const result = await status(<string>process.env.WEB_DRIVER_URL);
 
-      if (selectedBrowser.id === 'browserstack') {
+      if (browser.id === 'browserstack') {
         expect(result.build.version).toBeDefined();
 
         return;
