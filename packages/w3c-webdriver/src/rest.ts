@@ -1,7 +1,7 @@
 // tslint:disable-next-line:import-name
 import fetch, { HeaderInit } from 'node-fetch';
 import util from 'util';
-import { log, logRequest } from './logger';
+import { log } from './logger';
 
 interface IErrorValue {
   error: string;
