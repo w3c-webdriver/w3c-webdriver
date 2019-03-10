@@ -23,9 +23,8 @@ async function sendRequest<T>(
   body?: object,
   headers?: HeaderInit
 ): Promise<T> {
-  if (log.enabled && body) {
-    logRequest(method, url, body);
-  }
+
+  log(`WebDriver request: ${method} ${url} ${util.inspect(body, false, 10)}`);
 
   const response = await fetch(url, {
     method,
