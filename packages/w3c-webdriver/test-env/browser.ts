@@ -2,34 +2,11 @@ import { path as chromedriverPath } from 'chromedriver';
 import { config } from 'dotenv-safe';
 import { path as geckodriverPath } from 'geckodriver';
 import { path as iedriverPath } from 'iedriver';
+import { HeaderInit, Headers } from 'node-fetch';
+// tslint:disable-next-line:import-name
+import WebDriver from '../src';
 
 config();
-
-type ChromeOptions = {
-  w3c?: boolean;
-  binary?: string;
-  args?: string[];
-};
-
-type FirefoxOptions = {
-  log?: {
-    level?: string;
-  };
-  args?: string[];
-};
-
-type InternetExplorerOptions = {
-  ignoreProtectedModeSettings: boolean;
-  ignoreZoomSetting: boolean;
-  'ie.ensureCleanSession': boolean;
-};
-
-type BrowserCapability = {
-  browserName: string;
-  'goog:chromeOptions'?: ChromeOptions;
-  'moz:firefoxOptions'?: FirefoxOptions;
-  'se:ieOptions'?: InternetExplorerOptions;
-};
 
 type BrowserDriver = {
   name: string;
@@ -39,8 +16,11 @@ type BrowserDriver = {
 
 type Browser = {
   id: string;
-  capability: BrowserCapability;
-  desiredCapabilities?: object;
+  capabilities: WebDriver.Capabilities;
+  desiredCapabilities?: {
+    'browserstack.use_w3c': boolean;
+  };
+  headers?: HeaderInit;
   driver?: BrowserDriver;
   hub?: string;
 };
@@ -48,11 +28,13 @@ type Browser = {
 const browsers: Browser[] = [
   {
     id: 'chrome',
-    capability: {
-      browserName: 'chrome',
-      'goog:chromeOptions': {
-        w3c: true,
-        binary: process.env.CHROME_BIN
+    capabilities: {
+      alwaysMatch: {
+        browserName: 'chrome',
+        'goog:chromeOptions': {
+          w3c: true,
+          binary: process.env.CHROME_BIN
+        }
       }
     },
     driver: {
@@ -63,12 +45,14 @@ const browsers: Browser[] = [
   },
   {
     id: 'chrome-headless',
-    capability: {
-      browserName: 'chrome',
-      'goog:chromeOptions': {
-        w3c: true,
-        binary: process.env.CHROME_BIN,
-        args: ['--headless']
+    capabilities: {
+      alwaysMatch: {
+        browserName: 'chrome',
+        'goog:chromeOptions': {
+          w3c: true,
+          binary: process.env.CHROME_BIN,
+          args: ['--headless']
+        }
       }
     },
     driver: {
@@ -79,11 +63,13 @@ const browsers: Browser[] = [
   },
   {
     id: 'firefox',
-    capability: {
-      browserName: 'firefox',
-      'moz:firefoxOptions': {
-        log: {
-          level: 'debug'
+    capabilities: {
+      alwaysMatch: {
+        browserName: 'firefox',
+        'moz:firefoxOptions': {
+          log: {
+            level: 'debug'
+          }
         }
       }
     },
@@ -95,12 +81,14 @@ const browsers: Browser[] = [
   },
   {
     id: 'firefox-headless',
-    capability: {
-      browserName: 'firefox',
-      'moz:firefoxOptions': {
-        args: ['-headless'],
-        log: {
-          level: 'debug'
+    capabilities: {
+      alwaysMatch: {
+        browserName: 'firefox',
+        'moz:firefoxOptions': {
+          args: ['-headless'],
+          log: {
+            level: 'debug'
+          }
         }
       }
     },
@@ -112,8 +100,10 @@ const browsers: Browser[] = [
   },
   {
     id: 'safari',
-    capability: {
-      browserName: 'safari'
+    capabilities: {
+      alwaysMatch: {
+        browserName: 'safari'
+      }
     },
     driver: {
       name: 'SafariDriver',
@@ -123,12 +113,14 @@ const browsers: Browser[] = [
   },
   {
     id: 'internet-explorer',
-    capability: {
-      browserName: 'internet explorer',
-      'se:ieOptions': {
-        ignoreProtectedModeSettings: true,
-        ignoreZoomSetting: true,
-        'ie.ensureCleanSession': true
+    capabilities: {
+      alwaysMatch: {
+        browserName: 'internet explorer',
+        'se:ieOptions': {
+          ignoreProtectedModeSettings: true,
+          ignoreZoomSetting: true,
+          'ie.ensureCleanSession': true
+        }
       }
     },
     driver: {
@@ -139,23 +131,28 @@ const browsers: Browser[] = [
   },
   {
     id: 'browserstack',
-    capability: {
-      browserName: 'firefox'
+    capabilities: {
+      alwaysMatch: {
+        browserName: 'firefox',
+        'bstack:options': {
+          local: true
+        }
+      }
     },
     desiredCapabilities: {
-      'browserstack.use_w3c': true,
-      'browserstack.user': process.env.BROWSERSTACK_USERNAME,
-      'browserstack.key': process.env.BROWSERSTACK_ACCESS_KEY,
-      'browserstack.local': true,
-      // 'browserstack.localIdentifier': process.env.BROWSERSTACK_LOCAL_ID,
-      browserName: 'firefox'
+      'browserstack.use_w3c': true
     },
+    headers: new Headers({
+      Authorization: `Basic ${Buffer.from(
+        [process.env.BROWSERSTACK_USERNAME, process.env.BROWSERSTACK_ACCESS_KEY].join(':')
+      ).toString('base64')}`
+    }),
     hub: 'https://hub-cloud.browserstack.com/wd/hub'
   }
 ];
 
 const maybeBrowser: Browser | undefined = browsers.find(
-  browser => browser.id === process.env.BROWSER
+  browserConfiguration => browserConfiguration.id === process.env.BROWSER
 );
 
 if (maybeBrowser === undefined) {
@@ -164,5 +161,10 @@ if (maybeBrowser === undefined) {
   );
 }
 
-export const selectedBrowser: Browser = maybeBrowser;
-export const name = selectedBrowser.capability.browserName;
+export const browser: Browser = maybeBrowser;
+
+if (browser.capabilities.alwaysMatch === undefined) {
+  throw new Error('browser.capabilities.alwaysMatch is required');
+}
+
+export const browserName: string = browser.capabilities.alwaysMatch.browserName;

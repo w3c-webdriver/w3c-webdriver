@@ -1,7 +1,7 @@
 /**
  * An object defining the cookie.
  */
-export interface ICookie {
+export type Cookie = {
   /**
    * The name of the cookie.
    */

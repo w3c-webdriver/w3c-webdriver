@@ -1,5 +1,5 @@
 import { log } from '../src/logger';
-import { selectedBrowser } from './browser';
+import { browser } from './browser';
 import { stopBrowserStackLocal } from './browserstack';
 import { getInstance } from './driver';
 import { waitForFreePort } from './ports';
@@ -9,7 +9,7 @@ log.enabled = true;
 
 async function stopDriver(port: number) {
   const instance = getInstance();
-  const { driver } = selectedBrowser;
+  const { driver } = browser;
 
   if (!driver) {
     return
@@ -31,7 +31,7 @@ async function globalTeardown() {
     await stopDriver(parseInt(process.env.WEB_DRIVER_PORT));
   }
 
-  if (selectedBrowser.id === 'browserstack') {
+  if (browser.id === 'browserstack') {
     await stopBrowserStackLocal();
   }
 

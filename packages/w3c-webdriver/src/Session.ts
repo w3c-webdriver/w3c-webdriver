@@ -1,4 +1,4 @@
-import { ICookie, IElement, ISession, ITimeout, LocatorStrategy } from './core';
+import { Cookie, IElement, ISession, LocatorStrategy, Timeout } from './core';
 import { Element } from './Element';
 import { DELETE, GET, POST } from './rest';
 
@@ -52,11 +52,11 @@ export class Session implements ISession {
     );
   }
 
-  public async getTimeout(): Promise<ITimeout> {
-    return GET<ITimeout>(`${this.url}/session/${this.sessionId}/timeouts`);
+  public async getTimeout(): Promise<Timeout> {
+    return GET<Timeout>(`${this.url}/session/${this.sessionId}/timeouts`);
   }
 
-  public async setTimeout(timeout: ITimeout): Promise<void> {
+  public async setTimeout(timeout: Timeout): Promise<void> {
     await POST(`${this.url}/session/${this.sessionId}/timeouts`, timeout);
   }
 
@@ -82,11 +82,11 @@ export class Session implements ISession {
     });
   }
 
-  public async getAllCookies(): Promise<ICookie[]> {
-    return GET<ICookie[]>(`${this.url}/session/${this.sessionId}/cookie`);
+  public async getAllCookies(): Promise<Cookie[]> {
+    return GET<Cookie[]>(`${this.url}/session/${this.sessionId}/cookie`);
   }
 
-  public async addCookie(cookie: ICookie) {
+  public async addCookie(cookie: Cookie) {
     await POST(`${this.url}/session/${this.sessionId}/cookie`, { cookie });
   }
 
