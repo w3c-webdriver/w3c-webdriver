@@ -3,6 +3,7 @@ import ApiFunction from './ApiFunction';
 import ApiVariable from './ApiVariable';
 import ApiClass from './ApiClass';
 import typedoc from 'typeDoc';
+import ApiTypeDefinition from './ApiTypeDefinition';
 
 const resolveReference = id => {
   const module = typedoc.children.find(module => module.children.some(child => child.id === id));
@@ -18,7 +19,7 @@ const getItemDependencies = item => {
         return a.sources[0].line - b.sources[0].line;
       });
 
-      return moduleItems.reduce((dependnecies, child) => [...dependnecies, child, ...getItemDependencies(child)], []);
+      return moduleItems.reduce((dependnecies, child) => [...dependnecies, ...getItemDependencies(child)], moduleItems);
     case 'Class':
       const classItems = item.children.filter(item => item.flags.isPublic);
 
@@ -64,8 +65,9 @@ const Typedoc = () =>
       case 'Function':
         return <ApiFunction key={child.id} {...child} />;
       case 'Variable':
+      return <ApiVariable key={child.id} {...child} />;
       case 'Type alias':
-        return <ApiVariable key={child.id} {...child} />;
+      return <ApiTypeDefinition key={child.id} {...child} />;
       default:
         return null;
     }
