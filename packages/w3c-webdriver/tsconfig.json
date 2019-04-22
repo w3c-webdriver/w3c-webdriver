@@ -1,8 +1,10 @@
 {
   "compilerOptions": {
+    "module": "commonjs",
     "strict": true,
     "esModuleInterop": true,
     "declaration": true,
-    "outDir": "lib"
+    "outDir": "lib",
+    "lib": ["esnext"]
   }
 }

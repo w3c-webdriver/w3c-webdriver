@@ -3,8 +3,7 @@ import { config } from 'dotenv-safe';
 import { path as geckodriverPath } from 'geckodriver';
 import { path as iedriverPath } from 'iedriver';
 import { HeaderInit, Headers } from 'node-fetch';
-// tslint:disable-next-line:import-name
-import WebDriver from '../src';
+import { Capabilities } from '../src';
 
 config();
 
@@ -16,7 +15,7 @@ type BrowserDriver = {
 
 type Browser = {
   id: string;
-  capabilities: WebDriver.Capabilities;
+  capabilities: Capabilities;
   desiredCapabilities?: {
     'browserstack.use_w3c': boolean;
   };

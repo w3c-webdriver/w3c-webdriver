@@ -13,7 +13,7 @@
     "node": ">= 8.0.0"
   },
   "scripts": {
-    "lint": "tslint --project tsconfig.json && tsc --noEmit",
+    "lint": "tslint --project tsconfig.json && tsc --project tsconfig.json --noEmit",
     "test": "jest --detectOpenHandles",
     "test:chrome": "cross-env BROWSER=chrome npm test",
     "test:chrome-headless": "cross-env BROWSER=chrome-headless npm test",
@@ -80,5 +80,6 @@
     "tslint-microsoft-contrib": "^6.0.0",
     "typescript": "^3.3.3333",
     "wait-on": "^3.1.0"
-  }
+  },
+  "contributors": []
 }

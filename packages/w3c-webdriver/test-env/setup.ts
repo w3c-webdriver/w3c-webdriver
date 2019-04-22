@@ -34,6 +34,6 @@ beforeEach(async () => {
 
 afterAll(async () => {
   log(`Deleting session on ${webDriverUrl}.`);
-  await session.deleteSession();
+  await session.close();
   log(`Session deleted.`);
 });

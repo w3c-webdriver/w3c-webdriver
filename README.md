@@ -45,7 +45,7 @@ import webdriver from 'w3c-webdriver';
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -208,7 +208,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -284,7 +284,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -318,7 +318,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -349,7 +349,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -388,7 +388,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -430,7 +430,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -463,7 +463,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -511,7 +511,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -546,7 +546,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -586,7 +586,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -631,7 +631,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -669,7 +669,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -727,7 +727,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -759,7 +759,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -810,7 +810,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -843,7 +843,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -876,7 +876,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -914,7 +914,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
