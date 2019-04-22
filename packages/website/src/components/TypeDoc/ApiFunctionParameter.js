@@ -1,21 +1,25 @@
 import React from 'react';
 import InlineCode from '../content/InlineCode';
+import Link from '../content/Link';
 import ApiDescription from './ApiDescription';
-import typedoc from 'typeDoc';
+import slugify from '@sindresorhus/slugify';
 
-const getParameterType = type => {
+export const getParameterType = type => {
   switch (type && type.type) {
     case 'reflection':
       return 'object';
     case 'intrinsic':
       return type.name;
     case 'union':
-      return type.types
+      const result = type.types
         .map(({ name }) => name)
         .filter(name => name !== 'undefined')
         .join(' | ');
+      return result === 'false | true' ? 'boolean' : result;
     case 'reference':
-      return type.name;
+      return type.id ? <Link href={`#${slugify(type.name)}`}>{type.name}</Link> : type.name;
+    case 'array':
+      return <>{getParameterType(type.elementType)}[]</>;
     default:
       return type.type;
   }
@@ -36,11 +40,15 @@ const getSubTypes = type => {
 };
 
 const ApiFunctionParameter = ({ name, type, comment, flags }) => {
-  const title = [name, flags && flags.isOptional ? '?' : '', ': ', getParameterType(type)].join('');
+  const title = [name, flags && flags.isOptional ? '?' : '', ': '].join('');
 
   return (
     <li>
-      <InlineCode>{title}</InlineCode> <ApiDescription {...comment} />
+      <InlineCode>
+        {title}
+        {getParameterType(type)}
+      </InlineCode>{' '}
+      <ApiDescription {...comment} />
       {getSubTypes(type)}
     </li>
   );

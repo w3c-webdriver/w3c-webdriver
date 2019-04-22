@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import InlineCode from '../content/InlineCode';
+import Link from '../content/Link';
 import ApiDescription from './ApiDescription';
 import slugify from '@sindresorhus/slugify';
+import { getParameterType } from './ApiFunctionParameter';
 
 const getTypeArguments = typeArguments => {
   if (!typeArguments) {
@@ -11,15 +13,9 @@ const getTypeArguments = typeArguments => {
   return (
     <>
       {'<'}
-      {typeArguments.map(({ type, name, id }) =>
-        type === 'reference' && id ? (
-          <a key={id} href={`#${slugify(name)}`}>
-            {name}
-          </a>
-        ) : (
-          name
-        )
-      )}
+      {typeArguments.map(item => (
+        <Fragment key={item.id}>{getParameterType(item)}</Fragment>
+      ))}
       {'>'}
     </>
   );
