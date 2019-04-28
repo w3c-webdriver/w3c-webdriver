@@ -44,24 +44,7 @@ export class Session {
    * Navigate to a new URL.
    * @see {@link https://www.w3.org/TR/webdriver/#go|WebDriver spec}
    * @example
-   * import { newSession } from 'w3c-webdriver';
-   *
-   * let session;
-   *
-   * (async () => {
-   *   try {
-   *     session = await newSession('http://localhost:4444', {
-   *       desiredCapabilities: {
-   *         browserName: 'Chrome'
-   *       }
-   *     });
-   *     await session.go('http://localhost:8080');
-   *   } catch (err) {
-   *     console.log(err.stack);
-   *   } finally {
-   *     session.close();
-   *   }
-   * })();
+   * await session.go('http://localhost:8080');
    */
   public async go(
     // The URL to navigate to
@@ -74,26 +57,8 @@ export class Session {
    * Get the current page title.
    * @see {@link https://www.w3.org/TR/webdriver/#get-title|WebDriver spec}
    * @example
-   * import { newSession } from 'w3c-webdriver';
-   *
-   * let session;
-   *
-   * (async () => {
-   *   try {
-   *     session = await newSession('http://localhost:4444', {
-   *       desiredCapabilities: {
-   *         browserName: 'Chrome'
-   *       }
-   *     });
-   *     await session.go('http://localhost:8080');
-   *     const title = await session.getTitle();
-   *     // title = 'web page title'
-   *   } catch (err) {
-   *     console.log(err.stack);
-   *   } finally {
-   *     session.close();
-   *   }
-   * })();
+   * const title = await session.getTitle();
+   * // title = 'web page title'
    */
   public async getTitle(): Promise<string> {
     return GET<string>(`${this.host}/session/${this.sessionId}/title`);
@@ -103,26 +68,8 @@ export class Session {
    * Search for an element on the page, starting from the document root.
    * @see {@link https://www.w3.org/TR/webdriver/#find-element|WebDriver spec}
    * @example
-   * import { newSession } from 'w3c-webdriver';
-   *
-   * let session;
-   *
-   * (async () => {
-   *   try {
-   *     session = await newSession('http://localhost:4444', {
-   *       desiredCapabilities: {
-   *         browserName: 'Chrome'
-   *       }
-   *     });
-   *     await session.go('http://localhost:8080');
-   *     const element = await session.findElement('css selector', 'h2');
-   *     // element = <webdriver element>
-   *   } catch (err) {
-   *     console.log(err.stack);
-   *   } finally {
-   *     session.close();
-   *   }
-   * })();
+   * const element = await session.findElement('css selector', 'h2');
+   * // element = <webdriver element>
    */
   public async findElement(
     // Locator strategy
@@ -148,26 +95,8 @@ export class Session {
    * in the DOM.
    * @see {@link https://www.w3.org/TR/webdriver/#find-elements|WebDriver spec}
    * @example
-   * import { newSession } from 'w3c-webdriver';
-   *
-   * let session;
-   *
-   * (async () => {
-   *   try {
-   *     session = await newSession('http://localhost:4444', {
-   *       desiredCapabilities: {
-   *         browserName: 'Chrome'
-   *       }
-   *     });
-   *     await session.go('http://localhost:8080');
-   *     const elements = await session.findElements('css selector', 'h2');
-   *     // elements = [<webdriver element>]
-   *   } catch (err) {
-   *     console.log(err.stack);
-   *   } finally {
-   *     session.close();
-   *   }
-   * })();
+   * const elements = await session.findElements('css selector', 'h2');
+   * // elements = [<webdriver element>]
    */
   public async findElements(
     // Locator strategy
@@ -194,29 +123,12 @@ export class Session {
    * in milliseconds.
    * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#get-timeouts|WebDriver spec}
    * @example
-   * import { newSession } from 'w3c-webdriver';
-   *
-   * let session;
-   *
-   * (async () => {
-   *   try {
-   *     session = await newSession('http://localhost:4444', {
-   *       desiredCapabilities: {
-   *         browserName: 'Chrome'
-   *       }
-   *     });
-   *     const timeout = await session.getTimeout();
-   *     // timeout = {
-   *     //   script: 30000,
-   *     //   pageLoad: 60000,
-   *     //   implicit: 40000
-   *     // }
-   *   } catch (err) {
-   *     console.log(err.stack);
-   *   } finally {
-   *     session.close();
-   *   }
-   * })();
+   * const timeout = await session.getTimeout();
+   * // timeout = {
+   * //   script: 30000,
+   * //   pageLoad: 60000,
+   * //   implicit: 40000
+   * // }
    */
   public async getTimeout(): Promise<Timeout> {
     return GET<Timeout>(`${this.host}/session/${this.sessionId}/timeouts`);
@@ -227,28 +139,11 @@ export class Session {
    * they are aborted and a |Timeout| error is returned to the client.
    * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#set-timeouts|WebDriver spec}
    * @example
-   * import { newSession } from 'w3c-webdriver';
-   *
-   * let session;
-   *
-   * (async () => {
-   *   try {
-   *     session = await newSession('http://localhost:4444', {
-   *       desiredCapabilities: {
-   *         browserName: 'Chrome'
-   *       }
-   *     });
-   *     await session.setTimeout({
-   *       script: 30000,
-   *       pageLoad: 60000,
-   *       implicit: 40000
-   *     });
-   *   } catch (err) {
-   *     console.log(err.stack);
-   *   } finally {
-   *     session.close();
-   *   }
-   * })();
+   * await session.setTimeout({
+   *   script: 30000,
+   *   pageLoad: 60000,
+   *   implicit: 40000
+   * });
    */
   public async setTimeout(timeout: Timeout): Promise<void> {
     await POST(`${this.host}/session/${this.sessionId}/timeouts`, timeout);
@@ -259,26 +154,8 @@ export class Session {
    *
    * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#getting-page-source|WebDriver spec}
    * @example
-   * import { newSession } from 'w3c-webdriver';
-   *
-   * let session;
-   *
-   * (async () => {
-   *   try {
-   *     session = await newSession('http://localhost:4444', {
-   *       desiredCapabilities: {
-   *         browserName: 'Chrome'
-   *       }
-   *     });
-   *     await session.go('http://localhost:8080');
-   *     const source = await session.getPageSource();
-   *     // source = '<!DOCTYPE html><head><title>...'
-   *   } catch (err) {
-   *     console.log(err.stack);
-   *   } finally {
-   *     session.close();
-   *   }
-   * })();
+   * const source = await session.getPageSource();
+   * // source = '<!DOCTYPE html><head><title>...'
    */
   public async getPageSource(): Promise<string> {
     return GET<string>(`${this.host}/session/${this.sessionId}/source`);
@@ -292,30 +169,12 @@ export class Session {
    * @return The script result.
    * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#execute-script|WebDriver spec}
    * @example
-   * import { newSession } from 'w3c-webdriver';
-   *
-   * let session;
-   *
-   * (async () => {
-   *   try {
-   *     session = await newSession('http://localhost:4444', {
-   *       desiredCapabilities: {
-   *         browserName: 'Chrome'
-   *       }
-   *     });
-   *     await session.go('http://localhost:8080');
-   *     const script = `
-   *       const [from] = arguments;
-   *       return `Hello from ${from}!`;
-   *     `;
-   *     const message = await session.executeScript(script, ['WebDriver']);
-   *     // message = 'Hello from WebDriver!'
-   *   } catch (err) {
-   *     console.log(err.stack);
-   *   } finally {
-   *     session.close();
-   *   }
-   * })();
+   * const script = `
+   *   const [from] = arguments;
+   *   return `Hello from ${from}!`;
+   * `;
+   * const message = await session.executeScript(script, ['WebDriver']);
+   * // message = 'Hello from WebDriver!'
    */
   // tslint:disable-next-line:no-any
   public async executeScript(script: string, args: any[] = []): Promise<any> {
@@ -334,30 +193,12 @@ export class Session {
    * @return The script result.
    * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#execute-async-script|WebDriver spec}
    * @example
-   * import { newSession } from 'w3c-webdriver';
-   *
-   * let session;
-   *
-   * (async () => {
-   *   try {
-   *     session = await newSession('http://localhost:4444', {
-   *       desiredCapabilities: {
-   *         browserName: 'Chrome'
-   *       }
-   *     });
-   *     await session.go('http://localhost:8080');
-   *     const script = `
-   *       const [a, b, callback] = arguments;
-   *       setTimeout(() => callback(a * b), 1000);
-   *     `;
-   *     const message = await session.executeAsyncScript(script, [5, 3]);
-   *     // message = 15
-   *   } catch (err) {
-   *     console.log(err.stack);
-   *   } finally {
-   *     session.close();
-   *   }
-   * })();
+   * const script = `
+   *   const [a, b, callback] = arguments;
+   *   setTimeout(() => callback(a * b), 1000);
+   * `;
+   * const message = await session.executeAsyncScript(script, [5, 3]);
+   * // message = 15
    */
   // tslint:disable-next-line:no-any
   public async executeAsyncScript(script: string, args: any[] = []): Promise<any> {
@@ -375,35 +216,17 @@ export class Session {
    * @return A list of cookies.
    * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#get-all-cookies|WebDriver spec}
    * @example
-   * import { newSession } from 'w3c-webdriver';
-   *
-   * let session;
-   *
-   * (async () => {
-   *   try {
-   *     session = await newSession('http://localhost:4444', {
-   *       desiredCapabilities: {
-   *         browserName: 'Chrome'
-   *       }
-   *     });
-   *     await session.go('http://localhost:8080');
-   *     const cookies = await session.getAllCookies();
-   *     // cookies = [
-   *     //   {
-   *     //     name: 'cookie name',
-   *     //     value: 'cookie value',
-   *     //     path: '/',
-   *     //     domain: 'localhost',
-   *     //     secure: false,
-   *     //     httpOnly: true
-   *     //   }
-   *     // ]
-   *   } catch (err) {
-   *     console.log(err.stack);
-   *   } finally {
-   *     session.close();
-   *   }
-   * })();
+   * const cookies = await session.getAllCookies();
+   * // cookies = [
+   * //   {
+   * //     name: 'cookie name',
+   * //     value: 'cookie value',
+   * //     path: '/',
+   * //     domain: 'localhost',
+   * //     secure: false,
+   * //     httpOnly: true
+   * //   }
+   * // ]
    */
   public async getAllCookies(): Promise<Cookie[]> {
     return GET<Cookie[]>(`${this.host}/session/${this.sessionId}/cookie`);
@@ -414,25 +237,7 @@ export class Session {
    *
    * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#add-cookie|WebDriver spec}
    * @example
-   * import { newSession } from 'w3c-webdriver';
-   *
-   * let session;
-   *
-   * (async () => {
-   *   try {
-   *     session = await newSession('http://localhost:4444', {
-   *       desiredCapabilities: {
-   *         browserName: 'Chrome'
-   *       }
-   *     });
-   *     await session.go('http://localhost:8080');
-   *     await session.addCookie({ name: 'test cookie', value: 'test value' });
-   *   } catch (err) {
-   *     console.log(err.stack);
-   *   } finally {
-   *     session.close();
-   *   }
-   * })();
+   * await session.addCookie({ name: 'test cookie', value: 'test value' });
    */
   public async addCookie(cookie: Cookie) {
     await POST(`${this.host}/session/${this.sessionId}/cookie`, { cookie });
@@ -444,26 +249,8 @@ export class Session {
    * @return The screenshot as a PNG.
    * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#take-screenshot|WebDriver spec}
    * @example
-   * import { newSession } from 'w3c-webdriver';
-   *
-   * let session;
-   *
-   * (async () => {
-   *   try {
-   *     session = await newSession('http://localhost:4444', {
-   *       desiredCapabilities: {
-   *         browserName: 'Chrome'
-   *       }
-   *     });
-   *     await session.go('http://localhost:8080');
-   *     const screenshot = await session.takeScreenshot();
-   *     // screenshot = Buffer containing PNG
-   *   } catch (err) {
-   *     console.log(err.stack);
-   *   } finally {
-   *     session.close();
-   *   }
-   * })();
+   * const screenshot = await session.takeScreenshot();
+   * // screenshot = Buffer containing PNG
    */
   public async takeScreenshot(): Promise<Buffer> {
     const screenshot = await GET<string>(`${this.host}/session/${this.sessionId}/screenshot`);
