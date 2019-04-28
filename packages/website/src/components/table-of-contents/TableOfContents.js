@@ -44,6 +44,15 @@ const Navigation = styled.nav`
   flex: 1;
   overflow-y: auto;
   line-height: initial;
+  scrollbar-width: thin;
+
+  ::-webkit-scrollbar {
+      width: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background:#c1c1c1;
+  }
 
   ol,
   ul {

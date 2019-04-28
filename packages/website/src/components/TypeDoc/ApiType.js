@@ -13,8 +13,8 @@ const getTypeArguments = typeArguments => {
   return (
     <>
       {'<'}
-      {typeArguments.map(item => (
-        <Fragment key={item.id}>{getParameterType(item)}</Fragment>
+      {typeArguments.map((item, index) => (
+        <Fragment key={index}>{getParameterType(item)}</Fragment>
       ))}
       {'>'}
     </>
