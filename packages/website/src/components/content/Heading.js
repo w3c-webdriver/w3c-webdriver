@@ -3,6 +3,29 @@ import styled from 'styled-components';
 import slugify from '@sindresorhus/slugify';
 import TableOfContentsCollector from '../table-of-contents/TableOfContentsCollector';
 import theme from '../../theme';
+import AnchorIcon from 'twemoji/2/svg/1f517.svg';
+
+const Anchor = styled.a`
+  text-decoration: none;
+  visibility: hidden;
+  float: left;
+  color: currentColor;
+
+  &:hover {
+    ${theme.hoverEffect}
+  }
+  `;
+
+const StyledAnchorIcon = styled(AnchorIcon)`
+  display: inline-block;
+  width: .4em;
+  height: .4em;
+  margin-left: -.7em;
+  padding-right: .3em;
+  transform: translateY(-.12em);
+
+  path { fill: currentColor;}​
+`;
 
 const StyledHeading1 = styled.h1`
   font-size: 40px;
@@ -24,6 +47,10 @@ const StyledHeading2 = styled.h2`
   font-size: 20px;
   margin: 40px 0;
   color: ${theme.primaryColor};
+
+  &:hover ${Anchor} {
+    visibility: visible;
+  }
 
   @media (min-width: 980px) {
     font-size: 24px;
@@ -56,7 +83,10 @@ const Heading = ({ level, children }) => {
   return (
     <>
       {level === 2 ? <TableOfContentsCollector url={`#${id}`} level={level} title={title} /> : null}
-      <Container id={id}>{children}</Container>
+      <Container id={id}>
+        {level === 2 ? <Anchor href={`#${id}`} aria-hidden="true"><StyledAnchorIcon /></Anchor> : null}
+        {children}
+      </Container>
     </>
   );
 };
