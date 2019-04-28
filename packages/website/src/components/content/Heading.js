@@ -18,9 +18,9 @@ const Anchor = styled.a`
 
 const StyledAnchorIcon = styled(AnchorIcon)`
   display: inline-block;
-  width: .4em;
-  height: .4em;
-  margin-left: -.7em;
+  width: .45em;
+  height: .45em;
+  margin-left: calc(-.3em - .45em);
   padding-right: .3em;
   transform: translateY(-.12em);
 
