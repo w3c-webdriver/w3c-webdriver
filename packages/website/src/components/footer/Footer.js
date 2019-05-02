@@ -37,7 +37,7 @@ const Footer = () => (
     <div>
       Created with <StyledHeart /> in <StyledCH />
     </div>
-    <div>{new Date().getFullYear()}</div>
+    <div>2018 - {new Date().getFullYear()}</div>
   </StyledFooter>
 );
 
