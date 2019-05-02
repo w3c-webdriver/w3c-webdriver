@@ -16,18 +16,18 @@ const ApiTypeDefinition = ({ name, type, comment, minLevel }) => {
         <>
           <ApiSubSection>Properties</ApiSubSection>
           <ul>
-            {type.declaration.children.map(parameter => (
-              <ApiFunctionParameter key={parameter.id} {...parameter} />
+            {type.declaration.children.map((parameter, index) => (
+              <ApiFunctionParameter key={index} {...parameter} />
             ))}
           </ul>
         </>
       )}
       {type.type === 'union' && (
         <>
-          <ApiSubSection>Possible values</ApiSubSection>
+          <ApiSubSection>Possible values</ApiSubSection>F
           <ul>
-            {type.types.map(type => (
-              <li>
+            {type.types.map((type, index) => (
+              <li key={index}>
                 <InlineCode>'{type.value}'</InlineCode>
               </li>
             ))}
