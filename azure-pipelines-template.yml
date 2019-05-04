@@ -24,7 +24,7 @@ jobs:
     workingDirectory: $(coreDirectory)
 
   - script: npm test -- --ci
-    condition: eq(parameters['multipleSessionsAllowed'], 'true')
+    condition: eq(parameters.multipleSessionsAllowed, 'true')
     displayName: Test with multiple Sessions
     workingDirectory: $(coreDirectory)
     env:
@@ -33,7 +33,7 @@ jobs:
       BROWSERSTACK_ACCESS_KEY: $(browserstack.key)
 
   - script: npm test -- --ci --runInBand
-    condition: eq(parameters['multipleSessionsAllowed'], 'false')
+    condition: eq(parameters.multipleSessionsAllowed, 'false')
     displayName: Test with single Session
     workingDirectory: $(coreDirectory)
     env:
