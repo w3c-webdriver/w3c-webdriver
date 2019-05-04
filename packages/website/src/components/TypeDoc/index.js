@@ -20,7 +20,7 @@ const getItemDependencies = item => {
         return a.sources[0].line - b.sources[0].line;
       });
 
-      return moduleItems.reduce((dependnecies, child) => [...dependnecies, ...getItemDependencies(child)], moduleItems);
+      return moduleItems.reduce((dependencies, child) => [...dependencies, ...getItemDependencies(child)], moduleItems);
     case 'Class':
       const classItems = item.children.filter(item => item.flags.isPublic);
 
@@ -28,15 +28,15 @@ const getItemDependencies = item => {
         return a.sources[0].line - b.sources[0].line;
       });
 
-      return classItems.reduce((dependnecies, child) => [...dependnecies, ...getItemDependencies(child)], classItems);
+      return classItems.reduce((dependencies, child) => [...dependencies, ...getItemDependencies(child)], classItems);
     case 'Variable':
     case 'Type alias':
       return getItemDependencies(item.type);
     case 'Type literal':
-      return item.children.reduce((dependnecies, child) => [...dependnecies, ...getItemDependencies(child)], []);
+      return item.children.reduce((dependencies, child) => [...dependencies, ...getItemDependencies(child)], []);
     case 'Function':
     case 'Method':
-      return item.signatures.reduce((dependnecies, signature) => {
+      return item.signatures.reduce((dependencies, signature) => {
         const typeArgumentDeps =
           (signature.type &&
             signature.type.typeArguments &&
@@ -46,7 +46,7 @@ const getItemDependencies = item => {
         const paramDeps =
           (signature.parameters && signature.parameters.reduce((acc, item) => [...acc, ...getItemDependencies(item)], [])) || [];
 
-        return [...dependnecies, ...typeArgumentDeps, ...paramDeps];
+        return [...dependencies, ...typeArgumentDeps, ...paramDeps];
       }, []);
     case 'Parameter':
       return getItemDependencies(item.type);
