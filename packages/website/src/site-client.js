@@ -30,12 +30,12 @@ class App extends Component {
   };
 
   componentDidMount() {
-    docsearch({
-      apiKey: '1d35d6cc360f65e40724c542ec522307',
-      indexName: 'w3c-webdriver',
-      inputSelector: '#search-field',
-      debug: false // Set debug to true if you want to inspect the dropdown
-    });
+    // docsearch({
+    //   apiKey: '1d35d6cc360f65e40724c542ec522307',
+    //   indexName: 'w3c-webdriver',
+    //   inputSelector: '#search-field',
+    //   debug: false // Set debug to true if you want to inspect the dropdown
+    // });
   }
 
   render() {
