@@ -1,6 +1,6 @@
 {
   "title": "W3C WebDriver",
   "description": "WebDriver client for JavaScript",
-  "url": "https://w3c-webdriver.netlify.com/",
-  "github": "https://github.com/mucsi96/w3c-webdriver"
+  "url": "https://w3c-webdriver.github.io",
+  "github": "https://github.com/w3c-webdriver/w3c-webdriver"
 }
