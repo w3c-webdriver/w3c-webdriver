@@ -77,7 +77,7 @@ jobs:
 
 - job: DeployWebsite
   dependsOn: Test
-  # condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   pool:
     vmImage: 'ubuntu-16.04'
   steps:
