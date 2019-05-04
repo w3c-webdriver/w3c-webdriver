@@ -6,28 +6,45 @@ pr:
 
 variables:
   coreDirectory: $(Build.SourcesDirectory)/packages/w3c-webdriver
+  websiteDirectory: $(Build.SourcesDirectory)/packages/website
 
 jobs:
+- job: CodeCheck
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - script: npm install
+    displayName: Install dependencies
+    workingDirectory: $(coreDirectory)
+
+  - script: npm run lint
+    displayName: Lint
+    workingDirectory: $(coreDirectory)
+
+  - script: npm run typecheck
+    displayName: Type Check
+    workingDirectory: $(coreDirectory)
+
 - template: azure-pipelines-template.yml
   parameters:
     name: Firefox
     vmImage: 'ubuntu-16.04'
     nodeVersion: '8.x'
-    browser: firefox-headless
+    testCommand: 'npm run test:firefox-headless -- -- --ci'
 
 - template: azure-pipelines-template.yml
   parameters:
     name: Chrome
     vmImage: 'ubuntu-16.04'
-    nodeVersion: '10.x'
-    browser: chrome-headless
+    nodeVersion: '12.x'
+    testCommand: 'npm run test:chrome-headless -- -- --ci'
 
 - template: azure-pipelines-template.yml
   parameters:
     name: Safari
     vmImage: 'macOS-10.13'
     nodeVersion: '10.x'
-    browser: safari
+    testCommand: 'npm run test:safari -- -- --ci --runInBand'
     preBuild:
     - script: sudo safaridriver --enable
       displayName: Configure Safari to Enable WebDriver Support
@@ -36,12 +53,68 @@ jobs:
   parameters:
     name: Internet_Explorer
     vmImage: 'vs2017-win2016'
-    nodeVersion: '10.x'
-    browser: internet-explorer
+    nodeVersion: '12.x'
+    testCommand: 'npm run test:internet-explorer -- -- --ci'
 
 - template: azure-pipelines-template.yml
   parameters:
     name: BrowserStack
     vmImage: 'ubuntu-16.04'
-    nodeVersion: '10.x'
-    browser: browserstack
+    nodeVersion: '12.x'
+    testCommand: 'npm run test:browserstack -- -- --ci'
+
+- job: Test
+  dependsOn:
+    - Firefox
+    - Chrome
+    - Safari
+    - Internet_Explorer
+    - BrowserStack
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - script: echo tests completed
+
+- job: DeployWebsite
+  dependsOn: Test
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - script: npm install
+    displayName: Install core dependencies
+    workingDirectory: $(coreDirectory)
+
+  - script: npm install
+    displayName: Install website dependencies
+    workingDirectory: $(websiteDirectory)
+
+  - script: npm run build
+    displayName: Build
+    workingDirectory: $(websiteDirectory)
+
+  - task: DownloadSecureFile@1
+    inputs:
+      secureFile: deploy_key
+    displayName: Get the deploy key
+
+  - script: |
+      git config --local user.name "Azure Pipelines"
+      git config --local user.email "azuredevops@microsoft.com"
+      mkdir ~/.ssh
+      chmod 700 ~/.ssh
+      mv $DOWNLOADSECUREFILE_SECUREFILEPATH ~/.ssh/id_rsa
+      chmod 600 ~/.ssh/id_rsa
+      ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+    displayName: Add deployment key to keystore
+    workingDirectory: $(websiteDirectory)
+
+  - script: |
+      git config --local user.name "Azure Pipelines"
+      git config --local user.email "azuredevops@microsoft.com"
+    displayName: Configure Git author
+    workingDirectory: $(websiteDirectory)
+
+  - script: npm run deploy
+    displayName: Deploy
+    workingDirectory: $(websiteDirectory)
