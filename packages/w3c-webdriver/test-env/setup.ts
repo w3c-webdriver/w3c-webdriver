@@ -12,9 +12,12 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
 
 beforeAll(async () => {
   if (browser.id === 'safari') {
-    log(`Awaiting ready status on ${webDriverUrl}.`);
     let serverStatus;
     do {
+      if (serverStatus) {
+        await new Promise(resolve => setTimeout(() => { resolve(); }, 100));
+      }
+      log(`Awaiting ready status on ${webDriverUrl} ...`);
       serverStatus = await status(webDriverUrl);
     } while(!serverStatus.ready)
   }

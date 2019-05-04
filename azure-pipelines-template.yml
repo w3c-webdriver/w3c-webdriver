@@ -4,6 +4,7 @@ parameters:
   nodeVersion: ''
   browser: ''
   preBuild: []
+  multipleSessionsAllowed: true
 
 jobs:
 - job: ${{ parameters.name }}
@@ -22,8 +23,18 @@ jobs:
     displayName: Install dependencies
     workingDirectory: $(coreDirectory)
 
+  - script: npm test -- --ci
+    condition: eq(variables['multipleSessionsAllowed'], 'true')
+    displayName: Test with multiple Sessions
+    workingDirectory: $(coreDirectory)
+    env:
+      BROWSER: ${{ parameters.browser }}
+      BROWSERSTACK_USERNAME: $(browserstack.user)
+      BROWSERSTACK_ACCESS_KEY: $(browserstack.key)
+
   - script: npm test -- --ci --runInBand
-    displayName: Test
+    condition: eq(variables['multipleSessionsAllowed'], 'false')
+    displayName: Test with single Session
     workingDirectory: $(coreDirectory)
     env:
       BROWSER: ${{ parameters.browser }}

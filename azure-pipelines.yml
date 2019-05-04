@@ -31,6 +31,7 @@ jobs:
     vmImage: 'ubuntu-16.04'
     nodeVersion: '8.x'
     browser: firefox-headless
+    multipleSessionsAllowed: True
 
 - template: azure-pipelines-template.yml
   parameters:
@@ -38,6 +39,7 @@ jobs:
     vmImage: 'ubuntu-16.04'
     nodeVersion: '12.x'
     browser: chrome-headless
+    multipleSessionsAllowed: True
 
 - template: azure-pipelines-template.yml
   parameters:
@@ -45,6 +47,7 @@ jobs:
     vmImage: 'macOS-10.13'
     nodeVersion: '10.x'
     browser: safari
+    multipleSessionsAllowed: False
     preBuild:
     - script: sudo safaridriver --enable
       displayName: Configure Safari to Enable WebDriver Support
@@ -55,6 +58,7 @@ jobs:
     vmImage: 'vs2017-win2016'
     nodeVersion: '12.x'
     browser: internet-explorer
+    multipleSessionsAllowed: True
 
 - template: azure-pipelines-template.yml
   parameters:
@@ -62,6 +66,7 @@ jobs:
     vmImage: 'ubuntu-16.04'
     nodeVersion: '12.x'
     browser: browserstack
+    multipleSessionsAllowed: True
 
 - job: Test
   dependsOn:
