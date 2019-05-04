@@ -1,4 +1,4 @@
-import { newSession } from '../src';
+import { newSession, status } from '../src';
 import { log } from '../src/logger';
 import { browser } from './browser';
 import { session, setSession } from './session';
@@ -11,6 +11,14 @@ const testAppPort = process.env.TEST_APP_PORT;
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
 
 beforeAll(async () => {
+  if (browser.id === 'safari') {
+    log(`Awaiting ready status on ${webDriverUrl}.`);
+    let serverStatus;
+    do {
+      serverStatus = await status(webDriverUrl);
+    } while(!serverStatus.ready)
+  }
+
   log(`Creating session on ${webDriverUrl}.`);
   try {
     setSession(
