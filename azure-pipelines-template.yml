@@ -9,6 +9,7 @@ jobs:
 - job: ${{ parameters.name }}
   pool:
     vmImage: ${{ parameters.vmImage }}
+  dependsOn: CodeCheck
   steps:
   - task: NodeTool@0
     inputs:
@@ -19,10 +20,6 @@ jobs:
 
   - script: npm install
     displayName: Install dependencies
-    workingDirectory: $(coreDirectory)
-
-  - script: npm run lint
-    displayName: Lint
     workingDirectory: $(coreDirectory)
 
   - script: npm test -- --ci --runInBand
