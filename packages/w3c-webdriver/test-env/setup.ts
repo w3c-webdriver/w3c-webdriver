@@ -11,7 +11,6 @@ const testAppPort = process.env.TEST_APP_PORT;
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
 
 beforeAll(async () => {
-  if (browser.id === 'safari') {
   log(`Creating session on ${webDriverUrl}.`);
   try {
     setSession(
