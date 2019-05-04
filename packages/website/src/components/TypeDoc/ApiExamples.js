@@ -2,7 +2,7 @@ import React from 'react';
 import Code from '../content/Code';
 import ApiSubSection from './ApiSubSection';
 
-const hasExampes = tags => {
+const hasExamples = tags => {
   return tags.filter(({ tag }) => tag === 'example').length > 0;
 };
 
@@ -15,7 +15,7 @@ const getExamples = tags => {
 };
 
 const ApiExamples = ({ tags, headingLevel }) => {
-  if (!tags || !hasExampes(tags)) {
+  if (!tags || !hasExamples(tags)) {
     return null;
   }
 

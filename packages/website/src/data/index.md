@@ -10,7 +10,7 @@ which specifies a remote control protocol for web browsers. No magic just pure p
 
     npm install w3c-webdriver
 
-### 2. Install a browser driver for WebDriver protocoll
+### 2. Install a browser driver for WebDriver protocol
 
 |                                                                      Browser                                                                      |                             Driver package                             |
 | :-----------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------: |
@@ -28,7 +28,7 @@ Also you can manage the drivers using [webdriver-manager](https://www.npmjs.com/
 
 ### 3. Start the driver as described in the docs
 
-### 4. Control the browser through WebDriver protocoll
+### 4. Control the browser through WebDriver protocol
 
 ```javascript
 const { newSession } = require('w3c-webdriver');

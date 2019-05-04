@@ -1,5 +1,5 @@
 /**
- * WebDriver Timout configuration object
+ * WebDriver Timeout configuration object
  */
 export type Timeout = {
   /**

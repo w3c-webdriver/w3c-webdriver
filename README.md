@@ -20,7 +20,7 @@ Tested on major browsers
 
     npm install w3c-webdriver
 
-### 2. Install a browser driver for WebDriver protocoll
+### 2. Install a browser driver for WebDriver protocol
 
 |                                                                      Browser                                                                      |                             Driver package                             |
 | :-----------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------: |
@@ -38,7 +38,7 @@ Also you can manage the drivers using [webdriver-manager](https://www.npmjs.com/
 
 ### 3. Start the driver as described in the docs
 
-### 4. Control the browser through WebDriver protocoll
+### 4. Control the browser through WebDriver protocol
 
 ```javascript
 import webdriver from 'w3c-webdriver';
@@ -494,7 +494,7 @@ they are aborted and a |Timeout| error is returned to the client.
 
 **Parameters**
 
--   `timeouts` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Timout configuration object with values in milliseconds.
+-   `timeouts` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Timeout configuration object with values in milliseconds.
     -   `timeouts.script` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Session script timeout - Determines when to interrupt
          a script that is being evaluated.
     -   `timeouts.pageLoad` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Session page load timeout - Provides the timeout
