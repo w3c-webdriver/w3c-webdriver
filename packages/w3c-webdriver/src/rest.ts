@@ -1,7 +1,7 @@
 // tslint:disable-next-line:import-name
-import fetch from 'node-fetch';
+import fetch, { HeaderInit } from 'node-fetch';
 import util from 'util';
-import { log, logRequest } from './logger';
+import { log } from './logger';
 
 interface IErrorValue {
   error: string;
@@ -17,18 +17,35 @@ function isError(value: any): value is IErrorValue {
 
 export type RequestMethod = 'GET' | 'POST' | 'DELETE';
 
-async function sendRequest<T>(method: RequestMethod, url: string, body?: object): Promise<T> {
-  if (log.enabled && body) {
-    logRequest(method, url, body);
+async function sendRequest<T>(
+  method: RequestMethod,
+  url: string,
+  body?: object,
+  headers?: HeaderInit
+): Promise<T> {
+
+  log(`WebDriver request: ${method} ${url} ${util.inspect(body, false, 10)}`);
+
+  const response = await fetch(url, {
+    method,
+    headers,
+    body: body && JSON.stringify(body)
+  });
+
+  const responseBodyAsText = await response.text();
+
+  let bodyAsJson;
+
+  try {
+    // tslint:disable-next-line:no-any
+    bodyAsJson = <{ value: any }>JSON.parse(responseBodyAsText);
+  } catch (err) {
+    throw new Error(responseBodyAsText);
   }
 
-  const response = await fetch(url, { method, body: body && JSON.stringify(body) });
-  // tslint:disable-next-line:no-any
-  const json = <{ value: any }>await response.json();
+  log(`WebDriver response: ${util.inspect(bodyAsJson, false, 10)}`);
 
-  log(`WebDriver response: ${util.inspect(json, false, 10)}`);
-
-  const { value } = json;
+  const { value } = bodyAsJson;
 
   if (isError(value)) {
     const { message, error } = value;
@@ -40,5 +57,6 @@ async function sendRequest<T>(method: RequestMethod, url: string, body?: object)
 }
 
 export const GET = async <T>(url: string) => sendRequest<T>('GET', url);
-export const POST = async <T>(url: string, body: object) => sendRequest<T>('POST', url, body);
+export const POST = async <T>(url: string, body: object, headers?: HeaderInit) =>
+  sendRequest<T>('POST', url, body, headers);
 export const DELETE = async <T>(url: string, body?: object) => sendRequest<T>('DELETE', url, body);

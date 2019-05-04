@@ -11,7 +11,8 @@
     "radix": false,
     "non-literal-fs-path": false,
     "no-implicit-dependencies": [true, "dev", ["src"]],
-    "strict-boolean-expressions": false
+    "strict-boolean-expressions": false,
+    "interface-name": false
   },
   "linterOptions": {
     "exclude": ["node_modules/**"]
