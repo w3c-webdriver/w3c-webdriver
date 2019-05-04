@@ -93,6 +93,28 @@ jobs:
     displayName: Build
     workingDirectory: $(websiteDirectory)
 
+  - task: DownloadSecureFile@1
+    inputs:
+      secureFile: deploy_key
+    displayName: Get the deploy key
+
+  - script: |
+      git config --local user.name "Azure Pipelines"
+      git config --local user.email "azuredevops@microsoft.com"
+      mkdir ~/.ssh
+      chmod 700 ~/.ssh
+      mv $DOWNLOADSECUREFILE_SECUREFILEPATH ~/.ssh/id_rsa
+      chmod 600 ~/.ssh/id_rsa
+      ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+    displayName: Add deployment key to keystore
+    workingDirectory: $(websiteDirectory)
+
+  - script: |
+      git config --local user.name "Azure Pipelines"
+      git config --local user.email "azuredevops@microsoft.com"
+    displayName: Configure Git author
+    workingDirectory: $(websiteDirectory)
+
   - script: npm run deploy
     displayName: Deploy
     workingDirectory: $(websiteDirectory)
