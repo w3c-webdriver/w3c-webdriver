@@ -12,16 +12,6 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
 
 beforeAll(async () => {
   if (browser.id === 'safari') {
-    let serverStatus;
-    do {
-      if (serverStatus) {
-        await new Promise(resolve => setTimeout(() => { resolve(); }, 100));
-      }
-      log(`Awaiting ready status on ${webDriverUrl} ...`);
-      serverStatus = await status(webDriverUrl);
-    } while(!serverStatus.ready)
-  }
-
   log(`Creating session on ${webDriverUrl}.`);
   try {
     setSession(
@@ -47,4 +37,8 @@ afterAll(async () => {
   log(`Deleting session on ${webDriverUrl}.`);
   await session.close();
   log(`Session deleted.`);
+  if (browser.id === 'safari') {
+    log(`Wait for 2 seconds...`);
+    await new Promise(resolve => setTimeout(() => { resolve() }, 2000));
+  }
 });
