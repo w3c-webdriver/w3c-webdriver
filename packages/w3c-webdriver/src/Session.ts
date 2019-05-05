@@ -300,7 +300,7 @@ export class Session {
   }
 
   /**
-   * Dismiss the alert
+   * Dismiss the alert in current page
    * @see {@link https://www.w3.org/TR/webdriver/#dismiss-alert|WebDriver spec}
    * @example
    * await session.dismissAlert();
@@ -310,7 +310,7 @@ export class Session {
   }
 
   /**
-   * Accept the alert
+   * Accept the alert in current page
    * @see {@link https://www.w3.org/TR/webdriver/#accept-alert|WebDriver spec}
    * @example
    * await session.acceptAlert();
