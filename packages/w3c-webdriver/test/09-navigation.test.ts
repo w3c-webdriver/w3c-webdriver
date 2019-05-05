@@ -13,7 +13,7 @@ describe('Navigation', () => {
     it('returns current url', async () => {
       const currentUrl = await session.getCurrentUrl();
 
-      expect(currentUrl).toEqual('The simple calculator');
+      expect(currentUrl).toEqual('http://localhost:3001/');
     });
   });
 });
