@@ -54,6 +54,17 @@ export class Session {
   }
 
   /**
+   * Get current page URL
+   * @see {@link https://www.w3.org/TR/webdriver/#get-current-url|WebDriver spec}
+   * @example
+   * const currentUrl = await session.getCurrentUrl();
+   * // currentUrl = 'http://localhost:8080'
+   */
+  public async getCurrentUrl(): Promise<string> {
+    return GET<string>(`${this.host}/session/${this.sessionId}/url`);
+  }
+
+  /**
    * Get the current page title.
    * @see {@link https://www.w3.org/TR/webdriver/#get-title|WebDriver spec}
    * @example
