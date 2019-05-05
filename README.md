@@ -79,9 +79,9 @@ import webdriver from 'w3c-webdriver';
 | ------ | ----------------------------- | ----------------------------- | :----------------: |
 | POST   | /session/{session id}/url     | [Go](#sessiongo)              | :white_check_mark: |
 | GET    | /session/{session id}/url     | [Get Current URL](#sessiongetcurrentUrl)              | :white_check_mark: |
-| POST   | /session/{session id}/back    | Back                          |                    |
-| POST   | /session/{session id}/forward | Forward                       |                    |
-| POST   | /session/{session id}/refresh | Refresh                       |                    |
+| POST   | /session/{session id}/back    | Back                          | :white_check_mark: |
+| POST   | /session/{session id}/forward | Forward                       | :white_check_mark: |
+| POST   | /session/{session id}/refresh | Refresh                       | :white_check_mark: |
 | GET    | /session/{session id}/title   | [Get Title](#sessiongettitle) | :white_check_mark: |
 
 ## Command Contexts
