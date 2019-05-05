@@ -44,7 +44,7 @@ jobs:
     name: Safari
     vmImage: 'macOS-10.13'
     nodeVersion: '10.x'
-    testCommand: 'npm run test:safari -- -- --ci --runInBand'
+    testCommand: 'npm run test:safari -- -- --ci'
     preBuild:
     - script: sudo safaridriver --enable
       displayName: Configure Safari to Enable WebDriver Support
