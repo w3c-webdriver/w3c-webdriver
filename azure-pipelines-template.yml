@@ -23,12 +23,12 @@ jobs:
     displayName: Install dependencies
     workingDirectory: $(coreDirectory)
 
-  - script: npm test
+  - script: npm run test -- --ci
     displayName: Test
     workingDirectory: $(coreDirectory)
     env:
       CI: 'true'
-      BROWSER: $(parameters.browser)
+      BROWSER: ${{ parameters.browser }}
       BROWSERSTACK_USERNAME: $(browserstack.user)
       BROWSERSTACK_ACCESS_KEY: $(browserstack.key)
 
@@ -40,7 +40,7 @@ jobs:
       testResultsFiles: 'junit.xml'
       searchFolder: $(coreDirectory)
       mergeTestResults: true
-      testRunTitle: 'Test Results ($(parameters.browser))'
+      testRunTitle: 'Test Results (${{ parameters.browser }})'
 
   - task: PublishCodeCoverageResults@1
     displayName: Publish Jest Test Coverage
