@@ -36,6 +36,7 @@ jobs:
       testResultsFiles: 'junit.xml'
       searchFolder: $(coreDirectory)
       mergeTestResults: true
+      testRunTitle: 'Test Results'
 
   - task: PublishCodeCoverageResults@1
     displayName: Publish Jest Test Coverage

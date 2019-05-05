@@ -29,6 +29,7 @@ jobs:
       searchFolder: $(coreDirectory)
       mergeTestResults: true
       failTaskOnFailedTests: true
+      testRunTitle: 'TSLint Results'
 
   - script: npm run typecheck
     displayName: Type Check
