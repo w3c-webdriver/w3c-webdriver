@@ -23,13 +23,15 @@ jobs:
     displayName: Install dependencies
     workingDirectory: $(coreDirectory)
 
-  - script: npm test -- --ci --runInBand --coverage --reporters="default" --reporters="jest-junit" --coverage-reporters="cobertura"
+  - script: npm test -- --ci --runInBand --coverage --reporters=default --reporters=jest-junit --coverage-reporters=cobertura
     displayName: Test
     workingDirectory: $(coreDirectory)
     env:
       BROWSER: ${{ parameters.browser }}
       BROWSERSTACK_USERNAME: $(browserstack.user)
       BROWSERSTACK_ACCESS_KEY: $(browserstack.key)
+      JEST_SUITE_NAME: ${{ parameters.browser }}
+      JEST_JUNIT_INCLUDE_CONSOLE_OUTPUT: 'true'
 
   - task: PublishTestResults@2
     displayName: Publish Jest Test Results
