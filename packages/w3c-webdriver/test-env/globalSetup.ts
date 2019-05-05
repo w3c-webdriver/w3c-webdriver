@@ -1,12 +1,15 @@
 import { execFile } from 'child_process';
-import { log } from '../src/logger';
+import { log, setLogger } from '../src/logger';
 import { browser } from './browser';
 import { startBrowserStackLocal } from './browserstack';
 import { setInstance } from './driver';
 import { getFreePorts, waitForBusyPort } from './ports';
 import { start as startTestApp } from './test-app';
 
-log.enabled = true;
+setLogger((message: string) => {
+  // tslint:disable-next-line:no-console
+  console.log(message);
+});
 
 async function startDriver(port: number) {
   const {

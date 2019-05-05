@@ -1,6 +1,12 @@
 import debug from 'debug';
-import util from 'util';
-import { RequestMethod } from './rest';
+
+const debugLogger = debug('w3c-webdriver');
+
+type Logger = (message: string) => void;
 
 // tslint:disable-next-line:export-name
-export const log = debug('w3c-webdriver');
+export let log: Logger = debugLogger;
+
+export const setLogger = (logger: Logger) => {
+  log = logger;
+}
