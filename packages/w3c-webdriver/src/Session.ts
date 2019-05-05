@@ -42,7 +42,7 @@ export class Session {
 
   /**
    * Navigate to a new URL.
-   * @see {@link https://www.w3.org/TR/webdriver/#go|WebDriver spec}
+   * @see {@link https://www.w3.org/TR/webdriver/#navigate-to|WebDriver spec}
    * @example
    * await session.go('http://localhost:8080');
    */
