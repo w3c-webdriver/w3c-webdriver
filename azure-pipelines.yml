@@ -17,20 +17,9 @@ jobs:
     displayName: Install dependencies
     workingDirectory: $(coreDirectory)
 
-  - script: npm run lint -- --format junit --out junit.xml
+  - script: npm run lint
     displayName: Lint
     workingDirectory: $(coreDirectory)
-
-  - task: PublishTestResults@2
-    displayName: Publish Lint PublishTestResults,
-    condition: succeededOrFailed()
-    inputs:
-      testResultsFormat: 'JUnit'
-      testResultsFiles: 'junit.xml'
-      searchFolder: $(coreDirectory)
-      mergeTestResults: true
-      failTaskOnFailedTests: true
-      testRunTitle: 'TSLint Results'
 
   - script: npm run typecheck
     displayName: Type Check
