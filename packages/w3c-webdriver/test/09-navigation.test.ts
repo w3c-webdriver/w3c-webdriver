@@ -64,7 +64,8 @@ describe('Navigation', () => {
       await session.refresh();
       const currentUrlAfter = await session.getCurrentUrl();
       expect(currentUrlAfter).toEqual(currentUrlBefore);
-      const resultText = await resultElement.getText();
+      const result = await session.findElement('css selector', '#result');
+      const resultText = await result.getText();
       expect(resultText).toEqual('');
     });
   });
