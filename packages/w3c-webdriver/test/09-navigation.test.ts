@@ -26,7 +26,7 @@ describe('Navigation', () => {
       await session.back();
 
       const currentUrlAfter = await session.getCurrentUrl();
-      expect(currentUrlAfter).toEqual(`http://localhost:${process.env.TEST_APP_PORT}/`);
+      expect(currentUrlAfter).toEqual(currentUrlBefore);
     });
   });
 });
