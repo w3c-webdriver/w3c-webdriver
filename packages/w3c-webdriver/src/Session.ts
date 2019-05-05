@@ -54,6 +54,16 @@ export class Session {
   }
 
   /**
+   * Get current URL
+   * @see {@link https://www.w3.org/TR/webdriver/#get-current-url|WebDriver spec}
+   * @example
+   * const url = await session.getCurrentUrl();
+   */
+  public async getCurrentUrl(): Promise<string> {
+    return GET<string>(`${this.host}/session/${this.sessionId}/url`);
+  }
+
+  /**
    * Get the current page title.
    * @see {@link https://www.w3.org/TR/webdriver/#get-title|WebDriver spec}
    * @example

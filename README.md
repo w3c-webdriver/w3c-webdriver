@@ -78,7 +78,7 @@ import webdriver from 'w3c-webdriver';
 | Method | URI Template                  | Command                       |   Implementation   |
 | ------ | ----------------------------- | ----------------------------- | :----------------: |
 | POST   | /session/{session id}/url     | [Go](#sessiongo)              | :white_check_mark: |
-| GET    | /session/{session id}/url     | Get Current URL               |                    |
+| GET    | /session/{session id}/url     | [Get Current URL](#sessiongetcurrentUrl)              | :white_check_mark: |
 | POST   | /session/{session id}/back    | Back                          |                    |
 | POST   | /session/{session id}/forward | Forward                       |                    |
 | POST   | /session/{session id}/refresh | Refresh                       |                    |
@@ -333,6 +333,38 @@ let session;
 ```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
+
+## Session.getCurrentUrl
+
+-   **See: [WebDriver spec](https://www.w3.org/TR/webdriver/#get-current-url)**
+
+Get the current page url.
+
+**Examples**
+
+```javascript
+import webdriver from 'w3c-webdriver';
+
+let session;
+
+(async () => {
+  try {
+    session = await newSession('http://localhost:4444', {
+      desiredCapabilities: {
+        browserName: 'Chrome'
+      }
+    });
+    await session.go('http://localhost:8080');
+    const currentUrl = await session.getCurrentURL();
+  } catch (err) {
+    console.log(err.stack);
+  } finally {
+    session.deleteSession();
+  }
+})();
+```
+
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>** The current page url.
 
 ## Session.getTitle
 

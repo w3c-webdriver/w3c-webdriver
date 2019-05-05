@@ -8,4 +8,12 @@ describe('Navigation', () => {
       expect(title).toEqual('The simple calculator');
     });
   });
+
+  describe('getCurrentUrl method', () => {
+    it('returns current url', async () => {
+      const currentUrl = await session.getCurrentUrl();
+
+      expect(currentUrl).toEqual('The simple calculator');
+    });
+  });
 });
