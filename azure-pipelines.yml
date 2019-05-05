@@ -17,7 +17,7 @@ jobs:
     displayName: Install dependencies
     workingDirectory: $(coreDirectory)
 
-  - script: npm run lint -- --format junit
+  - script: npm run lint -- --format junit > junit.xml
     displayName: Lint
     workingDirectory: $(coreDirectory)
 
@@ -28,6 +28,7 @@ jobs:
       testResultsFiles: 'junit.xml'
       searchFolder: $(coreDirectory)
       mergeTestResults: true
+      failTaskOnFailedTests: true
 
   - script: npm run typecheck
     displayName: Type Check
