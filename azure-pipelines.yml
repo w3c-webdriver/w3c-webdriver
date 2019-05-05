@@ -40,21 +40,21 @@ jobs:
     name: Firefox
     vmImage: 'ubuntu-16.04'
     nodeVersion: '8.x'
-    testCommand: 'npm run test:firefox-headless -- -- --ci'
+    browser: 'firefox-headless'
 
 - template: azure-pipelines-template.yml
   parameters:
     name: Chrome
     vmImage: 'ubuntu-16.04'
     nodeVersion: '12.x'
-    testCommand: 'npm run test:chrome-headless -- -- --ci'
+    browser: 'chrome-headless'
 
 - template: azure-pipelines-template.yml
   parameters:
     name: Safari
     vmImage: 'macOS-10.13'
     nodeVersion: '10.x'
-    testCommand: 'npm run test:safari -- -- --ci'
+    browser: 'safari'
     preBuild:
     - script: sudo safaridriver --enable
       displayName: Configure Safari to Enable WebDriver Support
@@ -64,14 +64,14 @@ jobs:
     name: Internet_Explorer
     vmImage: 'vs2017-win2016'
     nodeVersion: '12.x'
-    testCommand: 'npm run test:internet-explorer -- -- --ci'
+    browser: 'internet-explorer'
 
 - template: azure-pipelines-template.yml
   parameters:
     name: BrowserStack
     vmImage: 'ubuntu-16.04'
     nodeVersion: '12.x'
-    testCommand: 'npm run test:browserstack -- -- --ci'
+    browser: 'browserstack'
 
 - job: Test
   dependsOn:

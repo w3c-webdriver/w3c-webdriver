@@ -4,6 +4,7 @@ parameters:
   nodeVersion: ''
   preBuild: []
   testCommand: ''
+  browser: ''
 
 jobs:
 - job: ${{ parameters.name }}
@@ -22,25 +23,28 @@ jobs:
     displayName: Install dependencies
     workingDirectory: $(coreDirectory)
 
-  - script: ${{ parameters.testCommand }}
+  - script: npm test
     displayName: Test
     workingDirectory: $(coreDirectory)
     env:
       CI: 'true'
+      BROWSER: $(parameters.browser)
       BROWSERSTACK_USERNAME: $(browserstack.user)
       BROWSERSTACK_ACCESS_KEY: $(browserstack.key)
 
   - task: PublishTestResults@2
     displayName: Publish Jest Test Results
+    condition: succeededOrFailed()
     inputs:
       testResultsFormat: 'JUnit'
       testResultsFiles: 'junit.xml'
       searchFolder: $(coreDirectory)
       mergeTestResults: true
-      testRunTitle: 'Test Results'
+      testRunTitle: 'Test Results ($(parameters.browser))'
 
   - task: PublishCodeCoverageResults@1
     displayName: Publish Jest Test Coverage
+    condition: eq(parameters.browser, 'chrome-headless')
     inputs:
       codeCoverageTool: 'cobertura'
       summaryFileLocation: $(coreDirectory)/coverage/cobertura-coverage.xml
