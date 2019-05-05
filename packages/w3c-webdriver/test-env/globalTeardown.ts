@@ -1,11 +1,14 @@
-import { log } from '../src/logger';
+import { log, setLogger } from '../src/logger';
 import { browser } from './browser';
 import { stopBrowserStackLocal } from './browserstack';
 import { getInstance } from './driver';
 import { waitForFreePort } from './ports';
 import { stop as stopTestApp } from './test-app';
 
-log.enabled = true;
+setLogger((message: string) => {
+  // tslint:disable-next-line:no-console
+  console.log(message);
+});
 
 async function stopDriver(port: number) {
   const instance = getInstance();
