@@ -26,6 +26,7 @@ jobs:
     displayName: Test
     workingDirectory: $(coreDirectory)
     env:
+      CI: 'true'
       BROWSERSTACK_USERNAME: $(browserstack.user)
       BROWSERSTACK_ACCESS_KEY: $(browserstack.key)
 
