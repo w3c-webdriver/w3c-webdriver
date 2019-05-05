@@ -21,14 +21,6 @@ jobs:
     displayName: Lint
     workingDirectory: $(coreDirectory)
 
-  - task: PublishTestResults@2
-    displayName: Publish Lint Results
-    inputs:
-      testResultsFormat: 'JUnit',
-      testResultsFiles: 'junit.xml',
-      searchFolder: $(coreDirectory)
-      mergeTestResults: true
-
   - script: npm run typecheck
     displayName: Type Check
     workingDirectory: $(coreDirectory)
