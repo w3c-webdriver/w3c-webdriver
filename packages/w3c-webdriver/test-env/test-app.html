@@ -45,7 +45,7 @@
       document.querySelector('#multiply').addEventListener('click', calc(function (a, b) {
         return a * b;
       }));
-      document.querySelector('#confirm').addEventListener('click', () => {
+      document.querySelector('#confirm').addEventListener('click', function () {
         if (confirm('This is an alert for test')){
         document.querySelector('#confirmResult').innerText = 'Yes'
         } else {
