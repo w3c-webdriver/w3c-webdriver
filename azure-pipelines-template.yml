@@ -44,7 +44,6 @@ jobs:
 
   - task: PublishCodeCoverageResults@1
     displayName: Publish Jest Test Coverage
-    condition: eq(parameters.browser, 'chrome-headless')
     inputs:
       codeCoverageTool: 'cobertura'
       summaryFileLocation: $(coreDirectory)/coverage/cobertura-coverage.xml
