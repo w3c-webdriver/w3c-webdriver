@@ -17,7 +17,7 @@ jobs:
     displayName: Install dependencies
     workingDirectory: $(coreDirectory)
 
-  - script: npm run lint -- --format junit > junit.xml
+  - script: npm run lint -- --format junit --out junit.xml
     displayName: Lint
     workingDirectory: $(coreDirectory)
 
