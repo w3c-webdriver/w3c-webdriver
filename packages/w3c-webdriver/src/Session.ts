@@ -75,6 +75,26 @@ export class Session {
   }
 
   /**
+   * Navigate forward to next url from history
+   * @see {@link https://www.w3.org/TR/webdriver/#forward|WebDriver spec}
+   * @example
+   * await session.forward();
+   */
+  public async forward(): Promise<void> {
+    await POST(`${this.host}/session/${this.sessionId}/forward`, {});
+  }
+
+  /**
+   * Refresh the current page
+   * @see {@link https://www.w3.org/TR/webdriver/#refresh|WebDriver spec}
+   * @example
+   * await session.refresh();
+   */
+  public async refresh(): Promise<void> {
+    await POST(`${this.host}/session/${this.sessionId}/refresh`, {});
+  }
+
+  /**
    * Get the current page title.
    * @see {@link https://www.w3.org/TR/webdriver/#get-title|WebDriver spec}
    * @example
