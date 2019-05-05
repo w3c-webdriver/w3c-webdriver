@@ -65,6 +65,16 @@ export class Session {
   }
 
   /**
+   * Navigate to previous url from history
+   * @see {@link https://www.w3.org/TR/webdriver/#back|WebDriver spec}
+   * @example
+   * await session.back();
+   */
+  public async back(): Promise<void> {
+    await POST(`${this.host}/session/${this.sessionId}/back`, {});
+  }
+
+  /**
    * Get the current page title.
    * @see {@link https://www.w3.org/TR/webdriver/#get-title|WebDriver spec}
    * @example
