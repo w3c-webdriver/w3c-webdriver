@@ -23,11 +23,10 @@ jobs:
     displayName: Install dependencies
     workingDirectory: $(coreDirectory)
 
-  - script: npm run test -- --ci
+  - script: npm test -- --ci --runInBand --coverage --reporters="default" --reporters="jest-junit" --coverage-reporters="cobertura"
     displayName: Test
     workingDirectory: $(coreDirectory)
     env:
-      CI: 'true'
       BROWSER: ${{ parameters.browser }}
       BROWSERSTACK_USERNAME: $(browserstack.user)
       BROWSERSTACK_ACCESS_KEY: $(browserstack.key)
