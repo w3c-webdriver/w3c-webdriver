@@ -298,4 +298,25 @@ export class Session {
 
     return Buffer.from(screenshot, 'base64');
   }
+
+  /**
+   * Dismiss the alert
+   * @see {@link https://www.w3.org/TR/webdriver/#dismiss-alert|WebDriver spec}
+   * @example
+   * await session.dismissAlert();
+   */
+  public async dismissAlert(): Promise<void> {
+    await POST(`${this.host}/session/${this.sessionId}/alert/dismiss`, {});
+  }
+
+  /**
+   * Accept the alert
+   * @see {@link https://www.w3.org/TR/webdriver/#accept-alert|WebDriver spec}
+   * @example
+   * await session.acceptAlert();
+   */
+  public async acceptAlert(): Promise<void> {
+    await POST(`${this.host}/session/${this.sessionId}/alert/accept`, {});
+  }
+
 }
