@@ -23,6 +23,7 @@ jobs:
 
   - task: PublishTestResults@2
     displayName: Publish Lint PublishTestResults,
+    condition: succeededOrFailed()
     inputs:
       testResultsFormat: 'JUnit'
       testResultsFiles: 'junit.xml'
