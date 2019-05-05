@@ -13,7 +13,7 @@ describe('Navigation', () => {
     it('returns current url', async () => {
       const currentUrl = await session.getCurrentUrl();
 
-      expect(currentUrl).toEqual('http://localhost:3001/');
+      expect(currentUrl).toEqual(`http://localhost:${process.env.TEST_APP_PORT}/`);
     });
   });
 });
