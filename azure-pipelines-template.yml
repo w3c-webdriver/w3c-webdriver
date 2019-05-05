@@ -32,15 +32,15 @@ jobs:
   - task: PublishTestResults@2
     displayName: Publish Jest Test Results
     inputs:
-      testResultsFormat: 'JUnit',
-      testResultsFiles: 'junit.xml',
+      testResultsFormat: 'JUnit'
+      testResultsFiles: 'junit.xml'
       searchFolder: $(coreDirectory)
       mergeTestResults: true
 
   - task: PublishCodeCoverageResults@1
     displayName: Publish Jest Test Coverage
     inputs:
-      codeCoverageTool: 'cobertura',
+      codeCoverageTool: 'cobertura'
       summaryFileLocation: $(coreDirectory)/coverage/cobertura-coverage.xml
       reportDirectory: $(coreDirectory)/coverage
       failIfCoverageEmpty: true
