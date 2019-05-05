@@ -42,7 +42,7 @@ export class Session {
 
   /**
    * Navigate to a new URL.
-   * @see {@link https://www.w3.org/TR/webdriver/#go|WebDriver spec}
+   * @see {@link https://www.w3.org/TR/webdriver/#navigate-to|WebDriver spec}
    * @example
    * await session.go('http://localhost:8080');
    */
@@ -62,6 +62,16 @@ export class Session {
    */
   public async getCurrentUrl(): Promise<string> {
     return GET<string>(`${this.host}/session/${this.sessionId}/url`);
+  }
+
+  /**
+   * Navigate to previous url from history
+   * @see {@link https://www.w3.org/TR/webdriver/#back|WebDriver spec}
+   * @example
+   * await session.back();
+   */
+  public async back(): Promise<void> {
+    await POST(`${this.host}/session/${this.sessionId}/back`, {});
   }
 
   /**

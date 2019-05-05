@@ -16,4 +16,17 @@ describe('Navigation', () => {
       expect(currentUrl).toEqual(`http://localhost:${process.env.TEST_APP_PORT}/`);
     });
   });
+
+  describe('back method', () => {
+    it('navigate to previous url from history', async () => {
+      const currentUrlBefore = await session.getCurrentUrl();
+      expect(currentUrlBefore).toEqual(`http://localhost:${process.env.TEST_APP_PORT}/`);
+      await session.go(`${currentUrlBefore}#test`);
+
+      await session.back();
+
+      const currentUrlAfter = await session.getCurrentUrl();
+      expect(currentUrlAfter).toEqual(currentUrlBefore);
+    });
+  });
 });
