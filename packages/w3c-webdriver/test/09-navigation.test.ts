@@ -69,36 +69,4 @@ describe('Navigation', () => {
       expect(resultText).toEqual('');
     });
   });
-
-  describe('dismiss alert method', () => {
-    it('dismiss an alert in the current page', async () => {
-      const actualUrl = await session.getCurrentUrl();
-      expect(actualUrl).toEqual(`http://localhost:${process.env.TEST_APP_PORT}/`);
-      
-      const alertButton = await session.findElement('css selector', '#confirm');
-      await alertButton.click();
-
-      await session.dismissAlert();
-
-      const result = await session.findElement('css selector', '#confirmResult');
-      const resultText = await result.getText();
-      expect(resultText).toEqual('No');
-    });
-  });
-
-  describe('accept alert method', () => {
-    it('accept an alert in the current page', async () => {
-      const actualUrl = await session.getCurrentUrl();
-      expect(actualUrl).toEqual(`http://localhost:${process.env.TEST_APP_PORT}/`);
-      
-      const alertButton = await session.findElement('css selector', '#confirm');
-      await alertButton.click();
-
-      await session.acceptAlert();
-
-      const result = await session.findElement('css selector', '#confirmResult');
-      const resultText = await result.getText();
-      expect(resultText).toEqual('Yes');
-    });
-  });
 });

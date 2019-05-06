@@ -165,9 +165,9 @@ import webdriver from 'w3c-webdriver';
 
 | Method | URI Template                        | Command         | Implementation |
 | ------ | ----------------------------------- | --------------- | :------------: |
-| POST   | /session/{session id}/alert/dismiss | Dismiss Alert   |                |
-| POST   | /session/{session id}/alert/accept  | Accept Alert    |                |
-| GET    | /session/{session id}/alert/text    | Get Alert Text  |                |
+| POST   | /session/{session id}/alert/dismiss | Dismiss Alert   | :white_check_mark: |
+| POST   | /session/{session id}/alert/accept  | Accept Alert    | :white_check_mark: |
+| GET    | /session/{session id}/alert/text    | Get Alert Text  | :white_check_mark: |
 | POST   | /session/{session id}/alert/text    | Send Alert Text |                |
 
 ## Screen Capture
