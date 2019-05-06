@@ -49,12 +49,10 @@ describe('User Prompts', () => {
       await alertButton.click();
 
       await session.sendAlertText('Test')
-
+      await session.acceptAlert();
       const result = await session.findElement('css selector', '#promptName');
       const resultText = await result.getText();
       expect(resultText).toEqual('Hello Test!');
-
-      await session.acceptAlert();
     });
   });
 });
