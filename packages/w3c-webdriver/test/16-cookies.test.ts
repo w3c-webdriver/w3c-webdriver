@@ -52,7 +52,7 @@ describe('Cookies', () => {
         expiry: Date.now() + 60000
       });
       const cookie = await session.getCookie('cookie_name');
-      expect(cookie).toEqual(testCookie);
+      expect(cookie).toEqual({...testCookie, expiry: Date.now() + 60000});
     });
   });
 });
