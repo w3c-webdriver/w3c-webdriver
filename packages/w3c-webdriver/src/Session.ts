@@ -274,6 +274,19 @@ export class Session {
   }
 
   /**
+   * Returns cookie based on the cookie name
+   * 
+   * @return A cookie.
+   * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#get-named-cookie|WebDriver spec}
+   * @example
+   * const cookie = await session.getCookie('cookieName');
+   * 
+   */
+  public async getCookie(propertyName: string): Promise<Cookie> {
+    return GET<Cookie>(`${this.host}/session/${this.sessionId}/cookie/${propertyName}`);
+  }
+
+  /**
    * Adds a single cookie to the cookie store associated with the active document’s address.
    *
    * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#add-cookie|WebDriver spec}
