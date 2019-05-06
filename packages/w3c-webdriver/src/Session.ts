@@ -298,6 +298,18 @@ export class Session {
   }
 
   /**
+   * Delete a cookie based on its name
+   * 
+   * @see {@link https://www.w3.org/TR/webdriver/#delete-cookie|WebDriver spec}
+   * @example
+   * await session.deleteCookie('cookieName');
+   * 
+   */
+  public async deleteCookie(propertyName: string): Promise<void> {
+    await DELETE(`${this.host}/session/${this.sessionId}/cookie/${propertyName}`);
+  }
+
+  /**
    * The Take Screenshot command takes a screenshot of the top-level browsing context’s viewport.
    *
    * @return The screenshot as a PNG.
