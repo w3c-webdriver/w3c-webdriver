@@ -18,6 +18,8 @@
   <h3>Result: <span id="result"></span></h3>
   <h2><button id="confirm">Confirm</button></h2>
   <h3>Confirm?<span id="confirmResult"></span></h3>
+  <h2><button id="prompt">Name?</button></h2></h2>
+  <h3><span id="promptName"></span></h3>
   <style>
     #result {
       display: flex;
@@ -51,6 +53,10 @@
         } else {
         document.querySelector('#confirmResult').innerText = 'No'
         }
+      });
+      document.querySelector('#prompt').addEventListener('click', function () {
+        let name = prompt();
+        document.querySelector('#promptName').innerText = 'Hello ' + name + '!';
       });
     }
 

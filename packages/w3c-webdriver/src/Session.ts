@@ -367,4 +367,13 @@ export class Session {
     return GET<string>(`${this.host}/session/${this.sessionId}/alert/text`);
   }
 
+  /**
+   * Sets the text field of a prompt to the given value.
+   * @see {@link https://www.w3.org/TR/webdriver/#send-alert-text|WebDriver spec}
+   * @example
+   * await session.sendAlertText('Test');
+   */
+  public async sendAlertText(propertyName: string): Promise<void> {
+    await POST(`${this.host}/session/${this.sessionId}/alert/text`, {text: propertyName});
+  }
 }

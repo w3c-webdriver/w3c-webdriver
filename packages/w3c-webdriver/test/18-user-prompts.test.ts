@@ -1,7 +1,7 @@
 import { session } from '../test-env/session';
 
 describe('User Prompts', () => {
-  describe('dismiss alert method', () => {
+  describe('dismissAlert method', () => {
     it('dismiss an alert in the current page', async () => {
 
       const alertButton = await session.findElement('css selector', '#confirm');
@@ -15,7 +15,7 @@ describe('User Prompts', () => {
     });
   });
 
-  describe('accept alert method', () => {
+  describe('acceptAlert method', () => {
     it('accept an alert in the current page', async () => {
 
       const alertButton = await session.findElement('css selector', '#confirm');
@@ -29,7 +29,7 @@ describe('User Prompts', () => {
     });
   });
 
-  describe('get alert text', () => {
+  describe('getAlertText method', () => {
     it('get text from an alert in the current page', async () => {
 
       const alertButton = await session.findElement('css selector', '#confirm');
@@ -39,6 +39,20 @@ describe('User Prompts', () => {
       expect(alertText).toEqual('This is an alert for test');
 
       await session.acceptAlert();
+    });
+  });
+
+  describe('sendAlertText method', () => {
+    it('Sets the text field of a prompt', async () => {
+
+      const alertButton = await session.findElement('css selector', '#prompt');
+      await alertButton.click();
+
+      await session.sendAlertText('Test')
+      await session.acceptAlert();
+      const result = await session.findElement('css selector', '#promptName');
+      const resultText = await result.getText();
+      expect(resultText).toEqual('Hello Test!');
     });
   });
 });
