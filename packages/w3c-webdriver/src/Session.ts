@@ -319,4 +319,14 @@ export class Session {
     await POST(`${this.host}/session/${this.sessionId}/alert/accept`, {});
   }
 
+  /**
+   * Returns the text from an alert
+   * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#get-alert-text|WebDriver spec}
+   * @example
+   * const alertText = await session.getAlertText();
+   */
+  public async getAlertText(): Promise<string> {
+    return GET<string>(`${this.host}/session/${this.sessionId}/alert/text`);
+  }
+
 }
