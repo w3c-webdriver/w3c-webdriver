@@ -46,13 +46,11 @@ describe('Cookies', () => {
       if (['internet explorer', 'firefox'].includes(browserName)) {
         return;
       }
-      const cookieExpiry = Date.now() + 60000;
       await session.addCookie({
         ...testCookie,
-        expiry: cookieExpiry
       });
       const cookie = await session.getCookie('cookie_name');
-      expect(cookie).toEqual({...testCookie, expiry: cookieExpiry});
+      expect(cookie).toEqual({...testCookie});
     });
   });
 });
