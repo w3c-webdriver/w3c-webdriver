@@ -80,4 +80,19 @@ describe('Cookies', () => {
       expect(cookies).not.toEqual([expect.objectContaining(testCookie)]);
     });
   });
+
+  describe('deleteAllCookies method', () => {
+    it('delete all cookies', async () => {
+      // See:
+      // https://github.com/seleniumhq/selenium/issues/962
+      // https://bugzilla.mozilla.org/show_bug.cgi?id=1488225
+      if (['internet explorer', 'firefox'].includes(browserName)) {
+        return;
+      }
+      await session.deleteAllCookies();
+
+      const cookies = await session.getAllCookies();
+      expect(cookies.length).toEqual(0);
+    });
+  });
 });

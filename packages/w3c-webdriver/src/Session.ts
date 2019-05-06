@@ -310,6 +310,19 @@ export class Session {
   }
 
   /**
+   * Delete all cookies associated with the address of the current browsing context’s active
+   * document.
+   * 
+   * @see {@link https://www.w3.org/TR/webdriver/#delete-all-cookies|WebDriver spec}
+   * @example
+   * await session.deleteAllCookies();
+   * 
+   */
+  public async deleteAllCookies(): Promise<void> {
+    await DELETE(`${this.host}/session/${this.sessionId}/cookie`);
+  }
+
+  /**
    * The Take Screenshot command takes a screenshot of the top-level browsing context’s viewport.
    *
    * @return The screenshot as a PNG.
