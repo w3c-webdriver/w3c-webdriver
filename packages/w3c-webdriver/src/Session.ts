@@ -274,6 +274,19 @@ export class Session {
   }
 
   /**
+   * Returns cookie based on the cookie name
+   * 
+   * @return A cookie.
+   * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#get-named-cookie|WebDriver spec}
+   * @example
+   * const cookie = await session.getCookie('cookieName');
+   * 
+   */
+  public async getCookie(propertyName: string): Promise<Cookie> {
+    return GET<Cookie>(`${this.host}/session/${this.sessionId}/cookie/${propertyName}`);
+  }
+
+  /**
    * Adds a single cookie to the cookie store associated with the active document’s address.
    *
    * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#add-cookie|WebDriver spec}
@@ -282,6 +295,31 @@ export class Session {
    */
   public async addCookie(cookie: Cookie) {
     await POST(`${this.host}/session/${this.sessionId}/cookie`, { cookie });
+  }
+
+  /**
+   * Delete a cookie based on its name
+   * 
+   * @see {@link https://www.w3.org/TR/webdriver/#delete-cookie|WebDriver spec}
+   * @example
+   * await session.deleteCookie('cookieName');
+   * 
+   */
+  public async deleteCookie(propertyName: string): Promise<void> {
+    await DELETE(`${this.host}/session/${this.sessionId}/cookie/${propertyName}`);
+  }
+
+  /**
+   * Delete all cookies associated with the address of the current browsing context’s active
+   * document.
+   * 
+   * @see {@link https://www.w3.org/TR/webdriver/#delete-all-cookies|WebDriver spec}
+   * @example
+   * await session.deleteAllCookies();
+   * 
+   */
+  public async deleteAllCookies(): Promise<void> {
+    await DELETE(`${this.host}/session/${this.sessionId}/cookie`);
   }
 
   /**

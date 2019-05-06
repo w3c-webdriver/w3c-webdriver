@@ -149,10 +149,10 @@ import webdriver from 'w3c-webdriver';
 | Method | URI Template                        | Command                                  |   Implementation   |
 | ------ | ----------------------------------- | ---------------------------------------- | :----------------: |
 | GET    | /session/{session id}/cookie        | [Get All Cookies](#sessiongetallcookies) | :white_check_mark: |
-| GET    | /session/{session id}/cookie/{name} | Get Named Cookie                         |                    |
+| GET    | /session/{session id}/cookie/{name} | Get Named Cookie                         | :white_check_mark: |
 | POST   | /session/{session id}/cookie        | [Add Cookie](#sessionaddcookie)          | :white_check_mark: |
-| DELETE | /session/{session id}/cookie/{name} | Delete Cookie                            |                    |
-| DELETE | /session/{session id)/cookie        | Delete All Cookies                       |                    |
+| DELETE | /session/{session id}/cookie/{name} | Delete Cookie                            | :white_check_mark: |
+| DELETE | /session/{session id)/cookie        | Delete All Cookies                       | :white_check_mark: |
 
 ## Actions
 
