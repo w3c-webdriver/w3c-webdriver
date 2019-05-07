@@ -389,6 +389,16 @@ export class Session {
   }
 
   /**
+   * Set the size and position on the screen of the operating system window
+   * @see {@link https://www.w3.org/TR/webdriver/#set-window-rect|WebDriver spec}
+   * @example
+   * await session.setWindowRect();
+   */
+  public async setWindowRect(windowRect: WindowRect): Promise<void> {
+    return POST(`${this.host}/session/${this.sessionId}/window/rect`, { windowRect });
+  }
+
+  /**
    * Maximizes the current window
    * @see {@link https://www.w3.org/TR/webdriver/#maximize-window|WebDriver spec}
    * @example
