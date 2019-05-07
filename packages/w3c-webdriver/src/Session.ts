@@ -1,4 +1,4 @@
-import { Cookie, LocatorStrategy, Timeout } from './core';
+import { Cookie, LocatorStrategy, Timeout, WindowRect } from './core';
 import { Element } from './Element';
 import { DELETE, GET, POST } from './rest';
 
@@ -375,5 +375,46 @@ export class Session {
    */
   public async sendAlertText(propertyName: string): Promise<void> {
     await POST(`${this.host}/session/${this.sessionId}/alert/text`, {text: propertyName});
+  }
+
+  /**
+   * Get the size and position on the screen of the operating system window
+   * @return a windowRect
+   * @see {@link https://www.w3.org/TR/webdriver/#get-window-rect|WebDriver spec}
+   * @example
+   * await session.getWindowRect();
+   */
+  public async getWindowRect(): Promise<WindowRect> {
+    return GET<WindowRect>(`${this.host}/session/${this.sessionId}/window/rect`);
+  }
+
+  /**
+   * Maximizes the current window
+   * @see {@link https://www.w3.org/TR/webdriver/#maximize-window|WebDriver spec}
+   * @example
+   * await session.maximizeWindow();
+   */
+  public async maximizeWindow(): Promise<void> {
+    await POST(`${this.host}/session/${this.sessionId}/window/maximize`, {});
+  }
+
+  /**
+   * Minimizes the current window
+   * @see {@link https://www.w3.org/TR/webdriver/#minimize-window|WebDriver spec}
+   * @example
+   * await session.minimizeWindow();
+   */
+  public async minimizeWindow(): Promise<void> {
+    await POST(`${this.host}/session/${this.sessionId}/window/minimize`, {});
+  }
+
+  /**
+   * This command increases Current window to Full-Screen
+   * @see {@link https://www.w3.org/TR/webdriver/#fullscreen-window|WebDriver spec}
+   * @example
+   * await session.fullScreenWindow();
+   */
+  public async fullScreenWindow(): Promise<void> {
+    await POST(`${this.host}/session/${this.sessionId}/window/fullscreen`, {});
   }
 }

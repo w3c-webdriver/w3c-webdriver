@@ -94,11 +94,11 @@ import webdriver from 'w3c-webdriver';
 | GET    | /session/{session id}/window/handles    | Get Window Handles     |                |
 | POST   | /session/{session id}/frame             | Switch To Frame        |                |
 | POST   | /session/{session id}/frame/parent      | Switch To Parent Frame |                |
-| GET    | /session/{session id}/window/rect       | Get Window Rect        |                |
+| GET    | /session/{session id}/window/rect       | Get Window Rect        | :white_check_mark: |
 | POST   | /session/{session id}/window/rect       | Set Window Rect        |                |
-| POST   | /session/{session id}/window/maximize   | Maximize Window        |                |
-| POST   | /session/{session id}/window/minimize   | Minimize Window        |                |
-| POST   | /session/{session id}/window/fullscreen | Fullscreen Window      |                |
+| POST   | /session/{session id}/window/maximize   | Maximize Window        | :white_check_mark: |
+| POST   | /session/{session id}/window/minimize   | Minimize Window        | :white_check_mark: |
+| POST   | /session/{session id}/window/fullscreen | Fullscreen Window      | :white_check_mark: |
 
 ## Elements
 
