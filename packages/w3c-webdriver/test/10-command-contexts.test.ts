@@ -24,7 +24,7 @@ describe('Command Contexts', () => {
     });
   });
 
-  describe('fullScreenWindow method', () => {
+  describe('FullScreenWindow method', () => {
     it('increases the current window to full screen', async () => {
       const rectBeforeFull = await session.getWindowRect();
 
