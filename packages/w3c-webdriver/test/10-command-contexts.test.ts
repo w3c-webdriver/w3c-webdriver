@@ -3,7 +3,7 @@ import { session } from '../test-env/session';
 
 describe('Command Contexts', () => {
 
-  // TODO: Refactor once the chrome in VSTS agent is updated
+  // Refactor once the chrome in VSTS agent is updated
 
   describe('getWindowRect/maximizeWindow method', () => {
     it('validates window rect before and after maximizing the window', async () => {
