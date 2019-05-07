@@ -31,6 +31,11 @@ async function startDriver(port: number) {
 
   log(`Starting ${name} ${path} ${childArgs.join(' ')}`);
   const instance = execFile(path, childArgs);
+
+  if (!instance.stdout || !instance.stderr) {
+    throw new Error(`Unable to get output from ${name} ${path} ${childArgs.join(' ')}`)
+  }
+
   instance.stdout.on('data', onOut);
   instance.stderr.on('data', onOut);
   instance.on('close', onClose);

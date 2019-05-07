@@ -1,0 +1,82 @@
+{
+  "name": "w3c-webdriver-website",
+  "version": "1.0.0",
+  "private": true,
+  "repository": "git@github.com:mucsi96/w3c-webdriver.git",
+  "author": "Igor Mucsicska <mucsi_96@yahoo.com>",
+  "license": "MIT",
+  "scripts": {
+    "add-contributor": "all-contributors add",
+    "build": "del-cli dist && webpack --config ./webpack.config.js && del-cli dist/site-server-renderer.js",
+    "serve": "serve dist",
+    "start": "webpack-serve --config ./webpack.config.js",
+    "deploy": "gh-pages --dist dist --repo git@github.com:w3c-webdriver/w3c-webdriver.github.io.git --branch master",
+    "audit": "lighthouse w3c-webdriver.w3c-webdriver --output-path=./lighthouse.report.html --quiet --view"
+  },
+  "dependencies": {
+    "typedoc": "^0.14.2",
+    "styled-components": "^4.1.3",
+    "react-syntax-highlighter": "^10.2.0",
+    "react-markdown": "^4.0.6",
+    "highlight.js": "^9.15.6",
+    "@sindresorhus/slugify": "^0.9.0",
+    "react-router": "^4.3.1",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "docsearch.js": "^2.6.2",
+    "react-scrolllock": "^4.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/plugin-proposal-class-properties": "^7.3.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/preset-react": "^7.0.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-loader": "^8.0.5",
+    "babel-plugin-inline-react-svg": "^1.1.0",
+    "babel-plugin-styled-components": "^1.10.0",
+    "css-loader": "^2.1.1",
+    "del-cli": "^1.1.0",
+    "emoji-regex": "^8.0.0",
+    "file-loader": "^3.0.1",
+    "gh-pages": "^2.0.1",
+    "glob": "^7.1.3",
+    "json-loader": "^0.5.7",
+    "lighthouse": "^4.2.0",
+    "loader-utils": "^1.2.3",
+    "netlify-cli": "^2.8.3",
+    "serve": "^10.1.2",
+    "simple-icons": "^1.9.23",
+    "static-site-generator-webpack-plugin": "^3.4.2",
+    "style-loader": "^0.23.1",
+    "twemoji": "^11.3.0",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.2.1",
+    "webpack-node-externals": "^1.7.2",
+    "webpack-serve": "^2.0.3"
+  },
+  "browserslist": [
+    "defaults",
+    "not IE > 0",
+    "not IE_Mob > 0"
+  ],
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-class-properties",
+      "@babel/plugin-proposal-object-rest-spread",
+      [
+        "babel-plugin-styled-components",
+        {
+          "ssr": true
+        }
+      ],
+      "inline-react-svg"
+    ]
+  }
+}

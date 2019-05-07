@@ -28,4 +28,83 @@ describe('Cookies', () => {
       expect(cookies).toEqual([expect.objectContaining(testCookie)]);
     });
   });
+
+  describe('getCookie method', () => {
+    it('adds and retrieves a cookie by name', async () => {
+      const testCookie = {
+        name: 'cookie_name',
+        value: 'cookie_value',
+        path: '/',
+        domain: '.localhost',
+        secure: false,
+        httpOnly: true
+      };
+
+      // See:
+      // https://github.com/seleniumhq/selenium/issues/962
+      // https://bugzilla.mozilla.org/show_bug.cgi?id=1488225
+      if (['internet explorer', 'firefox'].includes(browserName)) {
+        return;
+      }
+      await session.addCookie({
+        ...testCookie,
+      });
+      const cookie = await session.getCookie('cookie_name');
+      expect(cookie).toEqual({...testCookie});
+    });
+  });
+
+  describe('deleteCookie method', () => {
+    it('delete a cookie by name', async () => {
+      const testCookie = {
+        name: 'cookie_name',
+        value: 'cookie_value',
+        path: '/',
+        domain: '.localhost',
+        secure: false,
+        httpOnly: true
+      };
+
+      // See:
+      // https://github.com/seleniumhq/selenium/issues/962
+      // https://bugzilla.mozilla.org/show_bug.cgi?id=1488225
+      if (['internet explorer', 'firefox'].includes(browserName)) {
+        return;
+      }
+      await session.addCookie({
+        ...testCookie,
+      });
+      await session.deleteCookie('cookie_name');
+
+      const cookies = await session.getAllCookies();
+      expect(cookies).not.toEqual([expect.objectContaining(testCookie)]);
+    });
+  });
+
+  describe('deleteAllCookies method', () => {
+    it('delete all cookies', async () => {
+      const testCookie = {
+        name: 'cookie_name',
+        value: 'cookie_value',
+        path: '/',
+        domain: '.localhost',
+        secure: false,
+        httpOnly: true
+      };
+
+      // See:
+      // https://github.com/seleniumhq/selenium/issues/962
+      // https://bugzilla.mozilla.org/show_bug.cgi?id=1488225
+      if (['internet explorer', 'firefox'].includes(browserName)) {
+        return;
+      }
+      await session.addCookie({
+        ...testCookie,
+      });
+      await session.deleteAllCookies();
+
+      const cookies = await session.getAllCookies();
+      expect(cookies.length).toEqual(0);
+    });
+  });
 });

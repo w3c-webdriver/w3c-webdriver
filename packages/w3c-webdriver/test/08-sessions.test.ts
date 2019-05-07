@@ -1,5 +1,5 @@
 // tslint:disable-next-line:import-name
-import WebDriver, { status } from '../src';
+import { status, Timeout } from '../src';
 import { browser, browserName } from '../test-env/browser';
 import { session } from '../test-env/session';
 
@@ -34,7 +34,7 @@ describe('Sessions', () => {
 
   describe('set/getTimeout methods', () => {
     it('sets and retrieves session timeouts', async () => {
-      const timeouts: WebDriver.Timeout = {
+      const timeouts: Timeout = {
         script: 30000,
         pageLoad: 60000,
         implicit: 40000

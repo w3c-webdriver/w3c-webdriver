@@ -1,4 +1,4 @@
-import { newSession } from '../src';
+import { newSession, status } from '../src';
 import { log } from '../src/logger';
 import { browser } from './browser';
 import { session, setSession } from './session';
@@ -34,6 +34,10 @@ beforeEach(async () => {
 
 afterAll(async () => {
   log(`Deleting session on ${webDriverUrl}.`);
-  await session.deleteSession();
+  await session.close();
   log(`Session deleted.`);
+  if (browser.id === 'safari') {
+    log(`Wait for 2 seconds...`);
+    await new Promise(resolve => setTimeout(() => { resolve() }, 2000));
+  }
 });

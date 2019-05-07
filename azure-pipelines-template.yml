@@ -2,13 +2,14 @@ parameters:
   name: ''
   vmImage: ''
   nodeVersion: ''
-  browser: ''
   preBuild: []
+  testCommand: ''
 
 jobs:
 - job: ${{ parameters.name }}
   pool:
     vmImage: ${{ parameters.vmImage }}
+  dependsOn: CodeCheck
   steps:
   - task: NodeTool@0
     inputs:
@@ -21,14 +22,9 @@ jobs:
     displayName: Install dependencies
     workingDirectory: $(coreDirectory)
 
-  - script: npm run lint
-    displayName: Lint
-    workingDirectory: $(coreDirectory)
-
-  - script: npm test -- --ci --runInBand
+  - script: ${{ parameters.testCommand }}
     displayName: Test
     workingDirectory: $(coreDirectory)
     env:
-      BROWSER: ${{ parameters.browser }}
       BROWSERSTACK_USERNAME: $(browserstack.user)
       BROWSERSTACK_ACCESS_KEY: $(browserstack.key)

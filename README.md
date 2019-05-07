@@ -1,7 +1,7 @@
 # WebDriver client for JavaScript
 
 [![npm version](https://badge.fury.io/js/w3c-webdriver.svg)](https://badge.fury.io/js/w3c-webdriver)
-[![Build Status](https://dev.azure.com/mucsi96/w3c-webdriver/_apis/build/status/mucsi96.w3c-webdriver?branchName=master)](https://dev.azure.com/mucsi96/w3c-webdriver/_build/latest?definitionId=1&branchName=master)
+[![Build Status](https://dev.azure.com/w3c-webdriver/w3c-webdriver/_apis/build/status/w3c-webdriver.w3c-webdriver?branchName=master)](https://dev.azure.com/w3c-webdriver/w3c-webdriver/_build/latest?definitionId=1&branchName=master)
 
 Very minimal future proof JavaScript bindings
 that conform to the [W3C WebDriver standard](https://w3c.github.io/webdriver/webdriver-spec.html),
@@ -20,7 +20,7 @@ Tested on major browsers
 
     npm install w3c-webdriver
 
-### 2. Install a browser driver for WebDriver protocoll
+### 2. Install a browser driver for WebDriver protocol
 
 |                                                                      Browser                                                                      |                             Driver package                             |
 | :-----------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------: |
@@ -38,14 +38,14 @@ Also you can manage the drivers using [webdriver-manager](https://www.npmjs.com/
 
 ### 3. Start the driver as described in the docs
 
-### 4. Control the browser through WebDriver protocoll
+### 4. Control the browser through WebDriver protocol
 
 ```javascript
 import webdriver from 'w3c-webdriver';
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -78,10 +78,10 @@ import webdriver from 'w3c-webdriver';
 | Method | URI Template                  | Command                       |   Implementation   |
 | ------ | ----------------------------- | ----------------------------- | :----------------: |
 | POST   | /session/{session id}/url     | [Go](#sessiongo)              | :white_check_mark: |
-| GET    | /session/{session id}/url     | Get Current URL               |                    |
-| POST   | /session/{session id}/back    | Back                          |                    |
-| POST   | /session/{session id}/forward | Forward                       |                    |
-| POST   | /session/{session id}/refresh | Refresh                       |                    |
+| GET    | /session/{session id}/url     | [Get Current URL](#sessiongetcurrentUrl)              | :white_check_mark: |
+| POST   | /session/{session id}/back    | Back                          | :white_check_mark: |
+| POST   | /session/{session id}/forward | Forward                       | :white_check_mark: |
+| POST   | /session/{session id}/refresh | Refresh                       | :white_check_mark: |
 | GET    | /session/{session id}/title   | [Get Title](#sessiongettitle) | :white_check_mark: |
 
 ## Command Contexts
@@ -149,10 +149,10 @@ import webdriver from 'w3c-webdriver';
 | Method | URI Template                        | Command                                  |   Implementation   |
 | ------ | ----------------------------------- | ---------------------------------------- | :----------------: |
 | GET    | /session/{session id}/cookie        | [Get All Cookies](#sessiongetallcookies) | :white_check_mark: |
-| GET    | /session/{session id}/cookie/{name} | Get Named Cookie                         |                    |
+| GET    | /session/{session id}/cookie/{name} | Get Named Cookie                         | :white_check_mark: |
 | POST   | /session/{session id}/cookie        | [Add Cookie](#sessionaddcookie)          | :white_check_mark: |
-| DELETE | /session/{session id}/cookie/{name} | Delete Cookie                            |                    |
-| DELETE | /session/{session id)/cookie        | Delete All Cookies                       |                    |
+| DELETE | /session/{session id}/cookie/{name} | Delete Cookie                            | :white_check_mark: |
+| DELETE | /session/{session id)/cookie        | Delete All Cookies                       | :white_check_mark: |
 
 ## Actions
 
@@ -165,10 +165,10 @@ import webdriver from 'w3c-webdriver';
 
 | Method | URI Template                        | Command         | Implementation |
 | ------ | ----------------------------------- | --------------- | :------------: |
-| POST   | /session/{session id}/alert/dismiss | Dismiss Alert   |                |
-| POST   | /session/{session id}/alert/accept  | Accept Alert    |                |
-| GET    | /session/{session id}/alert/text    | Get Alert Text  |                |
-| POST   | /session/{session id}/alert/text    | Send Alert Text |                |
+| POST   | /session/{session id}/alert/dismiss | Dismiss Alert   | :white_check_mark: |
+| POST   | /session/{session id}/alert/accept  | Accept Alert    | :white_check_mark: |
+| GET    | /session/{session id}/alert/text    | Get Alert Text  | :white_check_mark: |
+| POST   | /session/{session id}/alert/text    | Send Alert Text | :white_check_mark: |
 
 ## Screen Capture
 
@@ -208,7 +208,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -284,7 +284,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -318,7 +318,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -333,6 +333,38 @@ let session;
 ```
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)**
+
+## Session.getCurrentUrl
+
+-   **See: [WebDriver spec](https://www.w3.org/TR/webdriver/#get-current-url)**
+
+Get the current page url.
+
+**Examples**
+
+```javascript
+import webdriver from 'w3c-webdriver';
+
+let session;
+
+(async () => {
+  try {
+    session = await newSession('http://localhost:4444', {
+      desiredCapabilities: {
+        browserName: 'Chrome'
+      }
+    });
+    await session.go('http://localhost:8080');
+    const currentUrl = await session.getCurrentURL();
+  } catch (err) {
+    console.log(err.stack);
+  } finally {
+    session.deleteSession();
+  }
+})();
+```
+
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>** The current page url.
 
 ## Session.getTitle
 
@@ -349,7 +381,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -388,7 +420,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -430,7 +462,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -463,7 +495,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -494,7 +526,7 @@ they are aborted and a |Timeout| error is returned to the client.
 
 **Parameters**
 
--   `timeouts` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Timout configuration object with values in milliseconds.
+-   `timeouts` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Timeout configuration object with values in milliseconds.
     -   `timeouts.script` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Session script timeout - Determines when to interrupt
          a script that is being evaluated.
     -   `timeouts.pageLoad` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Session page load timeout - Provides the timeout
@@ -511,7 +543,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -546,7 +578,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -586,7 +618,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -631,7 +663,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -669,7 +701,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -727,7 +759,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -759,7 +791,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -810,7 +842,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -843,7 +875,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -876,7 +908,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
@@ -914,7 +946,7 @@ let session;
 
 (async () => {
   try {
-    session = await webdriver.newSession('http://localhost:4444', {
+    session = await newSession('http://localhost:4444', {
       desiredCapabilities: {
         browserName: 'Chrome'
       }
