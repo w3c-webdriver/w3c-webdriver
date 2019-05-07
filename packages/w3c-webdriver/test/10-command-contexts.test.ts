@@ -4,34 +4,34 @@ describe('Command Contexts', () => {
 
   describe('getWindowRect/maximizeWindow method', () => {
     it('validates window rect before and after maximizing the window', async () => {
-      let rectBefore = await session.getWindowRect();
+      const rectBeforeMax = await session.getWindowRect();
 
       await session.maximizeWindow();
 
-      let rectAfter = await session.getWindowRect();
-      expect(rectBefore).not.toEqual(rectAfter);
+      const rectAfterMax = await session.getWindowRect();
+      expect(rectBeforeMax).not.toEqual(rectAfterMax);
     });
   });
 
   describe('minimizeWindow method', () => {
     it('minimizes the current window', async () => {
-      let rectBefore = await session.getWindowRect();
+      const rectBeforeMin = await session.getWindowRect();
 
       await session.minimizeWindow();
 
-      let rectAfter = await session.getWindowRect();
-      expect(rectBefore).not.toEqual(rectAfter);
+      const rectAfterMin = await session.getWindowRect();
+      expect(rectBeforeMin).not.toEqual(rectAfterMin);
     });
   });
 
   describe('fullScreenWindow method', () => {
     it('increases the current window to full screen', async () => {
-      let rectBefore = await session.getWindowRect();
+      const rectBeforeFull = await session.getWindowRect();
 
       await session.fullScreenWindow();
 
-      let rectAfter = await session.getWindowRect();
-      expect(rectBefore).not.toEqual(rectAfter);
+      const rectAfterFull = await session.getWindowRect();
+      expect(rectBeforeFull).not.toEqual(rectAfterFull);
     });
   });
 
