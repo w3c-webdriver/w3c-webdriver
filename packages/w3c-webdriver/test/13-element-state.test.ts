@@ -18,4 +18,23 @@ describe('Element State', () => {
       expect(displayMode).toEqual('flex');
     });
   });
+
+  describe('getAttribute method', () => {
+    it('returns attribute of an element', async () => {
+      const element = await session.findElement('css selector', '#add');
+      const elementAttribute = await element.getAttribute('class');
+
+      expect(elementAttribute).toEqual('test');
+    });
+  });
+
+  describe('getProperty method', () => {
+    it('returns property of an element', async () => {
+      const element = await session.findElement('css selector', '#add');
+      const elementProperty = await element.getProperty('value');
+
+      expect(elementProperty).toEqual('add');
+    });
+  });
+
 });
