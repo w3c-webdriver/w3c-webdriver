@@ -37,4 +37,13 @@ describe('Element State', () => {
     });
   });
 
+  describe('getTagName method', () => {
+    it('returns tagName of an element', async () => {
+      const element = await session.findElement('css selector', '#add');
+      const elementTagName = await element.getTagName();
+
+      expect(elementTagName).toEqual('button');
+    });
+  });
+
 });

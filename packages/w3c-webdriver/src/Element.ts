@@ -87,4 +87,17 @@ export class Element {
     );
   }
 
+  /**
+   * Returns the tagName of a Element
+   * @see {@link https://www.w3.org/TR/webdriver/#get-element-tag-name|WebDriver spec}
+   * @example
+   * const button = await session.findElement('css selector', '#red-button');
+   * const backgroundColor = await button.getTagName();
+   */
+  public async getTagName(): Promise<string> {
+    return GET<string>(
+      `${this.host}/session/${this.sessionId}/element/${this.elementId}/name`
+    );
+  }
+
 }

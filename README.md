@@ -124,7 +124,7 @@ import webdriver from 'w3c-webdriver';
 | GET    | /session/{session id}/element/{element id}/property/{name}     | Get Element Property                    |:white_check_mark: |
 | GET    | /session/{session id}/element/{element id}/css/{property name} | [Get Element CSS Value](#elementgetcss) | :white_check_mark: |
 | GET    | /session/{session id}/element/{element id}/text                | [Get Element Text](#elementgettext)     | :white_check_mark: |
-| GET    | /session/{session id}/element/{element id}/name                | Get Element Tag Name                    |                    |
+| GET    | /session/{session id}/element/{element id}/name                | Get Element Tag Name                    |:white_check_mark: |
 | GET    | /session/{session id}/element/{element id}/rect                | Get Element Rect                        |                    |
 | GET    | /session/{session id}/element/{element id}/enabled             | Is Element Enabled                      |                    |
 
