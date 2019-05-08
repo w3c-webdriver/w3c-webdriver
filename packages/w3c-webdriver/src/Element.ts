@@ -60,4 +60,31 @@ export class Element {
       `${this.host}/session/${this.sessionId}/element/${this.elementId}/css/${propertyName}`
     );
   }
+
+  /**
+   * Returns the Attribute of a Element
+   * @see {@link https://www.w3.org/TR/webdriver/#get-element-attribute|WebDriver spec}
+   * @example
+   * const button = await session.findElement('css selector', '#red-button');
+   * const backgroundColor = await button.getAttribute('css');
+   */
+  public async getAttribute(propertyName: string): Promise<string> {
+    return GET<string>(
+      `${this.host}/session/${this.sessionId}/element/${this.elementId}/attribute/${propertyName}`
+    );
+  }
+
+  /**
+   * Returns the Attribute of a Element
+   * @see {@link https://www.w3.org/TR/webdriver/#get-element-attribute|WebDriver spec}
+   * @example
+   * const button = await session.findElement('css selector', '#red-button');
+   * const backgroundColor = await button.getProperty('class');
+   */
+  public async getProperty(propertyName: string): Promise<string> {
+    return GET<string>(
+      `${this.host}/session/${this.sessionId}/element/${this.elementId}/property/${propertyName}`
+    );
+  }
+
 }
