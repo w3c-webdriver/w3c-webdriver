@@ -1,3 +1,4 @@
+import { browserName } from '../test-env/browser';
 import { session } from '../test-env/session';
 
 describe('Element State', () => {
@@ -42,7 +43,11 @@ describe('Element State', () => {
       const element = await session.findElement('css selector', '#add');
       const elementTagName = await element.getTagName();
 
-      expect(elementTagName).toEqual('button' || 'BUTTON');
+      if (['safari'].includes(browserName)) {
+        expect(elementTagName).toEqual('BUTTON');
+      } else {
+        expect(elementTagName).toEqual('button');;
+      }
     });
   });
 
