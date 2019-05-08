@@ -1,12 +1,9 @@
-import { newSession } from '../src';
-import { log, setLogger } from '../src/logger';
+import { newSession, status } from '../src';
+import { log } from '../src/logger';
 import { browser } from './browser';
 import { session, setSession } from './session';
 
-setLogger((message: string) => {
-  // tslint:disable-next-line:no-console
-  console.log(message);
-});
+log.enabled = true;
 
 const webDriverUrl = browser.hub || `http://localhost:${process.env.WEB_DRIVER_PORT}`;
 const testAppPort = process.env.TEST_APP_PORT;
@@ -26,9 +23,7 @@ beforeAll(async () => {
     );
     log(`Session created.`);
   } catch (error) {
-    if (error instanceof Error && error.stack) {
-      log(error.stack);
-    }
+    log(error);
     throw error;
   }
 });

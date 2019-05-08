@@ -49,9 +49,7 @@ export async function stop() {
 }
 
 if (require.main === module) {
-  start(8087).catch((err: Error) => {
-    if (err.stack) {
-      log(err.stack);
-    }
+  start(8087).catch(err => {
+    log(err);
   });
 }
