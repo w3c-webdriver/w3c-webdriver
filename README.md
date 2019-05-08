@@ -120,11 +120,11 @@ import webdriver from 'w3c-webdriver';
 | Method | URI Template                                                   | Command                                 |   Implementation   |
 | ------ | -------------------------------------------------------------- | --------------------------------------- | :----------------: |
 | GET    | /session/{session id}/element/{element id}/selected            | Is Element Selected                     |                    |
-| GET    | /session/{session id}/element/{element id}/attribute/{name}    | Get Element Attribute                   |                    |
-| GET    | /session/{session id}/element/{element id}/property/{name}     | Get Element Property                    |                    |
+| GET    | /session/{session id}/element/{element id}/attribute/{name}    | Get Element Attribute                   |:white_check_mark: |
+| GET    | /session/{session id}/element/{element id}/property/{name}     | Get Element Property                    |:white_check_mark: |
 | GET    | /session/{session id}/element/{element id}/css/{property name} | [Get Element CSS Value](#elementgetcss) | :white_check_mark: |
 | GET    | /session/{session id}/element/{element id}/text                | [Get Element Text](#elementgettext)     | :white_check_mark: |
-| GET    | /session/{session id}/element/{element id}/name                | Get Element Tag Name                    |                    |
+| GET    | /session/{session id}/element/{element id}/name                | Get Element Tag Name                    |:white_check_mark: |
 | GET    | /session/{session id}/element/{element id}/rect                | Get Element Rect                        |                    |
 | GET    | /session/{session id}/element/{element id}/enabled             | Is Element Enabled                      |                    |
 
@@ -133,7 +133,7 @@ import webdriver from 'w3c-webdriver';
 | Method | URI Template                                     | Command                               |   Implementation   |
 | ------ | ------------------------------------------------ | ------------------------------------- | :----------------: |
 | POST   | /session/{session id}/element/{element id}/click | [Element Click](#elementclick)        | :white_check_mark: |
-| POST   | /session/{session id}/element/{element id}/clear | Element Clear                         |                    |
+| POST   | /session/{session id}/element/{element id}/clear | Element Clear                         | :white_check_mark: |
 | POST   | /session/{session id}/element/{element id}/value | [Element Send Keys](#elementsendkeys) | :white_check_mark: |
 
 ## Document Handling

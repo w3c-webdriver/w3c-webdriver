@@ -37,6 +37,17 @@ export class Element {
   }
 
   /**
+   * Clear content of an element.
+   * @see {@link https://www.w3.org/TR/webdriver/#element-clear|WebDriver spec}
+   * @example
+   * const fieldA = await session.findElement('css selector', '#a');
+   * await submitButton.clear();
+   */
+  public async clear(): Promise<void> {
+    await POST(`${this.host}/session/${this.sessionId}/element/${this.elementId}/clear`, {});
+  }
+
+  /**
    * Returns the visible text for the element.
    * @see {@link https://www.w3.org/TR/webdriver/#get-element-text|WebDriver spec}
    * @example
@@ -60,4 +71,44 @@ export class Element {
       `${this.host}/session/${this.sessionId}/element/${this.elementId}/css/${propertyName}`
     );
   }
+
+  /**
+   * Returns the Attribute of a Element
+   * @see {@link https://www.w3.org/TR/webdriver/#get-element-attribute|WebDriver spec}
+   * @example
+   * const button = await session.findElement('css selector', '#red-button');
+   * const backgroundColor = await button.getAttribute('css');
+   */
+  public async getAttribute(propertyName: string): Promise<string> {
+    return GET<string>(
+      `${this.host}/session/${this.sessionId}/element/${this.elementId}/attribute/${propertyName}`
+    );
+  }
+
+  /**
+   * Returns the Attribute of a Element
+   * @see {@link https://www.w3.org/TR/webdriver/#get-element-attribute|WebDriver spec}
+   * @example
+   * const button = await session.findElement('css selector', '#red-button');
+   * const backgroundColor = await button.getProperty('class');
+   */
+  public async getProperty(propertyName: string): Promise<string> {
+    return GET<string>(
+      `${this.host}/session/${this.sessionId}/element/${this.elementId}/property/${propertyName}`
+    );
+  }
+
+  /**
+   * Returns the tagName of a Element
+   * @see {@link https://www.w3.org/TR/webdriver/#get-element-tag-name|WebDriver spec}
+   * @example
+   * const button = await session.findElement('css selector', '#red-button');
+   * const backgroundColor = await button.getTagName();
+   */
+  public async getTagName(): Promise<string> {
+    return GET<string>(
+      `${this.host}/session/${this.sessionId}/element/${this.elementId}/name`
+    );
+  }
+
 }
