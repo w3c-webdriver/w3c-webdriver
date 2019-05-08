@@ -42,7 +42,7 @@ describe('Element State', () => {
       const element = await session.findElement('css selector', '#add');
       const elementTagName = await element.getTagName();
 
-      expect(elementTagName).toEqual('button');
+      expect(elementTagName).toEqual('button' || 'BUTTON');
     });
   });
 

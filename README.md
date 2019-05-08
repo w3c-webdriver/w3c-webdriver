@@ -133,7 +133,7 @@ import webdriver from 'w3c-webdriver';
 | Method | URI Template                                     | Command                               |   Implementation   |
 | ------ | ------------------------------------------------ | ------------------------------------- | :----------------: |
 | POST   | /session/{session id}/element/{element id}/click | [Element Click](#elementclick)        | :white_check_mark: |
-| POST   | /session/{session id}/element/{element id}/clear | Element Clear                         |                    |
+| POST   | /session/{session id}/element/{element id}/clear | Element Clear                         | :white_check_mark: |
 | POST   | /session/{session id}/element/{element id}/value | [Element Send Keys](#elementsendkeys) | :white_check_mark: |
 
 ## Document Handling
