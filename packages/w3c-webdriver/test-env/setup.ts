@@ -47,7 +47,7 @@ afterAll(async () => {
   log(`Deleting session on ${webDriverUrl}.`);
   await session.close();
   log(`Session deleted.`);
-  if (browser.id === 'safari') {
+  if (['safari', 'browserstack'].includes(browser.id)) {
     log(`Wait for 2 seconds...`);
     await new Promise(resolve =>
       setTimeout(() => {
