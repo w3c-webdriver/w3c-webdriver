@@ -7,7 +7,6 @@ declare module 'iedriver' {
   export const path: string;
 }
 
-
 declare module 'browserstack-local' {
   interface LocalStartOptions {
     key: string;
@@ -19,3 +18,8 @@ declare module 'browserstack-local' {
   }
 }
 
+declare module 'jasmine-reporters' {
+  class JUnitXmlReporter {
+    constructor(options: { consolidateAll: boolean; captureStdout: boolean; filePrefix: string });
+  }
+}

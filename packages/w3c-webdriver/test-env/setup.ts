@@ -1,12 +1,23 @@
-import { newSession, status } from '../src';
+import { newSession } from '../src';
 import { log } from '../src/logger';
 import { browser } from './browser';
 import { session, setSession } from './session';
+import { JUnitXmlReporter } from 'jasmine-reporters';
 
 log.enabled = true;
 
 const webDriverUrl = browser.hub || `http://localhost:${process.env.WEB_DRIVER_PORT}`;
 const testAppPort = process.env.TEST_APP_PORT;
+
+if (process.env.JUNIT_REPORT) {
+  jasmine.getEnv().addReporter(
+    new JUnitXmlReporter({
+      consolidateAll: true,
+      captureStdout: true,
+      filePrefix: 'junit'
+    })
+  );
+}
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
 
@@ -38,6 +49,10 @@ afterAll(async () => {
   log(`Session deleted.`);
   if (browser.id === 'safari') {
     log(`Wait for 2 seconds...`);
-    await new Promise(resolve => setTimeout(() => { resolve() }, 2000));
+    await new Promise(resolve =>
+      setTimeout(() => {
+        resolve();
+      }, 2000)
+    );
   }
 });
