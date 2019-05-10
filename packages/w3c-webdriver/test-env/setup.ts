@@ -1,8 +1,8 @@
+import { JUnitXmlReporter } from 'jasmine-reporters';
 import { newSession } from '../src';
 import { log } from '../src/logger';
 import { browser } from './browser';
 import { session, setSession } from './session';
-import { JUnitXmlReporter } from 'jasmine-reporters';
 
 log.enabled = true;
 

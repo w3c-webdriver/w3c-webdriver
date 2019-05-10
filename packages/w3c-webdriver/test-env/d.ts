@@ -23,3 +23,11 @@ declare module 'jasmine-reporters' {
     constructor(options: { consolidateAll: boolean; captureStdout: boolean; filePrefix: string });
   }
 }
+
+declare namespace jasmine {
+  class JestEnvironment {
+    addReporter(reporter: any): void;
+  }
+
+  function getEnv(): JestEnvironment;
+}
