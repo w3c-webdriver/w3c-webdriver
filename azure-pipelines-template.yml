@@ -30,7 +30,7 @@ jobs:
     displayName: Install dependencies
     workingDirectory: $(coreDirectory)
 
-  - script: npm test -- --ci --runInBand --coverage --no-colors --setupTestFrameworkScriptFile=\"<rootDir>/jest..js\" --coverage-reporters=cobertura
+  - script: npm test -- --ci --runInBand --coverage --no-colors --coverage-reporters=cobertura
     displayName: Test
     workingDirectory: $(coreDirectory)
     env:
