@@ -94,11 +94,11 @@ import webdriver from 'w3c-webdriver';
 | GET    | /session/{session id}/window/handles    | Get Window Handles     |                |
 | POST   | /session/{session id}/frame             | Switch To Frame        |                |
 | POST   | /session/{session id}/frame/parent      | Switch To Parent Frame |                |
-| GET    | /session/{session id}/window/rect       | Get Window Rect        |                |
-| POST   | /session/{session id}/window/rect       | Set Window Rect        |                |
-| POST   | /session/{session id}/window/maximize   | Maximize Window        |                |
-| POST   | /session/{session id}/window/minimize   | Minimize Window        |                |
-| POST   | /session/{session id}/window/fullscreen | Fullscreen Window      |                |
+| GET    | /session/{session id}/window/rect       | Get Window Rect        | :white_check_mark: |
+| POST   | /session/{session id}/window/rect       | Set Window Rect        | :white_check_mark: |
+| POST   | /session/{session id}/window/maximize   | Maximize Window        | :white_check_mark: |
+| POST   | /session/{session id}/window/minimize   | Minimize Window        | :white_check_mark: |
+| POST   | /session/{session id}/window/fullscreen | Fullscreen Window      | :white_check_mark: |
 
 ## Elements
 
@@ -120,11 +120,11 @@ import webdriver from 'w3c-webdriver';
 | Method | URI Template                                                   | Command                                 |   Implementation   |
 | ------ | -------------------------------------------------------------- | --------------------------------------- | :----------------: |
 | GET    | /session/{session id}/element/{element id}/selected            | Is Element Selected                     |                    |
-| GET    | /session/{session id}/element/{element id}/attribute/{name}    | Get Element Attribute                   |                    |
-| GET    | /session/{session id}/element/{element id}/property/{name}     | Get Element Property                    |                    |
+| GET    | /session/{session id}/element/{element id}/attribute/{name}    | Get Element Attribute                   |:white_check_mark: |
+| GET    | /session/{session id}/element/{element id}/property/{name}     | Get Element Property                    |:white_check_mark: |
 | GET    | /session/{session id}/element/{element id}/css/{property name} | [Get Element CSS Value](#elementgetcss) | :white_check_mark: |
 | GET    | /session/{session id}/element/{element id}/text                | [Get Element Text](#elementgettext)     | :white_check_mark: |
-| GET    | /session/{session id}/element/{element id}/name                | Get Element Tag Name                    |                    |
+| GET    | /session/{session id}/element/{element id}/name                | Get Element Tag Name                    |:white_check_mark: |
 | GET    | /session/{session id}/element/{element id}/rect                | Get Element Rect                        |                    |
 | GET    | /session/{session id}/element/{element id}/enabled             | Is Element Enabled                      |                    |
 
@@ -133,7 +133,7 @@ import webdriver from 'w3c-webdriver';
 | Method | URI Template                                     | Command                               |   Implementation   |
 | ------ | ------------------------------------------------ | ------------------------------------- | :----------------: |
 | POST   | /session/{session id}/element/{element id}/click | [Element Click](#elementclick)        | :white_check_mark: |
-| POST   | /session/{session id}/element/{element id}/clear | Element Clear                         |                    |
+| POST   | /session/{session id}/element/{element id}/clear | Element Clear                         | :white_check_mark: |
 | POST   | /session/{session id}/element/{element id}/value | [Element Send Keys](#elementsendkeys) | :white_check_mark: |
 
 ## Document Handling
@@ -149,10 +149,10 @@ import webdriver from 'w3c-webdriver';
 | Method | URI Template                        | Command                                  |   Implementation   |
 | ------ | ----------------------------------- | ---------------------------------------- | :----------------: |
 | GET    | /session/{session id}/cookie        | [Get All Cookies](#sessiongetallcookies) | :white_check_mark: |
-| GET    | /session/{session id}/cookie/{name} | Get Named Cookie                         |                    |
+| GET    | /session/{session id}/cookie/{name} | Get Named Cookie                         | :white_check_mark: |
 | POST   | /session/{session id}/cookie        | [Add Cookie](#sessionaddcookie)          | :white_check_mark: |
-| DELETE | /session/{session id}/cookie/{name} | Delete Cookie                            |                    |
-| DELETE | /session/{session id)/cookie        | Delete All Cookies                       |                    |
+| DELETE | /session/{session id}/cookie/{name} | Delete Cookie                            | :white_check_mark: |
+| DELETE | /session/{session id)/cookie        | Delete All Cookies                       | :white_check_mark: |
 
 ## Actions
 
@@ -165,10 +165,10 @@ import webdriver from 'w3c-webdriver';
 
 | Method | URI Template                        | Command         | Implementation |
 | ------ | ----------------------------------- | --------------- | :------------: |
-| POST   | /session/{session id}/alert/dismiss | Dismiss Alert   |                |
-| POST   | /session/{session id}/alert/accept  | Accept Alert    |                |
-| GET    | /session/{session id}/alert/text    | Get Alert Text  |                |
-| POST   | /session/{session id}/alert/text    | Send Alert Text |                |
+| POST   | /session/{session id}/alert/dismiss | Dismiss Alert   | :white_check_mark: |
+| POST   | /session/{session id}/alert/accept  | Accept Alert    | :white_check_mark: |
+| GET    | /session/{session id}/alert/text    | Get Alert Text  | :white_check_mark: |
+| POST   | /session/{session id}/alert/text    | Send Alert Text | :white_check_mark: |
 
 ## Screen Capture
 

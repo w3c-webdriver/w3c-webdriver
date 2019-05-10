@@ -1,4 +1,4 @@
-import { Cookie, LocatorStrategy, Timeout } from './core';
+import { Cookie, LocatorStrategy, Timeout, WindowRect } from './core';
 import { Element } from './Element';
 import { DELETE, GET, POST } from './rest';
 
@@ -274,6 +274,19 @@ export class Session {
   }
 
   /**
+   * Returns cookie based on the cookie name
+   * 
+   * @return A cookie.
+   * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#get-named-cookie|WebDriver spec}
+   * @example
+   * const cookie = await session.getCookie('cookieName');
+   * 
+   */
+  public async getCookie(propertyName: string): Promise<Cookie> {
+    return GET<Cookie>(`${this.host}/session/${this.sessionId}/cookie/${propertyName}`);
+  }
+
+  /**
    * Adds a single cookie to the cookie store associated with the active document’s address.
    *
    * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#add-cookie|WebDriver spec}
@@ -282,6 +295,31 @@ export class Session {
    */
   public async addCookie(cookie: Cookie) {
     await POST(`${this.host}/session/${this.sessionId}/cookie`, { cookie });
+  }
+
+  /**
+   * Delete a cookie based on its name
+   * 
+   * @see {@link https://www.w3.org/TR/webdriver/#delete-cookie|WebDriver spec}
+   * @example
+   * await session.deleteCookie('cookieName');
+   * 
+   */
+  public async deleteCookie(propertyName: string): Promise<void> {
+    await DELETE(`${this.host}/session/${this.sessionId}/cookie/${propertyName}`);
+  }
+
+  /**
+   * Delete all cookies associated with the address of the current browsing context’s active
+   * document.
+   * 
+   * @see {@link https://www.w3.org/TR/webdriver/#delete-all-cookies|WebDriver spec}
+   * @example
+   * await session.deleteAllCookies();
+   * 
+   */
+  public async deleteAllCookies(): Promise<void> {
+    await DELETE(`${this.host}/session/${this.sessionId}/cookie`);
   }
 
   /**
@@ -297,5 +335,96 @@ export class Session {
     const screenshot = await GET<string>(`${this.host}/session/${this.sessionId}/screenshot`);
 
     return Buffer.from(screenshot, 'base64');
+  }
+
+  /**
+   * Dismiss the alert in current page
+   * @see {@link https://www.w3.org/TR/webdriver/#dismiss-alert|WebDriver spec}
+   * @example
+   * await session.dismissAlert();
+   */
+  public async dismissAlert(): Promise<void> {
+    await POST(`${this.host}/session/${this.sessionId}/alert/dismiss`, {});
+  }
+
+  /**
+   * Accept the alert in current page
+   * @see {@link https://www.w3.org/TR/webdriver/#accept-alert|WebDriver spec}
+   * @example
+   * await session.acceptAlert();
+   */
+  public async acceptAlert(): Promise<void> {
+    await POST(`${this.host}/session/${this.sessionId}/alert/accept`, {});
+  }
+
+  /**
+   * Returns the text from an alert
+   * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#get-alert-text|WebDriver spec}
+   * @example
+   * const alertText = await session.getAlertText();
+   */
+  public async getAlertText(): Promise<string> {
+    return GET<string>(`${this.host}/session/${this.sessionId}/alert/text`);
+  }
+
+  /**
+   * Sets the text field of a prompt to the given value.
+   * @see {@link https://www.w3.org/TR/webdriver/#send-alert-text|WebDriver spec}
+   * @example
+   * await session.sendAlertText('Test');
+   */
+  public async sendAlertText(propertyName: string): Promise<void> {
+    await POST(`${this.host}/session/${this.sessionId}/alert/text`, {text: propertyName});
+  }
+
+  /**
+   * Get the size and position on the screen of the operating system window
+   * @return a windowRect
+   * @see {@link https://www.w3.org/TR/webdriver/#get-window-rect|WebDriver spec}
+   * @example
+   * await session.getWindowRect();
+   */
+  public async getWindowRect(): Promise<WindowRect> {
+    return GET<WindowRect>(`${this.host}/session/${this.sessionId}/window/rect`);
+  }
+
+  /**
+   * Set the size and position on the screen of the operating system window
+   * @see {@link https://www.w3.org/TR/webdriver/#set-window-rect|WebDriver spec}
+   * @example
+   * await session.setWindowRect();
+   */
+  public async setWindowRect(windowRect: WindowRect): Promise<void> {
+    return POST(`${this.host}/session/${this.sessionId}/window/rect`, { windowRect });
+  }
+
+  /**
+   * Maximizes the current window
+   * @see {@link https://www.w3.org/TR/webdriver/#maximize-window|WebDriver spec}
+   * @example
+   * await session.maximizeWindow();
+   */
+  public async maximizeWindow(): Promise<void> {
+    await POST(`${this.host}/session/${this.sessionId}/window/maximize`, {});
+  }
+
+  /**
+   * Minimizes the current window
+   * @see {@link https://www.w3.org/TR/webdriver/#minimize-window|WebDriver spec}
+   * @example
+   * await session.minimizeWindow();
+   */
+  public async minimizeWindow(): Promise<void> {
+    await POST(`${this.host}/session/${this.sessionId}/window/minimize`, {});
+  }
+
+  /**
+   * This command increases Current window to Full-Screen
+   * @see {@link https://www.w3.org/TR/webdriver/#fullscreen-window|WebDriver spec}
+   * @example
+   * await session.fullScreenWindow();
+   */
+  public async fullScreenWindow(): Promise<void> {
+    await POST(`${this.host}/session/${this.sessionId}/window/fullscreen`, {});
   }
 }

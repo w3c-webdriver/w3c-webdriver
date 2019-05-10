@@ -10,12 +10,16 @@
   <h3>B: <input type="text" id="b"></h3>
   <h3>
     Operation:
-    <button id="add">Add</button>
-    <button id="subtract">Subtract</button>
+    <button id="add" class="test" value="add">Add</button>
+    <button id="subtract">Subtract</button> 
     <button id="divide">Divide</button>
     <button id="multiply">Multiply</button>
   </h3>
   <h3>Result: <span id="result"></span></h3>
+  <h2><button id="confirm">Confirm</button></h2>
+  <h3>Confirm?<span id="confirmResult"></span></h3>
+  <h2><button id="prompt">Name?</button></h2></h2>
+  <h3><span id="promptName"></span></h3>
   <style>
     #result {
       display: flex;
@@ -43,6 +47,17 @@
       document.querySelector('#multiply').addEventListener('click', calc(function (a, b) {
         return a * b;
       }));
+      document.querySelector('#confirm').addEventListener('click', function () {
+        if (confirm('This is an alert for test')){
+        document.querySelector('#confirmResult').innerText = 'Yes'
+        } else {
+        document.querySelector('#confirmResult').innerText = 'No'
+        }
+      });
+      document.querySelector('#prompt').addEventListener('click', function () {
+        let name = prompt();
+        document.querySelector('#promptName').innerText = 'Hello ' + name + '!';
+      });
     }
 
     document.addEventListener("DOMContentLoaded", autorun, false)
