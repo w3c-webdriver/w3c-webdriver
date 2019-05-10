@@ -30,4 +30,5 @@ declare namespace jasmine {
   }
 
   function getEnv(): JestEnvironment;
+  let testPath: string;
 }

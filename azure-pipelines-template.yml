@@ -44,7 +44,7 @@ jobs:
     condition: succeededOrFailed()
     inputs:
       testResultsFormat: 'JUnit'
-      testResultsFiles: 'junit.xml'
+      testResultsFiles: '*.junit.xml'
       searchFolder: $(coreDirectory)
       mergeTestResults: true
       testRunTitle: 'Test Results (${{ parameters.browser }})'
