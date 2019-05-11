@@ -1,8 +1,8 @@
-import { JUnitXmlReporter } from 'jasmine-reporters';
 import { basename, extname } from 'path';
 import { newSession } from '../src';
 import { log } from '../src/logger';
 import { browser } from './browser';
+import { JasmineJUnitReporter } from './jasmine-junit-reporter';
 import { session, setSession } from './session';
 
 log.enabled = true;
@@ -13,11 +13,7 @@ const testName = basename(jasmine.testPath, extname(jasmine.testPath));
 
 if (process.env.JUNIT_REPORT) {
   jasmine.getEnv().addReporter(
-    new JUnitXmlReporter({
-      consolidateAll: true,
-      captureStdout: true,
-      filePrefix: `${testName}.junit`
-    })
+    new JasmineJUnitReporter(`${testName}.junit.xml`)
   );
 }
 

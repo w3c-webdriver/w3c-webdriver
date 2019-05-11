@@ -60,6 +60,7 @@
     "@types/node": "^12.0.0",
     "@types/portscanner": "^2.1.0",
     "@types/wait-on": "^3.2.0",
+    "@types/xml": "^1.0.3",
     "all-contributors-cli": "^6.4.0",
     "browserstack-local": "^1.4.0",
     "chromedriver": "^74.0.0",
@@ -82,7 +83,8 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-microsoft-contrib": "^6.1.1",
     "typescript": "^3.4.5",
-    "wait-on": "^3.2.0"
+    "wait-on": "^3.2.0",
+    "xml": "^1.0.1"
   },
   "contributors": []
 }
