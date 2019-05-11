@@ -13,12 +13,12 @@ export class JasmineJUnitReporter {
 
   constructor(outputFile: string) {
     this.outputFile = outputFile;
-    process.stdout.on('data', (message: string) => this.output.push(message));
-    process.stderr.on('data', (message: string) => this.output.push(message));
   }
-
+  
   public jasmineStarted() {
     this.jasmineStartTime = Date.now();
+    process.stdout.addListener('data', this.onOutput);
+    process.stderr.addListener('data', this.onOutput);
   }
 
   public specStarted() {
@@ -51,6 +51,8 @@ export class JasmineJUnitReporter {
   }
 
   public jasmineDone() {
+    process.stdout.removeListener('data', this.onOutput);
+    process.stderr.removeListener('data', this.onOutput);
     const duration = Date.now() - this.jasmineStartTime;
 
     writeFileSync(
@@ -65,6 +67,8 @@ export class JasmineJUnitReporter {
       'utf8'
     );
   }
+
+  private readonly onOutput = (message: string) => this.output.push(message);
 
   private createTestCase({ name, status, failure, duration }: { name: string; status: string; failure: Error; duration: number }) {
     const errors = [
