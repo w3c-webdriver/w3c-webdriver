@@ -4,7 +4,6 @@ import xml from 'xml';
 /**
  * Jest Jasmine JUnit XML Reporter
  */
-// tslint:disable-next-line: export-name
 export class JasmineJUnitReporter {
   private readonly testcases: object[] = [];
   private output: string[] = [];

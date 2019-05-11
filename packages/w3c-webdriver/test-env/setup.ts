@@ -2,7 +2,7 @@ import { basename, extname } from 'path';
 import { newSession } from '../src';
 import { log } from '../src/logger';
 import { browser } from './browser';
-import { JasmineJUnitReporter } from './jasmine-junit-reporter';
+import { JasmineJUnitReporter } from './JasmineJUnitReporter';
 import { session, setSession } from './session';
 
 log.enabled = true;
