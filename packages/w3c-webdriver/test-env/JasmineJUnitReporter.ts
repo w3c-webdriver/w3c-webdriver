@@ -5,11 +5,11 @@ import xml from 'xml';
  * Jest Jasmine JUnit XML Reporter
  */
 export class JasmineJUnitReporter {
-  private readonly testcases: object[] = [];
-  private output: string[] = [];
   private readonly outputFile: string;
-  private readonly jasmineStartTime = Date.now();
+  private readonly testcases: object[] = [];
+  private jasmineStartTime = Date.now();
   private specStartTime = Date.now();
+  private output: string[] = [];
 
   constructor(outputFile: string) {
     this.outputFile = outputFile;
@@ -18,7 +18,7 @@ export class JasmineJUnitReporter {
   }
 
   public jasmineStarted() {
-    this.specStartTime = Date.now();
+    this.jasmineStartTime = Date.now();
   }
 
   public specStarted() {
