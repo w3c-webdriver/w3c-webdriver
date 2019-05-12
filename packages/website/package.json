@@ -7,9 +7,9 @@
   "license": "MIT",
   "scripts": {
     "add-contributor": "all-contributors add",
-    "build": "del-cli dist && webpack --config ./webpack.config.js && del-cli dist/site-server-renderer.js",
+    "build": "del-cli dist && webpack --mode production && del-cli dist/site-server-renderer.js",
     "serve": "serve dist",
-    "start": "webpack-serve --config ./webpack.config.js --open --live-reload --host localhost --static ./dist",
+    "start": "webpack-dev-server --mode development",
     "deploy": "gh-pages --dist dist --repo git@github.com:w3c-webdriver/w3c-webdriver.github.io.git --branch master",
     "audit": "lighthouse w3c-webdriver.w3c-webdriver --output-path=./lighthouse.report.html --quiet --view"
   },
@@ -53,8 +53,7 @@
     "webpack": "^4.31.0",
     "webpack-cli": "^3.3.2",
     "webpack-dev-server": "^3.3.1",
-    "webpack-node-externals": "^1.7.2",
-    "webpack-serve": "^3.1.0"
+    "webpack-node-externals": "^1.7.2"
   },
   "browserslist": [
     "defaults",

@@ -12,9 +12,9 @@ const commonConfig = {
   output: {
     path: distPath
   },
-  serve: {
-    content: distPath,
-    hotClient: false
+  devServer: {
+    contentBase: distPath,
+    inline: false
   },
   stats: 'minimal',
   module: {
@@ -97,7 +97,6 @@ const serverConfig = {
 
 const clientConfig = {
   ...commonConfig,
-  mode: process.env.WEBPACK_SERVE ? 'development' : 'production',
   entry: path.resolve(__dirname, 'src/site-client.js'),
   output: {
     ...commonConfig.output,
