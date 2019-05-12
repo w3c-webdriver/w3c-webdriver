@@ -80,7 +80,7 @@ class TableOfContents extends Component {
       <Wrapper show={show}>
         {show && <ScrollLock touchScrollTarget={this.navigationRef.current} />}
         <HomeLink title={title} />
-        {/* <SearchField /> */}
+        <SearchField />
         <Navigation onClick={onClick} ref={this.navigationRef}>
           <MostVisibleSectionTracker>
             {({ mostVisibleSectionId }) => (

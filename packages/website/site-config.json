@@ -3,5 +3,7 @@
   "description": "WebDriver client for JavaScript",
   "url": "https://w3c-webdriver.github.io",
   "github": "https://github.com/w3c-webdriver/w3c-webdriver",
-  "trackingId": "UA-51256585-4"
+  "trackingId": "UA-51256585-4",
+  "docSearchApiKey": "3a98d60dc0258b3a32c0a2d223a3bb37",
+  "docSearchIndexName": "w3c-webdriver"
 }
