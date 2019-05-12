@@ -16,6 +16,7 @@
     "lint": "tslint --project tsconfig.json",
     "typecheck": "tsc --project tsconfig.json --noEmit",
     "test": "jest --detectOpenHandles",
+    "test:debug": "node --inspect ./node_modules/jest/bin/jest.js --detectOpenHandles",
     "test:chrome": "cross-env BROWSER=chrome npm test",
     "test:chrome-headless": "cross-env BROWSER=chrome-headless npm test",
     "test:firefox": "cross-env BROWSER=firefox npm test",
