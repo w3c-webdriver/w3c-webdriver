@@ -5,6 +5,7 @@ import TableOfContents from './components/table-of-contents/TableOfContents';
 import FloatingHamburgerButton from './components/table-of-contents/FloatingHamburgerButton';
 import TouchSpy from './components/utils/TouchSpy';
 import docsearch from 'docsearch.js';
+import siteConfig from '../site-config.json';
 
 import 'docsearch.js/dist/cdn/docsearch.min.css';
 
@@ -30,12 +31,12 @@ class App extends Component {
   };
 
   componentDidMount() {
-    // docsearch({
-    //   apiKey: '1d35d6cc360f65e40724c542ec522307',
-    //   indexName: 'w3c-webdriver',
-    //   inputSelector: '#search-field',
-    //   debug: false // Set debug to true if you want to inspect the dropdown
-    // });
+    docsearch({
+      apiKey: siteConfig.docSearchApiKey,
+      indexName: siteConfig.docSearchIndexName,
+      inputSelector: '#search-field',
+      debug: false // Set debug to true if you want to inspect the dropdown
+    });
   }
 
   render() {

@@ -69,7 +69,8 @@ const commonConfig = {
         ]
       }
     ]
-  }
+  },
+  performance: { hints: false }
 };
 
 const serverConfig = {

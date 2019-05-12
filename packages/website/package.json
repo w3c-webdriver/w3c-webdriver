@@ -9,7 +9,7 @@
     "add-contributor": "all-contributors add",
     "build": "del-cli dist && webpack --config ./webpack.config.js && del-cli dist/site-server-renderer.js",
     "serve": "serve dist",
-    "start": "webpack-serve --config ./webpack.config.js",
+    "start": "webpack-serve --config ./webpack.config.js --open --live-reload --host localhost --static ./dist",
     "deploy": "gh-pages --dist dist --repo git@github.com:w3c-webdriver/w3c-webdriver.github.io.git --branch master",
     "audit": "lighthouse w3c-webdriver.w3c-webdriver --output-path=./lighthouse.report.html --quiet --view"
   },
@@ -32,7 +32,6 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
     "@babel/preset-react": "^7.0.0",
-    "babel-core": "^7.0.0-bridge.0",
     "babel-loader": "^8.0.5",
     "babel-plugin-inline-react-svg": "^1.1.0",
     "babel-plugin-styled-components": "^1.10.0",
