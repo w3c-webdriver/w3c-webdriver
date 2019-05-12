@@ -18,12 +18,6 @@ declare module 'browserstack-local' {
   }
 }
 
-declare module 'jasmine-reporters' {
-  class JUnitXmlReporter {
-    constructor(options: { consolidateAll: boolean; captureStdout: boolean; filePrefix: string });
-  }
-}
-
 declare namespace jasmine {
   class JestEnvironment {
     addReporter(reporter: any): void;
