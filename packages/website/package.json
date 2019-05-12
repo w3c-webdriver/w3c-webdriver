@@ -11,7 +11,7 @@
     "serve": "serve dist",
     "start": "webpack-dev-server --mode development",
     "deploy": "gh-pages --dist dist --repo git@github.com:w3c-webdriver/w3c-webdriver.github.io.git --branch master",
-    "audit": "lighthouse w3c-webdriver.w3c-webdriver --output-path=./lighthouse.report.html --quiet --view"
+    "audit": "lighthouse https://w3c-webdriver.github.io/ --output-path=./lighthouse.report.html --quiet --view"
   },
   "dependencies": {
     "typedoc": "^0.14.2",
