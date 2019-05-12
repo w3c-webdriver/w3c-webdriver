@@ -13,7 +13,7 @@ describe('Element Retrieval', () => {
     it('finds all elements by CSS selector', async () => {
       const elements = await session.findElements('css selector', 'button');
 
-      expect(elements).toHaveLength(6);
+      expect(elements).toHaveLength(5);
     });
   });
 });
