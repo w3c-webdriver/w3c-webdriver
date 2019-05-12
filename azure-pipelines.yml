@@ -30,21 +30,28 @@ jobs:
     name: Firefox
     vmImage: 'ubuntu-16.04'
     nodeVersion: '8.x'
-    testCommand: 'npm run test:firefox-headless -- -- --ci'
+    browser: 'firefox-headless'
 
 - template: azure-pipelines-template.yml
   parameters:
     name: Chrome
     vmImage: 'ubuntu-16.04'
     nodeVersion: '12.x'
-    testCommand: 'npm run test:chrome-headless -- -- --ci'
+    browser: 'chrome-headless'
+    preBuild:
+      - script: |
+          wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+          sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+          sudo apt update
+          sudo apt install google-chrome-stable
+        displayName: 'Install latest stable Chrome'
 
 - template: azure-pipelines-template.yml
   parameters:
     name: Safari
     vmImage: 'macOS-10.13'
     nodeVersion: '10.x'
-    testCommand: 'npm run test:safari -- -- --ci --runInBand'
+    browser: 'safari'
     preBuild:
     - script: sudo safaridriver --enable
       displayName: Configure Safari to Enable WebDriver Support
@@ -54,14 +61,14 @@ jobs:
     name: Internet_Explorer
     vmImage: 'vs2017-win2016'
     nodeVersion: '12.x'
-    testCommand: 'npm run test:internet-explorer -- -- --ci'
+    browser: 'internet-explorer'
 
 - template: azure-pipelines-template.yml
   parameters:
     name: BrowserStack
     vmImage: 'ubuntu-16.04'
     nodeVersion: '12.x'
-    testCommand: 'npm run test:browserstack -- -- --ci'
+    browser: 'browserstack'
 
 - job: Test
   dependsOn:
