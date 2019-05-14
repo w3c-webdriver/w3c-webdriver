@@ -12,13 +12,10 @@ which specifies a remote control protocol for web browsers. No magic just pure p
 
 ### 2. Install a browser driver for WebDriver protocol
 
-|                                                                      Browser                                                                      |                             Driver package                             |
-| :-----------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------: |
-|                           ![Chrome](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/chrome/chrome_24x24.png)                          |       [chromedriver](https://www.npmjs.com/package/chromedriver)       |
-|                         ![FireFox](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/firefox/firefox_24x24.png)                         |        [geckodriver](https://www.npmjs.com/package/geckodriver)        |
-|                           ![Safari](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/safari/safari_24x24.png)                          |                                                                        |
-| ![Internet Explorer](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/43.1.0/archive/internet-explorer_9-11/internet-explorer_9-11_24x24.png) |           [iedriver](https://www.npmjs.com/package/iedriver)           |
-|
+* Chrome - [chromedriver](https://www.npmjs.com/package/chromedriver)
+* Firefox - [geckodriver](https://www.npmjs.com/package/geckodriver)
+* Safari - [safaridriver](https://developer.apple.com/documentation/webkit/testing_with_webdriver_in_safari)
+* Internet Explorer - [iedriver](https://www.npmjs.com/package/iedriver)
 
 For example in case of Google Chrome or its headless version you can do.
 
@@ -55,6 +52,9 @@ let session;
   }
 })();
 ```
+## Contributors
+
+[contributors](#contributors)
 
 ## We are using
 

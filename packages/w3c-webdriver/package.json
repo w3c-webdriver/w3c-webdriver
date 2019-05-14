@@ -86,5 +86,28 @@
     "wait-on": "^3.2.0",
     "xml": "^1.0.1"
   },
-  "contributors": []
+  "contributors": [
+    {
+      "name": "Igor Muchychka",
+      "url": "https://twitter.com/mucsi96",
+      "avatar": "https://avatars0.githubusercontent.com/u/3163392?v=4"
+    },
+    {
+      "name": "Padmanabha Raju Sagi",
+      "url": "https://spnraju.github.io",
+      "avatar": "https://avatars1.githubusercontent.com/u/33729221?v=4"
+    },
+    {
+      "name": "Gabor Szalay",
+      "avatar": "https://avatars3.githubusercontent.com/u/6848578?v=4"
+    },
+    {
+      "name": "Adam Graf",
+      "avatar": "https://avatars1.githubusercontent.com/u/5919649?v=4"
+    },
+    {
+      "name": "Roland Orosz",
+      "avatar": "https://avatars1.githubusercontent.com/u/4106395?v=4"
+    }
+  ]
 }
