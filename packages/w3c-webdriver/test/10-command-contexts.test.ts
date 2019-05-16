@@ -11,7 +11,7 @@ describe('Command Contexts', () => {
 
   describe('getWindowRect/maximizeWindow method', () => {
     it('validates window rect before and after maximizing the window', async () => {
-      if (['firefox'].includes(browserName)) {
+      if (['firefox', 'chrome'].includes(browserName)) {
         await session.minimizeWindow();
       }
       const rectBeforeMax = await session.getWindowRect();
