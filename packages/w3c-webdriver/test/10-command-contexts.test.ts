@@ -2,15 +2,17 @@ import { browserName } from '../test-env/browser';
 import { session } from '../test-env/session';
 
 describe('Command Contexts', () => {
-
-  // Refactor once the chrome in VSTS agent is updated
+  describe('getWindowHandle', () => {
+    it('return the current window handle', async () => {
+      const handle = await session.getWindowHandle();
+      expect(handle).toContain('CDwindow-');
+    });
+  });
 
   describe('getWindowRect/maximizeWindow method', () => {
     it('validates window rect before and after maximizing the window', async () => {
       if (['firefox'].includes(browserName)) {
         await session.minimizeWindow();
-      } else if (['chrome'].includes(browserName)) {
-        return;
       }
       const rectBeforeMax = await session.getWindowRect();
 
@@ -38,7 +40,7 @@ describe('Command Contexts', () => {
 
   describe('minimizeWindow method', () => {
     it('minimizes the current window', async () => {
-      if (['safari', 'chrome'].includes(browserName)) {
+      if (['safari'].includes(browserName)) {
         return;
       }
       await session.maximizeWindow();
@@ -54,7 +56,7 @@ describe('Command Contexts', () => {
   describe('FullScreenWindow method', () => {
     it('increases the current window to full screen', async () => {
 
-      if (['internet explorer', 'safari', 'chrome'].includes(browserName)) {
+      if (['internet explorer', 'safari'].includes(browserName)) {
         return;
       }
       const rectBeforeFull = await session.getWindowRect();
