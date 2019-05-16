@@ -46,7 +46,7 @@
     "@types/debug": "^4.1.4",
     "@types/node-fetch": "^2.3.3",
     "debug": "^4.1.1",
-    "node-fetch": "^2.5.0"
+    "node-fetch": "^2.6.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
