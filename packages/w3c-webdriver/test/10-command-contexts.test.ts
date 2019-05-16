@@ -5,7 +5,7 @@ describe('Command Contexts', () => {
   describe('getWindowHandle', () => {
     it('return the current window handle', async () => {
       const handle = await session.getWindowHandle();
-      expect(handle).toContain('CDwindow-');
+      expect(handle).toMatch(/[a-zA-z0-9-]{10,}/)
     });
   });
 
