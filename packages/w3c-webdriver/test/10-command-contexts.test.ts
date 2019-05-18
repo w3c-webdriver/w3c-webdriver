@@ -26,21 +26,26 @@ describe('Command Contexts', () => {
 
   describe('closeWindow', () => {
     it('closes current browsing context', async () => {
+      const initialHandle = await session.getWindowHandle();
       const handlesBefore = await session.getWindowHandles();
       const newHandle = await createWindow();
       await session.closeWindow();
       const handlesAfter = await session.getWindowHandles();
       expect(handlesAfter).toEqual(handlesBefore);
       expect(handlesAfter).not.toContain(newHandle);
+      await session.switchToWindow(initialHandle);
     });
   });
 
   describe('switchToWindow', () => {
     it('Switches to different browsing context', async () => {
+      const initialHandle = await session.getWindowHandle();
       expect(await session.getTitle()).not.toEqual('');
       const handle = await createWindow();
       await session.switchToWindow(handle);
       expect(await session.getTitle()).toEqual('');
+      await session.closeWindow();
+      await session.switchToWindow(initialHandle);
     });
 
     it('throws no such window Error if called with not existing handle', async () => {
