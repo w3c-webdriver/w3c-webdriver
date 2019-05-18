@@ -429,13 +429,71 @@ export class Session {
   }
 
   /**
-   * This command return the handle of current window
+   * Get handle of current window
    * @see {@link https://www.w3.org/TR/webdriver/#get-window-handle|WebDriver spec}
    * @example
    * const handle = await session.getWindowHandle();
-   * // handle = CDwindow-7321145136535301DE771CCBD9555CEA
+   * // handle = 'CDwindow-7321145136535301DE771CCBD9555CEA'
    */
   public async getWindowHandle(): Promise<string> {
     return GET(`${this.host}/session/${this.sessionId}/window`);
+  }
+
+  /**
+   * Close the current window.
+   * @see {@link https://www.w3.org/TR/webdriver/#close-window|WebDriver spec}
+   * @example
+   * await session.closeWindow();
+   */
+  public async closeWindow(): Promise<void> {
+    await DELETE(`${this.host}/session/${this.sessionId}/window`);
+  }
+
+  /**
+   * Change focus to another window. The window to change focus to may be specified by it's server assigned window handle.
+   * @see {@link https://www.w3.org/TR/webdriver/#switch-to-window|WebDriver spec}
+   * @example
+   * await session.switchToWindow('CDwindow-7321145136535301DE771CCBD9555CEA');
+   */
+  public async switchToWindow(handle: string): Promise<void> {
+    await POST(`${this.host}/session/${this.sessionId}/window`, { handle });
+  }
+
+  /**
+   * Get all window handles
+   * @see {@link https://www.w3.org/TR/webdriver/#get-window-handles|WebDriver spec}
+   * @example
+   * const handles = await session.getWindowHandles();
+   * // handles = ['CDwindow-7321145136535301DE771CCBD9555CEA']
+   */
+  public async getWindowHandles(): Promise<string[]> {
+    return GET(`${this.host}/session/${this.sessionId}/window/handles`);
+  }
+
+  /**
+   * Change focus to another frame on the page
+   * @see {@link https://www.w3.org/TR/webdriver/#switch-to-frame|WebDriver spec}
+   * @param id Identifier for the frame to change focus to.
+   * @example
+   * const iframe = await session.findElement('css selector', 'iframe');
+   * await session.switchToFrame(iframe);
+   * @example
+   * await session.switchToFrame(null);
+   */
+  public async switchToFrame(target: null | number | Element): Promise<void> {
+    const id = target instanceof Element ? target.getWebElement() : target;
+
+    await POST(`${this.host}/session/${this.sessionId}/frame`, { id });
+  }
+
+  /**
+   * Change focus to parent frame on the page
+   * @see {@link https://www.w3.org/TR/webdriver/#switch-to-frame|WebDriver spec}
+   * @param id Identifier for the frame to change focus to.
+   * @example
+   * await session.switchToParentFrame();
+   */
+  public async switchToParentFrame(): Promise<void> {
+    await POST(`${this.host}/session/${this.sessionId}/frame/parent`);
   }
 }

@@ -1,11 +1,79 @@
 import { browserName } from '../test-env/browser';
 import { session } from '../test-env/session';
+import { createWindow } from './testUtils';
 
 describe('Command Contexts', () => {
   describe('getWindowHandle', () => {
     it('return the current window handle', async () => {
       const handle = await session.getWindowHandle();
       expect(handle).toMatch(/[a-zA-z0-9-]{10,}/)
+    });
+  });
+
+  describe('closeWindow', () => {
+    it('closes current browsing context', async () => {
+      const handlesBefore = await session.getWindowHandles();
+      const newHandle = await createWindow();
+      await session.closeWindow();
+      const handlesAfter = await session.getWindowHandles();
+      expect(handlesAfter).toEqual(handlesBefore);
+      expect(handlesAfter).not.toContain(newHandle);
+    });
+  });
+
+  describe('switchToWindow', () => {
+    it('Switches to different browsing context', async () => {
+      expect(await session.getTitle()).not.toEqual('');
+      const handle = await createWindow();
+      await session.switchToWindow(handle);
+      expect(await session.getTitle()).toEqual('');
+    });
+
+    it('throws no such window Error if called with not existing handle', async () => {
+      let errorMessage;
+      try {
+        await session.switchToWindow('not existing handle');
+      } catch (e) {
+        if (e instanceof Error) {
+          errorMessage = e.message;
+        }
+      }
+      expect(errorMessage).toContain('WebDriverError(no such window)');
+    });
+  });
+
+  describe('switchToFrame', () => {
+    it('switches browsing context to iframe specified by Element', async () => {
+      const iframe = await session.findElement('css selector', 'iframe');
+      await session.switchToFrame(iframe);
+      const paragraph = await session.findElement('css selector', 'p');
+      expect(await paragraph.getText()).toEqual('The content of the iframe');
+    });
+
+    it('switches to top-level browsing context if null is provided', async () => {
+      await session.switchToFrame(await session.findElement('css selector', 'iframe'));
+      expect(await session.getPageSource()).not.toContain('<iframe');
+      // tslint:disable-next-line: no-null-keyword
+      await session.switchToFrame(null);
+      expect(await session.getPageSource()).toContain('<iframe');
+    });
+  });
+
+  describe('switchToParentFrame', () => {
+    it('switches to parent browsing context ', async () => {
+      await session.switchToFrame(await session.findElement('css selector', 'iframe'));
+      expect(await session.getPageSource()).not.toContain('<iframe');
+      // tslint:disable-next-line: no-null-keyword
+      await session.switchToParentFrame();
+      expect(await session.getPageSource()).toContain('<iframe');
+    });
+  });
+
+  describe('getWindowHandles', () => {
+    it('return all window handles', async () => {
+      const handles = await session.getWindowHandles();
+      expect(handles).toHaveLength(1);
+      expect(handles[0]).toMatch(/[a-zA-z0-9-]{10,}/)
     });
   });
 
