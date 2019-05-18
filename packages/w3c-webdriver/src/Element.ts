@@ -2,7 +2,7 @@ import { GET, POST } from './rest';
 
 const WEB_ELEMENT_IDENTIFIER = 'element-6066-11e4-a52e-4f735466cecf';
 
-type WebElement = {
+export type WebElement = {
   'element-6066-11e4-a52e-4f735466cecf': string
 }
 
@@ -14,10 +14,10 @@ export class Element {
   private readonly sessionId: string;
   private readonly elementId: string;
 
-  constructor(host: string, sessionId: string, elementId: string) {
+  constructor(host: string, sessionId: string, webElement: WebElement) {
     this.host = host;
     this.sessionId = sessionId;
-    this.elementId = elementId;
+    this.elementId = webElement[WEB_ELEMENT_IDENTIFIER];
   }
 
   /**

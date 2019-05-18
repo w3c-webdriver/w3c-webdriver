@@ -1,5 +1,5 @@
 import { Cookie, LocatorStrategy, Timeout, WindowRect } from './core';
-import { Element } from './Element';
+import { Element, WebElement } from './Element';
 import { DELETE, GET, POST } from './rest';
 
 /**
@@ -118,7 +118,7 @@ export class Session {
     // Selector string
     selector: string
   ): Promise<Element> {
-    const element = await POST<{ [name: string]: string }>(
+    const webElement = await POST<WebElement>(
       `${this.host}/session/${this.sessionId}/element`,
       {
         using: strategy,
@@ -126,7 +126,7 @@ export class Session {
       }
     );
 
-    return new Element(this.host, this.sessionId, Object.values(element)[0]);
+    return new Element(this.host, this.sessionId, webElement);
   }
 
   /**
@@ -145,7 +145,7 @@ export class Session {
     // Selector string
     selector: string
   ) {
-    const elements = await POST<[{ [name: string]: string }]>(
+    const webElements = await POST<WebElement[]>(
       `${this.host}/session/${this.sessionId}/elements`,
       {
         using: strategy,
@@ -153,8 +153,8 @@ export class Session {
       }
     );
 
-    return elements.map(
-      element => new Element(this.host, this.sessionId, Object.values(element)[0])
+    return webElements.map(
+      webElement => new Element(this.host, this.sessionId, webElement)
     );
   }
 
