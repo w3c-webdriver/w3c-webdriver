@@ -44,7 +44,7 @@
   "author": "Igor Mucsicska <mucsi_96@yahoo.com>",
   "dependencies": {
     "@types/debug": "^4.1.4",
-    "@types/node-fetch": "^2.3.3",
+    "@types/node-fetch": "^2.3.4",
     "debug": "^4.1.1",
     "node-fetch": "^2.6.0"
   },
