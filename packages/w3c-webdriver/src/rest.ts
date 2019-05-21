@@ -57,6 +57,6 @@ async function sendRequest<T>(
 }
 
 export const GET = async <T>(url: string) => sendRequest<T>('GET', url);
-export const POST = async <T>(url: string, body: object, headers?: HeaderInit) =>
+export const POST = async <T>(url: string, body: object = {}, headers?: HeaderInit) =>
   sendRequest<T>('POST', url, body, headers);
 export const DELETE = async <T>(url: string, body?: object) => sendRequest<T>('DELETE', url, body);

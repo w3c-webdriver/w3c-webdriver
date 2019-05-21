@@ -1,5 +1,5 @@
 import { Cookie, LocatorStrategy, Timeout, WindowRect } from './core';
-import { Element } from './Element';
+import { Element, WebElement } from './Element';
 import { DELETE, GET, POST } from './rest';
 
 /**
@@ -71,7 +71,7 @@ export class Session {
    * await session.back();
    */
   public async back(): Promise<void> {
-    await POST(`${this.host}/session/${this.sessionId}/back`, {});
+    await POST(`${this.host}/session/${this.sessionId}/back`);
   }
 
   /**
@@ -81,7 +81,7 @@ export class Session {
    * await session.forward();
    */
   public async forward(): Promise<void> {
-    await POST(`${this.host}/session/${this.sessionId}/forward`, {});
+    await POST(`${this.host}/session/${this.sessionId}/forward`);
   }
 
   /**
@@ -91,7 +91,7 @@ export class Session {
    * await session.refresh();
    */
   public async refresh(): Promise<void> {
-    await POST(`${this.host}/session/${this.sessionId}/refresh`, {});
+    await POST(`${this.host}/session/${this.sessionId}/refresh`);
   }
 
   /**
@@ -118,7 +118,7 @@ export class Session {
     // Selector string
     selector: string
   ): Promise<Element> {
-    const element = await POST<{ [name: string]: string }>(
+    const webElement = await POST<WebElement>(
       `${this.host}/session/${this.sessionId}/element`,
       {
         using: strategy,
@@ -126,7 +126,7 @@ export class Session {
       }
     );
 
-    return new Element(this.host, this.sessionId, Object.values(element)[0]);
+    return new Element(this.host, this.sessionId, webElement);
   }
 
   /**
@@ -145,7 +145,7 @@ export class Session {
     // Selector string
     selector: string
   ) {
-    const elements = await POST<[{ [name: string]: string }]>(
+    const webElements = await POST<WebElement[]>(
       `${this.host}/session/${this.sessionId}/elements`,
       {
         using: strategy,
@@ -153,8 +153,8 @@ export class Session {
       }
     );
 
-    return elements.map(
-      element => new Element(this.host, this.sessionId, Object.values(element)[0])
+    return webElements.map(
+      webElement => new Element(this.host, this.sessionId, webElement)
     );
   }
 
@@ -275,12 +275,12 @@ export class Session {
 
   /**
    * Returns cookie based on the cookie name
-   * 
+   *
    * @return A cookie.
    * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#get-named-cookie|WebDriver spec}
    * @example
    * const cookie = await session.getCookie('cookieName');
-   * 
+   *
    */
   public async getCookie(propertyName: string): Promise<Cookie> {
     return GET<Cookie>(`${this.host}/session/${this.sessionId}/cookie/${propertyName}`);
@@ -299,11 +299,11 @@ export class Session {
 
   /**
    * Delete a cookie based on its name
-   * 
+   *
    * @see {@link https://www.w3.org/TR/webdriver/#delete-cookie|WebDriver spec}
    * @example
    * await session.deleteCookie('cookieName');
-   * 
+   *
    */
   public async deleteCookie(propertyName: string): Promise<void> {
     await DELETE(`${this.host}/session/${this.sessionId}/cookie/${propertyName}`);
@@ -312,11 +312,11 @@ export class Session {
   /**
    * Delete all cookies associated with the address of the current browsing context’s active
    * document.
-   * 
+   *
    * @see {@link https://www.w3.org/TR/webdriver/#delete-all-cookies|WebDriver spec}
    * @example
    * await session.deleteAllCookies();
-   * 
+   *
    */
   public async deleteAllCookies(): Promise<void> {
     await DELETE(`${this.host}/session/${this.sessionId}/cookie`);
@@ -344,7 +344,7 @@ export class Session {
    * await session.dismissAlert();
    */
   public async dismissAlert(): Promise<void> {
-    await POST(`${this.host}/session/${this.sessionId}/alert/dismiss`, {});
+    await POST(`${this.host}/session/${this.sessionId}/alert/dismiss`);
   }
 
   /**
@@ -354,7 +354,7 @@ export class Session {
    * await session.acceptAlert();
    */
   public async acceptAlert(): Promise<void> {
-    await POST(`${this.host}/session/${this.sessionId}/alert/accept`, {});
+    await POST(`${this.host}/session/${this.sessionId}/alert/accept`);
   }
 
   /**
@@ -405,7 +405,7 @@ export class Session {
    * await session.maximizeWindow();
    */
   public async maximizeWindow(): Promise<void> {
-    await POST(`${this.host}/session/${this.sessionId}/window/maximize`, {});
+    await POST(`${this.host}/session/${this.sessionId}/window/maximize`);
   }
 
   /**
@@ -415,7 +415,7 @@ export class Session {
    * await session.minimizeWindow();
    */
   public async minimizeWindow(): Promise<void> {
-    await POST(`${this.host}/session/${this.sessionId}/window/minimize`, {});
+    await POST(`${this.host}/session/${this.sessionId}/window/minimize`);
   }
 
   /**
@@ -425,6 +425,75 @@ export class Session {
    * await session.fullScreenWindow();
    */
   public async fullScreenWindow(): Promise<void> {
-    await POST(`${this.host}/session/${this.sessionId}/window/fullscreen`, {});
+    await POST(`${this.host}/session/${this.sessionId}/window/fullscreen`);
+  }
+
+  /**
+   * Get handle of current window
+   * @see {@link https://www.w3.org/TR/webdriver/#get-window-handle|WebDriver spec}
+   * @example
+   * const handle = await session.getWindowHandle();
+   * // handle = 'CDwindow-7321145136535301DE771CCBD9555CEA'
+   */
+  public async getWindowHandle(): Promise<string> {
+    return GET(`${this.host}/session/${this.sessionId}/window`);
+  }
+
+  /**
+   * Close the current window.
+   * @see {@link https://www.w3.org/TR/webdriver/#close-window|WebDriver spec}
+   * @example
+   * await session.closeWindow();
+   */
+  public async closeWindow(): Promise<void> {
+    await DELETE(`${this.host}/session/${this.sessionId}/window`);
+  }
+
+  /**
+   * Change focus to another window. The window to change focus to may be specified by it's server assigned window handle.
+   * @see {@link https://www.w3.org/TR/webdriver/#switch-to-window|WebDriver spec}
+   * @example
+   * await session.switchToWindow('CDwindow-7321145136535301DE771CCBD9555CEA');
+   */
+  public async switchToWindow(handle: string): Promise<void> {
+    await POST(`${this.host}/session/${this.sessionId}/window`, { handle });
+  }
+
+  /**
+   * Get all window handles
+   * @see {@link https://www.w3.org/TR/webdriver/#get-window-handles|WebDriver spec}
+   * @example
+   * const handles = await session.getWindowHandles();
+   * // handles = ['CDwindow-7321145136535301DE771CCBD9555CEA']
+   */
+  public async getWindowHandles(): Promise<string[]> {
+    return GET(`${this.host}/session/${this.sessionId}/window/handles`);
+  }
+
+  /**
+   * Change focus to another frame on the page
+   * @see {@link https://www.w3.org/TR/webdriver/#switch-to-frame|WebDriver spec}
+   * @param id Identifier for the frame to change focus to.
+   * @example
+   * const iframe = await session.findElement('css selector', 'iframe');
+   * await session.switchToFrame(iframe);
+   * @example
+   * await session.switchToFrame(null);
+   */
+  public async switchToFrame(target: null | number | Element): Promise<void> {
+    const id = target instanceof Element ? target.getWebElement() : target;
+
+    await POST(`${this.host}/session/${this.sessionId}/frame`, { id });
+  }
+
+  /**
+   * Change focus to parent frame on the page
+   * @see {@link https://www.w3.org/TR/webdriver/#switch-to-frame|WebDriver spec}
+   * @param id Identifier for the frame to change focus to.
+   * @example
+   * await session.switchToParentFrame();
+   */
+  public async switchToParentFrame(): Promise<void> {
+    await POST(`${this.host}/session/${this.sessionId}/frame/parent`);
   }
 }
