@@ -344,6 +344,20 @@ export class Session {
     return webElements.map(webElement => new Element(this.host, this.sessionId, webElement));
   }
 
+  /**
+   * Get the element on the page that currently has focus.
+   * @see {@link https://www.w3.org/TR/webdriver/#get-active-element|WebDriver spec}
+   * @section {@link https://www.w3.org/TR/webdriver/#element-retrieval|Element retrieval}
+   * @example
+   * const element = await session.getActiveElement();
+   * // element = <webdriver element>
+   */
+  public async getActiveElement(): Promise<Element> {
+    const webElement = await GET<WebElement>(`${this.host}/session/${this.sessionId}/element/active`);
+
+    return new Element(this.host, this.sessionId, webElement);
+  }
+
   /****************************************************************************************************************
    *                                            DOCUMENT HANDLING                                                 *
    *                            https://www.w3.org/TR/webdriver/#document-handling                                *
