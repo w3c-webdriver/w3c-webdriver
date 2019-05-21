@@ -21,7 +21,7 @@ describe('Navigation', () => {
     it('navigate to previous url from history', async () => {
       const currentUrlBefore = await session.getCurrentUrl();
       expect(currentUrlBefore).toEqual(`http://localhost:${process.env.TEST_APP_PORT}/`);
-      await session.go(`${currentUrlBefore}#test`);
+      await session.navigateTo(`${currentUrlBefore}#test`);
 
       await session.back();
 
@@ -34,7 +34,7 @@ describe('Navigation', () => {
     it('navigate forward to next url from history', async () => {
       const actualUrl = await session.getCurrentUrl();
       expect(actualUrl).toEqual(`http://localhost:${process.env.TEST_APP_PORT}/`);
-      await session.go(`${actualUrl}#test`);
+      await session.navigateTo(`${actualUrl}#test`);
 
       await session.back();
       const currentUrlAfterBack = await session.getCurrentUrl();

@@ -38,7 +38,7 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
-  await session.go(`http://localhost:${testAppPort}`);
+  await session.navigateTo(`http://localhost:${testAppPort}`);
 });
 
 afterAll(async () => {
