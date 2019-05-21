@@ -16,4 +16,12 @@ describe('Element Retrieval', () => {
       expect(elements).toHaveLength(6);
     });
   });
+
+  describe('getActiveElement method', () => {
+    it('returns the currently focused element', async () => {
+      const element = await session.getActiveElement();
+
+      expect(await element.getAttribute('autofocus')).toEqual('true');
+    });
+  });
 });

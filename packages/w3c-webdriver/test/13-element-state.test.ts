@@ -11,10 +11,10 @@ describe('Element State', () => {
     });
   });
 
-  describe('getCss method', () => {
+  describe('getCssValue method', () => {
     it('returns the provided style property of an element', async () => {
       const result = await session.findElement('css selector', '#result');
-      const displayMode = await result.getCss('display');
+      const displayMode = await result.getCssValue('display');
 
       expect(displayMode).toEqual('flex');
     });

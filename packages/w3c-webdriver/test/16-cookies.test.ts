@@ -29,7 +29,7 @@ describe('Cookies', () => {
     });
   });
 
-  describe('getCookie method', () => {
+  describe('getNamedCookie method', () => {
     it('adds and retrieves a cookie by name', async () => {
       const testCookie = {
         name: 'cookie_name',
@@ -49,7 +49,7 @@ describe('Cookies', () => {
       await session.addCookie({
         ...testCookie,
       });
-      const cookie = await session.getCookie('cookie_name');
+      const cookie = await session.getNamedCookie('cookie_name');
       expect(cookie).toEqual({...testCookie});
     });
   });
