@@ -72,7 +72,7 @@
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-prettier": "^4.3.0",
-    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-import": "^2.17.3",
     "geckodriver": "^1.16.2",
     "iedriver": "^3.14.1",
     "jest": "^24.8.0",
