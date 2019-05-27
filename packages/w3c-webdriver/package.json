@@ -81,7 +81,7 @@
     "tslint": "^5.16.0",
     "tslint-config-airbnb": "^5.11.1",
     "tslint-config-prettier": "^1.18.0",
-    "tslint-microsoft-contrib": "^6.1.1",
+    "tslint-microsoft-contrib": "^6.2.0",
     "typescript": "^3.4.5",
     "wait-on": "^3.2.0",
     "xml": "^1.0.1"
