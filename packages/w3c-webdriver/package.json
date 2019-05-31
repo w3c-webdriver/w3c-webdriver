@@ -78,7 +78,7 @@
     "jest": "^24.8.0",
     "portscanner": "^2.2.0",
     "promise-retry": "^1.1.1",
-    "tslint": "^5.16.0",
+    "tslint": "^5.17.0",
     "tslint-config-airbnb": "^5.11.1",
     "tslint-config-prettier": "^1.18.0",
     "tslint-microsoft-contrib": "^6.2.0",
