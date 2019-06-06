@@ -25,7 +25,7 @@
     "test:browserstack": "cross-env BROWSER=browserstack npm test",
     "test:safari": "cross-env BROWSER=safari npm test",
     "build": "del-cli lib && tsc --emitDeclarationOnly -p tsconfig.build.json && babel src --out-dir lib --extensions \".ts\"",
-    "prepack": "npm run build && npm run docs",
+    "prepack": "npm run build",
     "add:contributor": "all-contributors add",
     "generate:contributors": "all-contributors generate"
   },
