@@ -62,7 +62,7 @@
     "@types/portscanner": "^2.1.0",
     "@types/wait-on": "^3.2.0",
     "@types/xml": "^1.0.3",
-    "all-contributors-cli": "^6.6.1",
+    "all-contributors-cli": "^6.7.0",
     "browserstack-local": "^1.4.0",
     "chromedriver": "^74.0.0",
     "cross-env": "5.2.0",
