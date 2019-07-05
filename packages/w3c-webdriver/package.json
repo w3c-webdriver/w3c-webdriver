@@ -53,7 +53,7 @@
     "@babel/core": "^7.4.5",
     "@babel/plugin-proposal-class-properties": "^7.5.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
-    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-env": "^7.5.0",
     "@babel/preset-typescript": "^7.3.3",
     "@types/chromedriver": "^2.38.0",
     "@types/dotenv-safe": "^5.0.3",
