@@ -64,7 +64,7 @@
     "@types/xml": "^1.0.3",
     "all-contributors-cli": "^6.7.0",
     "browserstack-local": "^1.4.0",
-    "chromedriver": "^74.0.0",
+    "chromedriver": "^75.0.1",
     "cross-env": "5.2.0",
     "del-cli": "^2.0.0",
     "dotenv-safe": "^6.1.0",
