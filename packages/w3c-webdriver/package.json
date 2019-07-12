@@ -83,7 +83,7 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-microsoft-contrib": "^6.2.0",
     "typescript": "^3.5.3",
-    "wait-on": "^3.2.0",
+    "wait-on": "^3.3.0",
     "xml": "^1.0.1"
   },
   "contributors": [
