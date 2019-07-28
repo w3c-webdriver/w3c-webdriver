@@ -14,7 +14,7 @@ declare module 'browserstack-local' {
   /**
    * BrowserStack proxy server for testing website running on localhost
    */
-  export class Local {
+  export class LocalServer {
     public start: (options: LocalStartOptions, callback: Function) => void;
     public stop: (callback: Function) => void;
   }

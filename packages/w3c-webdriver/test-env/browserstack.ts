@@ -3,7 +3,7 @@ import browserstack from 'browserstack-local';
 import { promisify } from 'util';
 import { log } from '../src/logger';
 
-const instance = new browserstack.Local();
+const instance = new browserstack.LocalServer();
 
 export async function startBrowserStackLocal() {
   log('Starting BrowserStack Local...');
