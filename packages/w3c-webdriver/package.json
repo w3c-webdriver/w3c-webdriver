@@ -57,7 +57,7 @@
     "@babel/preset-typescript": "^7.3.3",
     "@types/chromedriver": "^2.38.0",
     "@types/dotenv-safe": "^5.0.3",
-    "@types/jest": "^24.0.16",
+    "@types/jest": "^24.0.17",
     "@types/node": "^12.6.8",
     "@types/portscanner": "^2.1.0",
     "@types/wait-on": "^3.2.0",
