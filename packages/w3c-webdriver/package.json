@@ -43,7 +43,7 @@
   "repository": "git@github.com:mucsi96/w3c-webdriver.git",
   "author": "Igor Mucsicska <mucsi_96@yahoo.com>",
   "dependencies": {
-    "@types/debug": "^4.1.4",
+    "@types/debug": "^4.1.5",
     "@types/node-fetch": "^2.5.0",
     "debug": "^4.1.1",
     "node-fetch": "^2.6.0"
