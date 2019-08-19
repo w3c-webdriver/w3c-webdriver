@@ -75,7 +75,7 @@
     "eslint-plugin-import": "^2.18.2",
     "geckodriver": "^1.16.2",
     "iedriver": "^3.14.1",
-    "jest": "^24.8.0",
+    "jest": "^24.9.0",
     "portscanner": "^2.2.0",
     "promise-retry": "^1.1.1",
     "tslint": "^5.18.0",
