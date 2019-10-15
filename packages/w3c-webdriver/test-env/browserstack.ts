@@ -8,7 +8,8 @@ export async function startBrowserStackLocal() {
   await new Promise(resolve => {
     instance.start(
       {
-        key: <string>process.env.BROWSERSTACK_ACCESS_KEY
+        key: <string>process.env.BROWSERSTACK_ACCESS_KEY,
+        verbose: true
       },
       () => {
         resolve();
