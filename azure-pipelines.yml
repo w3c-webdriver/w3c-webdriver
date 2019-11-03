@@ -72,7 +72,7 @@ jobs:
 
 - template: azure-pipelines-template.yml
   parameters:
-    name: BrowserStack-Firefox
+    name: BrowserStack_Firefox
     vmImage: 'ubuntu-latest'
     nodeVersion: '12.x'
     browser: 'firefox'
@@ -80,7 +80,7 @@ jobs:
 
 - template: azure-pipelines-template.yml
   parameters:
-    name: BrowserStack-Safari
+    name: BrowserStack_Safari
     vmImage: 'ubuntu-latest'
     nodeVersion: '12.x'
     browser: 'safari'
