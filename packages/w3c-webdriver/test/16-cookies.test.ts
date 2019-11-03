@@ -25,7 +25,6 @@ describe('Cookies', () => {
       const cookies = await session.getAllCookies();
       expect(cookies).toEqual([expect.objectContaining({
         ...testCookie,
-        domain: 'localhost',
         httpOnly: false,
         path: '/',
         secure: false

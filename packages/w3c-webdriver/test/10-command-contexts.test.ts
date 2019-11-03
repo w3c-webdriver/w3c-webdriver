@@ -126,7 +126,7 @@ describe('Command Contexts', () => {
   describe('setWindowRect method', () => {
     it('set current window to specified rect', async () => {
       const { session } = testEnvironment;
-      const testRect = { x: 9, y: 9, width: 520, height: 520 }
+      const testRect = { x: 25, y: 25, width: 520, height: 520 }
 
       await session.setWindowRect(testRect);
 
