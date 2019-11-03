@@ -11,8 +11,13 @@ variables:
 jobs:
 - job: CodeCheck
   pool:
-    vmImage: 'ubuntu-16.04'
+    vmImage: 'ubuntu-18.04'
   steps:
+  - task: NodeTool@0
+    displayName: Install Node.js
+    inputs:
+      versionSpec: 12.x
+
   - script: node --version
     displayName: Node Version
     workingDirectory: $(coreDirectory)
