@@ -18,6 +18,10 @@ jobs:
     inputs:
       versionSpec: 12.x
 
+  - script: npm install
+    displayName: Install dependencies
+    workingDirectory: $(coreDirectory)
+
   - script: node --version
     displayName: Node Version
     workingDirectory: $(coreDirectory)
@@ -32,10 +36,6 @@ jobs:
 
   - script: npm run typecheck -- --version
     displayName: TypeScript Version
-    workingDirectory: $(coreDirectory)
-
-  - script: npm install
-    displayName: Install dependencies
     workingDirectory: $(coreDirectory)
 
   - script: npm run lint
