@@ -78,6 +78,7 @@
     "geckodriver": "^1.19.1",
     "iedriver": "^3.14.1",
     "mocha": "^6.2.2",
+    "mocha-junit-reporter": "^1.23.1",
     "portscanner": "^2.2.0",
     "promise-retry": "^1.1.1",
     "ts-mocha": "^6.0.0",

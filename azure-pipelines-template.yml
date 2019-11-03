@@ -25,7 +25,7 @@ jobs:
     displayName: Install dependencies
     workingDirectory: $(coreDirectory)
 
-  - script: npm test -- --ci --runInBand --coverage --coverage-reporters=cobertura
+  - script: npm test -- --reporter mocha-junit-reporter
     displayName: Test
     workingDirectory: $(coreDirectory)
     env:
@@ -36,20 +36,20 @@ jobs:
       BROWSERSTACK_USERNAME: $(browserstack.user)
       BROWSERSTACK_ACCESS_KEY: $(browserstack.key)
 
-  - task: PublishTestResults@2
-    displayName: Publish Jest Test Results
-    condition: succeededOrFailed()
-    inputs:
-      testResultsFormat: 'JUnit'
-      testResultsFiles: '*.junit.xml'
-      searchFolder: $(coreDirectory)
-      mergeTestResults: true
-      testRunTitle: 'Test Results (${{ parameters.browser }})'
+  # - task: PublishTestResults@2
+  #   displayName: Publish Jest Test Results
+  #   condition: succeededOrFailed()
+  #   inputs:
+  #     testResultsFormat: 'JUnit'
+  #     testResultsFiles: '*.junit.xml'
+  #     searchFolder: $(coreDirectory)
+  #     mergeTestResults: true
+  #     testRunTitle: 'Test Results (${{ parameters.browser }})'
 
-  - task: PublishCodeCoverageResults@1
-    displayName: Publish Jest Test Coverage
-    inputs:
-      codeCoverageTool: 'cobertura'
-      summaryFileLocation: $(coreDirectory)/coverage/cobertura-coverage.xml
-      reportDirectory: $(coreDirectory)/coverage
-      failIfCoverageEmpty: true
+  # - task: PublishCodeCoverageResults@1
+  #   displayName: Publish Jest Test Coverage
+  #   inputs:
+  #     codeCoverageTool: 'cobertura'
+  #     summaryFileLocation: $(coreDirectory)/coverage/cobertura-coverage.xml
+  #     reportDirectory: $(coreDirectory)/coverage
+  #     failIfCoverageEmpty: true
