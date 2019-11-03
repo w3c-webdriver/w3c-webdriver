@@ -1,6 +1,6 @@
 import { newSession, WindowRect } from '../src';
 import { log } from '../src/logger';
-import { startDriver, stopDriver } from '../test-env/browserdriver';
+import { startDriver, stopDriver } from '../test-env/browserDriver';
 import { startTestApp, stopTestApp } from '../test-env/testApp';
 import { Browser, testEnvironment } from '../test-env/testEnv';
 
