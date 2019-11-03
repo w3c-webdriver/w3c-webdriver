@@ -122,7 +122,13 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
       alwaysMatch: {
         browserName: 'safari',
         'bstack:options': {
-          local: true
+          local: true,
+          os : 'OS X',
+          osVersion : 'Mojave',
+          safari: {
+            enablePopups : true,
+            allowAllCookies : true,
+          }
         }
       }
     },
@@ -145,7 +151,9 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
       alwaysMatch: {
         browserName: 'firefox',
         'bstack:options': {
-          local: true
+          local: true,
+          os : 'Windows',
+          osVersion : '10'
         }
       }
     },

@@ -26,6 +26,10 @@ type BrowserStackOptions = {
   debug?: boolean;
   networkLogs?: boolean;
   local?: boolean;
+  safari?: {
+    enablePopups?: boolean;
+    allowAllCookies?: boolean;
+  };
 };
 
 type BrowserCapability = {
