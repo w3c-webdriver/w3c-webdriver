@@ -1,8 +1,11 @@
-import { session } from '../test-env/session';
+// tslint:disable-next-line: match-default-export-name
+import expect from 'expect';
+import { testEnvironment } from '../test-env/testEnv';
 
 describe('Navigation', () => {
   describe('getTitle method', () => {
     it('returns page title', async () => {
+      const { session } = testEnvironment;
       const title = await session.getTitle();
 
       expect(title).toEqual('The simple calculator');
@@ -11,6 +14,7 @@ describe('Navigation', () => {
 
   describe('getCurrentUrl method', () => {
     it('returns current url', async () => {
+      const { session } = testEnvironment;
       const currentUrl = await session.getCurrentUrl();
 
       expect(currentUrl).toEqual(`http://localhost:${process.env.TEST_APP_PORT}/`);
@@ -19,6 +23,7 @@ describe('Navigation', () => {
 
   describe('back method', () => {
     it('navigate to previous url from history', async () => {
+      const { session } = testEnvironment;
       const currentUrlBefore = await session.getCurrentUrl();
       expect(currentUrlBefore).toEqual(`http://localhost:${process.env.TEST_APP_PORT}/`);
       await session.navigateTo(`${currentUrlBefore}#test`);
@@ -32,6 +37,7 @@ describe('Navigation', () => {
 
   describe('forward method', () => {
     it('navigate forward to next url from history', async () => {
+      const { session } = testEnvironment;
       const actualUrl = await session.getCurrentUrl();
       expect(actualUrl).toEqual(`http://localhost:${process.env.TEST_APP_PORT}/`);
       await session.navigateTo(`${actualUrl}#test`);
@@ -48,6 +54,7 @@ describe('Navigation', () => {
 
   describe('refresh method', () => {
     it('refresh the current page', async () => {
+      const { session } = testEnvironment;
       const currentUrlBefore = await session.getCurrentUrl();
       expect(currentUrlBefore).toEqual(`http://localhost:${process.env.TEST_APP_PORT}/`);
 

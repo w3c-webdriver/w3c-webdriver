@@ -1,22 +1,20 @@
-import { browserName } from '../test-env/browser';
-import { session } from '../test-env/session';
+// tslint:disable-next-line: match-default-export-name
+import expect from 'expect';
+import { Browser, testEnvironment } from '../test-env/testEnv';
+
+const testCookie = {
+  name: 'test_cookie',
+  value: 'test_value'
+};
 
 describe('Cookies', () => {
   describe('addCookie/getAllCookies methods', () => {
     it('adds and retrieves all cookies visible to the current page', async () => {
-      const testCookie = {
-        name: 'test_cookie',
-        value: 'test_value',
-        path: '/',
-        domain: '.localhost',
-        secure: false,
-        httpOnly: true
-      };
+      const { session, browser } = testEnvironment;
 
       // See:
       // https://github.com/seleniumhq/selenium/issues/962
-      // https://bugzilla.mozilla.org/show_bug.cgi?id=1488225
-      if (['internet explorer', 'firefox'].includes(browserName)) {
+      if (browser === Browser.InternetExplorer) {
         return;
       }
 
@@ -25,56 +23,42 @@ describe('Cookies', () => {
         expiry: Date.now() + 60000
       });
       const cookies = await session.getAllCookies();
-      expect(cookies).toEqual([expect.objectContaining(testCookie)]);
+      expect(cookies).toEqual([expect.objectContaining({
+        ...testCookie,
+        domain: 'localhost',
+        httpOnly: false,
+        path: '/',
+        secure: false
+      })]);
     });
   });
 
   describe('getNamedCookie method', () => {
     it('adds and retrieves a cookie by name', async () => {
-      const testCookie = {
-        name: 'cookie_name',
-        value: 'cookie_value',
-        path: '/',
-        domain: '.localhost',
-        secure: false,
-        httpOnly: true
-      };
+      const { session, browser } = testEnvironment;
 
       // See:
       // https://github.com/seleniumhq/selenium/issues/962
-      // https://bugzilla.mozilla.org/show_bug.cgi?id=1488225
-      if (['internet explorer', 'firefox'].includes(browserName)) {
+      if (browser === Browser.InternetExplorer) {
         return;
       }
-      await session.addCookie({
-        ...testCookie,
-      });
-      const cookie = await session.getNamedCookie('cookie_name');
-      expect(cookie).toEqual({...testCookie});
+      await session.addCookie(testCookie);
+      const cookie = await session.getNamedCookie('test_cookie');
+      expect(cookie).toEqual(expect.objectContaining(testCookie));
     });
   });
 
   describe('deleteCookie method', () => {
     it('delete a cookie by name', async () => {
-      const testCookie = {
-        name: 'cookie_name',
-        value: 'cookie_value',
-        path: '/',
-        domain: '.localhost',
-        secure: false,
-        httpOnly: true
-      };
+      const { session, browser } = testEnvironment;
 
       // See:
       // https://github.com/seleniumhq/selenium/issues/962
-      // https://bugzilla.mozilla.org/show_bug.cgi?id=1488225
-      if (['internet explorer', 'firefox'].includes(browserName)) {
+      if (browser === Browser.InternetExplorer) {
         return;
       }
-      await session.addCookie({
-        ...testCookie,
-      });
-      await session.deleteCookie('cookie_name');
+      await session.addCookie(testCookie);
+      await session.deleteCookie('test_cookie');
 
       const cookies = await session.getAllCookies();
       expect(cookies).not.toEqual([expect.objectContaining(testCookie)]);
@@ -83,24 +67,14 @@ describe('Cookies', () => {
 
   describe('deleteAllCookies method', () => {
     it('delete all cookies', async () => {
-      const testCookie = {
-        name: 'cookie_name',
-        value: 'cookie_value',
-        path: '/',
-        domain: '.localhost',
-        secure: false,
-        httpOnly: true
-      };
+      const { session, browser } = testEnvironment;
 
       // See:
       // https://github.com/seleniumhq/selenium/issues/962
-      // https://bugzilla.mozilla.org/show_bug.cgi?id=1488225
-      if (['internet explorer', 'firefox'].includes(browserName)) {
+      if (browser === Browser.InternetExplorer) {
         return;
       }
-      await session.addCookie({
-        ...testCookie,
-      });
+      await session.addCookie(testCookie);
       await session.deleteAllCookies();
 
       const cookies = await session.getAllCookies();

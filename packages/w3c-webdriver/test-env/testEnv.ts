@@ -1,0 +1,158 @@
+import { ChildProcess } from 'child_process';
+import { path as chromedriverPath } from 'chromedriver';
+import { config } from 'dotenv-safe';
+import { path as geckodriverPath } from 'geckodriver';
+import { path as iedriverPath } from 'iedriver';
+import { HeaderInit, Headers } from 'node-fetch';
+import { Capabilities, Session } from '../src';
+
+config();
+
+export enum Browser {
+  Chrome = 'chrome',
+  Firefox = 'firefox',
+  Safari = 'safari',
+  InternetExplorer = 'internet-explorer'
+};
+
+export enum WebDriverHost {
+  Localhost,
+  BrowserStack = 'https://hub-cloud.browserstack.com/wd/hub'
+}
+
+type BrowserDriver = {
+  name: string;
+  path?: string;
+  instance?: ChildProcess;
+  host: WebDriverHost;
+  headers?: HeaderInit;
+  args?({ port }: { port: number }): string[];
+};
+
+type TestEnvironment = {
+  browser: Browser;
+  capabilities: Capabilities;
+  desiredCapabilities?: {
+    'browserstack.use_w3c': boolean;
+  };
+  driver: BrowserDriver;
+  session: Session;
+};
+
+const defaultSession = new Session('default', 'default');
+
+const testEnvironments: TestEnvironment[] = [
+  {
+    browser: Browser.Chrome,
+    capabilities: {
+      alwaysMatch: {
+        browserName: 'chrome',
+        'goog:chromeOptions': {
+          w3c: true,
+          ...(process.env.HEADLESS && {
+            args: ['--headless']
+          })
+        }
+      }
+    },
+    driver: {
+      name: 'Chromedriver',
+      path: chromedriverPath,
+      args: ({ port }: { port: number }) => [`--port=${port}`],
+      host: WebDriverHost.Localhost
+    },
+    session: defaultSession
+  },
+  {
+    browser: Browser.Firefox,
+    capabilities: {
+      alwaysMatch: {
+        browserName: 'firefox',
+        'moz:firefoxOptions': {
+          log: {
+            level: 'debug'
+          },
+          ...(process.env.HEADLESS && {
+            args: ['-headless']
+          })
+        }
+      }
+    },
+    driver: {
+      name: 'Geckodriver',
+      path: geckodriverPath,
+      args: ({ port }: { port: number }) => [`--port=${port}`],
+      host: WebDriverHost.Localhost
+    },
+    session: defaultSession
+  },
+  {
+    browser: Browser.Safari,
+    capabilities: {
+      alwaysMatch: {
+        browserName: 'safari'
+      }
+    },
+    driver: {
+      name: 'SafariDriver',
+      path: 'safaridriver',
+      args: ({ port }: { port: number }) => [`--port=${port}`],
+      host: WebDriverHost.Localhost
+    },
+    session: defaultSession
+  },
+  {
+    browser: Browser.InternetExplorer,
+    capabilities: {
+      alwaysMatch: {
+        browserName: 'internet explorer',
+        'se:ieOptions': {
+          ignoreProtectedModeSettings: true,
+          ignoreZoomSetting: true,
+          'ie.ensureCleanSession': true
+        }
+      }
+    },
+    driver: {
+      name: 'InternetExplorerDriver',
+      path: iedriverPath,
+      args: ({ port }: { port: number }) => [`--port=${port}`, '--log-level=INFO'],
+      host: WebDriverHost.Localhost
+    },
+    session: defaultSession
+  },
+  {
+    browser: Browser.Firefox,
+    capabilities: {
+      alwaysMatch: {
+        browserName: 'firefox',
+        'bstack:options': {
+          local: true
+        }
+      }
+    },
+    desiredCapabilities: {
+      'browserstack.use_w3c': true
+    },
+    driver: {
+      name: 'BrowserStack',
+      host: WebDriverHost.BrowserStack,
+      headers: new Headers({
+        Authorization: `Basic ${Buffer.from(
+          [process.env.BROWSERSTACK_USERNAME, process.env.BROWSERSTACK_ACCESS_KEY].join(':')
+        ).toString('base64')}`
+      }),
+    },
+    session: defaultSession
+  }
+];
+
+function throwNoBrowserEnvironmentVariableError(): TestEnvironment {
+  throw new Error(
+    'Environment variable BROWSER is not set or is not matching the supported browsers.'
+  );
+}
+
+export const testEnvironment: TestEnvironment = testEnvironments.find(
+  ({ browser, driver }) => browser === process.env.BROWSER && (!driver.host === !process.env.BROWSERSTACK)
+) || throwNoBrowserEnvironmentVariableError();

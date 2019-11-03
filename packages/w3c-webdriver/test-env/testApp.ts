@@ -1,6 +1,7 @@
 import fs from 'fs';
 import http from 'http';
 import path from 'path';
+import { findAPortNotInUse } from 'portscanner';
 import url from 'url';
 import { log } from '../src/logger';
 
@@ -16,7 +17,7 @@ const mimeTypes: { [extension: string]: string } = {
 const server = http.createServer((req, res) => {
   let uri = <string>url.parse(<string>req.url).pathname;
 
-  if (uri === '/') uri = '/test-app.html';
+  if (uri === '/') uri = '/testApp.html';
 
   const filename = path.join(__dirname, uri);
   fs.exists(filename, exists => {
@@ -35,21 +36,23 @@ const server = http.createServer((req, res) => {
   });
 });
 
-export async function start(port: number) {
+export async function startTestApp() {
+  const port = await findAPortNotInUse(3000, 3050, '127.0.0.1');
+  process.env.TEST_APP_PORT = port.toString();
   await new Promise(resolve => {
     server.listen(port, resolve);
   });
   log(`Test app started on port ${port}`)
 }
 
-export async function stop() {
+export async function stopTestApp() {
   await new Promise(resolve => {
     server.close(resolve);
   });
 }
 
 if (require.main === module) {
-  start(8087).catch(err => {
+  startTestApp().catch(err => {
     log(err);
   });
 }

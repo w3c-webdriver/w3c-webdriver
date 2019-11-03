@@ -1,7 +1,9 @@
-import { browserName } from '../test-env/browser';
-import { session } from '../test-env/session';
+// tslint:disable-next-line: match-default-export-name
+import expect from 'expect';
+import { Browser, testEnvironment, WebDriverHost } from '../test-env/testEnv';
 
 async function createWindow(): Promise<string> {
+  const { session } = testEnvironment;
   const handlesBefore = await session.getWindowHandles();
   await session.executeScript(`window.open()`);
   const handlesAfter = await session.getWindowHandles();
@@ -19,13 +21,15 @@ async function createWindow(): Promise<string> {
 describe('Command Contexts', () => {
   describe('getWindowHandle', () => {
     it('return the current window handle', async () => {
+      const { session } = testEnvironment;
       const handle = await session.getWindowHandle();
-      expect(handle).toMatch(/[a-zA-z0-9-]{10,}/)
+      expect(handle).toMatch(/[a-zA-z0-9-]{2,}/)
     });
   });
 
   describe('closeWindow', () => {
     it('closes current browsing context', async () => {
+      const { session } = testEnvironment;
       const initialHandle = await session.getWindowHandle();
       const handlesBefore = await session.getWindowHandles();
       const newHandle = await createWindow();
@@ -39,6 +43,7 @@ describe('Command Contexts', () => {
 
   describe('switchToWindow', () => {
     it('Switches to different browsing context', async () => {
+      const { session } = testEnvironment;
       const initialHandle = await session.getWindowHandle();
       expect(await session.getTitle()).not.toEqual('');
       const handle = await createWindow();
@@ -49,6 +54,7 @@ describe('Command Contexts', () => {
     });
 
     it('throws no such window Error if called with not existing handle', async () => {
+      const { session } = testEnvironment;
       let errorMessage;
       try {
         await session.switchToWindow('not existing handle');
@@ -63,6 +69,7 @@ describe('Command Contexts', () => {
 
   describe('switchToFrame', () => {
     it('switches browsing context to iframe specified by Element', async () => {
+      const { session } = testEnvironment;
       const iframe = await session.findElement('css selector', 'iframe');
       await session.switchToFrame(iframe);
       const paragraph = await session.findElement('css selector', 'p');
@@ -70,6 +77,7 @@ describe('Command Contexts', () => {
     });
 
     it('switches to top-level browsing context if null is provided', async () => {
+      const { session } = testEnvironment;
       await session.switchToFrame(await session.findElement('css selector', 'iframe'));
       expect(await session.getPageSource()).not.toContain('<iframe');
       // tslint:disable-next-line: no-null-keyword
@@ -80,6 +88,7 @@ describe('Command Contexts', () => {
 
   describe('switchToParentFrame', () => {
     it('switches to parent browsing context ', async () => {
+      const { session } = testEnvironment;
       await session.switchToFrame(await session.findElement('css selector', 'iframe'));
       expect(await session.getPageSource()).not.toContain('<iframe');
       // tslint:disable-next-line: no-null-keyword
@@ -90,19 +99,21 @@ describe('Command Contexts', () => {
 
   describe('getWindowHandles', () => {
     it('return all window handles', async () => {
+      const { session } = testEnvironment;
       const handles = await session.getWindowHandles();
       expect(handles).toHaveLength(1);
-      expect(handles[0]).toMatch(/[a-zA-z0-9-]{10,}/)
+      expect(handles[0]).toMatch(/[a-zA-z0-9-]{2,}/)
     });
   });
 
   describe('getWindowRect/maximizeWindow method', () => {
     it('validates window rect before and after maximizing the window', async () => {
-      if (['firefox'].includes(browserName)) {
-        await session.minimizeWindow();
-      } else if (['chrome'].includes(browserName)) {
+      const { session, driver } = testEnvironment;
+
+      if (driver.host === WebDriverHost.BrowserStack) {
         return;
       }
+
       const rectBeforeMax = await session.getWindowRect();
 
       await session.maximizeWindow();
@@ -114,11 +125,8 @@ describe('Command Contexts', () => {
 
   describe('setWindowRect method', () => {
     it('set current window to specified rect', async () => {
-      const testRect = { x: 9, y: 9, width: 1005, height: 705, }
-
-      if (['chrome', 'firefox', 'internet explorer', 'safari'].includes(browserName)) {
-        return;
-      }
+      const { session } = testEnvironment;
+      const testRect = { x: 9, y: 9, width: 520, height: 520 }
 
       await session.setWindowRect(testRect);
 
@@ -129,7 +137,8 @@ describe('Command Contexts', () => {
 
   describe('minimizeWindow method', () => {
     it('minimizes the current window', async () => {
-      if (['safari', 'chrome'].includes(browserName)) {
+      const { session, browser } = testEnvironment;
+      if ([Browser.Safari].includes(browser)) {
         return;
       }
       await session.maximizeWindow();
@@ -144,8 +153,9 @@ describe('Command Contexts', () => {
 
   describe('FullScreenWindow method', () => {
     it('increases the current window to full screen', async () => {
+      const { session, browser } = testEnvironment;
 
-      if (['internet explorer', 'safari', 'chrome'].includes(browserName)) {
+      if ([Browser.Safari].includes(browser)) {
         return;
       }
       const rectBeforeFull = await session.getWindowRect();

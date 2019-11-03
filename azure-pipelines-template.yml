@@ -5,6 +5,8 @@ parameters:
   preBuild: []
   testCommand: ''
   browser: ''
+  headless: ''
+  browserStack: ''
 
 jobs:
 - job: ${{ parameters.name }}
@@ -29,6 +31,8 @@ jobs:
     env:
       JUNIT_REPORT: 'true'
       BROWSER: ${{ parameters.browser }}
+      HEADLESS: ${{ parameters.headless }}
+      BROWSERSTACK: ${{ parameters.browserStack }}
       BROWSERSTACK_USERNAME: $(browserstack.user)
       BROWSERSTACK_ACCESS_KEY: $(browserstack.key)
 

@@ -30,14 +30,16 @@ jobs:
     name: Firefox
     vmImage: 'ubuntu-16.04'
     nodeVersion: '8.x'
-    browser: 'firefox-headless'
+    browser: 'firefox'
+    headless: 'true'
 
 - template: azure-pipelines-template.yml
   parameters:
     name: Chrome
     vmImage: 'ubuntu-16.04'
     nodeVersion: '12.x'
-    browser: 'chrome-headless'
+    browser: 'chrome'
+    headless: 'true'
     preBuild:
       - script: |
           wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
@@ -68,7 +70,8 @@ jobs:
     name: BrowserStack
     vmImage: 'ubuntu-16.04'
     nodeVersion: '12.x'
-    browser: 'browserstack'
+    browser: 'firefox'
+    browserStack: 'true'
 
 - job: Test
   dependsOn:
