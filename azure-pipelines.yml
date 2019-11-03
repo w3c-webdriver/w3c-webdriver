@@ -11,7 +11,7 @@ variables:
 jobs:
 - job: CodeCheck
   pool:
-    vmImage: 'ubuntu-18.04'
+    vmImage: 'ubuntu-latest'
   steps:
   - task: NodeTool@0
     displayName: Install Node.js
@@ -33,7 +33,7 @@ jobs:
 - template: azure-pipelines-template.yml
   parameters:
     name: Firefox
-    vmImage: 'ubuntu-18.04'
+    vmImage: 'ubuntu-latest'
     nodeVersion: '8.x'
     browser: 'firefox'
     headless: 'true'
@@ -41,7 +41,7 @@ jobs:
 - template: azure-pipelines-template.yml
   parameters:
     name: Chrome
-    vmImage: 'ubuntu-18.04'
+    vmImage: 'ubuntu-latest'
     nodeVersion: '12.x'
     browser: 'chrome'
     headless: 'true'
@@ -56,7 +56,7 @@ jobs:
 - template: azure-pipelines-template.yml
   parameters:
     name: Safari
-    vmImage: 'macOS-10.13'
+    vmImage: 'macOS-latest'
     nodeVersion: '10.x'
     browser: 'safari'
     preBuild:
@@ -66,14 +66,14 @@ jobs:
 - template: azure-pipelines-template.yml
   parameters:
     name: Internet_Explorer
-    vmImage: 'vs2017-win2016'
+    vmImage: 'windows-latest'
     nodeVersion: '12.x'
     browser: 'internet-explorer'
 
 - template: azure-pipelines-template.yml
   parameters:
     name: BrowserStack
-    vmImage: 'ubuntu-18.04'
+    vmImage: 'ubuntu-latest'
     nodeVersion: '12.x'
     browser: 'firefox'
     browserStack: 'true'
@@ -86,7 +86,7 @@ jobs:
     - Internet_Explorer
     - BrowserStack
   pool:
-    vmImage: 'ubuntu-18.04'
+    vmImage: 'ubuntu-latest'
   steps:
   - script: echo tests completed
 
@@ -94,7 +94,7 @@ jobs:
   dependsOn: Test
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   pool:
-    vmImage: 'ubuntu-18.04'
+    vmImage: 'ubuntu-latest'
   steps:
   - script: npm install
     displayName: Install core dependencies
