@@ -21,16 +21,16 @@ jobs:
     displayName: NPM Version
     workingDirectory: $(coreDirectory)
 
-  - script: npm install
-    displayName: Install dependencies
-    workingDirectory: $(coreDirectory)
-
   - script: npm run lint -- --version
     displayName: Lint Version
     workingDirectory: $(coreDirectory)
 
   - script: npm run typecheck -- --version
     displayName: TypeScript Version
+    workingDirectory: $(coreDirectory)
+
+  - script: npm install
+    displayName: Install dependencies
     workingDirectory: $(coreDirectory)
 
   - script: npm run lint
