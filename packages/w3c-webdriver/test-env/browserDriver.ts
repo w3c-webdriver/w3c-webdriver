@@ -96,8 +96,8 @@ export async function stopBrowserStackLocal() {
   log('BrowserStack Local stopped.');
 }
 
-const waitForBusyPort = async (port: number) =>
-  new Promise((resolve, reject) => {
+async function waitForBusyPort (port: number) {
+  return new Promise((resolve, reject) => {
     waitOn({ resources: [`tcp:127.0.0.1:${port}`] }, err => {
       if (err) {
         reject(err);
@@ -106,9 +106,10 @@ const waitForBusyPort = async (port: number) =>
       }
     });
   });
+}
 
-const waitForFreePort = async (port: number) =>
-  new Promise((resolve, reject) => {
+async function waitForFreePort (port: number){
+  return new Promise((resolve, reject) => {
     waitOn({ resources: [`tcp:127.0.0.1:${port}`], reverse: true }, err => {
       if (err) {
         reject(err);
@@ -117,3 +118,4 @@ const waitForFreePort = async (port: number) =>
       }
     });
   });
+}
