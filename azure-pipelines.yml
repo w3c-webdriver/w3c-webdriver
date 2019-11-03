@@ -53,15 +53,15 @@ jobs:
           sudo apt install google-chrome-stable
         displayName: 'Install latest stable Chrome'
 
-- template: azure-pipelines-template.yml
-  parameters:
-    name: Safari
-    vmImage: 'macOS-latest'
-    nodeVersion: '10.x'
-    browser: 'safari'
-    preBuild:
-    - script: sudo safaridriver --enable
-      displayName: Configure Safari to Enable WebDriver Support
+# - template: azure-pipelines-template.yml
+#   parameters:
+#     name: Safari
+#     vmImage: 'macOS-latest'
+#     nodeVersion: '10.x'
+#     browser: 'safari'
+#     preBuild:
+#     - script: sudo safaridriver --enable
+#       displayName: Configure Safari to Enable WebDriver Support
 
 - template: azure-pipelines-template.yml
   parameters:
@@ -72,10 +72,18 @@ jobs:
 
 - template: azure-pipelines-template.yml
   parameters:
-    name: BrowserStack
+    name: BrowserStack-Firefox
     vmImage: 'ubuntu-latest'
     nodeVersion: '12.x'
     browser: 'firefox'
+    browserStack: 'true'
+
+- template: azure-pipelines-template.yml
+  parameters:
+    name: BrowserStack-Safari
+    vmImage: 'ubuntu-latest'
+    nodeVersion: '12.x'
+    browser: 'safari'
     browserStack: 'true'
 
 - job: Test

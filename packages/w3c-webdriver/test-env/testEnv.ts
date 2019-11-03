@@ -117,6 +117,29 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
     }
   },
   {
+    browser: Browser.Safari,
+    capabilities: {
+      alwaysMatch: {
+        browserName: 'safari',
+        'bstack:options': {
+          local: true
+        }
+      }
+    },
+    desiredCapabilities: {
+      'browserstack.use_w3c': true
+    },
+    driver: {
+      name: 'BrowserStack',
+      host: WebDriverHost.BrowserStack,
+      headers: new Headers({
+        Authorization: `Basic ${Buffer.from(
+          [process.env.BROWSERSTACK_USERNAME, process.env.BROWSERSTACK_ACCESS_KEY].join(':')
+        ).toString('base64')}`
+      }),
+    }
+  },
+  {
     browser: Browser.Firefox,
     capabilities: {
       alwaysMatch: {
