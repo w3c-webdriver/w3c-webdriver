@@ -29,22 +29,22 @@ jobs:
     displayName: Test
     workingDirectory: $(coreDirectory)
     env:
-      JUNIT_REPORT: 'true'
+      MOCHA_FILE: '${{ parameters.name }}.junit.xml'
       BROWSER: ${{ parameters.browser }}
       HEADLESS: ${{ parameters.headless }}
       BROWSERSTACK: ${{ parameters.browserStack }}
       BROWSERSTACK_USERNAME: $(browserstack.user)
       BROWSERSTACK_ACCESS_KEY: $(browserstack.key)
 
-  # - task: PublishTestResults@2
-  #   displayName: Publish Jest Test Results
-  #   condition: succeededOrFailed()
-  #   inputs:
-  #     testResultsFormat: 'JUnit'
-  #     testResultsFiles: '*.junit.xml'
-  #     searchFolder: $(coreDirectory)
-  #     mergeTestResults: true
-  #     testRunTitle: 'Test Results (${{ parameters.browser }})'
+  - task: PublishTestResults@2
+    displayName: Publish Jest Test Results
+    condition: succeededOrFailed()
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '*.junit.xml'
+      searchFolder: $(coreDirectory)
+      mergeTestResults: true
+      testRunTitle: 'Test Results (${{ parameters.browser }})'
 
   # - task: PublishCodeCoverageResults@1
   #   displayName: Publish Jest Test Coverage
