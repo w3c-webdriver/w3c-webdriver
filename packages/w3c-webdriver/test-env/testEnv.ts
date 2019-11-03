@@ -31,6 +31,7 @@ type BrowserDriver = {
 
 type TestEnvironment = {
   browser: Browser;
+  headless: boolean;
   capabilities: Capabilities;
   desiredCapabilities?: {
     'browserstack.use_w3c': boolean;
@@ -39,9 +40,7 @@ type TestEnvironment = {
   session: Session;
 };
 
-const defaultSession = new Session('default', 'default');
-
-const testEnvironments: TestEnvironment[] = [
+const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
   {
     browser: Browser.Chrome,
     capabilities: {
@@ -60,8 +59,7 @@ const testEnvironments: TestEnvironment[] = [
       path: chromedriverPath,
       args: ({ port }: { port: number }) => [`--port=${port}`],
       host: WebDriverHost.Localhost
-    },
-    session: defaultSession
+    }
   },
   {
     browser: Browser.Firefox,
@@ -83,8 +81,7 @@ const testEnvironments: TestEnvironment[] = [
       path: geckodriverPath,
       args: ({ port }: { port: number }) => [`--port=${port}`],
       host: WebDriverHost.Localhost
-    },
-    session: defaultSession
+    }
   },
   {
     browser: Browser.Safari,
@@ -98,8 +95,7 @@ const testEnvironments: TestEnvironment[] = [
       path: 'safaridriver',
       args: ({ port }: { port: number }) => [`--port=${port}`],
       host: WebDriverHost.Localhost
-    },
-    session: defaultSession
+    }
   },
   {
     browser: Browser.InternetExplorer,
@@ -118,8 +114,7 @@ const testEnvironments: TestEnvironment[] = [
       path: iedriverPath,
       args: ({ port }: { port: number }) => [`--port=${port}`, '--log-level=INFO'],
       host: WebDriverHost.Localhost
-    },
-    session: defaultSession
+    }
   },
   {
     browser: Browser.Firefox,
@@ -142,8 +137,7 @@ const testEnvironments: TestEnvironment[] = [
           [process.env.BROWSERSTACK_USERNAME, process.env.BROWSERSTACK_ACCESS_KEY].join(':')
         ).toString('base64')}`
       }),
-    },
-    session: defaultSession
+    }
   }
 ];
 
@@ -153,6 +147,10 @@ function throwNoBrowserEnvironmentVariableError(): TestEnvironment {
   );
 }
 
-export const testEnvironment: TestEnvironment = testEnvironments.find(
-  ({ browser, driver }) => browser === process.env.BROWSER && (!driver.host === !process.env.BROWSERSTACK)
-) || throwNoBrowserEnvironmentVariableError();
+export const testEnvironment: TestEnvironment = {
+  session: new Session('default', 'default'),
+  headless: !!process.env.HEADLESS,
+  ...(testEnvironments.find(
+    ({ browser, driver }) => browser === process.env.BROWSER && (!driver.host === !process.env.BROWSERSTACK)
+  ) || throwNoBrowserEnvironmentVariableError())
+};

@@ -108,9 +108,9 @@ describe('Command Contexts', () => {
 
   describe('getWindowRect/maximizeWindow method', () => {
     it('validates window rect before and after maximizing the window', async () => {
-      const { session, driver } = testEnvironment;
+      const { session, driver, headless } = testEnvironment;
 
-      if (driver.host === WebDriverHost.BrowserStack) {
+      if (driver.host === WebDriverHost.BrowserStack || headless) {
         return;
       }
 
@@ -137,8 +137,8 @@ describe('Command Contexts', () => {
 
   describe('minimizeWindow method', () => {
     it('minimizes the current window', async () => {
-      const { session, browser } = testEnvironment;
-      if ([Browser.Safari].includes(browser)) {
+      const { session, browser, headless } = testEnvironment;
+      if (browser === Browser.Safari || headless) {
         return;
       }
       await session.maximizeWindow();
@@ -151,11 +151,11 @@ describe('Command Contexts', () => {
     });
   });
 
-  describe('FullScreenWindow method', () => {
+  describe('fullScreenWindow method', () => {
     it('increases the current window to full screen', async () => {
-      const { session, browser } = testEnvironment;
+      const { session, browser, headless } = testEnvironment;
 
-      if ([Browser.Safari].includes(browser)) {
+      if (browser === Browser.Safari || headless) {
         return;
       }
       const rectBeforeFull = await session.getWindowRect();
