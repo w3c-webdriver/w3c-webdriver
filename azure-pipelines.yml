@@ -22,22 +22,6 @@ jobs:
     displayName: Install dependencies
     workingDirectory: $(coreDirectory)
 
-  - script: node --version
-    displayName: Node Version
-    workingDirectory: $(coreDirectory)
-
-  - script: npm --version
-    displayName: NPM Version
-    workingDirectory: $(coreDirectory)
-
-  - script: npm run lint -- --version
-    displayName: Lint Version
-    workingDirectory: $(coreDirectory)
-
-  - script: npm run typecheck -- --version
-    displayName: TypeScript Version
-    workingDirectory: $(coreDirectory)
-
   - script: npm run lint
     displayName: Lint
     workingDirectory: $(coreDirectory)
@@ -49,7 +33,7 @@ jobs:
 - template: azure-pipelines-template.yml
   parameters:
     name: Firefox
-    vmImage: 'ubuntu-16.04'
+    vmImage: 'ubuntu-18.04'
     nodeVersion: '8.x'
     browser: 'firefox'
     headless: 'true'
@@ -57,7 +41,7 @@ jobs:
 - template: azure-pipelines-template.yml
   parameters:
     name: Chrome
-    vmImage: 'ubuntu-16.04'
+    vmImage: 'ubuntu-18.04'
     nodeVersion: '12.x'
     browser: 'chrome'
     headless: 'true'
@@ -89,7 +73,7 @@ jobs:
 - template: azure-pipelines-template.yml
   parameters:
     name: BrowserStack
-    vmImage: 'ubuntu-16.04'
+    vmImage: 'ubuntu-18.04'
     nodeVersion: '12.x'
     browser: 'firefox'
     browserStack: 'true'
@@ -102,7 +86,7 @@ jobs:
     - Internet_Explorer
     - BrowserStack
   pool:
-    vmImage: 'ubuntu-16.04'
+    vmImage: 'ubuntu-18.04'
   steps:
   - script: echo tests completed
 
@@ -110,7 +94,7 @@ jobs:
   dependsOn: Test
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   pool:
-    vmImage: 'ubuntu-16.04'
+    vmImage: 'ubuntu-18.04'
   steps:
   - script: npm install
     displayName: Install core dependencies
