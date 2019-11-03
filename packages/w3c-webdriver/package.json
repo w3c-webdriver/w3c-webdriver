@@ -13,8 +13,8 @@
     "node": ">= 8.0.0"
   },
   "scripts": {
-    "lint": "tslint --project tsconfig.json",
-    "typecheck": "tsc --project tsconfig.json --noEmit",
+    "lint": "tslint --project .",
+    "typecheck": "tsc --project . --noEmit",
     "test": "ts-mocha test/**/*.test.ts --timeout 60000",
     "test:debug": "node --inspect ./node_modules/jest/bin/jest.js --detectOpenHandles",
     "test:chrome": "cross-env BROWSER=chrome npm test",
