@@ -1,6 +1,6 @@
 {
   "name": "w3c-webdriver",
-  "version": "0.15.0",
+  "version": "0.16.0",
   "description": "W3C WebDriver client",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
