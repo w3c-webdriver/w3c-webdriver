@@ -30,10 +30,6 @@ type BrowserStackOptions = {
     enablePopups?: boolean;
     allowAllCookies?: boolean;
   };
-  firefox?: {
-    enablePopups?: boolean;
-    allowAllCookies?: boolean;
-  };
 };
 
 type BrowserCapability = {
