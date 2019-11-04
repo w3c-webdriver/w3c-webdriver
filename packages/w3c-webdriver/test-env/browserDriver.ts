@@ -3,13 +3,13 @@ import { execFile } from 'child_process';
 import { findAPortNotInUse } from 'portscanner';
 import waitOn from'wait-on';
 import { log } from '../src/logger';
-import { testEnvironment, WebDriverHost } from './testEnv';
+import testEnv, { WebDriverHost } from './testEnv';
 
 const browserStackInstance = new browserstack.Local();
 
 export async function startDriver() {
   const port = await findAPortNotInUse(3000, 3050, '127.0.0.1');
-  const { driver } = testEnvironment;
+  const { driver } = testEnv;
   process.env.WEB_DRIVER_PORT = port.toString();
   process.env.WEB_DRIVER_URL = driver.host === WebDriverHost.Localhost ? `http://localhost:${port}` : driver.host;
 
@@ -50,7 +50,7 @@ export async function startDriver() {
 }
 
 export async function stopDriver() {
-  const { driver } = testEnvironment;
+  const { driver } = testEnv;
   const port = parseInt(process.env.WEB_DRIVER_PORT || '');
 
   if (driver.host === WebDriverHost.BrowserStack) {

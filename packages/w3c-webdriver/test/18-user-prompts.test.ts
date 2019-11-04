@@ -1,11 +1,11 @@
 // tslint:disable-next-line: match-default-export-name
 import expect from 'expect';
-import { testEnvironment } from '../test-env/testEnv';
+import testEnv from '../test-env/testEnv';
 
 describe('User Prompts', () => {
   describe('dismissAlert method', () => {
     it('dismiss an alert in the current page', async () => {
-      const { session } = testEnvironment;
+      const { session } = testEnv;
       const alertButton = await session.findElement('css selector', '#confirm');
       await alertButton.click();
 
@@ -19,7 +19,7 @@ describe('User Prompts', () => {
 
   describe('acceptAlert method', () => {
     it('accept an alert in the current page', async () => {
-      const { session } = testEnvironment;
+      const { session } = testEnv;
       const alertButton = await session.findElement('css selector', '#confirm');
       await alertButton.click();
 
@@ -33,7 +33,7 @@ describe('User Prompts', () => {
 
   describe('getAlertText method', () => {
     it('get text from an alert in the current page', async () => {
-      const { session } = testEnvironment;
+      const { session } = testEnv;
       const alertButton = await session.findElement('css selector', '#confirm');
       await alertButton.click();
 
@@ -46,7 +46,7 @@ describe('User Prompts', () => {
 
   describe('sendAlertText method', () => {
     it('Sets the text field of a prompt', async () => {
-      const { session } = testEnvironment;
+      const { session } = testEnv;
       const alertButton = await session.findElement('css selector', '#prompt');
       await alertButton.click();
 

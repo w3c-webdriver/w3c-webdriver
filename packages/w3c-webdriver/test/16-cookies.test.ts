@@ -1,6 +1,6 @@
 // tslint:disable-next-line: match-default-export-name
 import expect from 'expect';
-import { Browser, testEnvironment } from '../test-env/testEnv';
+import testEnv, { Browser } from '../test-env/testEnv';
 
 const testCookie = {
   name: 'test_cookie',
@@ -10,7 +10,7 @@ const testCookie = {
 describe('Cookies', () => {
   describe('addCookie/getAllCookies methods', () => {
     it('adds and retrieves all cookies visible to the current page', async () => {
-      const { session, browser } = testEnvironment;
+      const { session, browser } = testEnv;
 
       // See:
       // https://github.com/seleniumhq/selenium/issues/962
@@ -34,7 +34,7 @@ describe('Cookies', () => {
 
   describe('getNamedCookie method', () => {
     it('adds and retrieves a cookie by name', async () => {
-      const { session, browser } = testEnvironment;
+      const { session, browser } = testEnv;
 
       // See:
       // https://github.com/seleniumhq/selenium/issues/962
@@ -49,7 +49,7 @@ describe('Cookies', () => {
 
   describe('deleteCookie method', () => {
     it('delete a cookie by name', async () => {
-      const { session, browser } = testEnvironment;
+      const { session, browser } = testEnv;
 
       // See:
       // https://github.com/seleniumhq/selenium/issues/962
@@ -66,7 +66,7 @@ describe('Cookies', () => {
 
   describe('deleteAllCookies method', () => {
     it('delete all cookies', async () => {
-      const { session, browser } = testEnvironment;
+      const { session, browser } = testEnv;
 
       // See:
       // https://github.com/seleniumhq/selenium/issues/962
