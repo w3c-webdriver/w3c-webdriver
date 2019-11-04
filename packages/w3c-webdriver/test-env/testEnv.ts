@@ -13,7 +13,7 @@ export enum Browser {
   Firefox = 'firefox',
   Safari = 'safari',
   InternetExplorer = 'internet-explorer'
-};
+}
 
 export enum WebDriverHost {
   Localhost,
@@ -123,11 +123,11 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
         browserName: 'safari',
         'bstack:options': {
           local: true,
-          os : 'OS X',
-          osVersion : 'Mojave',
+          os: 'OS X',
+          osVersion: 'Mojave',
           safari: {
-            enablePopups : true,
-            allowAllCookies : true,
+            enablePopups: true,
+            allowAllCookies: true
           }
         }
       }
@@ -139,10 +139,10 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
       name: 'BrowserStack',
       host: WebDriverHost.BrowserStack,
       headers: new Headers({
-        Authorization: `Basic ${Buffer.from(
-          [process.env.BROWSERSTACK_USERNAME, process.env.BROWSERSTACK_ACCESS_KEY].join(':')
-        ).toString('base64')}`
-      }),
+        Authorization: `Basic ${Buffer.from([process.env.BROWSERSTACK_USERNAME, process.env.BROWSERSTACK_ACCESS_KEY].join(':')).toString(
+          'base64'
+        )}`
+      })
     }
   },
   {
@@ -152,8 +152,8 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
         browserName: 'firefox',
         'bstack:options': {
           local: true,
-          os : 'Windows',
-          osVersion : '10'
+          os: 'Windows',
+          osVersion: '10'
         }
       }
     },
@@ -164,24 +164,24 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
       name: 'BrowserStack',
       host: WebDriverHost.BrowserStack,
       headers: new Headers({
-        Authorization: `Basic ${Buffer.from(
-          [process.env.BROWSERSTACK_USERNAME, process.env.BROWSERSTACK_ACCESS_KEY].join(':')
-        ).toString('base64')}`
-      }),
+        Authorization: `Basic ${Buffer.from([process.env.BROWSERSTACK_USERNAME, process.env.BROWSERSTACK_ACCESS_KEY].join(':')).toString(
+          'base64'
+        )}`
+      })
     }
   }
 ];
 
 function throwNoBrowserEnvironmentVariableError(): TestEnvironment {
-  throw new Error(
-    'Environment variable BROWSER is not set or is not matching the supported browsers.'
-  );
+  throw new Error('Environment variable BROWSER is not set or is not matching the supported browsers.');
 }
 
 export const testEnvironment: TestEnvironment = {
   session: new Session('default', 'default'),
   headless: !!process.env.HEADLESS,
   ...(testEnvironments.find(
-    ({ browser, driver }) => browser === process.env.BROWSER && (!driver.host === !process.env.BROWSERSTACK)
+    ({ browser, driver }) =>
+      browser === process.env.BROWSER &&
+      (driver.host === WebDriverHost.Localhost || (driver.host === WebDriverHost.BrowserStack && process.env.BROWSERSTACK))
   ) || throwNoBrowserEnvironmentVariableError())
 };
