@@ -1,8 +1,8 @@
 import { newSession, WindowRect } from '../src';
 import { log } from '../src/logger';
+import testEnv, { Browser } from '../test-env';
 import { startDriver, stopDriver } from '../test-env/browserDriver';
 import { startTestApp, stopTestApp } from '../test-env/testApp';
-import testEnv, { Browser } from '../test-env';
 
 log.enabled = true;
 

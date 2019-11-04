@@ -2,8 +2,8 @@ import browserstack from 'browserstack-local';
 import { execFile } from 'child_process';
 import { findAPortNotInUse } from 'portscanner';
 import waitOn from'wait-on';
-import { log } from '../src/logger';
 import testEnv, { WebDriverHost } from '.';
+import { log } from '../src/logger';
 
 const browserStackInstance = new browserstack.Local();
 
