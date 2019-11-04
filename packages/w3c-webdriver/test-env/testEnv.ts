@@ -153,7 +153,11 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
         'bstack:options': {
           local: true,
           os : 'Windows',
-          osVersion : '10'
+          osVersion : '10',
+          firefox: {
+            enablePopups : true,
+            allowAllCookies : true,
+          }
         }
       }
     },
