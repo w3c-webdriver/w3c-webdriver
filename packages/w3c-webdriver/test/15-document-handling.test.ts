@@ -1,6 +1,6 @@
 // tslint:disable-next-line: match-default-export-name
 import expect from 'expect';
-import testEnv, { Browser } from '../test-env/testEnv';
+import testEnv, { Browser } from '../test-env';
 
 describe('Document Handling', () => {
   describe('getPageSource method', () => {

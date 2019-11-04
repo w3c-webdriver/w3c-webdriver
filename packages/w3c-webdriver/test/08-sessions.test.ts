@@ -1,7 +1,7 @@
 // tslint:disable-next-line: match-default-export-name
 import expect from 'expect';
 import { status, Timeout } from '../src';
-import testEnv, { Browser, WebDriverHost } from '../test-env/testEnv';
+import testEnv, { Browser, WebDriverHost } from '../test-env';
 
 describe('Sessions', () => {
   describe('status method', () => {

@@ -1,6 +1,6 @@
 // tslint:disable-next-line: match-default-export-name
 import expect from 'expect';
-import testEnv from '../test-env/testEnv';
+import testEnv from '../test-env';
 
 describe('Screen Capture', () => {
   describe('takeScreenshot method', () => {

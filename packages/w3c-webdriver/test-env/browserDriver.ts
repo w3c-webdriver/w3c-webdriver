@@ -3,7 +3,7 @@ import { execFile } from 'child_process';
 import { findAPortNotInUse } from 'portscanner';
 import waitOn from'wait-on';
 import { log } from '../src/logger';
-import testEnv, { WebDriverHost } from './testEnv';
+import testEnv, { WebDriverHost } from '.';
 
 const browserStackInstance = new browserstack.Local();
 
