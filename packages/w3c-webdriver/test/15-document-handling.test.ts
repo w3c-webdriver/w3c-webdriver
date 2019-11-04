@@ -14,7 +14,6 @@ describe('Document Handling', () => {
   describe('executeScript method', () => {
     it('executes script in browser context', async () => {
       const { session } = testEnv;
-      // eslint-disable-next-line no-template-curly-in-string
       const result = await session.executeScript<number>('return arguments[0] * arguments[1]', [3, 5]);
 
       expect(result).toBe(15);
@@ -24,7 +23,6 @@ describe('Document Handling', () => {
   describe('executeAsyncScript method', () => {
     it('executes asynchronous script in browser context', async () => {
       const { session, browser } = testEnv;
-      // eslint-disable-next-line no-template-curly-in-string
       if (browser === Browser.InternetExplorer) {
         await session.setTimeout({
           script: 30000
