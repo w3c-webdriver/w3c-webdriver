@@ -176,12 +176,10 @@ function throwNoBrowserEnvironmentVariableError(): TestEnvironment {
   throw new Error('Environment variable BROWSER is not set or is not matching the supported browsers.');
 }
 
+const webDriverHost = process.env.BROWSERSTACK ? WebDriverHost.BrowserStack : WebDriverHost.Localhost;
 export const testEnvironment: TestEnvironment = {
   session: new Session('default', 'default'),
   headless: !!process.env.HEADLESS,
-  ...(testEnvironments.find(
-    ({ browser, driver }) =>
-      browser === process.env.BROWSER &&
-      (driver.host === WebDriverHost.Localhost || (driver.host === WebDriverHost.BrowserStack && process.env.BROWSERSTACK))
-  ) || throwNoBrowserEnvironmentVariableError())
+  ...(testEnvironments.find(({ browser, driver }) => browser === process.env.BROWSER && driver.host === webDriverHost) ||
+    throwNoBrowserEnvironmentVariableError())
 };
