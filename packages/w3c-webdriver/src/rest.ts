@@ -24,7 +24,7 @@ async function sendRequest<T>(
   headers?: HeaderInit
 ): Promise<T> {
 
-  log(`WebDriver request: ${method} ${url} ${util.inspect(body, false, 10)}`);
+  log(`WebDriver request: ${method} ${url} ${body ? util.inspect(body, false, 10) : ''}`);
 
   const response = await fetch(url, {
     method,

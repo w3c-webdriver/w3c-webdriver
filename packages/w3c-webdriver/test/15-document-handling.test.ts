@@ -1,9 +1,11 @@
-import { browserName } from '../test-env/browser';
-import { session } from '../test-env/session';
+// tslint:disable-next-line: match-default-export-name
+import expect from 'expect';
+import { Browser, testEnvironment } from '../test-env/testEnv';
 
 describe('Document Handling', () => {
   describe('getPageSource method', () => {
     it('get the current page source', async () => {
+      const { session } = testEnvironment;
       const result = await session.getPageSource();
 
       expect(result).toContain('<title>The simple calculator</title>');
@@ -12,6 +14,7 @@ describe('Document Handling', () => {
 
   describe('executeScript method', () => {
     it('executes script in browser context', async () => {
+      const { session } = testEnvironment;
       // eslint-disable-next-line no-template-curly-in-string
       const result = await session.executeScript('return arguments[0] * arguments[1]', [3, 5]);
 
@@ -21,8 +24,9 @@ describe('Document Handling', () => {
 
   describe('executeAsyncScript method', () => {
     it('executes asynchronous script in browser context', async () => {
+      const { session, browser } = testEnvironment;
       // eslint-disable-next-line no-template-curly-in-string
-      if (browserName === 'internet explorer') {
+      if (browser === Browser.InternetExplorer) {
         await session.setTimeout({
           script: 30000
         });

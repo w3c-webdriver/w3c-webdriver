@@ -1,9 +1,11 @@
-import { browserName } from '../test-env/browser';
-import { session } from '../test-env/session';
+// tslint:disable-next-line: match-default-export-name
+import expect from 'expect';
+import { Browser, testEnvironment } from '../test-env/testEnv';
 
 describe('Element State', () => {
   describe('getText method', () => {
     it('returns text from element', async () => {
+      const { session } = testEnvironment;
       const element = await session.findElement('css selector', 'h2');
       const text = await element.getText();
 
@@ -13,6 +15,7 @@ describe('Element State', () => {
 
   describe('getCssValue method', () => {
     it('returns the provided style property of an element', async () => {
+      const { session } = testEnvironment;
       const result = await session.findElement('css selector', '#result');
       const displayMode = await result.getCssValue('display');
 
@@ -22,6 +25,7 @@ describe('Element State', () => {
 
   describe('getAttribute method', () => {
     it('returns attribute of an element', async () => {
+      const { session } = testEnvironment;
       const element = await session.findElement('css selector', '#add');
       const elementAttribute = await element.getAttribute('class');
 
@@ -31,6 +35,7 @@ describe('Element State', () => {
 
   describe('getProperty method', () => {
     it('returns property of an element', async () => {
+      const { session } = testEnvironment;
       const element = await session.findElement('css selector', '#add');
       const elementProperty = await element.getProperty('value');
 
@@ -40,10 +45,11 @@ describe('Element State', () => {
 
   describe('getTagName method', () => {
     it('returns tagName of an element', async () => {
+      const { session, browser } = testEnvironment;
       const element = await session.findElement('css selector', '#add');
       const elementTagName = await element.getTagName();
 
-      if (['safari'].includes(browserName)) {
+      if ([Browser.Safari].includes(browser)) {
         expect(elementTagName).toEqual('BUTTON');
       } else {
         expect(elementTagName).toEqual('button');;

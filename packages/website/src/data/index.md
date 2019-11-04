@@ -38,7 +38,7 @@ let session;
       url: 'http://localhost:4444',
       capabilities: {
         alwaysMatch: {
-          browserName: 'Chrome'
+          browserName: 'chrome'
         }
       }
     });

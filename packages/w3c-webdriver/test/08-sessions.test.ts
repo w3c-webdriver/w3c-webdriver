@@ -1,26 +1,27 @@
-// tslint:disable-next-line:import-name
+// tslint:disable-next-line: match-default-export-name
+import expect from 'expect';
 import { status, Timeout } from '../src';
-import { browser, browserName } from '../test-env/browser';
-import { session } from '../test-env/session';
+import { Browser, testEnvironment, WebDriverHost } from '../test-env/testEnv';
 
 describe('Sessions', () => {
   describe('status method', () => {
     it('returns server status', async () => {
+      const { browser, driver } = testEnvironment;
       const result = await status(<string>process.env.WEB_DRIVER_URL);
 
-      if (browser.id === 'browserstack') {
+      if (driver.host === WebDriverHost.BrowserStack) {
         expect(result.build.version).toBeDefined();
 
         return;
       }
 
-      switch (browserName) {
-        case 'firefox': {
+      switch (browser) {
+        case Browser.Firefox: {
           expect(result.message).toBeDefined();
           expect(result.ready).toBeDefined();
           break;
         }
-        case 'safari': {
+        case Browser.Safari: {
           process.stdout.write(JSON.stringify(result));
           break;
         }
@@ -34,13 +35,14 @@ describe('Sessions', () => {
 
   describe('set/getTimeout methods', () => {
     it('sets and retrieves session timeouts', async () => {
+      const { session, browser } = testEnvironment;
       const timeouts: Timeout = {
         script: 30000,
         pageLoad: 60000,
         implicit: 40000
       };
-      switch (browserName) {
-        case 'chrome': {
+      switch (browser) {
+        case Browser.Chrome: {
           await session.setTimeout(timeouts);
 
           const retrievedTimeout = await session.getTimeout();

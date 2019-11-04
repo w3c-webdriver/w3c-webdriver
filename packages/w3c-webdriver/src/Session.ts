@@ -256,7 +256,7 @@ export class Session {
    * await session.setWindowRect();
    */
   public async setWindowRect(windowRect: WindowRect): Promise<void> {
-    return POST(`${this.host}/session/${this.sessionId}/window/rect`, { windowRect });
+    return POST(`${this.host}/session/${this.sessionId}/window/rect`, windowRect);
   }
 
   /**

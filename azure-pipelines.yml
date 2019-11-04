@@ -11,8 +11,13 @@ variables:
 jobs:
 - job: CodeCheck
   pool:
-    vmImage: 'ubuntu-16.04'
+    vmImage: 'ubuntu-latest'
   steps:
+  - task: NodeTool@0
+    displayName: Install Node.js
+    inputs:
+      versionSpec: 12.x
+
   - script: npm install
     displayName: Install dependencies
     workingDirectory: $(coreDirectory)
@@ -28,16 +33,18 @@ jobs:
 - template: azure-pipelines-template.yml
   parameters:
     name: Firefox
-    vmImage: 'ubuntu-16.04'
+    vmImage: 'ubuntu-latest'
     nodeVersion: '8.x'
-    browser: 'firefox-headless'
+    browser: 'firefox'
+    headless: 'true'
 
 - template: azure-pipelines-template.yml
   parameters:
     name: Chrome
-    vmImage: 'ubuntu-16.04'
+    vmImage: 'ubuntu-latest'
     nodeVersion: '12.x'
-    browser: 'chrome-headless'
+    browser: 'chrome'
+    headless: 'true'
     preBuild:
       - script: |
           wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
@@ -46,39 +53,49 @@ jobs:
           sudo apt install google-chrome-stable
         displayName: 'Install latest stable Chrome'
 
-- template: azure-pipelines-template.yml
-  parameters:
-    name: Safari
-    vmImage: 'macOS-10.13'
-    nodeVersion: '10.x'
-    browser: 'safari'
-    preBuild:
-    - script: sudo safaridriver --enable
-      displayName: Configure Safari to Enable WebDriver Support
+# - template: azure-pipelines-template.yml
+#   parameters:
+#     name: Safari
+#     vmImage: 'macOS-latest'
+#     nodeVersion: '10.x'
+#     browser: 'safari'
+#     preBuild:
+#     - script: sudo safaridriver --enable
+#       displayName: Configure Safari to Enable WebDriver Support
 
 - template: azure-pipelines-template.yml
   parameters:
     name: Internet_Explorer
-    vmImage: 'vs2017-win2016'
+    vmImage: 'windows-latest'
     nodeVersion: '12.x'
     browser: 'internet-explorer'
 
 - template: azure-pipelines-template.yml
   parameters:
-    name: BrowserStack
-    vmImage: 'ubuntu-16.04'
+    name: BrowserStack_Firefox
+    vmImage: 'ubuntu-latest'
     nodeVersion: '12.x'
-    browser: 'browserstack'
+    browser: 'firefox'
+    browserStack: 'true'
+
+- template: azure-pipelines-template.yml
+  parameters:
+    name: BrowserStack_Safari
+    vmImage: 'ubuntu-latest'
+    nodeVersion: '12.x'
+    browser: 'safari'
+    browserStack: 'true'
 
 - job: Test
   dependsOn:
     - Firefox
     - Chrome
-    - Safari
+    # - Safari
     - Internet_Explorer
-    - BrowserStack
+    - BrowserStack_Firefox
+    - BrowserStack_Safari
   pool:
-    vmImage: 'ubuntu-16.04'
+    vmImage: 'ubuntu-latest'
   steps:
   - script: echo tests completed
 
@@ -86,7 +103,7 @@ jobs:
   dependsOn: Test
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   pool:
-    vmImage: 'ubuntu-16.04'
+    vmImage: 'ubuntu-latest'
   steps:
   - script: npm install
     displayName: Install core dependencies
