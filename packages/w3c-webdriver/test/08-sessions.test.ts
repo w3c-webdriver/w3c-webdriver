@@ -42,7 +42,7 @@ describe('Sessions', () => {
         implicit: 40000
       };
       switch (browser) {
-        case 'chrome': {
+        case Browser.Chrome: {
           await session.setTimeout(timeouts);
 
           const retrievedTimeout = await session.getTimeout();
