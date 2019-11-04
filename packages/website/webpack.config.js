@@ -61,6 +61,10 @@ const commonConfig = {
         ]
       },
       {
+        test: /\.svg$/,
+        use: ['@svgr/webpack'],
+      },
+      {
         test: /.all-contributorsrc/,
         use: [
           {

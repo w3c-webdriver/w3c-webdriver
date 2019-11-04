@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import slugify from '@sindresorhus/slugify';
 import TableOfContentsCollector from '../table-of-contents/TableOfContentsCollector';
 import theme from '../../theme';
-import AnchorIcon from 'twemoji/2/svg/1f517.svg';
+import AnchorIcon from '../../emojis/1f517.svg';
 
 const Anchor = styled.a`
   text-decoration: none;

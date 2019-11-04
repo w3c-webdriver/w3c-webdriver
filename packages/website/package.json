@@ -32,8 +32,8 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
     "@babel/preset-env": "^7.6.3",
     "@babel/preset-react": "^7.6.3",
+    "@svgr/webpack": "^4.3.3",
     "babel-loader": "^8.0.6",
-    "babel-plugin-inline-react-svg": "^1.1.0",
     "babel-plugin-styled-components": "^1.10.6",
     "css-loader": "^3.2.0",
     "del-cli": "^3.0.0",
@@ -44,7 +44,6 @@
     "json-loader": "^0.5.7",
     "lighthouse": "^5.6.0",
     "loader-utils": "^1.2.3",
-    "netlify-cli": "^2.20.1",
     "serve": "^11.2.0",
     "simple-icons": "^1.19.0",
     "static-site-generator-webpack-plugin": "^3.4.2",
@@ -73,8 +72,7 @@
         {
           "ssr": true
         }
-      ],
-      "inline-react-svg"
+      ]
     ]
   }
 }
