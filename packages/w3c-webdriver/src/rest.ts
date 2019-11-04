@@ -1,4 +1,3 @@
-// tslint:disable-next-line:import-name
 import fetch, { HeaderInit } from 'node-fetch';
 import util from 'util';
 import { log } from './logger';
@@ -37,8 +36,7 @@ async function sendRequest<T>(
   let bodyAsJson;
 
   try {
-    // tslint:disable-next-line:no-any
-    bodyAsJson = <{ value: any }>JSON.parse(responseBodyAsText);
+    bodyAsJson = <{ value: T }>JSON.parse(responseBodyAsText);
   } catch (err) {
     throw new Error(responseBodyAsText);
   }
@@ -53,7 +51,7 @@ async function sendRequest<T>(
     throw new Error(`WebDriverError(${error}): ${message}`);
   }
 
-  return <T>value;
+  return value;
 }
 
 export const GET = async <T>(url: string) => sendRequest<T>('GET', url);

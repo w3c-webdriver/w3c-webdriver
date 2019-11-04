@@ -1,11 +1,10 @@
-// tslint:disable-next-line: match-default-export-name
 import expect from 'expect';
-import { Browser, testEnvironment } from '../test-env/testEnv';
+import testEnv, { Browser } from '../test-env';
 
 describe('Element State', () => {
   describe('getText method', () => {
     it('returns text from element', async () => {
-      const { session } = testEnvironment;
+      const { session } = testEnv;
       const element = await session.findElement('css selector', 'h2');
       const text = await element.getText();
 
@@ -15,7 +14,7 @@ describe('Element State', () => {
 
   describe('getCssValue method', () => {
     it('returns the provided style property of an element', async () => {
-      const { session } = testEnvironment;
+      const { session } = testEnv;
       const result = await session.findElement('css selector', '#result');
       const displayMode = await result.getCssValue('display');
 
@@ -25,7 +24,7 @@ describe('Element State', () => {
 
   describe('getAttribute method', () => {
     it('returns attribute of an element', async () => {
-      const { session } = testEnvironment;
+      const { session } = testEnv;
       const element = await session.findElement('css selector', '#add');
       const elementAttribute = await element.getAttribute('class');
 
@@ -35,7 +34,7 @@ describe('Element State', () => {
 
   describe('getProperty method', () => {
     it('returns property of an element', async () => {
-      const { session } = testEnvironment;
+      const { session } = testEnv;
       const element = await session.findElement('css selector', '#add');
       const elementProperty = await element.getProperty('value');
 
@@ -45,7 +44,7 @@ describe('Element State', () => {
 
   describe('getTagName method', () => {
     it('returns tagName of an element', async () => {
-      const { session, browser } = testEnvironment;
+      const { session, browser } = testEnv;
       const element = await session.findElement('css selector', '#add');
       const elementTagName = await element.getTagName();
 

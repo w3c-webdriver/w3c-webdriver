@@ -1,12 +1,11 @@
-// tslint:disable-next-line: match-default-export-name
 import expect from 'expect';
 import { status, Timeout } from '../src';
-import { Browser, testEnvironment, WebDriverHost } from '../test-env/testEnv';
+import testEnv, { Browser, WebDriverHost } from '../test-env';
 
 describe('Sessions', () => {
   describe('status method', () => {
     it('returns server status', async () => {
-      const { browser, driver } = testEnvironment;
+      const { browser, driver } = testEnv;
       const result = await status(<string>process.env.WEB_DRIVER_URL);
 
       if (driver.host === WebDriverHost.BrowserStack) {
@@ -35,7 +34,7 @@ describe('Sessions', () => {
 
   describe('set/getTimeout methods', () => {
     it('sets and retrieves session timeouts', async () => {
-      const { session, browser } = testEnvironment;
+      const { session, browser } = testEnv;
       const timeouts: Timeout = {
         script: 30000,
         pageLoad: 60000,

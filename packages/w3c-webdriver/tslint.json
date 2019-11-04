@@ -7,6 +7,10 @@
   ],
   "rules": {
     "no-relative-imports": false,
+    "no-default-export": false,
+    "match-default-export-name": false,
+    "export-name": false,
+    "no-null-keyword": false,
     "typedef": false,
     "radix": false,
     "non-literal-fs-path": false,

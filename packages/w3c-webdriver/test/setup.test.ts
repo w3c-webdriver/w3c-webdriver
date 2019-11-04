@@ -1,8 +1,8 @@
 import { newSession, WindowRect } from '../src';
 import { log } from '../src/logger';
+import testEnv, { Browser } from '../test-env';
 import { startDriver, stopDriver } from '../test-env/browserDriver';
 import { startTestApp, stopTestApp } from '../test-env/testApp';
-import { Browser, testEnvironment } from '../test-env/testEnv';
 
 log.enabled = true;
 
@@ -14,11 +14,11 @@ before(async () => {
 })
 
 before(async () => {
-  const { driver, capabilities, desiredCapabilities } = testEnvironment;
+  const { driver, capabilities, desiredCapabilities } = testEnv;
   const url = process.env.WEB_DRIVER_URL || '';
   log(`Creating session on ${url}.`);
   try {
-    testEnvironment.session = await newSession({
+    testEnv.session = await newSession({
       url,
       ...(capabilities && { capabilities }),
       ...(desiredCapabilities && { desiredCapabilities }),
@@ -29,18 +29,18 @@ before(async () => {
     log(error);
     throw error;
   }
-  windowRect = await testEnvironment.session.getWindowRect();
+  windowRect = await testEnv.session.getWindowRect();
 });
 
 beforeEach(async () => {
-  const { session } = testEnvironment;
+  const { session } = testEnv;
   const testAppPort = process.env.TEST_APP_PORT;
   await session.navigateTo(`http://localhost:${testAppPort}`);
   await session.setWindowRect(windowRect);
 });
 
 after(async () => {
-  const { session, browser, driver } = testEnvironment;
+  const { session, browser, driver } = testEnv;
   const url = process.env.WEB_DRIVER_URL;
   log(`Deleting session on ${url}.`);
   await session.close();

@@ -177,9 +177,11 @@ function throwNoBrowserEnvironmentVariableError(): TestEnvironment {
 }
 
 const webDriverHost = process.env.BROWSERSTACK ? WebDriverHost.BrowserStack : WebDriverHost.Localhost;
-export const testEnvironment: TestEnvironment = {
+const testEnv: TestEnvironment = {
   session: new Session('default', 'default'),
   headless: !!process.env.HEADLESS,
   ...(testEnvironments.find(({ browser, driver }) => browser === process.env.BROWSER && driver.host === webDriverHost) ||
     throwNoBrowserEnvironmentVariableError())
 };
+
+export default testEnv;

@@ -1,11 +1,10 @@
-// tslint:disable-next-line: match-default-export-name
 import expect from 'expect';
-import { testEnvironment } from '../test-env/testEnv';
+import testEnv from '../test-env';
 
 describe('Screen Capture', () => {
   describe('takeScreenshot method', () => {
     it('takes a screenshot of the current page', async () => {
-      const { session } = testEnvironment;
+      const { session } = testEnv;
       const screenshot = await session.takeScreenshot();
       expect(screenshot.toString('base64')).toMatch(/^iVBOR/);
     });

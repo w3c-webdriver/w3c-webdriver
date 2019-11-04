@@ -1,11 +1,10 @@
-// tslint:disable-next-line: match-default-export-name
 import expect from 'expect';
-import { testEnvironment } from '../test-env/testEnv';
+import testEnv from '../test-env';
 
 describe('Element Interaction', () => {
   describe('click method', () => {
     it('simulates mouse click on element', async () => {
-      const { session } = testEnvironment;
+      const { session } = testEnv;
       const addButton = await session.findElement('css selector', '#add');
 
       await addButton.click();
@@ -19,7 +18,7 @@ describe('Element Interaction', () => {
 
   describe('sendKeys method', () => {
     it('simulates typing in element', async () => {
-      const { session } = testEnvironment;
+      const { session } = testEnv;
       const a = await session.findElement('css selector', '#a');
 
       await a.sendKeys('13');
@@ -41,7 +40,7 @@ describe('Element Interaction', () => {
 
   describe('clear method', () => {
     it('clears the content of an element', async () => {
-      const { session } = testEnvironment;
+      const { session } = testEnv;
       const a = await session.findElement('css selector', '#a');
       await a.sendKeys('13');
 
