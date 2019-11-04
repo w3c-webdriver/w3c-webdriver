@@ -15,7 +15,7 @@ describe('Document Handling', () => {
     it('executes script in browser context', async () => {
       const { session } = testEnv;
       // eslint-disable-next-line no-template-curly-in-string
-      const result = await session.executeScript('return arguments[0] * arguments[1]', [3, 5]);
+      const result = await session.executeScript<number>('return arguments[0] * arguments[1]', [3, 5]);
 
       expect(result).toBe(15);
     });
@@ -39,7 +39,7 @@ describe('Document Handling', () => {
           callback(a * b);
         }, 1000);
       `;
-      const result = await session.executeAsyncScript(script, [3, 5]);
+      const result = await session.executeAsyncScript<number>(script, [3, 5]);
       expect(result).toBe(15);
     });
   });
