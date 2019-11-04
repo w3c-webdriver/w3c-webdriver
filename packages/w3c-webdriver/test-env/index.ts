@@ -184,5 +184,4 @@ const testEnv: TestEnvironment = {
     throwNoBrowserEnvironmentVariableError())
 };
 
-// tslint:disable-next-line: export-name
 export default testEnv;

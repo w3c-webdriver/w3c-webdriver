@@ -1,4 +1,3 @@
-// tslint:disable-next-line: match-default-export-name
 import expect from 'expect';
 import testEnv from '../test-env';
 

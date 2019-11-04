@@ -393,9 +393,8 @@ export class Session {
    * // message = 'Hello from WebDriver!'
    */
   // tslint:disable-next-line:no-any
-  public async executeScript(script: string, args: any[] = []): Promise<any> {
-    // tslint:disable-next-line:no-any
-    return POST<any>(`${this.host}/session/${this.sessionId}/execute/sync`, {
+  public async executeScript<T>(script: string, args: any[] = []): Promise<T> {
+    return POST<T>(`${this.host}/session/${this.sessionId}/execute/sync`, {
       script,
       args
     });
@@ -418,9 +417,8 @@ export class Session {
    * // message = 15
    */
   // tslint:disable-next-line:no-any
-  public async executeAsyncScript(script: string, args: any[] = []): Promise<any> {
-    // tslint:disable-next-line:no-any
-    return POST<any>(`${this.host}/session/${this.sessionId}/execute/async`, {
+  public async executeAsyncScript<T>(script: string, args: any[] = []): Promise<T> {
+    return POST<T>(`${this.host}/session/${this.sessionId}/execute/async`, {
       script,
       args
     });

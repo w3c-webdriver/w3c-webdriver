@@ -1,4 +1,3 @@
-// tslint:disable-next-line: match-default-export-name
 import expect from 'expect';
 import testEnv, { Browser, WebDriverHost } from '../test-env';
 
@@ -80,7 +79,6 @@ describe('Command Contexts', () => {
       const { session } = testEnv;
       await session.switchToFrame(await session.findElement('css selector', 'iframe'));
       expect(await session.getPageSource()).not.toContain('<iframe');
-      // tslint:disable-next-line: no-null-keyword
       await session.switchToFrame(null);
       expect(await session.getPageSource()).toContain('<iframe');
     });
@@ -91,7 +89,6 @@ describe('Command Contexts', () => {
       const { session } = testEnv;
       await session.switchToFrame(await session.findElement('css selector', 'iframe'));
       expect(await session.getPageSource()).not.toContain('<iframe');
-      // tslint:disable-next-line: no-null-keyword
       await session.switchToParentFrame();
       expect(await session.getPageSource()).toContain('<iframe');
     });
