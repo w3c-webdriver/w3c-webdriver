@@ -141,4 +141,24 @@ export class Element {
   public async sendKeys(text: string): Promise<void> {
     await POST(`${this.host}/session/${this.sessionId}/element/${this.elementId}/value`, { text });
   }
+
+  /****************************************************************************************************************
+   *                                              SCREEN CAPTURE                                                  *
+   *                              https://www.w3.org/TR/webdriver/#screen-capture                                 *
+   ****************************************************************************************************************/
+
+  /**
+   * Takes a screenshot of the visible region encompassed by the bounding rectangle of an element
+   * @return The screenshot as a PNG.
+   * @see {@link https://www.w3.org/TR/webdriver/#take-screenshot|WebDriver spec}
+   * @section {@link https://www.w3.org/TR/webdriver/#screen-capture|Screen capture}
+   * @example
+   * const screenshot = await session.takeElementScreenshot();
+   * // screenshot = Buffer containing PNG
+   */
+  public async takeElementScreenshot(): Promise<Buffer> {
+    const screenshot = await GET<string>(`${this.host}/session/${this.sessionId}/element/${this.elementId}/screenshot`);
+
+    return Buffer.from(screenshot, 'base64');
+  }
 }
