@@ -5,6 +5,13 @@
 
 Very minimal future proof JavaScript bindings
 that conform to the [W3C WebDriver standard](https://w3c.github.io/webdriver/webdriver-spec.html),
-which specifies a remote control protocol for web browsers. No magic just pure promise based REST client.
+which specifies a remote control protocol for web browsers.
+
+## Features
+- No magic just pure promise based REST client.
+- One-to-one mapping to WebDriver API endpoints
+- Written in TypeScript for type safety and IntelliSense documentation
+- 100% test coverage in real browsers (Chrome, Firefox, Safari, Internet Explorer)
+- Tested with latest Ubuntu, Windows and MacOS on CI server
 
 ## [Documentation](https://w3c-webdriver.github.io)
