@@ -153,10 +153,10 @@ export class Element {
    * @see {@link https://www.w3.org/TR/webdriver/#take-screenshot|WebDriver spec}
    * @section {@link https://www.w3.org/TR/webdriver/#screen-capture|Screen capture}
    * @example
-   * const screenshot = await session.takeElementScreenshot();
+   * const screenshot = await session.takeScreenshot();
    * // screenshot = Buffer containing PNG
    */
-  public async takeElementScreenshot(): Promise<Buffer> {
+  public async takeScreenshot(): Promise<Buffer> {
     const screenshot = await GET<string>(`${this.host}/session/${this.sessionId}/element/${this.elementId}/screenshot`);
 
     return Buffer.from(screenshot, 'base64');
