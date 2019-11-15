@@ -1,7 +1,7 @@
 # Introduction
 
 This a very minimal future proof JavaScript bindings
-that conform to the [W3C WebDriver standard](https://w3c.github.io/webdriver/webdriver-spec.html),
+that conform to the [W3C WebDriver standard](https://www.w3.org/TR/webdriver/),
 which specifies a remote control protocol for web browsers. No magic just pure promise based REST client.
 
 ## Getting started
