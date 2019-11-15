@@ -4,6 +4,71 @@ const { Application } = require('typedoc');
 const fs = require('fs');
 const glob = require('glob');
 
+const resolveReference = (projectObject, id) => {
+  const module = projectObject.children.find(module => module.children.some(child => child.id === id));
+  return module && module.children.find(child => child.id === id);
+};
+
+const getItemDependencies = (projectObject, item) => {
+  process.stdout.write(`getItemDependencies ${item.kindString} ${item.type} ${item.name}\n`);
+
+  switch (item.kindString) {
+    case 'External module':
+      const moduleItems = item.children.filter(item => item.flags.isExported);
+
+      moduleItems.sort((a, b) => {
+        return a.sources[0].line - b.sources[0].line;
+      });
+
+      return moduleItems.reduce((dependencies, child) => [...dependencies, ...getItemDependencies(projectObject, child)], moduleItems);
+    case 'Class':
+      const classItems = item.children.filter(item => item.flags.isPublic);
+
+      classItems.sort((a, b) => {
+        return a.sources[0].line - b.sources[0].line;
+      });
+
+      return classItems.reduce((dependencies, child) => [...dependencies, ...getItemDependencies(projectObject, child)], classItems);
+    case 'Variable':
+    case 'Type alias':
+      return getItemDependencies(projectObject, item.type);
+    case 'Type literal':
+      return item.children.reduce((dependencies, child) => [...dependencies, ...getItemDependencies(projectObject, child)], []);
+    case 'Function':
+    case 'Method':
+      return item.signatures.reduce((dependencies, signature) => {
+        const typeArgumentDeps =
+          (signature.type &&
+            signature.type.typeArguments &&
+            signature.type.typeArguments.reduce((acc, item) => [...acc, ...getItemDependencies(projectObject, item)], [])) ||
+          [];
+
+        const paramDeps =
+          (signature.parameters && signature.parameters.reduce((acc, item) => [...acc, ...getItemDependencies(projectObject, item)], [])) || [];
+
+        return [...dependencies, ...typeArgumentDeps, ...paramDeps];
+      }, []);
+    case 'Parameter':
+      return getItemDependencies(projectObject, item.type);
+    default:
+      if (item.type === 'reference' && item.id) {
+        const reference = resolveReference(projectObject, item.id);
+
+        if (!reference) {
+          return [];
+        }
+
+        return [reference, ...getItemDependencies(projectObject, reference)];
+      }
+
+      if (item.type === 'reflection') {
+        return getItemDependencies(projectObject, item.declaration);
+      }
+
+      return [];
+  }
+};
+
 module.exports = function() {
   const options = getOptions(this);
   const app = new Application(options);
@@ -31,7 +96,10 @@ module.exports = function() {
 
   module.flags.isEntrypoint = true;
 
-  fs.writeFileSync(path.resolve(__dirname, '../../typedoc.json'), JSON.stringify(projectObject), 'utf8');
+  const flatAPI = getItemDependencies(projectObject, module).filter((child, index, all) => all.indexOf(child) === index);
 
-  return `export default ${JSON.stringify(projectObject)}`;
+  fs.writeFileSync(path.resolve(__dirname, '../../typedoc.json'), JSON.stringify(projectObject), 'utf8');
+  fs.writeFileSync(path.resolve(__dirname, '../../typedoc-flat.json'), JSON.stringify(flatAPI), 'utf8');
+
+  return `export default ${JSON.stringify(flatAPI)}`;
 };
