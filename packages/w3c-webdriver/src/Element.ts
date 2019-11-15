@@ -1,3 +1,4 @@
+import { LocatorStrategy } from './core';
 import { GET, POST } from './rest';
 
 const WEB_ELEMENT_IDENTIFIER = 'element-6066-11e4-a52e-4f735466cecf';
@@ -28,14 +29,68 @@ export class Element {
   }
 
   /****************************************************************************************************************
-   *                                               ELEMENT STATE                                                  *
-   *                               https://www.w3.org/TR/webdriver/#element-state                                 *
+   *                                            ELEMENT RETRIEVAL                                                 *
+   *                             https://www.w3.org/TR/webdriver/#retrieval                                       *
    ****************************************************************************************************************/
 
   /**
-   * Returns the Attribute of a Element
+   * Search for an element on the page, starting from the referenced web element.
+   * @see {@link https://www.w3.org/TR/webdriver/#find-element-from-element|WebDriver spec}
+   * @section {@link https://www.w3.org/TR/webdriver/#retrieval|Element retrieval}
+   * @example
+   * const parent = await session.findElement('css selector', '#parent');
+   * const child = await child.findElement('css selector', '#child');
+   * // child = <webdriver element>
+   */
+  public async findElement(
+    // Locator strategy
+    strategy: LocatorStrategy,
+    // Selector string
+    selector: string
+  ): Promise<Element> {
+    const webElement = await POST<WebElement>(`${this.host}/session/${this.sessionId}/element/${this.elementId}/element`, {
+      using: strategy,
+      value: selector
+    });
+
+    return new Element(this.host, this.sessionId, webElement);
+  }
+
+  /**
+   * Search for multiple elements on the page, starting from the referenced web element. The located
+   * elements will be returned as a WebElement JSON objects. The table below lists the locator
+   * strategies that each server should support. Elements should be returned in the order located
+   * in the DOM.
+   * @see {@link https://www.w3.org/TR/webdriver/#find-elements|WebDriver spec}
+   * @section {@link https://www.w3.org/TR/webdriver/#element-retrieval|Element retrieval}
+   * @example
+   * const parent = await session.findElement('css selector', '#parent');
+   * const children = await child.findElements('css selector', '#child');
+   * // elements = [<webdriver element>]
+   */
+  public async findElements(
+    // Locator strategy
+    strategy: LocatorStrategy,
+    // Selector string
+    selector: string
+  ) {
+    const webElements = await POST<WebElement[]>(`${this.host}/session/${this.sessionId}/element/${this.elementId}/elements`, {
+      using: strategy,
+      value: selector
+    });
+
+    return webElements.map(webElement => new Element(this.host, this.sessionId, webElement));
+  }
+
+  /****************************************************************************************************************
+   *                                               ELEMENT STATE                                                  *
+   *                               https://www.w3.org/TR/webdriver/#state                                         *
+   ****************************************************************************************************************/
+
+  /**
+   * Returns the attribute of the referenced web element.
    * @see {@link https://www.w3.org/TR/webdriver/#get-element-attribute|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#element-state|Element state}
+   * @section {@link https://www.w3.org/TR/webdriver/#state|Element state}
    * @example
    * const button = await session.findElement('css selector', '#red-button');
    * const backgroundColor = await button.getAttribute('css');
@@ -47,9 +102,9 @@ export class Element {
   }
 
   /**
-   * Returns the Attribute of a Element
+   * Returns the property of the referenced web element.
    * @see {@link https://www.w3.org/TR/webdriver/#get-element-attribute|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#element-state|Element state}
+   * @section {@link https://www.w3.org/TR/webdriver/#state|Element state}
    * @example
    * const button = await session.findElement('css selector', '#red-button');
    * const backgroundColor = await button.getProperty('class');
@@ -63,7 +118,7 @@ export class Element {
   /**
    * Returns the computed value of the given CSS property for the element.
    * @see {@link https://www.w3.org/TR/webdriver/#get-element-css-value|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#element-state|Element state}
+   * @section {@link https://www.w3.org/TR/webdriver/#state|Element state}
    * @example
    * const button = await session.findElement('css selector', '#red-button');
    * const backgroundColor = await button.getCssValue('background-color');
@@ -78,7 +133,7 @@ export class Element {
   /**
    * Returns the visible text for the element.
    * @see {@link https://www.w3.org/TR/webdriver/#get-element-text|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#element-state|Element state}
+   * @section {@link https://www.w3.org/TR/webdriver/#state|Element state}
    * @example
    * const result = await session.findElement('css selector', '#result');
    * const text = await result.getText();
@@ -90,7 +145,7 @@ export class Element {
   /**
    * Returns the tagName of a Element
    * @see {@link https://www.w3.org/TR/webdriver/#get-element-tag-name|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#element-state|Element state}
+   * @section {@link https://www.w3.org/TR/webdriver/#state|Element state}
    * @example
    * const button = await session.findElement('css selector', '#red-button');
    * const backgroundColor = await button.getTagName();
@@ -140,5 +195,25 @@ export class Element {
    */
   public async sendKeys(text: string): Promise<void> {
     await POST(`${this.host}/session/${this.sessionId}/element/${this.elementId}/value`, { text });
+  }
+
+  /****************************************************************************************************************
+   *                                              SCREEN CAPTURE                                                  *
+   *                              https://www.w3.org/TR/webdriver/#screen-capture                                 *
+   ****************************************************************************************************************/
+
+  /**
+   * Takes a screenshot of the visible region encompassed by the bounding rectangle of an element
+   * @return The screenshot as a PNG.
+   * @see {@link https://www.w3.org/TR/webdriver/#take-screenshot|WebDriver spec}
+   * @section {@link https://www.w3.org/TR/webdriver/#screen-capture|Screen capture}
+   * @example
+   * const screenshot = await session.takeScreenshot();
+   * // screenshot = Buffer containing PNG
+   */
+  public async takeScreenshot(): Promise<Buffer> {
+    const screenshot = await GET<string>(`${this.host}/session/${this.sessionId}/element/${this.elementId}/screenshot`);
+
+    return Buffer.from(screenshot, 'base64');
   }
 }

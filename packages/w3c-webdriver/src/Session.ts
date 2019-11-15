@@ -50,7 +50,7 @@ export class Session {
    * Gets timeout durations associated with the current session.
    * @return - Timeout durations associated with the current session
    * in milliseconds.
-   * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#get-timeouts|WebDriver spec}
+   * @see {@link https://www.w3.org/TR/webdriver/#get-timeouts|WebDriver spec}
    * @section {@link https://www.w3.org/TR/webdriver/#sessions|Sessions}
    * @example
    * const timeout = await session.getTimeout();
@@ -67,7 +67,7 @@ export class Session {
   /**
    * Configure the amount of time that a particular type of operation can execute for before
    * they are aborted and a |Timeout| error is returned to the client.
-   * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#set-timeouts|WebDriver spec}
+   * @see {@link https://www.w3.org/TR/webdriver/#set-timeouts|WebDriver spec}
    * @section {@link https://www.w3.org/TR/webdriver/#sessions|Sessions}
    * @example
    * await session.setTimeout({
@@ -320,7 +320,7 @@ export class Session {
   }
 
   /**
-   * Search for multiple elements on the page, starting from the identified element. The located
+   * Search for multiple elements on the page, starting from the document root. The located
    * elements will be returned as a WebElement JSON objects. The table below lists the locator
    * strategies that each server should support. Elements should be returned in the order located
    * in the DOM.
@@ -366,7 +366,7 @@ export class Session {
   /**
    * Returns a string serialization of the DOM of the current browsing context active document.
    *
-   * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#getting-page-source|WebDriver spec}
+   * @see {@link https://www.w3.org/TR/webdriver/#getting-page-source|WebDriver spec}
    * @section {@link https://www.w3.org/TR/webdriver/#document-handling|Document handling}
    * @example
    * const source = await session.getPageSource();
@@ -382,7 +382,7 @@ export class Session {
    * the result of evaluating the script is returned to the client.
    *
    * @return The script result.
-   * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#execute-script|WebDriver spec}
+   * @see {@link https://www.w3.org/TR/webdriver/#execute-script|WebDriver spec}
    * @section {@link https://www.w3.org/TR/webdriver/#document-handling|Document handling}
    * @example
    * const script = `
@@ -406,7 +406,7 @@ export class Session {
    * argument to the function. This is a function that, when called, returns its first argument
    * as the response.
    * @return The script result.
-   * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#execute-async-script|WebDriver spec}
+   * @see {@link https://www.w3.org/TR/webdriver/#execute-async-script|WebDriver spec}
    * @section {@link https://www.w3.org/TR/webdriver/#document-handling|Document handling}
    * @example
    * const script = `
@@ -434,7 +434,7 @@ export class Session {
    * document.
    *
    * @return A list of cookies.
-   * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#get-all-cookies|WebDriver spec}
+   * @see {@link https://www.w3.org/TR/webdriver/#get-all-cookies|WebDriver spec}
    * @section {@link https://www.w3.org/TR/webdriver/#cookies|Cookies}
    * @example
    * const cookies = await session.getAllCookies();
@@ -457,7 +457,7 @@ export class Session {
    * Returns cookie based on the cookie name
    *
    * @return A cookie.
-   * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#get-named-cookie|WebDriver spec}
+   * @see {@link https://www.w3.org/TR/webdriver/#get-named-cookie|WebDriver spec}
    * @section {@link https://www.w3.org/TR/webdriver/#cookies|Cookies}
    * @example
    * const cookie = await session.getNamedCookie('cookieName');
@@ -470,7 +470,7 @@ export class Session {
   /**
    * Adds a single cookie to the cookie store associated with the active document’s address.
    *
-   * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#add-cookie|WebDriver spec}
+   * @see {@link https://www.w3.org/TR/webdriver/#add-cookie|WebDriver spec}
    * @section {@link https://www.w3.org/TR/webdriver/#cookies|Cookies}
    * @example
    * await session.addCookie({ name: 'test cookie', value: 'test value' });
@@ -535,7 +535,7 @@ export class Session {
 
   /**
    * Returns the text from an alert
-   * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#get-alert-text|WebDriver spec}
+   * @see {@link https://www.w3.org/TR/webdriver/#get-alert-text|WebDriver spec}
    * @section {@link https://www.w3.org/TR/webdriver/#user-prompts|User prompts}
    * @example
    * const alertText = await session.getAlertText();
@@ -561,10 +561,9 @@ export class Session {
    ****************************************************************************************************************/
 
   /**
-   * The Take Screenshot command takes a screenshot of the top-level browsing context’s viewport.
-   *
+   * Takes a screenshot of the top-level browsing context’s viewport.
    * @return The screenshot as a PNG.
-   * @see {@link https://w3c.github.io/webdriver/webdriver-spec.html#take-screenshot|WebDriver spec}
+   * @see {@link https://www.w3.org/TR/webdriver/#take-screenshot|WebDriver spec}
    * @section {@link https://www.w3.org/TR/webdriver/#screen-capture|Screen capture}
    * @example
    * const screenshot = await session.takeScreenshot();

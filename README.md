@@ -4,7 +4,7 @@
 [![Build Status](https://dev.azure.com/w3c-webdriver/w3c-webdriver/_apis/build/status/w3c-webdriver.w3c-webdriver?branchName=master)](https://dev.azure.com/w3c-webdriver/w3c-webdriver/_build/latest?definitionId=1&branchName=master)
 
 Very minimal future proof JavaScript bindings
-that conform to the [W3C WebDriver standard](https://w3c.github.io/webdriver/webdriver-spec.html),
+that conform to the [W3C WebDriver standard](https://www.w3.org/TR/webdriver),
 which specifies a remote control protocol for web browsers.
 
 ## Features
