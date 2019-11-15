@@ -320,7 +320,7 @@ export class Session {
   }
 
   /**
-   * Search for multiple elements on the page, starting from the identified element. The located
+   * Search for multiple elements on the page, starting from the document root. The located
    * elements will be returned as a WebElement JSON objects. The table below lists the locator
    * strategies that each server should support. Elements should be returned in the order located
    * in the DOM.
