@@ -9,8 +9,12 @@ const resolveReference = (projectObject, id) => {
   return module && module.children.find(child => child.id === id);
 };
 
-const getItemDependencies = (projectObject, item) => {
-  process.stdout.write(`getItemDependencies ${item.kindString} ${item.type} ${item.name}\n`);
+const getItemDependencies = (projectObject, item, resolutionPath) => {
+  if (resolutionPath.find(p => p === item)) {
+    return [];
+  }
+
+  resolutionPath = [...resolutionPath, item];
 
   switch (item.kindString) {
     case 'External module':
@@ -20,7 +24,10 @@ const getItemDependencies = (projectObject, item) => {
         return a.sources[0].line - b.sources[0].line;
       });
 
-      return moduleItems.reduce((dependencies, child) => [...dependencies, ...getItemDependencies(projectObject, child)], moduleItems);
+      return moduleItems.reduce(
+        (dependencies, child) => [...dependencies, ...getItemDependencies(projectObject, child, resolutionPath)],
+        moduleItems
+      );
     case 'Class':
       const classItems = item.children.filter(item => item.flags.isPublic);
 
@@ -28,28 +35,39 @@ const getItemDependencies = (projectObject, item) => {
         return a.sources[0].line - b.sources[0].line;
       });
 
-      return classItems.reduce((dependencies, child) => [...dependencies, ...getItemDependencies(projectObject, child)], classItems);
+      return classItems.reduce(
+        (dependencies, child) => [...dependencies, ...getItemDependencies(projectObject, child, resolutionPath)],
+        classItems
+      );
     case 'Variable':
     case 'Type alias':
-      return getItemDependencies(projectObject, item.type);
+      return getItemDependencies(projectObject, item.type, resolutionPath);
     case 'Type literal':
-      return item.children.reduce((dependencies, child) => [...dependencies, ...getItemDependencies(projectObject, child)], []);
+      return item.children.reduce(
+        (dependencies, child) => [...dependencies, ...getItemDependencies(projectObject, child, resolutionPath)],
+        []
+      );
     case 'Function':
     case 'Method':
       return item.signatures.reduce((dependencies, signature) => {
         const typeArgumentDeps =
           (signature.type &&
             signature.type.typeArguments &&
-            signature.type.typeArguments.reduce((acc, item) => [...acc, ...getItemDependencies(projectObject, item)], [])) ||
+            signature.type.typeArguments.reduce(
+              (acc, item) => [...acc, ...getItemDependencies(projectObject, item, resolutionPath)],
+              []
+            )) ||
           [];
 
         const paramDeps =
-          (signature.parameters && signature.parameters.reduce((acc, item) => [...acc, ...getItemDependencies(projectObject, item)], [])) || [];
+          (signature.parameters &&
+            signature.parameters.reduce((acc, item) => [...acc, ...getItemDependencies(projectObject, item, resolutionPath)], [])) ||
+          [];
 
         return [...dependencies, ...typeArgumentDeps, ...paramDeps];
       }, []);
     case 'Parameter':
-      return getItemDependencies(projectObject, item.type);
+      return getItemDependencies(projectObject, item.type, resolutionPath);
     default:
       if (item.type === 'reference' && item.id) {
         const reference = resolveReference(projectObject, item.id);
@@ -58,11 +76,11 @@ const getItemDependencies = (projectObject, item) => {
           return [];
         }
 
-        return [reference, ...getItemDependencies(projectObject, reference)];
+        return [reference, ...getItemDependencies(projectObject, reference, resolutionPath)];
       }
 
       if (item.type === 'reflection') {
-        return getItemDependencies(projectObject, item.declaration);
+        return getItemDependencies(projectObject, item.declaration, resolutionPath);
       }
 
       return [];
@@ -72,10 +90,6 @@ const getItemDependencies = (projectObject, item) => {
 module.exports = function() {
   const options = getOptions(this);
   const app = new Application(options);
-  const sourceDir = path.dirname(this.resourcePath);
-  const sourceFiles = glob.sync(path.resolve(sourceDir, '**/*.ts'));
-
-
   const result = app.converter.convert([this.resourcePath]);
 
   if (result.errors && result.errors.length) {
@@ -86,9 +100,7 @@ module.exports = function() {
 
   const projectObject = app.serializer.projectToObject(result.project);
 
-  const module = projectObject.children.find(
-    ({ originalName }) => originalName.replace(/\//g, path.sep) === this.resourcePath
-  );
+  const module = projectObject.children.find(({ originalName }) => originalName.replace(/\//g, path.sep) === this.resourcePath);
 
   if (!module) {
     throw new Error(`${this.resourcePath} entry point not found.`);
@@ -96,7 +108,7 @@ module.exports = function() {
 
   module.flags.isEntrypoint = true;
 
-  const flatAPI = getItemDependencies(projectObject, module).filter((child, index, all) => all.indexOf(child) === index);
+  const flatAPI = getItemDependencies(projectObject, module, []).filter((child, index, all) => all.indexOf(child) === index);
 
   fs.writeFileSync(path.resolve(__dirname, '../../typedoc.json'), JSON.stringify(projectObject), 'utf8');
   fs.writeFileSync(path.resolve(__dirname, '../../typedoc-flat.json'), JSON.stringify(flatAPI), 'utf8');
