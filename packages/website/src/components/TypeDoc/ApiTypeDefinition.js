@@ -24,7 +24,7 @@ const ApiTypeDefinition = ({ name, type, comment, minLevel }) => {
       )}
       {type.type === 'union' && (
         <>
-          <ApiSubSection>Possible values</ApiSubSection>F
+          <ApiSubSection>Possible values</ApiSubSection>
           <ul>
             {type.types.map((type, index) => (
               <li key={index}>
