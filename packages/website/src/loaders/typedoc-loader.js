@@ -2,7 +2,6 @@ const path = require('path');
 const { getOptions } = require('loader-utils');
 const { Application } = require('typedoc');
 const fs = require('fs');
-const glob = require('glob');
 
 const resolveReference = (projectObject, id) => {
   const module = projectObject.children.find(module => module.children.some(child => child.id === id));
