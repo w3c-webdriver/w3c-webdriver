@@ -95,6 +95,7 @@ export class Element {
    * @example
    * const checkbox = await session.findElement('css selector', '#checkbox');
    * const selected = await checkbox.isSelected();
+   * // selected = true
    */
   public async isSelected(): Promise<boolean> {
     return GET<boolean>(
