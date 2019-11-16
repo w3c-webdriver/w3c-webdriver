@@ -75,4 +75,22 @@ describe('Element State', () => {
     });
   });
 
+  describe('isEnabled method', () => {
+    it('returns true if input field is enabled', async () => {
+      const { session } = testEnv;
+      const inputA = await session.findElement('css selector', '#a');
+      const selected = await inputA.isEnabled();
+
+      expect(selected).toBe(true);
+    });
+
+    it('returns false if input field is disabled', async () => {
+      const { session } = testEnv;
+      const disabledInput = await session.findElement('css selector', '#disabled');
+      const selected = await disabledInput.isEnabled();
+
+      expect(selected).toBe(false);
+    });
+  });
+
 });

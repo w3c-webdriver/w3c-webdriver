@@ -172,6 +172,20 @@ export class Element {
     );
   }
 
+  /**
+   * Determines if the referenced element is enabled or not.
+   * @see {@link https://www.w3.org/TR/webdriver/#is-element-enabled|WebDriver spec}
+   * @section {@link https://www.w3.org/TR/webdriver/#state|Element state}
+   * @example
+   * const inputField = await session.findElement('css selector', '#disabled');
+   * const isElementEnabled = await inputField.isEnabled();
+   */
+  public async isEnabled(): Promise<boolean> {
+    return GET<boolean>(
+      `${this.host}/session/${this.sessionId}/element/${this.elementId}/enabled`
+    );
+  }
+
   /****************************************************************************************************************
    *                                            ELEMENT INTERACTION                                               *
    *                            https://www.w3.org/TR/webdriver/#element-interaction                              *
