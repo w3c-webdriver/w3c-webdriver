@@ -1,4 +1,4 @@
-import { LocatorStrategy } from './core';
+import { ElementRect, LocatorStrategy } from './core';
 import { GET, POST } from './rest';
 
 const WEB_ELEMENT_IDENTIFIER = 'element-6066-11e4-a52e-4f735466cecf';
@@ -169,6 +169,21 @@ export class Element {
   public async getTagName(): Promise<string> {
     return GET<string>(
       `${this.host}/session/${this.sessionId}/element/${this.elementId}/name`
+    );
+  }
+
+  /**
+   * Returns the dimensions and coordinates of the referenced element
+   * @see {@link https://www.w3.org/TR/webdriver/#get-element-rect|WebDriver spec}
+   * @section {@link https://www.w3.org/TR/webdriver/#state|Element state}
+   * @example
+   * const button = await session.findElement('css selector', '#red-button');
+   * const rect = await button.getRect();
+   * // rect = { x: 10, y: 100, width: 300, height: 50 }
+   */
+  public async getRect(): Promise<ElementRect> {
+    return GET<ElementRect>(
+      `${this.host}/session/${this.sessionId}/element/${this.elementId}/rect`
     );
   }
 

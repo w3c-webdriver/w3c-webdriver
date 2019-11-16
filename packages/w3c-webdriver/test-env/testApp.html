@@ -25,9 +25,19 @@
     <label><input type="checkbox" id="agree"/> I agree</label>
   </p>
   <h3>Disabled: <input type="text" id="disabled" disabled></h3>
+  <div id="fixed-box"></div>
   <style>
     #result {
       display: flex;
+    }
+
+    #fixed-box {
+      position: fixed;
+      top: 10px;
+      left: 300px;
+      width: 100px;
+      height: 50px;
+      background-color: cornsilk;
     }
   </style>
   <script>
