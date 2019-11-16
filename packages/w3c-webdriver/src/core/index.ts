@@ -4,3 +4,4 @@ export * from './Timeout';
 export * from './LocatorStrategy';
 export * from './Capabilities';
 export * from './WindowRect';
+export * from './ElementRect';

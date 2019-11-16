@@ -75,6 +75,16 @@ describe('Element State', () => {
     });
   });
 
+  describe('getRect method', () => {
+    it('returns the dimensions and coordinates of an element', async () => {
+      const { session } = testEnv;
+      const box = await session.findElement('css selector', '#fixed-box');
+      const rect = await box.getRect();
+
+      expect(rect).toEqual({ x: 300, y: 10, width: 100, height: 50 });
+    });
+  });
+
   describe('isEnabled method', () => {
     it('returns true if input field is enabled', async () => {
       const { session } = testEnv;
