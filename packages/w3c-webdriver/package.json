@@ -2,6 +2,7 @@
   "name": "w3c-webdriver",
   "version": "0.17.0",
   "description": "W3C WebDriver client",
+  "license": "MIT",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "files": [
