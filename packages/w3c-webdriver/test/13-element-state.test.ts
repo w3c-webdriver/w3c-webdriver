@@ -2,23 +2,22 @@ import expect from 'expect';
 import testEnv, { Browser } from '../test-env';
 
 describe('Element State', () => {
-  describe('getText method', () => {
-    it('returns text from element', async () => {
+  describe('isSelected method', () => {
+    it('returns true for selected checkbox', async () => {
       const { session } = testEnv;
-      const element = await session.findElement('css selector', 'h2');
-      const text = await element.getText();
+      const checkBox = await session.findElement('css selector', '#agree');
+      await checkBox.click();
+      const selected = await checkBox.isSelected();
 
-      expect(text).toEqual('Simple calculator');
+      expect(selected).toBe(true);
     });
-  });
 
-  describe('getCssValue method', () => {
-    it('returns the provided style property of an element', async () => {
+    it('returns false for not selected checkbox', async () => {
       const { session } = testEnv;
-      const result = await session.findElement('css selector', '#result');
-      const displayMode = await result.getCssValue('display');
+      const checkBox = await session.findElement('css selector', '#agree');
+      const selected = await checkBox.isSelected();
 
-      expect(displayMode).toEqual('flex');
+      expect(selected).toBe(false);
     });
   });
 
@@ -39,6 +38,26 @@ describe('Element State', () => {
       const elementProperty = await element.getProperty('value');
 
       expect(elementProperty).toEqual('add');
+    });
+  });
+
+  describe('getCssValue method', () => {
+    it('returns the provided style property of an element', async () => {
+      const { session } = testEnv;
+      const result = await session.findElement('css selector', '#result');
+      const displayMode = await result.getCssValue('display');
+
+      expect(displayMode).toEqual('flex');
+    });
+  });
+
+  describe('getText method', () => {
+    it('returns text from element', async () => {
+      const { session } = testEnv;
+      const element = await session.findElement('css selector', 'h2');
+      const text = await element.getText();
+
+      expect(text).toEqual('Simple calculator');
     });
   });
 
