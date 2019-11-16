@@ -88,6 +88,22 @@ export class Element {
    ****************************************************************************************************************/
 
   /**
+   * Determines if the referenced element is selected or not.
+   * This operation only makes sense on input elements of the Checkbox- and Radio Button states, or on option elements.
+   * @see {@link https://www.w3.org/TR/webdriver/#is-element-selected|WebDriver spec}
+   * @section {@link https://www.w3.org/TR/webdriver/#state|Element state}
+   * @example
+   * const checkbox = await session.findElement('css selector', '#checkbox');
+   * const selected = await checkbox.isSelected();
+   * // selected = true
+   */
+  public async isSelected(): Promise<boolean> {
+    return GET<boolean>(
+      `${this.host}/session/${this.sessionId}/element/${this.elementId}/selected`
+    );
+  }
+
+  /**
    * Returns the attribute of the referenced web element.
    * @see {@link https://www.w3.org/TR/webdriver/#get-element-attribute|WebDriver spec}
    * @section {@link https://www.w3.org/TR/webdriver/#state|Element state}
