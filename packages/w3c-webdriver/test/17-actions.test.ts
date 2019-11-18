@@ -1,5 +1,6 @@
 import expect from 'expect';
-import testEnv, { Browser } from '../test-env';
+import { Key } from '../src';
+import testEnv from '../test-env';
 
 describe('Actions', () => {
   describe('performActions method', () => {
@@ -74,6 +75,34 @@ describe('Actions', () => {
       const result = await session.findElement('css selector', '#result');
       const resultText = await result.getText();
       expect(resultText).toEqual('22');
+    });
+
+    it('handles special keys', async () => {
+      const { session } = testEnv;
+      const aField = await session.findElement('css selector', '#a');
+      await aField.click();
+      await session.performActions([
+        {
+          type: 'key',
+          id: 'key id',
+          actions: [
+            { type: 'keyDown', value: 'a' },
+            { type: 'keyUp', value: 'a' },
+            { type: 'keyDown', value: 'b' },
+            { type: 'keyUp', value: 'b' },
+            { type: 'keyDown', value: 'c' },
+            { type: 'keyUp', value: 'c' },
+            { type: 'keyDown', value: Key.LEFT },
+            { type: 'keyUp', value: Key.LEFT },
+            { type: 'keyDown', value: Key.LEFT },
+            { type: 'keyUp', value: Key.LEFT },
+            { type: 'keyDown', value: Key.DELETE },
+            { type: 'keyUp', value: Key.DELETE }
+          ]
+        }
+      ]);
+    const text = await aField.getProperty('value');
+    expect(text).toEqual('ac');
     });
   });
 });
