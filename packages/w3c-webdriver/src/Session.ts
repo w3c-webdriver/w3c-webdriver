@@ -606,6 +606,25 @@ export class Session {
     });
   }
 
+  /**
+   * Release all the keys and pointer buttons that are currently depressed
+   * @see {@link https://www.w3.org/TR/webdriver/#release-actions|WebDriver spec}
+   * @section {@link https://www.w3.org/TR/webdriver/#actions|Actions}
+   * @example
+   * await session.performActions([
+   *   {
+   *     type: 'key',
+   *     id: 'key id',
+   *     actions: [{ type: 'keyDown', value: 'a' }]
+   *   }
+   * ]);
+   * await session.releaseActions();
+   * // Now 'a' key was pressed
+   */
+  public async releaseActions(): Promise<void> {
+    await DELETE(`${this.host}/session/${this.sessionId}/actions`);
+  }
+
   /****************************************************************************************************************
    *                                               USER PROMPTS                                                   *
    *                               https://www.w3.org/TR/webdriver/#user-prompts                                  *

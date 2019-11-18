@@ -101,8 +101,44 @@ describe('Actions', () => {
           ]
         }
       ]);
-    const text = await aField.getProperty('value');
-    expect(text).toEqual('ac');
+      const text = await aField.getProperty('value');
+      expect(text).toEqual('ac');
+    });
+  });
+
+  describe('releaseActions method', () => {
+    it('releases all the keys', async () => {
+      const { session } = testEnv;
+      const aField = await session.findElement('css selector', '#a');
+      await aField.click();
+      await session.performActions([
+        {
+          type: 'key',
+          id: 'key id',
+          actions: [{ type: 'keyDown', value: 'a' }]
+        }
+      ]);
+      await session.releaseActions();
+      const text = await aField.getProperty('value');
+      expect(text).toEqual('a');
+    });
+
+    it('releases all the pointer buttons', async () => {
+      const { session } = testEnv;
+      const agreeCheckbox = await session.findElement('css selector', '#agree');
+      await session.performActions([
+        {
+          type: 'pointer',
+          id: 'pointer id',
+          actions: [
+            { type: 'pointerMove', x: 0, y: 0, origin: agreeCheckbox },
+            { type: 'pointerDown', button: 0 }
+          ]
+        }
+      ]);
+      await session.releaseActions();
+      const selected = await agreeCheckbox.isSelected();
+      expect(selected).toBe(true);
     });
   });
 });
