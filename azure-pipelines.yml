@@ -92,8 +92,8 @@ jobs:
     - Chrome
     # - Safari
     - Internet_Explorer
-    - BrowserStack_Firefox
-    # - BrowserStack_Safari
+    # - BrowserStack_Firefox
+    - BrowserStack_Safari
   pool:
     vmImage: 'ubuntu-latest'
   steps:
