@@ -563,6 +563,23 @@ export class Session {
    *     }
    *   }
    * ]);
+   * @example
+   * await session.performActions([
+   *   {
+   *     type: 'key',
+   *     id: 'key id',
+   *     actions: [
+   *       { type: 'keyDown', value: 'a' },
+   *       { type: 'keyUp', value: 'a' },
+   *       { type: 'keyDown', value: 'b' },
+   *       { type: 'keyUp', value: 'b' },
+   *       { type: 'keyDown', value: Key.LEFT },
+   *       { type: 'keyUp', value: Key.LEFT },
+   *       { type: 'keyDown', value: Key.DELETE },
+   *       { type: 'keyUp', value: Key.DELETE }
+   *     ]
+   *   }
+   * ]);
    *
    */
   public async performActions(actionSequences: ActionSequence[]): Promise<void> {
