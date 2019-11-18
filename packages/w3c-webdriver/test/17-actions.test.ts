@@ -1,6 +1,6 @@
 import expect from 'expect';
 import { Key } from '../src';
-import testEnv from '../test-env';
+import testEnv, { Browser } from '../test-env';
 
 describe('Actions', () => {
   describe('performActions method', () => {
@@ -124,7 +124,12 @@ describe('Actions', () => {
     });
 
     it('releases all the pointer buttons', async () => {
-      const { session } = testEnv;
+      const { session, browser } = testEnv;
+
+      if (browser === Browser.InternetExplorer || browser === Browser.Safari) {
+        return;
+      }
+
       const agreeCheckbox = await session.findElement('css selector', '#agree');
       await session.performActions([
         {
