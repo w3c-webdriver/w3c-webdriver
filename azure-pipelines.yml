@@ -70,13 +70,13 @@ jobs:
     nodeVersion: '12.x'
     browser: 'internet-explorer'
 
-- template: azure-pipelines-template.yml
-  parameters:
-    name: BrowserStack_Firefox
-    vmImage: 'ubuntu-latest'
-    nodeVersion: '12.x'
-    browser: 'firefox'
-    browserStack: 'true'
+# - template: azure-pipelines-template.yml
+#   parameters:
+#     name: BrowserStack_Firefox
+#     vmImage: 'ubuntu-latest'
+#     nodeVersion: '12.x'
+#     browser: 'firefox'
+#     browserStack: 'true'
 
 - template: azure-pipelines-template.yml
   parameters:
@@ -93,7 +93,7 @@ jobs:
     # - Safari
     - Internet_Explorer
     - BrowserStack_Firefox
-    - BrowserStack_Safari
+    # - BrowserStack_Safari
   pool:
     vmImage: 'ubuntu-latest'
   steps:
