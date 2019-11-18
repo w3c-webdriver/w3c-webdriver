@@ -1,4 +1,4 @@
-import { Cookie, LocatorStrategy, Timeout, WindowRect } from './core';
+import { ActionSequence, Cookie, LocatorStrategy, Timeout, WindowRect } from './core';
 import { Element, WebElement } from './Element';
 import { DELETE, GET, POST } from './rest';
 
@@ -504,6 +504,89 @@ export class Session {
    */
   public async deleteAllCookies(): Promise<void> {
     await DELETE(`${this.host}/session/${this.sessionId}/cookie`);
+  }
+
+  /****************************************************************************************************************
+   *                                                  ACTIONS                                                     *
+   *                                  https://www.w3.org/TR/webdriver/#actions                                    *
+   ****************************************************************************************************************/
+
+  /**
+   * Sends virtualised device input to the web browser like keyboard or pointer events in a series of actions.
+   *
+   * @see {@link https://www.w3.org/TR/webdriver/#perform-actions|WebDriver spec}
+   * @section {@link https://www.w3.org/TR/webdriver/#actions|Actions}
+   * @example
+   * await session.performActions([
+   *   {
+   *     type: 'none',
+   *     id: 'none_id',
+   *     actions: [{ type: 'pause', duration: 0 }]
+   *   },
+   *   {
+   *     type: 'pointer',
+   *     id: 'click on b field',
+   *     actions: [
+   *       { type: 'pause', duration: 0 },
+   *       { type: 'pointerMove', x: 118, y: 121 },
+   *       { type: 'pointerDown', button: 0 },
+   *       { type: 'pointerUp', button: 0 }
+   *     ]
+   *   }
+   * ]);
+   * @example
+   * await session.performActions([
+   *   {
+   *     type: 'key',
+   *     id: 'type in 15',
+   *     actions: [
+   *       { type: 'pause', duration: 100 },
+   *       { type: 'keyDown', value: '1' },
+   *       { type: 'keyUp', value: '1' },
+   *       { type: 'keyDown', value: '5' },
+   *       { type: 'keyUp', value: '5' }
+   *     ]
+   *   }
+   * ]);
+   * @example
+   * await session.performActions([
+   *   {
+   *     type: 'pointer',
+   *     id: 'click on add button',
+   *     actions: [
+   *       { type: 'pointerMove', x: 1, y: 1, origin: await session.findElement('css selector', '#add') },
+   *       { type: 'pointerDown', button: 0 },
+   *       { type: 'pointerUp', button: 0 }
+   *     ],
+   *     parameters: {
+   *       pointerType: 'mouse'
+   *     }
+   *   }
+   * ]);
+   *
+   */
+  public async performActions(actionSequences: ActionSequence[]): Promise<void> {
+    await POST(`${this.host}/session/${this.sessionId}/actions`, {
+      actions: actionSequences.map(actionSequence => {
+        if (actionSequence.type !== 'pointer') {
+          return actionSequence;
+        }
+
+        return {
+          ...actionSequence,
+          actions: actionSequence.actions.map(action => {
+            if (action.type !== 'pointerMove' || !action.origin || action.origin === 'viewport' || action.origin === 'pointer') {
+              return action;
+            }
+
+            return {
+              ...action,
+              origin: action.origin.getWebElement()
+            }
+          })
+        }
+      })
+    });
   }
 
   /****************************************************************************************************************
