@@ -11,15 +11,23 @@ export const getParameterType = type => {
     case 'intrinsic':
       return type.name;
     case 'union':
-      const result = type.types
-        .map(({ name }) => name)
-        .filter(name => name !== 'undefined')
-        .join(' | ');
-      return result === 'false | true' ? 'boolean' : result;
+      return type.types
+        .map(type => getParameterType(type))
+        .filter(name => name !== 'undefined' && name !== 'false')
+        .map(name => (name === 'true' ? 'boolean' : name))
+        .reduce((acc, item, index, items) => (index !== items.length - 1 ? [...acc, item, ' | '] : [...acc, item]), []);
     case 'reference':
-      return type.id ? <Link href={`#${slugify(type.name)}`}>{type.name}</Link> : type.name;
+      return type.id ? (
+        <Link key={type.id} href={`#${slugify(type.name)}`}>
+          {type.name}
+        </Link>
+      ) : (
+        type.name
+      );
     case 'array':
       return <>{getParameterType(type.elementType)}[]</>;
+    case 'stringLiteral':
+      return `'${type.value}'`;
     default:
       return type.type;
   }

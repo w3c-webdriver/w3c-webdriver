@@ -82,6 +82,14 @@ const getItemDependencies = (projectObject, item, resolutionPath) => {
         return getItemDependencies(projectObject, item.declaration, resolutionPath);
       }
 
+      if (item.type === 'array') {
+        return getItemDependencies(projectObject, item.elementType, resolutionPath);
+      }
+
+      if (item.type === 'union') {
+        return item.types.reduce((acc, type) => [...acc, ...getItemDependencies(projectObject, type, resolutionPath)], []);
+      }
+
       return [];
   }
 };

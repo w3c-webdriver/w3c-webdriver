@@ -1,5 +1,6 @@
 // tslint:disable: no-reserved-keywords
 import { Element } from "../Element";
+import { Key } from "./Keys";
 
 export type PauseAction = {
   type: 'pause';
@@ -8,12 +9,12 @@ export type PauseAction = {
 
 export type KeyDownAction = {
   type: 'keyDown';
-  value: string;
+  value: Key | string;
 };
 
 export type KeyUpAction = {
   type: 'keyUp';
-  value: string;
+  value: Key | string;
 }
 
 export type PointerMoveAction = {
