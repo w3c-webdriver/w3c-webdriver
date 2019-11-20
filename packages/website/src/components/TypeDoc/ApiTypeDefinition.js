@@ -30,8 +30,7 @@ const ApiTypeDefinition = ({ name, type, comment, minLevel }) => {
           <ul>
             {type.types.map((type, index) => (
               <li key={index}>
-                {type.value && <InlineCode>'{type.value}'</InlineCode>}
-                {!type.value && <Link href={`#${slugify(type.name)}`}>{type.name}</Link>}
+                {type.value ? <InlineCode>'{type.value}'</InlineCode> : <Link href={`#${slugify(type.name)}`}>{type.name}</Link>}
               </li>
             ))}
           </ul>
