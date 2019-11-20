@@ -26,17 +26,16 @@ const ApiTypeDefinition = ({ name, type, comment, minLevel }) => {
       )}
       {type.type === 'union' && (
         <>
-        <ApiSubSection>Possible values</ApiSubSection>
-        <ul>
-          {type.types.map((type, index) => (
-            <li key={index}>
-              {type.value && <InlineCode>'{type.value}'</InlineCode>}
-              {!type.value && <Link href={`#${slugify(type.name)}`}>{type.name}</Link>}
-
-            </li>
-          ))}
-        </ul>
-      </>
+          <ApiSubSection>Possible values</ApiSubSection>
+          <ul>
+            {type.types.map((type, index) => (
+              <li key={index}>
+                {type.value && <InlineCode>'{type.value}'</InlineCode>}
+                {!type.value && <Link href={`#${slugify(type.name)}`}>{type.name}</Link>}
+              </li>
+            ))}
+          </ul>
+        </>
       )}
       {type.type === 'reference' && (
         <>
