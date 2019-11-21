@@ -4,6 +4,8 @@ import InlineCode from '../content/InlineCode';
 import ApiDescription from './ApiDescription';
 import ApiFunctionParameter from './ApiFunctionParameter';
 import ApiSubSection from './ApiSubSection';
+import Link from '../content/Link';
+import slugify from '@sindresorhus/slugify';
 
 const ApiTypeDefinition = ({ name, type, comment, minLevel }) => {
   const title = name;
@@ -28,9 +30,19 @@ const ApiTypeDefinition = ({ name, type, comment, minLevel }) => {
           <ul>
             {type.types.map((type, index) => (
               <li key={index}>
-                <InlineCode>'{type.value}'</InlineCode>
+                {type.value ? <InlineCode>'{type.value}'</InlineCode> : <Link href={`#${slugify(type.name)}`}>{type.name}</Link>}
               </li>
             ))}
+          </ul>
+        </>
+      )}
+      {type.type === 'reference' && (
+        <>
+          <ApiSubSection>Possible values</ApiSubSection>
+          <ul>
+            <li>
+              <Link href={`#${slugify(type.name)}`}>{type.name}</Link>
+            </li>
           </ul>
         </>
       )}
