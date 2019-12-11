@@ -29,7 +29,8 @@
     "build": "npm run build:prepare && tsc --emitDeclarationOnly -p tsconfig.build.json && babel src --out-dir lib --extensions \".ts\"",
     "prepack": "npm run build",
     "add:contributor": "all-contributors add",
-    "generate:contributors": "all-contributors generate"
+    "generate:contributors": "all-contributors generate",
+    "generate:docs": "typescript-documentation"
   },
   "keywords": [
     "webdriver",
