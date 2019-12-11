@@ -1,5 +1,6 @@
 /**
  * An object defining the cookie.
+ * @section Cookies
  */
 export type Cookie = {
   /**

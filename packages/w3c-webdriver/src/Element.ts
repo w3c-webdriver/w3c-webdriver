@@ -29,14 +29,14 @@ export class Element {
   }
 
   /****************************************************************************************************************
-   *                                            ELEMENT RETRIEVAL                                                 *
-   *                             https://www.w3.org/TR/webdriver/#retrieval                                       *
+   *                                                ELEMENTS                                                      *
+   *                             https://www.w3.org/TR/webdriver/#elements                                        *
    ****************************************************************************************************************/
 
   /**
    * Search for an element on the page, starting from the referenced web element.
    * @see {@link https://www.w3.org/TR/webdriver/#find-element-from-element|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#retrieval|Element retrieval}
+   * @section Elements
    * @example
    * const parent = await session.findElement('css selector', '#parent');
    * const child = await child.findElement('css selector', '#child');
@@ -62,7 +62,7 @@ export class Element {
    * strategies that each server should support. Elements should be returned in the order located
    * in the DOM.
    * @see {@link https://www.w3.org/TR/webdriver/#find-elements|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#element-retrieval|Element retrieval}
+   * @section Elements
    * @example
    * const parent = await session.findElement('css selector', '#parent');
    * const children = await child.findElements('css selector', '#child');
@@ -82,16 +82,11 @@ export class Element {
     return webElements.map(webElement => new Element(this.host, this.sessionId, webElement));
   }
 
-  /****************************************************************************************************************
-   *                                               ELEMENT STATE                                                  *
-   *                               https://www.w3.org/TR/webdriver/#state                                         *
-   ****************************************************************************************************************/
-
   /**
    * Determines if the referenced element is selected or not.
    * This operation only makes sense on input elements of the Checkbox- and Radio Button states, or on option elements.
    * @see {@link https://www.w3.org/TR/webdriver/#is-element-selected|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#state|Element state}
+   * @section Elements
    * @example
    * const checkbox = await session.findElement('css selector', '#checkbox');
    * const selected = await checkbox.isSelected();
@@ -106,7 +101,7 @@ export class Element {
   /**
    * Returns the attribute of the referenced web element.
    * @see {@link https://www.w3.org/TR/webdriver/#get-element-attribute|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#state|Element state}
+   * @section Elements
    * @example
    * const button = await session.findElement('css selector', '#red-button');
    * const backgroundColor = await button.getAttribute('css');
@@ -120,7 +115,7 @@ export class Element {
   /**
    * Returns the property of the referenced web element.
    * @see {@link https://www.w3.org/TR/webdriver/#get-element-attribute|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#state|Element state}
+   * @section Elements
    * @example
    * const button = await session.findElement('css selector', '#red-button');
    * const backgroundColor = await button.getProperty('class');
@@ -134,7 +129,7 @@ export class Element {
   /**
    * Returns the computed value of the given CSS property for the element.
    * @see {@link https://www.w3.org/TR/webdriver/#get-element-css-value|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#state|Element state}
+   * @section Elements
    * @example
    * const button = await session.findElement('css selector', '#red-button');
    * const backgroundColor = await button.getCssValue('background-color');
@@ -149,7 +144,7 @@ export class Element {
   /**
    * Returns the visible text for the element.
    * @see {@link https://www.w3.org/TR/webdriver/#get-element-text|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#state|Element state}
+   * @section Elements
    * @example
    * const result = await session.findElement('css selector', '#result');
    * const text = await result.getText();
@@ -161,7 +156,7 @@ export class Element {
   /**
    * Returns the tagName of a Element
    * @see {@link https://www.w3.org/TR/webdriver/#get-element-tag-name|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#state|Element state}
+   * @section Elements
    * @example
    * const button = await session.findElement('css selector', '#red-button');
    * const backgroundColor = await button.getTagName();
@@ -175,7 +170,7 @@ export class Element {
   /**
    * Returns the dimensions and coordinates of the referenced element
    * @see {@link https://www.w3.org/TR/webdriver/#get-element-rect|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#state|Element state}
+   * @section Elements
    * @example
    * const button = await session.findElement('css selector', '#red-button');
    * const rect = await button.getRect();
@@ -190,7 +185,7 @@ export class Element {
   /**
    * Determines if the referenced element is enabled or not.
    * @see {@link https://www.w3.org/TR/webdriver/#is-element-enabled|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#state|Element state}
+   * @section Elements
    * @example
    * const inputField = await session.findElement('css selector', '#disabled');
    * const isElementEnabled = await inputField.isEnabled();
@@ -201,15 +196,10 @@ export class Element {
     );
   }
 
-  /****************************************************************************************************************
-   *                                            ELEMENT INTERACTION                                               *
-   *                            https://www.w3.org/TR/webdriver/#element-interaction                              *
-   ****************************************************************************************************************/
-
   /**
    * Click on an element.
    * @see {@link https://www.w3.org/TR/webdriver/#element-click|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#element-interaction|Element interaction}
+   * @section Elements
    * @example
    * const submitButton = await session.findElement('css selector', 'button[type="submit"]');
    * await submitButton.click();
@@ -221,7 +211,7 @@ export class Element {
   /**
    * Clear content of an element.
    * @see {@link https://www.w3.org/TR/webdriver/#element-clear|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#element-interaction|Element interaction}
+   * @section Elements
    * @example
    * const fieldA = await session.findElement('css selector', '#a');
    * await submitButton.clear();
@@ -233,7 +223,7 @@ export class Element {
   /**
    * Send a sequence of key strokes to an element.
    * @see {@link https://www.w3.org/TR/webdriver/#element-send-keys|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#element-interaction|Element interaction}
+   * @section Elements
    * @example
    * const input = await session.findElement('css selector', '[name="first-name"]');
    * await input.sendKeys('Hello World');
@@ -251,7 +241,7 @@ export class Element {
    * Takes a screenshot of the visible region encompassed by the bounding rectangle of an element
    * @return The screenshot as a PNG.
    * @see {@link https://www.w3.org/TR/webdriver/#take-screenshot|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#screen-capture|Screen capture}
+   * @section Screen capture
    * @example
    * const screenshot = await session.takeScreenshot();
    * // screenshot = Buffer containing PNG

@@ -1,9 +1,15 @@
+/**
+ * @section Capabilities
+ */
 type ChromeOptions = {
   w3c?: boolean;
   binary?: string;
   args?: string[];
 };
 
+/**
+ * @section Capabilities
+ */
 type FirefoxOptions = {
   log?: {
     level?: string;
@@ -11,12 +17,18 @@ type FirefoxOptions = {
   args?: string[];
 };
 
+/**
+ * @section Capabilities
+ */
 type InternetExplorerOptions = {
   ignoreProtectedModeSettings: boolean;
   ignoreZoomSetting: boolean;
   'ie.ensureCleanSession': boolean;
 };
 
+/**
+ * @section Capabilities
+ */
 type BrowserStackOptions = {
   os?: string;
   osVersion?: string;
@@ -32,6 +44,9 @@ type BrowserStackOptions = {
   };
 };
 
+/**
+ * @section Capabilities
+ */
 type BrowserCapability = {
   browserName: string;
   'goog:chromeOptions'?: ChromeOptions;
@@ -40,6 +55,9 @@ type BrowserCapability = {
   'bstack:options'?: BrowserStackOptions;
 };
 
+/**
+ * @section Capabilities
+ */
 export type Capabilities = {
   alwaysMatch?: BrowserCapability;
   firstMatch?: BrowserCapability[];
