@@ -9,11 +9,11 @@ Also we can set the browser and operating system parameters we want to interact 
 
 **PARAMETERS**
 
-- `options: [__type](#type)`
+- `options` : `__type`
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -59,11 +59,11 @@ The status contains meta information about the WebDriver server and operating sy
 
 **PARAMETERS**
 
-- `url: string`
+- `url` : `string`
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -81,32 +81,26 @@ const status = await status('http://localhost:4444');
 
 - [WebDriver spec](https://www.w3.org/TR/webdriver/#status)
 
-## WebElement
-
-**PROPERTIES**
-
-- `element-6066-11e4-a52e-4f735466cecf: string`
 ## Element
 This object represents a WebDriver element.
 
-## element.getWebElement()
-Get WebElement object of current instance
 
-**RETURNS**
 
-`[WebElement](#web-element)`
+
+
+
 
 ## element.findElement(strategy, selector)
 Search for an element on the page, starting from the referenced web element.
 
 **PARAMETERS**
 
-- `strategy: css selector | link text | partial link text | tag name | xpath`
-- `selector: string`
+- `strategy` : [`LocatorStrategy`](#locatorstrategy)
+- `selector` : `string`
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -128,12 +122,12 @@ in the DOM.
 
 **PARAMETERS**
 
-- `strategy: css selector | link text | partial link text | tag name | xpath`
-- `selector: string`
+- `strategy` : [`LocatorStrategy`](#locatorstrategy)
+- `selector` : `string`
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -153,7 +147,7 @@ This operation only makes sense on input elements of the Checkbox- and Radio But
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -172,11 +166,11 @@ Returns the attribute of the referenced web element.
 
 **PARAMETERS**
 
-- `propertyName: string`
+- `propertyName` : `string`
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -194,11 +188,11 @@ Returns the property of the referenced web element.
 
 **PARAMETERS**
 
-- `propertyName: string`
+- `propertyName` : `string`
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -216,11 +210,11 @@ Returns the computed value of the given CSS property for the element.
 
 **PARAMETERS**
 
-- `propertyName: string`
+- `propertyName` : `string`
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -239,7 +233,7 @@ Returns the visible text for the element.
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -257,7 +251,7 @@ Returns the tagName of a Element
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -275,7 +269,7 @@ Returns the dimensions and coordinates of the referenced element
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -294,7 +288,7 @@ Determines if the referenced element is enabled or not.
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -312,7 +306,7 @@ Click on an element.
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -330,7 +324,7 @@ Clear content of an element.
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -348,11 +342,11 @@ Send a sequence of key strokes to an element.
 
 **PARAMETERS**
 
-- `text: string`
+- `text` : `string`
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -370,7 +364,7 @@ Takes a screenshot of the visible region encompassed by the bounding rectangle o
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -386,12 +380,16 @@ const screenshot = await session.takeScreenshot();
 ## Session
 This object represents a WebDriver session.
 
+
+
+
+
 ## session.close()
 Close the session.
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -424,7 +422,7 @@ Gets timeout durations associated with the current session.
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -447,11 +445,11 @@ they are aborted and a |Timeout| error is returned to the client.
 
 **PARAMETERS**
 
-- `timeout: [Timeout](#timeout)`
+- `timeout` : [`Timeout`](#timeout)
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -472,11 +470,11 @@ Navigate to a new URL.
 
 **PARAMETERS**
 
-- `targetUrl: string`
+- `targetUrl` : `string`
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -493,7 +491,7 @@ Get current page URL
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -511,7 +509,7 @@ Navigate to previous url from history
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -528,7 +526,7 @@ Navigate forward to next url from history
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -545,7 +543,7 @@ Refresh the current page
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -562,7 +560,7 @@ Get the current page title.
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -580,7 +578,7 @@ Get handle of current window
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -598,7 +596,7 @@ Close the current window.
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -615,11 +613,11 @@ Change focus to another window. The window to change focus to may be specified b
 
 **PARAMETERS**
 
-- `handle: string`
+- `handle` : `string`
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -636,7 +634,7 @@ Get all window handles
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -654,11 +652,11 @@ Change focus to another frame on the page
 
 **PARAMETERS**
 
-- `target: null | number | [Element](#element)`
+- `target` : `null` | `number` | [`Element`](#element)
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -679,7 +677,7 @@ Change focus to parent frame on the page
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -696,7 +694,7 @@ Get the size and position on the screen of the operating system window
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -713,11 +711,11 @@ Set the size and position on the screen of the operating system window
 
 **PARAMETERS**
 
-- `windowRect: [WindowRect](#window-rect)`
+- `windowRect` : [`WindowRect`](#windowrect)
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -734,7 +732,7 @@ Maximizes the current window
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -751,7 +749,7 @@ Minimizes the current window
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -768,7 +766,7 @@ This command increases Current window to Full-Screen
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -785,12 +783,12 @@ Search for an element on the page, starting from the document root.
 
 **PARAMETERS**
 
-- `strategy: css selector | link text | partial link text | tag name | xpath`
-- `selector: string`
+- `strategy` : [`LocatorStrategy`](#locatorstrategy)
+- `selector` : `string`
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -811,12 +809,12 @@ in the DOM.
 
 **PARAMETERS**
 
-- `strategy: css selector | link text | partial link text | tag name | xpath`
-- `selector: string`
+- `strategy` : [`LocatorStrategy`](#locatorstrategy)
+- `selector` : `string`
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -834,7 +832,7 @@ Get the element on the page that currently has focus.
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -852,7 +850,7 @@ Returns a string serialization of the DOM of the current browsing context active
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -872,12 +870,12 @@ the result of evaluating the script is returned to the client.
 
 **PARAMETERS**
 
-- `script: string`
-- `args: [Array](#array)`
+- `script` : `string`
+- `args` : `any[]`
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -902,12 +900,12 @@ as the response.
 
 **PARAMETERS**
 
-- `script: string`
-- `args: [Array](#array)`
+- `script` : `string`
+- `args` : `any[]`
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -930,7 +928,7 @@ document.
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -957,11 +955,11 @@ Returns cookie based on the cookie name
 
 **PARAMETERS**
 
-- `propertyName: string`
+- `propertyName` : `string`
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -978,11 +976,11 @@ Adds a single cookie to the cookie store associated with the active document’s
 
 **PARAMETERS**
 
-- `cookie: [Cookie](#cookie)`
+- `cookie` : [`Cookie`](#cookie)
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -999,11 +997,11 @@ Delete a cookie based on its name
 
 **PARAMETERS**
 
-- `propertyName: string`
+- `propertyName` : `string`
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -1021,7 +1019,7 @@ document.
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -1038,11 +1036,11 @@ Sends virtualised device input to the web browser like keyboard or pointer event
 
 **PARAMETERS**
 
-- `actionSequences: [Array](#array)`
+- `actionSequences` : [`ActionSequence[]`](#actionsequence)
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -1124,7 +1122,7 @@ Release all the keys and pointer buttons that are currently depressed
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -1149,7 +1147,7 @@ Dismiss the alert in current page
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -1166,7 +1164,7 @@ Accept the alert in current page
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -1183,7 +1181,7 @@ Returns the text from an alert
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -1200,11 +1198,11 @@ Sets the text field of a prompt to the given value.
 
 **PARAMETERS**
 
-- `propertyName: string`
+- `propertyName` : `string`
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -1221,7 +1219,7 @@ Takes a screenshot of the top-level browsing context’s viewport.
 
 **RETURNS**
 
-`[Promise](#promise)`
+`Promise`
 
 **EXAMPLES**
 
@@ -1238,96 +1236,110 @@ const screenshot = await session.takeScreenshot();
 
 **PROPERTIES**
 
-- `type: pause`
-- `duration: number`
+- `type` : `'pause'`
+- `duration` : `number`
+
 ## KeyDownAction
 
 **PROPERTIES**
 
-- `type: keyDown`
-- `value: string`
+- `type` : `'keyDown'`
+- `value` : `string`
+
 ## KeyUpAction
 
 **PROPERTIES**
 
-- `type: keyUp`
-- `value: string`
+- `type` : `'keyUp'`
+- `value` : `string`
+
 ## PointerMoveAction
 
 **PROPERTIES**
 
-- `type: pointerMove`
-- `x: number`
-- `y: number`
-- `duration?: number`
-- `origin?: [Element](#element) | viewport | pointer`
+- `type` : `'pointerMove'`
+- `x` : `number`
+- `y` : `number`
+- `duration?` : `number`
+- `origin?` : [`Element`](#element) | `'viewport'` | `'pointer'`
+
 ## PointerUpAction
 
 **PROPERTIES**
 
-- `type: pointerUp`
-- `button: number`
+- `type` : `'pointerUp'`
+- `button` : `number`
+
 ## PointerDownAction
 
 **PROPERTIES**
 
-- `type: pointerDown`
-- `button: number`
+- `type` : `'pointerDown'`
+- `button` : `number`
+
 ## NullAction
 
 **PROPERTIES**
 
-- `type: pause`
-- `duration: number`
+- `type` : `'pause'`
+- `duration` : `number`
+
 ## KeyAction
 
 **POSSIBLE VALUES**
 
-- `[PauseAction](#pause-action)`
-- `[KeyDownAction](#key-down-action)`
-- `[KeyUpAction](#key-up-action)`
+- [`PauseAction`](#pauseaction)
+- [`KeyDownAction`](#keydownaction)
+- [`KeyUpAction`](#keyupaction)
+
 ## PointerAction
 
 **POSSIBLE VALUES**
 
-- `[PauseAction](#pause-action)`
-- `[PointerMoveAction](#pointer-move-action)`
-- `[PointerUpAction](#pointer-up-action)`
-- `[PointerDownAction](#pointer-down-action)`
+- [`PauseAction`](#pauseaction)
+- [`PointerMoveAction`](#pointermoveaction)
+- [`PointerUpAction`](#pointerupaction)
+- [`PointerDownAction`](#pointerdownaction)
+
 ## NullActionSequence
 
 **PROPERTIES**
 
-- `type: none`
-- `id: string`
-- `actions: [Array](#array)`
+- `type` : `'none'`
+- `id` : `string`
+- `actions` : [`PauseAction[]`](#pauseaction)
+
 ## KeyActionSequence
 
 **PROPERTIES**
 
-- `type: key`
-- `id: string`
-- `actions: [Array](#array)`
+- `type` : `'key'`
+- `id` : `string`
+- `actions` : [`KeyAction[]`](#keyaction)
+
 ## PointerParameters
 
 **PROPERTIES**
 
-- `pointerType: mouse | pen | touch`
+- `pointerType` : `'mouse'` | `'pen'` | `'touch'`
+
 ## PointerActionSequence
 
 **PROPERTIES**
 
-- `type: pointer`
-- `id: string`
-- `actions: [Array](#array)`
-- `parameters?: [PointerParameters](#pointer-parameters)`
+- `type` : `'pointer'`
+- `id` : `string`
+- `actions` : [`PointerAction[]`](#pointeraction)
+- `parameters?` : [`PointerParameters`](#pointerparameters)
+
 ## ActionSequence
 
 **POSSIBLE VALUES**
 
-- `[NullActionSequence](#null-action-sequence)`
-- `[KeyActionSequence](#key-action-sequence)`
-- `[PointerActionSequence](#pointer-action-sequence)`
+- [`NullActionSequence`](#nullactionsequence)
+- [`KeyActionSequence`](#keyactionsequence)
+- [`PointerActionSequence`](#pointeractionsequence)
+
 ## Key
 
 **POSSIBLE VALUES**
@@ -1403,66 +1415,133 @@ const screenshot = await session.takeScreenshot();
 - `R_INSERT`
 - `R_DELETE`
 
+## ChromeOptions
+
+**PROPERTIES**
+
+- `w3c?` : `boolean`
+- `binary?` : `string`
+- `args?` : `string[]`
+
+## FirefoxOptions
+
+**PROPERTIES**
+
+- `log?` : `__type`
+- `args?` : `string[]`
+
+## InternetExplorerOptions
+
+**PROPERTIES**
+
+- `ignoreProtectedModeSettings` : `boolean`
+- `ignoreZoomSetting` : `boolean`
+- `ie.ensureCleanSession` : `boolean`
+
+## BrowserStackOptions
+
+**PROPERTIES**
+
+- `os?` : `string`
+- `osVersion?` : `string`
+- `sessionName?` : `string`
+- `buildName?` : `string`
+- `projectName?` : `string`
+- `debug?` : `boolean`
+- `networkLogs?` : `boolean`
+- `local?` : `boolean`
+- `safari?` : `__type`
+
+## BrowserCapability
+
+**PROPERTIES**
+
+- `browserName` : `string`
+- `goog:chromeOptions?` : [`ChromeOptions`](#chromeoptions)
+- `moz:firefoxOptions?` : [`FirefoxOptions`](#firefoxoptions)
+- `se:ieOptions?` : [`InternetExplorerOptions`](#internetexploreroptions)
+- `bstack:options?` : [`BrowserStackOptions`](#browserstackoptions)
+
 ## Capabilities
 
 **PROPERTIES**
 
-- `alwaysMatch?: [BrowserCapability](#browser-capability)`
-- `firstMatch?: [Array](#array)`
+- `alwaysMatch?` : [`BrowserCapability`](#browsercapability)
+- `firstMatch?` : [`BrowserCapability[]`](#browsercapability)
+
 ## Cookie
 An object defining the cookie.
 
 **PROPERTIES**
 
-- `name: string`
-- `value: string`
-- `path?: string`
-- `domain?: string`
-- `secure?: boolean`
-- `httpOnly?: boolean`
-- `expiry?: number`
+- `name` : `string`
+- `value` : `string`
+- `path?` : `string`
+- `domain?` : `string`
+- `secure?` : `boolean`
+- `httpOnly?` : `boolean`
+- `expiry?` : `number`
+
 ## ElementRect
 An object defining the Element Rect.
 
 **PROPERTIES**
 
-- `x: number`
-- `y: number`
-- `width: number`
-- `height: number`
+- `x` : `number`
+- `y` : `number`
+- `width` : `number`
+- `height` : `number`
+
 ## LocatorStrategy
 Strategy for searching element on the page
 
 **POSSIBLE VALUES**
 
-- `css selector`
-- `link text`
-- `partial link text`
-- `tag name`
-- `xpath`
+- `'css selector'`
+- `'link text'`
+- `'partial link text'`
+- `'tag name'`
+- `'xpath'`
+
+## StatusOfOS
+
+**PROPERTIES**
+
+- `name` : `string`
+- `version` : `string`
+- `arch` : `string`
+
+## StatusOfWebDriver
+
+**PROPERTIES**
+
+- `version` : `string`
+
 ## Status
 WebDriver status object
 
 **PROPERTIES**
 
-- `message: string`
-- `ready: boolean`
-- `os: [StatusOfOS](#status-of-os)`
-- `build: [StatusOfWebDriver](#status-of-web-driver)`
+- `message` : `string`
+- `ready` : `boolean`
+- `os` : [`StatusOfOS`](#statusofos)
+- `build` : [`StatusOfWebDriver`](#statusofwebdriver)
+
 ## Timeout
 WebDriver Timeout configuration object
 
 **PROPERTIES**
 
-- `script?: number`
-- `pageLoad?: number`
-- `implicit?: number`
+- `script?` : `number`
+- `pageLoad?` : `number`
+- `implicit?` : `number`
+
 ## WindowRect
 An object defining the Window Rect.
 
 **PROPERTIES**
 
-- `x: number`
-- `y: number`
-- `width: number`
-- `height: number`
+- `x` : `number`
+- `y` : `number`
+- `width` : `number`
+- `height` : `number`

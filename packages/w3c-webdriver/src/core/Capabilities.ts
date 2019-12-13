@@ -1,7 +1,7 @@
 /**
  * @section Capabilities
  */
-type ChromeOptions = {
+export type ChromeOptions = {
   w3c?: boolean;
   binary?: string;
   args?: string[];
@@ -10,7 +10,7 @@ type ChromeOptions = {
 /**
  * @section Capabilities
  */
-type FirefoxOptions = {
+export type FirefoxOptions = {
   log?: {
     level?: string;
   };
@@ -20,7 +20,7 @@ type FirefoxOptions = {
 /**
  * @section Capabilities
  */
-type InternetExplorerOptions = {
+export type InternetExplorerOptions = {
   ignoreProtectedModeSettings: boolean;
   ignoreZoomSetting: boolean;
   'ie.ensureCleanSession': boolean;
@@ -29,7 +29,7 @@ type InternetExplorerOptions = {
 /**
  * @section Capabilities
  */
-type BrowserStackOptions = {
+export type BrowserStackOptions = {
   os?: string;
   osVersion?: string;
   sessionName?: string;
@@ -47,7 +47,7 @@ type BrowserStackOptions = {
 /**
  * @section Capabilities
  */
-type BrowserCapability = {
+export type BrowserCapability = {
   browserName: string;
   'goog:chromeOptions'?: ChromeOptions;
   'moz:firefoxOptions'?: FirefoxOptions;

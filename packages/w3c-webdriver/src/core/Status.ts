@@ -1,7 +1,7 @@
 /**
  * @section Sessions
  */
-type StatusOfOS = {
+export type StatusOfOS = {
   /**
    * Name of operating system
    */
@@ -21,7 +21,7 @@ type StatusOfOS = {
 /**
  * @section Sessions
  */
-type StatusOfWebDriver = {
+export type StatusOfWebDriver = {
   /**
    * Version of driver
    */

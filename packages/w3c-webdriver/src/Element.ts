@@ -3,6 +3,9 @@ import { GET, POST } from './rest';
 
 const WEB_ELEMENT_IDENTIFIER = 'element-6066-11e4-a52e-4f735466cecf';
 
+/**
+ * @internal
+ */
 export type WebElement = {
   'element-6066-11e4-a52e-4f735466cecf': string
 }
@@ -23,6 +26,7 @@ export class Element {
 
   /**
    * Get WebElement object of current instance
+   * @internal
    */
   public getWebElement(): WebElement {
     return { [WEB_ELEMENT_IDENTIFIER]: this.elementId };
