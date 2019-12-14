@@ -2,6 +2,8 @@
 
 `[Promise](#pomise)<[string](#string),[string](#string)>`
 
+<code>[Promise](#pomise)<[string](#string),[string](#string)></code>
+
 ## newSession(options)
 Before we can send any command to the browser we drive we need to create a [WebDriver](https://www.w3.org/TR/webdriver) session.
 This should be always the first step of interaction through the protocol.
