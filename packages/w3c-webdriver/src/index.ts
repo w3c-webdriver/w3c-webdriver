@@ -11,6 +11,7 @@ import { Session } from './Session';
  * This can be a locally running browser driver server ([Chromedriver](http://chromedriver.chromium.org), [Geckodriver](https://firefox-source-docs.mozilla.org/testing/geckodriver), etc.),
  * [Selenium Server or Grid](https://www.seleniumhq.org) or cloud provider url ([BrowserStack](https://www.browserstack.com), [Sauce Labs](https://saucelabs.com), .etc.).
  * Also we can set the browser and operating system parameters we want to interact with.
+ * @section Sessions
  * @returns session
  * @see {@link https://www.w3.org/TR/webdriver/#new-session|WebDriver spec}
  * @example
@@ -66,12 +67,7 @@ export async function newSession(options: {
    */
   headers?: HeaderInit;
 }): Promise<Session> {
-  const {
-    url,
-    capabilities,
-    desiredCapabilities,
-    headers
-  } = options;
+  const { url, capabilities, desiredCapabilities, headers } = options;
   const { sessionId: localSessionId, 'webdriver.remote.sessionid': remoteSessionId } = await POST<{
     sessionId?: string;
     'webdriver.remote.sessionid'?: string;
@@ -96,6 +92,7 @@ export async function newSession(options: {
  * To be able to verify if the WebDriver server is ready for new session creation sometimes it can be useful to query it's status.
  * This function queries the WebDriver server's current status.
  * The status contains meta information about the WebDriver server and operating system.
+ * @section Sessions
  * @returns status
  * @see {@link https://www.w3.org/TR/webdriver/#status|WebDriver spec}
  * @example
@@ -114,6 +111,6 @@ export async function status(
   return GET<Status>(`${url}/status`);
 }
 
+export * from './core';
 export * from './Element';
 export * from './Session';
-export * from './core';

@@ -7,11 +7,12 @@ const WEB_ELEMENT_IDENTIFIER = 'element-6066-11e4-a52e-4f735466cecf';
  * @internal
  */
 export type WebElement = {
-  'element-6066-11e4-a52e-4f735466cecf': string
-}
+  'element-6066-11e4-a52e-4f735466cecf': string;
+};
 
 /**
  * This object represents a WebDriver element.
+ * @section Elements
  */
 export class Element {
   private readonly host: string;
@@ -97,9 +98,7 @@ export class Element {
    * // selected = true
    */
   public async isSelected(): Promise<boolean> {
-    return GET<boolean>(
-      `${this.host}/session/${this.sessionId}/element/${this.elementId}/selected`
-    );
+    return GET<boolean>(`${this.host}/session/${this.sessionId}/element/${this.elementId}/selected`);
   }
 
   /**
@@ -111,9 +110,7 @@ export class Element {
    * const backgroundColor = await button.getAttribute('css');
    */
   public async getAttribute(propertyName: string): Promise<string> {
-    return GET<string>(
-      `${this.host}/session/${this.sessionId}/element/${this.elementId}/attribute/${propertyName}`
-    );
+    return GET<string>(`${this.host}/session/${this.sessionId}/element/${this.elementId}/attribute/${propertyName}`);
   }
 
   /**
@@ -125,9 +122,7 @@ export class Element {
    * const backgroundColor = await button.getProperty('class');
    */
   public async getProperty(propertyName: string): Promise<string> {
-    return GET<string>(
-      `${this.host}/session/${this.sessionId}/element/${this.elementId}/property/${propertyName}`
-    );
+    return GET<string>(`${this.host}/session/${this.sessionId}/element/${this.elementId}/property/${propertyName}`);
   }
 
   /**
@@ -140,9 +135,7 @@ export class Element {
    * // backgroundColor = 'rgba(255, 0, 0, 1)'
    */
   public async getCssValue(propertyName: string): Promise<string> {
-    return GET<string>(
-      `${this.host}/session/${this.sessionId}/element/${this.elementId}/css/${propertyName}`
-    );
+    return GET<string>(`${this.host}/session/${this.sessionId}/element/${this.elementId}/css/${propertyName}`);
   }
 
   /**
@@ -166,9 +159,7 @@ export class Element {
    * const backgroundColor = await button.getTagName();
    */
   public async getTagName(): Promise<string> {
-    return GET<string>(
-      `${this.host}/session/${this.sessionId}/element/${this.elementId}/name`
-    );
+    return GET<string>(`${this.host}/session/${this.sessionId}/element/${this.elementId}/name`);
   }
 
   /**
@@ -181,9 +172,7 @@ export class Element {
    * // rect = { x: 10, y: 100, width: 300, height: 50 }
    */
   public async getRect(): Promise<ElementRect> {
-    return GET<ElementRect>(
-      `${this.host}/session/${this.sessionId}/element/${this.elementId}/rect`
-    );
+    return GET<ElementRect>(`${this.host}/session/${this.sessionId}/element/${this.elementId}/rect`);
   }
 
   /**
@@ -195,9 +184,7 @@ export class Element {
    * const isElementEnabled = await inputField.isEnabled();
    */
   public async isEnabled(): Promise<boolean> {
-    return GET<boolean>(
-      `${this.host}/session/${this.sessionId}/element/${this.elementId}/enabled`
-    );
+    return GET<boolean>(`${this.host}/session/${this.sessionId}/element/${this.elementId}/enabled`);
   }
 
   /**

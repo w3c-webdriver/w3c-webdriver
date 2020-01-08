@@ -4,6 +4,7 @@ import { DELETE, GET, POST } from './rest';
 
 /**
  * This object represents a WebDriver session.
+ * @section Sessions
  */
 export class Session {
   private readonly host: string;
@@ -50,7 +51,6 @@ export class Session {
    *                                                 TIMEOUTS                                                     *
    *                                 https://www.w3.org/TR/webdriver/#timeouts                                    *
    ****************************************************************************************************************/
-
 
   /**
    * Gets timeout durations associated with the current session.
@@ -605,9 +605,9 @@ export class Session {
             return {
               ...action,
               origin: action.origin.getWebElement()
-            }
+            };
           })
-        }
+        };
       })
     });
   }
