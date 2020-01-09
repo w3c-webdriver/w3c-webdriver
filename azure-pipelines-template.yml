@@ -9,46 +9,43 @@ parameters:
   browserStack: ''
 
 jobs:
-- job: ${{ parameters.name }}
-  pool:
-    vmImage: ${{ parameters.vmImage }}
-  dependsOn: CodeCheck
-  steps:
-  - task: NodeTool@0
-    displayName: Install Node.js
-    inputs:
-      versionSpec: ${{ parameters.nodeVersion }}
+  - job: ${{ parameters.name }}
+    pool:
+      vmImage: ${{ parameters.vmImage }}
+    dependsOn: CodeCheck
+    steps:
+      - task: NodeTool@0
+        displayName: Install Node.js
+        inputs:
+          versionSpec: ${{ parameters.nodeVersion }}
 
-  - ${{ parameters.preBuild }}
+      - ${{ parameters.preBuild }}
 
-  - script: npm install
-    displayName: Install dependencies
-    workingDirectory: $(coreDirectory)
+      - script: npm install
+        displayName: Install dependencies
 
-  - script: npm test
-    displayName: Test
-    workingDirectory: $(coreDirectory)
-    env:
-      BROWSER: ${{ parameters.browser }}
-      HEADLESS: ${{ parameters.headless }}
-      BROWSERSTACK: ${{ parameters.browserStack }}
-      BROWSERSTACK_USERNAME: $(browserstack.user)
-      BROWSERSTACK_ACCESS_KEY: $(browserstack.key)
+      - script: npm test
+        displayName: Test
+        env:
+          BROWSER: ${{ parameters.browser }}
+          HEADLESS: ${{ parameters.headless }}
+          BROWSERSTACK: ${{ parameters.browserStack }}
+          BROWSERSTACK_USERNAME: $(browserstack.user)
+          BROWSERSTACK_ACCESS_KEY: $(browserstack.key)
+    # - task: PublishTestResults@2
+    #   displayName: Publish Jest Test Results
+    #   condition: succeededOrFailed()
+    #   inputs:
+    #     testResultsFormat: 'JUnit'
+    #     testResultsFiles: '*.junit.xml'
+    #     searchFolder: $(coreDirectory)
+    #     mergeTestResults: true
+    #     testRunTitle: 'Test Results (${{ parameters.browser }})'
 
-  # - task: PublishTestResults@2
-  #   displayName: Publish Jest Test Results
-  #   condition: succeededOrFailed()
-  #   inputs:
-  #     testResultsFormat: 'JUnit'
-  #     testResultsFiles: '*.junit.xml'
-  #     searchFolder: $(coreDirectory)
-  #     mergeTestResults: true
-  #     testRunTitle: 'Test Results (${{ parameters.browser }})'
-
-  # - task: PublishCodeCoverageResults@1
-  #   displayName: Publish Jest Test Coverage
-  #   inputs:
-  #     codeCoverageTool: 'cobertura'
-  #     summaryFileLocation: $(coreDirectory)/coverage/cobertura-coverage.xml
-  #     reportDirectory: $(coreDirectory)/coverage
-  #     failIfCoverageEmpty: true
+    # - task: PublishCodeCoverageResults@1
+    #   displayName: Publish Jest Test Coverage
+    #   inputs:
+    #     codeCoverageTool: 'cobertura'
+    #     summaryFileLocation: $(coreDirectory)/coverage/cobertura-coverage.xml
+    #     reportDirectory: $(coreDirectory)/coverage
+    #     failIfCoverageEmpty: true

@@ -6,9 +6,7 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "files": [
-    "lib",
-    "LICENSE",
-    "README.md"
+    "lib"
   ],
   "engines": {
     "node": ">= 8.0.0"
