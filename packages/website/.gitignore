@@ -1,6 +1,0 @@
-node_modules
-*.log
-dist
-typedoc.json
-typedoc-flat.json
-*.report.html
