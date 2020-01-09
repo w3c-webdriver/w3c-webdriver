@@ -1,4 +1,7 @@
-type StatusOfOS = {
+/**
+ * @section Sessions
+ */
+export type StatusOfOS = {
   /**
    * Name of operating system
    */
@@ -15,7 +18,10 @@ type StatusOfOS = {
   arch: string;
 }
 
-type StatusOfWebDriver = {
+/**
+ * @section Sessions
+ */
+export type StatusOfWebDriver = {
   /**
    * Version of driver
    */
@@ -24,6 +30,7 @@ type StatusOfWebDriver = {
 
 /**
  * WebDriver status object
+ * @section Sessions
  */
 export type Status = {
   message: string;

@@ -1,23 +1,35 @@
-type ChromeOptions = {
+/**
+ * @section Capabilities
+ */
+export type ChromeOptions = {
   w3c?: boolean;
   binary?: string;
   args?: string[];
 };
 
-type FirefoxOptions = {
+/**
+ * @section Capabilities
+ */
+export type FirefoxOptions = {
   log?: {
     level?: string;
   };
   args?: string[];
 };
 
-type InternetExplorerOptions = {
+/**
+ * @section Capabilities
+ */
+export type InternetExplorerOptions = {
   ignoreProtectedModeSettings: boolean;
   ignoreZoomSetting: boolean;
   'ie.ensureCleanSession': boolean;
 };
 
-type BrowserStackOptions = {
+/**
+ * @section Capabilities
+ */
+export type BrowserStackOptions = {
   os?: string;
   osVersion?: string;
   sessionName?: string;
@@ -32,7 +44,10 @@ type BrowserStackOptions = {
   };
 };
 
-type BrowserCapability = {
+/**
+ * @section Capabilities
+ */
+export type BrowserCapability = {
   browserName: string;
   'goog:chromeOptions'?: ChromeOptions;
   'moz:firefoxOptions'?: FirefoxOptions;
@@ -40,6 +55,9 @@ type BrowserCapability = {
   'bstack:options'?: BrowserStackOptions;
 };
 
+/**
+ * @section Capabilities
+ */
 export type Capabilities = {
   alwaysMatch?: BrowserCapability;
   firstMatch?: BrowserCapability[];

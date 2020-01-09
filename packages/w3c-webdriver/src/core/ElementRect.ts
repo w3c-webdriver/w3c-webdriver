@@ -1,5 +1,6 @@
 /**
  * An object defining the Element Rect.
+ * @section Elements
  */
 export type ElementRect = {
   /**

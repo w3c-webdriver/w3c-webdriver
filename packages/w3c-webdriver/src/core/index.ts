@@ -2,7 +2,6 @@ export * from './Action';
 export * from './Capabilities';
 export * from './Cookie';
 export * from './ElementRect';
-export * from './Keys';
 export * from './LocatorStrategy';
 export * from './Status';
 export * from './Timeout';

@@ -4,6 +4,7 @@ import { DELETE, GET, POST } from './rest';
 
 /**
  * This object represents a WebDriver session.
+ * @section Sessions
  */
 export class Session {
   private readonly host: string;
@@ -22,7 +23,7 @@ export class Session {
   /**
    * Close the session.
    * @see {@link https://www.w3.org/TR/webdriver/#delete-session|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#sessions|Sessions}
+   * @section Sessions
    * @example
    * import { newSession } from 'w3c-webdriver';
    *
@@ -46,12 +47,17 @@ export class Session {
     await DELETE(`${this.host}/session/${this.sessionId}`);
   }
 
+  /****************************************************************************************************************
+   *                                                 TIMEOUTS                                                     *
+   *                                 https://www.w3.org/TR/webdriver/#timeouts                                    *
+   ****************************************************************************************************************/
+
   /**
    * Gets timeout durations associated with the current session.
    * @return - Timeout durations associated with the current session
    * in milliseconds.
    * @see {@link https://www.w3.org/TR/webdriver/#get-timeouts|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#sessions|Sessions}
+   * @section Timeouts
    * @example
    * const timeout = await session.getTimeout();
    * // timeout = {
@@ -68,7 +74,7 @@ export class Session {
    * Configure the amount of time that a particular type of operation can execute for before
    * they are aborted and a |Timeout| error is returned to the client.
    * @see {@link https://www.w3.org/TR/webdriver/#set-timeouts|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#sessions|Sessions}
+   * @section Timeouts
    * @example
    * await session.setTimeout({
    *   script: 30000,
@@ -88,7 +94,7 @@ export class Session {
   /**
    * Navigate to a new URL.
    * @see {@link https://www.w3.org/TR/webdriver/#navigate-to|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#navigation|Navigation}
+   * @section Navigation
    * @example
    * await session.navigateTo('http://localhost:8080');
    */
@@ -102,7 +108,7 @@ export class Session {
   /**
    * Get current page URL
    * @see {@link https://www.w3.org/TR/webdriver/#get-current-url|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#navigation|Navigation}
+   * @section Navigation
    * @example
    * const currentUrl = await session.getCurrentUrl();
    * // currentUrl = 'http://localhost:8080'
@@ -114,7 +120,7 @@ export class Session {
   /**
    * Navigate to previous url from history
    * @see {@link https://www.w3.org/TR/webdriver/#back|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#navigation|Navigation}
+   * @section Navigation
    * @example
    * await session.back();
    */
@@ -125,7 +131,7 @@ export class Session {
   /**
    * Navigate forward to next url from history
    * @see {@link https://www.w3.org/TR/webdriver/#forward|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#navigation|Navigation}
+   * @section Navigation
    * @example
    * await session.forward();
    */
@@ -136,7 +142,7 @@ export class Session {
   /**
    * Refresh the current page
    * @see {@link https://www.w3.org/TR/webdriver/#refresh|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#navigation|Navigation}
+   * @section Navigation
    * @example
    * await session.refresh();
    */
@@ -147,7 +153,7 @@ export class Session {
   /**
    * Get the current page title.
    * @see {@link https://www.w3.org/TR/webdriver/#get-title|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#navigation|Navigation}
+   * @section Navigation
    * @example
    * const title = await session.getTitle();
    * // title = 'web page title'
@@ -157,14 +163,14 @@ export class Session {
   }
 
   /****************************************************************************************************************
-   *                                             COMMAND CONTEXTS                                                 *
-   *                             https://www.w3.org/TR/webdriver/#command-contexts                                *
+   *                                                 CONTEXTS                                                     *
+   *                                 https://www.w3.org/TR/webdriver/#contexts                                    *
    ****************************************************************************************************************/
 
   /**
    * Get handle of current window
    * @see {@link https://www.w3.org/TR/webdriver/#get-window-handle|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#command-contexts|Command contexts}
+   * @section Contexts
    * @example
    * const handle = await session.getWindowHandle();
    * // handle = 'CDwindow-7321145136535301DE771CCBD9555CEA'
@@ -176,7 +182,7 @@ export class Session {
   /**
    * Close the current window.
    * @see {@link https://www.w3.org/TR/webdriver/#close-window|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#command-contexts|Command contexts}
+   * @section Contexts
    * @example
    * await session.closeWindow();
    */
@@ -187,7 +193,7 @@ export class Session {
   /**
    * Change focus to another window. The window to change focus to may be specified by it's server assigned window handle.
    * @see {@link https://www.w3.org/TR/webdriver/#switch-to-window|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#command-contexts|Command contexts}
+   * @section Contexts
    * @example
    * await session.switchToWindow('CDwindow-7321145136535301DE771CCBD9555CEA');
    */
@@ -198,7 +204,7 @@ export class Session {
   /**
    * Get all window handles
    * @see {@link https://www.w3.org/TR/webdriver/#get-window-handles|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#command-contexts|Command contexts}
+   * @section Contexts
    * @example
    * const handles = await session.getWindowHandles();
    * // handles = ['CDwindow-7321145136535301DE771CCBD9555CEA']
@@ -210,7 +216,7 @@ export class Session {
   /**
    * Change focus to another frame on the page
    * @see {@link https://www.w3.org/TR/webdriver/#switch-to-frame|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#command-contexts|Command contexts}
+   * @section Contexts
    * @param id Identifier for the frame to change focus to.
    * @example
    * const iframe = await session.findElement('css selector', 'iframe');
@@ -227,7 +233,7 @@ export class Session {
   /**
    * Change focus to parent frame on the page
    * @see {@link https://www.w3.org/TR/webdriver/#switch-to-frame|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#command-contexts|Command contexts}
+   * @section Contexts
    * @param id Identifier for the frame to change focus to.
    * @example
    * await session.switchToParentFrame();
@@ -240,7 +246,7 @@ export class Session {
    * Get the size and position on the screen of the operating system window
    * @return a windowRect
    * @see {@link https://www.w3.org/TR/webdriver/#get-window-rect|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#command-contexts|Command contexts}
+   * @section Contexts
    * @example
    * await session.getWindowRect();
    */
@@ -251,7 +257,7 @@ export class Session {
   /**
    * Set the size and position on the screen of the operating system window
    * @see {@link https://www.w3.org/TR/webdriver/#set-window-rect|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#command-contexts|Command contexts}
+   * @section Contexts
    * @example
    * await session.setWindowRect();
    */
@@ -262,7 +268,7 @@ export class Session {
   /**
    * Maximizes the current window
    * @see {@link https://www.w3.org/TR/webdriver/#maximize-window|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#command-contexts|Command contexts}
+   * @section Contexts
    * @example
    * await session.maximizeWindow();
    */
@@ -273,7 +279,7 @@ export class Session {
   /**
    * Minimizes the current window
    * @see {@link https://www.w3.org/TR/webdriver/#minimize-window|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#command-contexts|Command contexts}
+   * @section Contexts
    * @example
    * await session.minimizeWindow();
    */
@@ -284,7 +290,7 @@ export class Session {
   /**
    * This command increases Current window to Full-Screen
    * @see {@link https://www.w3.org/TR/webdriver/#fullscreen-window|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#command-contexts|Command contexts}
+   * @section Contexts
    * @example
    * await session.fullScreenWindow();
    */
@@ -293,14 +299,14 @@ export class Session {
   }
 
   /****************************************************************************************************************
-   *                                            ELEMENT RETRIEVAL                                                 *
-   *                            https://www.w3.org/TR/webdriver/#element-retrieval                                *
+   *                                                 ELEMENTS                                                     *
+   *                                 https://www.w3.org/TR/webdriver/#elements                                    *
    ****************************************************************************************************************/
 
   /**
    * Search for an element on the page, starting from the document root.
    * @see {@link https://www.w3.org/TR/webdriver/#find-element|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#element-retrieval|Element retrieval}
+   * @section Elements
    * @example
    * const element = await session.findElement('css selector', 'h2');
    * // element = <webdriver element>
@@ -325,7 +331,7 @@ export class Session {
    * strategies that each server should support. Elements should be returned in the order located
    * in the DOM.
    * @see {@link https://www.w3.org/TR/webdriver/#find-elements|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#element-retrieval|Element retrieval}
+   * @section Elements
    * @example
    * const elements = await session.findElements('css selector', 'h2');
    * // elements = [<webdriver element>]
@@ -347,7 +353,7 @@ export class Session {
   /**
    * Get the element on the page that currently has focus.
    * @see {@link https://www.w3.org/TR/webdriver/#get-active-element|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#element-retrieval|Element retrieval}
+   * @section Elements
    * @example
    * const element = await session.getActiveElement();
    * // element = <webdriver element>
@@ -359,15 +365,15 @@ export class Session {
   }
 
   /****************************************************************************************************************
-   *                                            DOCUMENT HANDLING                                                 *
-   *                            https://www.w3.org/TR/webdriver/#document-handling                                *
+   *                                                 DOCUMENT                                                     *
+   *                                 https://www.w3.org/TR/webdriver/#document                                    *
    ****************************************************************************************************************/
 
   /**
    * Returns a string serialization of the DOM of the current browsing context active document.
    *
    * @see {@link https://www.w3.org/TR/webdriver/#getting-page-source|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#document-handling|Document handling}
+   * @section Document
    * @example
    * const source = await session.getPageSource();
    * // source = '<!DOCTYPE html><head><title>...'
@@ -383,7 +389,7 @@ export class Session {
    *
    * @return The script result.
    * @see {@link https://www.w3.org/TR/webdriver/#execute-script|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#document-handling|Document handling}
+   * @section Document
    * @example
    * const script = `
    *   const [from] = arguments;
@@ -407,7 +413,7 @@ export class Session {
    * as the response.
    * @return The script result.
    * @see {@link https://www.w3.org/TR/webdriver/#execute-async-script|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#document-handling|Document handling}
+   * @section Document
    * @example
    * const script = `
    *   const [a, b, callback] = arguments;
@@ -435,7 +441,7 @@ export class Session {
    *
    * @return A list of cookies.
    * @see {@link https://www.w3.org/TR/webdriver/#get-all-cookies|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#cookies|Cookies}
+   * @section Cookies
    * @example
    * const cookies = await session.getAllCookies();
    * // cookies = [
@@ -458,7 +464,7 @@ export class Session {
    *
    * @return A cookie.
    * @see {@link https://www.w3.org/TR/webdriver/#get-named-cookie|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#cookies|Cookies}
+   * @section Cookies
    * @example
    * const cookie = await session.getNamedCookie('cookieName');
    *
@@ -471,7 +477,7 @@ export class Session {
    * Adds a single cookie to the cookie store associated with the active document’s address.
    *
    * @see {@link https://www.w3.org/TR/webdriver/#add-cookie|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#cookies|Cookies}
+   * @section Cookies
    * @example
    * await session.addCookie({ name: 'test cookie', value: 'test value' });
    */
@@ -483,7 +489,7 @@ export class Session {
    * Delete a cookie based on its name
    *
    * @see {@link https://www.w3.org/TR/webdriver/#delete-cookie|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#cookies|Cookies}
+   * @section Cookies
    * @example
    * await session.deleteCookie('cookieName');
    *
@@ -497,7 +503,7 @@ export class Session {
    * document.
    *
    * @see {@link https://www.w3.org/TR/webdriver/#delete-all-cookies|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#cookies|Cookies}
+   * @section Cookies
    * @example
    * await session.deleteAllCookies();
    *
@@ -515,7 +521,7 @@ export class Session {
    * Sends virtualised device input to the web browser like keyboard or pointer events in a series of actions.
    *
    * @see {@link https://www.w3.org/TR/webdriver/#perform-actions|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#actions|Actions}
+   * @section Actions
    * @example
    * await session.performActions([
    *   {
@@ -599,9 +605,9 @@ export class Session {
             return {
               ...action,
               origin: action.origin.getWebElement()
-            }
+            };
           })
-        }
+        };
       })
     });
   }
@@ -609,7 +615,7 @@ export class Session {
   /**
    * Release all the keys and pointer buttons that are currently depressed
    * @see {@link https://www.w3.org/TR/webdriver/#release-actions|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#actions|Actions}
+   * @section Actions
    * @example
    * await session.performActions([
    *   {
@@ -633,7 +639,7 @@ export class Session {
   /**
    * Dismiss the alert in current page
    * @see {@link https://www.w3.org/TR/webdriver/#dismiss-alert|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#user-prompts|User prompts}
+   * @section User prompts
    * @example
    * await session.dismissAlert();
    */
@@ -644,7 +650,7 @@ export class Session {
   /**
    * Accept the alert in current page
    * @see {@link https://www.w3.org/TR/webdriver/#accept-alert|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#user-prompts|User prompts}
+   * @section User prompts
    * @example
    * await session.acceptAlert();
    */
@@ -655,7 +661,7 @@ export class Session {
   /**
    * Returns the text from an alert
    * @see {@link https://www.w3.org/TR/webdriver/#get-alert-text|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#user-prompts|User prompts}
+   * @section User prompts
    * @example
    * const alertText = await session.getAlertText();
    */
@@ -666,7 +672,7 @@ export class Session {
   /**
    * Sets the text field of a prompt to the given value.
    * @see {@link https://www.w3.org/TR/webdriver/#send-alert-text|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#user-prompts|User prompts}
+   * @section User prompts
    * @example
    * await session.sendAlertText('Test');
    */
@@ -683,7 +689,7 @@ export class Session {
    * Takes a screenshot of the top-level browsing context’s viewport.
    * @return The screenshot as a PNG.
    * @see {@link https://www.w3.org/TR/webdriver/#take-screenshot|WebDriver spec}
-   * @section {@link https://www.w3.org/TR/webdriver/#screen-capture|Screen capture}
+   * @section Screen capture
    * @example
    * const screenshot = await session.takeScreenshot();
    * // screenshot = Buffer containing PNG

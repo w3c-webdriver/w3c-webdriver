@@ -1,9 +1,10 @@
 /**
  * An object defining the Window Rect.
+ * @section Contexts
  */
 export type WindowRect = {
   /**
-   * The screenX and screenLeft attributes must return the x-coordinate, relative to the origin of the 
+   * The screenX and screenLeft attributes must return the x-coordinate, relative to the origin of the
    * Web-exposed screen area, of the left of the client window as number of CSS pixels
    */
   x: number;
