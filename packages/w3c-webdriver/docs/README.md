@@ -63,6 +63,6 @@ let session;
 
 ## We are using
 
-[![BrowserStack](browserstack-logo.png=300x158)](https://www.browserstack.com/)
+[![BrowserStack](browserstack-logo.png)](https://www.browserstack.com/)
 
 We are using [BrowserStack](https://www.browserstack.com) for testing the Selenium support of current package. BrowserStack loves open source and has sponsored thousands of projects. They offered us a free account as we're an open source project. This makes testing very easy on different browsers and various platforms including real mobile devices.
