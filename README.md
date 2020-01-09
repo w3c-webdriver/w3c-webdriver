@@ -14,4 +14,4 @@ which specifies a remote control protocol for web browsers.
 - 100% test coverage in real browsers (Chrome, Firefox, Safari, Internet Explorer)
 - Tested with latest Ubuntu, Windows and MacOS on CI server
 
-## [Documentation](https://w3c-webdriver.github.io)
+## [Documentation](https://mucsi96.gitbook.io/w3c-webdriver)
