@@ -6,9 +6,9 @@ Before we can send any command to the browser we drive we need to create a [WebD
 This should be always the first step of interaction using the protocol.
 To create a new session we need to provide some requirements like `browserName`, `browserVersion`, `platformName`.
 These requirements are called [`Capabilities`](https://developer.mozilla.org/en-US/docs/Web/WebDriver/Capabilities).
-This is espetially important when we interact not directly with a single browser but with a grid of browsers.
+This is especially important when we interact not directly with a single browser but with a grid of browsers.
 Using `alwaysMatch` property we can provide some strict requirements.
-If the WebDriver sever can`t provide the required features the session creation will fail.
+If the WebDriver sever can't provide the required features the session creation will fail.
 Using `firstMatch` property we can provide a list of requirements.
 During session creation the server will pick the first capability it's able to match.
 `firstMatch` can of course be combined with `alwaysMatch` to narrow down the selection.
