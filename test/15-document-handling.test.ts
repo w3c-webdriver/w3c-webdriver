@@ -24,7 +24,7 @@ describe('Document Handling', () => {
     it('executes asynchronous script in browser context', async () => {
       const { session, browser } = testEnv;
       if (browser === Browser.InternetExplorer) {
-        await session.setTimeout({
+        await session.setTimeouts({
           script: 30000
         });
       }

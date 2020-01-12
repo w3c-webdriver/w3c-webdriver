@@ -2,7 +2,7 @@
  * WebDriver Timeout configuration object
  * @section Timeouts
  */
-export type Timeout = {
+export type Timeouts = {
   /**
    * Session script timeout in milliseconds.
    * Determines when to interrupt a script that is being evaluated.
@@ -20,4 +20,4 @@ export type Timeout = {
    * Gives the timeout of when to abort locating an element.
    */
   implicit?: number;
-}
+};

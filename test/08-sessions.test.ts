@@ -1,5 +1,5 @@
 import expect from 'expect';
-import { status, Timeout } from '../src';
+import { status, Timeouts } from '../src';
 import testEnv, { Browser, WebDriverHost } from '../test-env';
 
 describe('Sessions', () => {
@@ -35,16 +35,16 @@ describe('Sessions', () => {
   describe('set/getTimeout methods', () => {
     it('sets and retrieves session timeouts', async () => {
       const { session, browser } = testEnv;
-      const timeouts: Timeout = {
+      const timeouts: Timeouts = {
         script: 30000,
         pageLoad: 60000,
         implicit: 40000
       };
       switch (browser) {
         case Browser.Chrome: {
-          await session.setTimeout(timeouts);
+          await session.setTimeouts(timeouts);
 
-          const retrievedTimeout = await session.getTimeout();
+          const retrievedTimeout = await session.getTimeouts();
 
           expect(retrievedTimeout).toEqual(timeouts);
         }

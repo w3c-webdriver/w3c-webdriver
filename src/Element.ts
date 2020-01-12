@@ -66,7 +66,7 @@ export class Element {
    * elements will be returned as a WebElement JSON objects. The table below lists the locator
    * strategies that each server should support. Elements should be returned in the order located
    * in the DOM.
-   * @see {@link https://www.w3.org/TR/webdriver/#find-elements|WebDriver spec}
+   * @see {@link https://www.w3.org/TR/webdriver/#find-elements-from-element|WebDriver spec}
    * @section Elements
    * @example
    * const parent = await session.findElement('css selector', '#parent');
@@ -109,13 +109,13 @@ export class Element {
    * const button = await session.findElement('css selector', '#red-button');
    * const backgroundColor = await button.getAttribute('css');
    */
-  public async getAttribute(propertyName: string): Promise<string> {
-    return GET<string>(`${this.host}/session/${this.sessionId}/element/${this.elementId}/attribute/${propertyName}`);
+  public async getAttribute(attributeName: string): Promise<string> {
+    return GET<string>(`${this.host}/session/${this.sessionId}/element/${this.elementId}/attribute/${attributeName}`);
   }
 
   /**
    * Returns the property of the referenced web element.
-   * @see {@link https://www.w3.org/TR/webdriver/#get-element-attribute|WebDriver spec}
+   * @see {@link https://www.w3.org/TR/webdriver/#get-element-property|WebDriver spec}
    * @section Elements
    * @example
    * const button = await session.findElement('css selector', '#red-button');
@@ -231,7 +231,7 @@ export class Element {
   /**
    * Takes a screenshot of the visible region encompassed by the bounding rectangle of an element
    * @return The screenshot as a PNG.
-   * @see {@link https://www.w3.org/TR/webdriver/#take-screenshot|WebDriver spec}
+   * @see {@link https://www.w3.org/TR/webdriver/#take-element-screenshot|WebDriver spec}
    * @section Screen capture
    * @example
    * const screenshot = await session.takeScreenshot();

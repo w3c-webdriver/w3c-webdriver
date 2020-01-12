@@ -1,4 +1,4 @@
-import { ActionSequence, Cookie, LocatorStrategy, Timeout, WindowRect } from './core';
+import { ActionSequence, Cookie, LocatorStrategy, Timeouts, WindowRect } from './core';
 import { Element, WebElement } from './Element';
 import { DELETE, GET, POST } from './rest';
 
@@ -59,30 +59,30 @@ export class Session {
    * @see {@link https://www.w3.org/TR/webdriver/#get-timeouts|WebDriver spec}
    * @section Timeouts
    * @example
-   * const timeout = await session.getTimeout();
+   * const timeout = await session.getTimeouts();
    * // timeout = {
    * //   script: 30000,
    * //   pageLoad: 60000,
    * //   implicit: 40000
    * // }
    */
-  public async getTimeout(): Promise<Timeout> {
-    return GET<Timeout>(`${this.host}/session/${this.sessionId}/timeouts`);
+  public async getTimeouts(): Promise<Timeouts> {
+    return GET<Timeouts>(`${this.host}/session/${this.sessionId}/timeouts`);
   }
 
   /**
    * Configure the amount of time that a particular type of operation can execute for before
-   * they are aborted and a |Timeout| error is returned to the client.
+   * they are aborted and a Timeout error is returned to the client.
    * @see {@link https://www.w3.org/TR/webdriver/#set-timeouts|WebDriver spec}
    * @section Timeouts
    * @example
-   * await session.setTimeout({
+   * await session.setTimeouts({
    *   script: 30000,
    *   pageLoad: 60000,
    *   implicit: 40000
    * });
    */
-  public async setTimeout(timeout: Timeout): Promise<void> {
+  public async setTimeouts(timeout: Timeouts): Promise<void> {
     await POST(`${this.host}/session/${this.sessionId}/timeouts`, timeout);
   }
 
@@ -232,7 +232,7 @@ export class Session {
 
   /**
    * Change focus to parent frame on the page
-   * @see {@link https://www.w3.org/TR/webdriver/#switch-to-frame|WebDriver spec}
+   * @see {@link https://www.w3.org/TR/webdriver/#switch-to-parent-frame|WebDriver spec}
    * @section Contexts
    * @param id Identifier for the frame to change focus to.
    * @example
@@ -259,7 +259,12 @@ export class Session {
    * @see {@link https://www.w3.org/TR/webdriver/#set-window-rect|WebDriver spec}
    * @section Contexts
    * @example
-   * await session.setWindowRect();
+   * await session.setWindowRect({
+   *  x: 10,
+   *  y: 10,
+   *  width: 320,
+   *  height: 600
+   * });
    */
   public async setWindowRect(windowRect: WindowRect): Promise<void> {
     return POST(`${this.host}/session/${this.sessionId}/window/rect`, windowRect);
@@ -372,7 +377,7 @@ export class Session {
   /**
    * Returns a string serialization of the DOM of the current browsing context active document.
    *
-   * @see {@link https://www.w3.org/TR/webdriver/#getting-page-source|WebDriver spec}
+   * @see {@link https://www.w3.org/TR/webdriver/#get-page-source|WebDriver spec}
    * @section Document
    * @example
    * const source = await session.getPageSource();
