@@ -6,7 +6,7 @@ describe('Sessions', () => {
   describe('status method', () => {
     it('returns server status', async () => {
       const { browser, driver } = testEnv;
-      const result = await status(<string>process.env.WEB_DRIVER_URL);
+      const result = await status(process.env.WEB_DRIVER_URL as string);
 
       if (driver.host === WebDriverHost.BrowserStack) {
         expect(result.build.version).toBeDefined();
@@ -48,7 +48,6 @@ describe('Sessions', () => {
 
           expect(retrievedTimeout).toEqual(timeouts);
         }
-        default:
       }
     });
   });

@@ -16,7 +16,9 @@ describe('Navigation', () => {
       const { session } = testEnv;
       const currentUrl = await session.getCurrentUrl();
 
-      expect(currentUrl).toEqual(`http://localhost:${process.env.TEST_APP_PORT}/`);
+      expect(currentUrl).toEqual(
+        `http://localhost:${process.env.TEST_APP_PORT}/`
+      );
     });
   });
 
@@ -24,7 +26,9 @@ describe('Navigation', () => {
     it('navigate to previous url from history', async () => {
       const { session } = testEnv;
       const currentUrlBefore = await session.getCurrentUrl();
-      expect(currentUrlBefore).toEqual(`http://localhost:${process.env.TEST_APP_PORT}/`);
+      expect(currentUrlBefore).toEqual(
+        `http://localhost:${process.env.TEST_APP_PORT}/`
+      );
       await session.navigateTo(`${currentUrlBefore}#test`);
 
       await session.back();
@@ -38,7 +42,9 @@ describe('Navigation', () => {
     it('navigate forward to next url from history', async () => {
       const { session } = testEnv;
       const actualUrl = await session.getCurrentUrl();
-      expect(actualUrl).toEqual(`http://localhost:${process.env.TEST_APP_PORT}/`);
+      expect(actualUrl).toEqual(
+        `http://localhost:${process.env.TEST_APP_PORT}/`
+      );
       await session.navigateTo(`${actualUrl}#test`);
 
       await session.back();
@@ -55,7 +61,9 @@ describe('Navigation', () => {
     it('refresh the current page', async () => {
       const { session } = testEnv;
       const currentUrlBefore = await session.getCurrentUrl();
-      expect(currentUrlBefore).toEqual(`http://localhost:${process.env.TEST_APP_PORT}/`);
+      expect(currentUrlBefore).toEqual(
+        `http://localhost:${process.env.TEST_APP_PORT}/`
+      );
 
       const a = await session.findElement('css selector', '#a');
       await a.sendKeys('13');
@@ -63,7 +71,10 @@ describe('Navigation', () => {
       await b.sendKeys('7');
       const add = await session.findElement('css selector', '#add');
       await add.click();
-      const resultElement = await session.findElement('css selector', '#result');
+      const resultElement = await session.findElement(
+        'css selector',
+        '#result'
+      );
       const resultTextBefore = await resultElement.getText();
       expect(resultTextBefore).toEqual('20');
 

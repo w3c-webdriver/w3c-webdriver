@@ -2,15 +2,17 @@ import fetch, { HeaderInit } from 'node-fetch';
 import util from 'util';
 import { log } from './logger';
 
-interface IErrorValue {
+interface ErrorValue {
   error: string;
   message: string;
 }
 
-// tslint:disable-next-line:no-any
-function isError(value: any): value is IErrorValue {
+//eslint-disable-next-line @typescript-eslint/no-explicit-any
+function isError(value: any): value is ErrorValue {
   return (
-    typeof value === 'object' && value !== null && typeof (<IErrorValue>value).error === 'string'
+    typeof value === 'object' &&
+    value !== null &&
+    typeof (value as ErrorValue).error === 'string'
   );
 }
 
@@ -22,8 +24,11 @@ async function sendRequest<T>(
   body?: object,
   headers?: HeaderInit
 ): Promise<T> {
-
-  log(`WebDriver request: ${method} ${url} ${body ? util.inspect(body, false, 10) : ''}`);
+  log(
+    `WebDriver request: ${method} ${url} ${
+      body ? util.inspect(body, false, 10) : ''
+    }`
+  );
 
   const response = await fetch(url, {
     method,
@@ -36,7 +41,7 @@ async function sendRequest<T>(
   let bodyAsJson;
 
   try {
-    bodyAsJson = <{ value: T }>JSON.parse(responseBodyAsText);
+    bodyAsJson = JSON.parse(responseBodyAsText) as { value: T };
   } catch (err) {
     throw new Error(responseBodyAsText);
   }
@@ -54,7 +59,12 @@ async function sendRequest<T>(
   return value;
 }
 
-export const GET = async <T>(url: string) => sendRequest<T>('GET', url);
-export const POST = async <T>(url: string, body: object = {}, headers?: HeaderInit) =>
-  sendRequest<T>('POST', url, body, headers);
-export const DELETE = async <T>(url: string, body?: object) => sendRequest<T>('DELETE', url, body);
+export const GET = async <T>(url: string): Promise<T> =>
+  sendRequest<T>('GET', url);
+export const POST = async <T>(
+  url: string,
+  body: object = {},
+  headers?: HeaderInit
+): Promise<T> => sendRequest<T>('POST', url, body, headers);
+export const DELETE = async <T>(url: string, body?: object): Promise<T> =>
+  sendRequest<T>('DELETE', url, body);

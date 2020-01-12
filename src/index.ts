@@ -68,7 +68,10 @@ export async function newSession(options: {
   headers?: HeaderInit;
 }): Promise<Session> {
   const { url, capabilities, desiredCapabilities, headers } = options;
-  const { sessionId: localSessionId, 'webdriver.remote.sessionid': remoteSessionId } = await POST<{
+  const {
+    sessionId: localSessionId,
+    'webdriver.remote.sessionid': remoteSessionId
+  } = await POST<{
     sessionId?: string;
     'webdriver.remote.sessionid'?: string;
   }>(

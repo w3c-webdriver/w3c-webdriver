@@ -70,7 +70,7 @@ describe('Element State', () => {
       if ([Browser.Safari].includes(browser)) {
         expect(elementTagName).toEqual('BUTTON');
       } else {
-        expect(elementTagName).toEqual('button');;
+        expect(elementTagName).toEqual('button');
       }
     });
   });
@@ -96,11 +96,13 @@ describe('Element State', () => {
 
     it('returns false if input field is disabled', async () => {
       const { session } = testEnv;
-      const disabledInput = await session.findElement('css selector', '#disabled');
+      const disabledInput = await session.findElement(
+        'css selector',
+        '#disabled'
+      );
       const selected = await disabledInput.isEnabled();
 
       expect(selected).toBe(false);
     });
   });
-
 });

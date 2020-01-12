@@ -53,10 +53,13 @@ export class Element {
     // Selector string
     selector: string
   ): Promise<Element> {
-    const webElement = await POST<WebElement>(`${this.host}/session/${this.sessionId}/element/${this.elementId}/element`, {
-      using: strategy,
-      value: selector
-    });
+    const webElement = await POST<WebElement>(
+      `${this.host}/session/${this.sessionId}/element/${this.elementId}/element`,
+      {
+        using: strategy,
+        value: selector
+      }
+    );
 
     return new Element(this.host, this.sessionId, webElement);
   }
@@ -78,13 +81,18 @@ export class Element {
     strategy: LocatorStrategy,
     // Selector string
     selector: string
-  ) {
-    const webElements = await POST<WebElement[]>(`${this.host}/session/${this.sessionId}/element/${this.elementId}/elements`, {
-      using: strategy,
-      value: selector
-    });
+  ): Promise<Element[]> {
+    const webElements = await POST<WebElement[]>(
+      `${this.host}/session/${this.sessionId}/element/${this.elementId}/elements`,
+      {
+        using: strategy,
+        value: selector
+      }
+    );
 
-    return webElements.map(webElement => new Element(this.host, this.sessionId, webElement));
+    return webElements.map(
+      webElement => new Element(this.host, this.sessionId, webElement)
+    );
   }
 
   /**
@@ -98,7 +106,9 @@ export class Element {
    * // selected = true
    */
   public async isSelected(): Promise<boolean> {
-    return GET<boolean>(`${this.host}/session/${this.sessionId}/element/${this.elementId}/selected`);
+    return GET<boolean>(
+      `${this.host}/session/${this.sessionId}/element/${this.elementId}/selected`
+    );
   }
 
   /**
@@ -110,7 +120,9 @@ export class Element {
    * const backgroundColor = await button.getAttribute('css');
    */
   public async getAttribute(propertyName: string): Promise<string> {
-    return GET<string>(`${this.host}/session/${this.sessionId}/element/${this.elementId}/attribute/${propertyName}`);
+    return GET<string>(
+      `${this.host}/session/${this.sessionId}/element/${this.elementId}/attribute/${propertyName}`
+    );
   }
 
   /**
@@ -122,7 +134,9 @@ export class Element {
    * const backgroundColor = await button.getProperty('class');
    */
   public async getProperty(propertyName: string): Promise<string> {
-    return GET<string>(`${this.host}/session/${this.sessionId}/element/${this.elementId}/property/${propertyName}`);
+    return GET<string>(
+      `${this.host}/session/${this.sessionId}/element/${this.elementId}/property/${propertyName}`
+    );
   }
 
   /**
@@ -135,7 +149,9 @@ export class Element {
    * // backgroundColor = 'rgba(255, 0, 0, 1)'
    */
   public async getCssValue(propertyName: string): Promise<string> {
-    return GET<string>(`${this.host}/session/${this.sessionId}/element/${this.elementId}/css/${propertyName}`);
+    return GET<string>(
+      `${this.host}/session/${this.sessionId}/element/${this.elementId}/css/${propertyName}`
+    );
   }
 
   /**
@@ -147,7 +163,9 @@ export class Element {
    * const text = await result.getText();
    */
   public async getText(): Promise<string> {
-    return GET<string>(`${this.host}/session/${this.sessionId}/element/${this.elementId}/text`);
+    return GET<string>(
+      `${this.host}/session/${this.sessionId}/element/${this.elementId}/text`
+    );
   }
 
   /**
@@ -159,7 +177,9 @@ export class Element {
    * const backgroundColor = await button.getTagName();
    */
   public async getTagName(): Promise<string> {
-    return GET<string>(`${this.host}/session/${this.sessionId}/element/${this.elementId}/name`);
+    return GET<string>(
+      `${this.host}/session/${this.sessionId}/element/${this.elementId}/name`
+    );
   }
 
   /**
@@ -172,7 +192,9 @@ export class Element {
    * // rect = { x: 10, y: 100, width: 300, height: 50 }
    */
   public async getRect(): Promise<ElementRect> {
-    return GET<ElementRect>(`${this.host}/session/${this.sessionId}/element/${this.elementId}/rect`);
+    return GET<ElementRect>(
+      `${this.host}/session/${this.sessionId}/element/${this.elementId}/rect`
+    );
   }
 
   /**
@@ -184,7 +206,9 @@ export class Element {
    * const isElementEnabled = await inputField.isEnabled();
    */
   public async isEnabled(): Promise<boolean> {
-    return GET<boolean>(`${this.host}/session/${this.sessionId}/element/${this.elementId}/enabled`);
+    return GET<boolean>(
+      `${this.host}/session/${this.sessionId}/element/${this.elementId}/enabled`
+    );
   }
 
   /**
@@ -196,7 +220,10 @@ export class Element {
    * await submitButton.click();
    */
   public async click(): Promise<void> {
-    await POST(`${this.host}/session/${this.sessionId}/element/${this.elementId}/click`, {});
+    await POST(
+      `${this.host}/session/${this.sessionId}/element/${this.elementId}/click`,
+      {}
+    );
   }
 
   /**
@@ -208,7 +235,10 @@ export class Element {
    * await submitButton.clear();
    */
   public async clear(): Promise<void> {
-    await POST(`${this.host}/session/${this.sessionId}/element/${this.elementId}/clear`, {});
+    await POST(
+      `${this.host}/session/${this.sessionId}/element/${this.elementId}/clear`,
+      {}
+    );
   }
 
   /**
@@ -220,7 +250,10 @@ export class Element {
    * await input.sendKeys('Hello World');
    */
   public async sendKeys(text: string): Promise<void> {
-    await POST(`${this.host}/session/${this.sessionId}/element/${this.elementId}/value`, { text });
+    await POST(
+      `${this.host}/session/${this.sessionId}/element/${this.elementId}/value`,
+      { text }
+    );
   }
 
   /****************************************************************************************************************
@@ -238,7 +271,9 @@ export class Element {
    * // screenshot = Buffer containing PNG
    */
   public async takeScreenshot(): Promise<Buffer> {
-    const screenshot = await GET<string>(`${this.host}/session/${this.sessionId}/element/${this.elementId}/screenshot`);
+    const screenshot = await GET<string>(
+      `${this.host}/session/${this.sessionId}/element/${this.elementId}/screenshot`
+    );
 
     return Buffer.from(screenshot, 'base64');
   }

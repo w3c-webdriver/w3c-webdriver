@@ -12,7 +12,7 @@
     "node": ">= 8.0.0"
   },
   "scripts": {
-    "lint": "tslint --project .",
+    "lint": "eslint src/**/*.ts test/**/*.ts test-env/**/*.ts",
     "typecheck": "tsc --project . --noEmit",
     "test": "ts-mocha test/**/*.test.ts --timeout 60000",
     "test:debug": "node --inspect ./node_modules/jest/bin/jest.js --detectOpenHandles",
@@ -28,7 +28,9 @@
     "prepack": "npm run build",
     "add:contributor": "all-contributors add",
     "generate:contributors": "all-contributors generate",
-    "generate:docs": "typescript-documentation --output docs/index.md"
+    "generate:docs": "typescript-documentation --output docs/index.md",
+    "update:dependencies": "npx npm-check-updates -u",
+    "prettier": "prettier --write **/*"
   },
   "keywords": [
     "webdriver",
@@ -52,41 +54,47 @@
   "devDependencies": {
     "@babel/cli": "^7.7.7",
     "@babel/core": "^7.7.7",
-    "@babel/plugin-proposal-class-properties": "^7.7.4",
-    "@babel/plugin-proposal-object-rest-spread": "^7.7.7",
     "@babel/preset-env": "^7.7.7",
     "@babel/preset-typescript": "^7.7.7",
     "@types/chromedriver": "^2.38.0",
     "@types/dotenv-safe": "^8.1.0",
     "@types/expect": "^24.3.0",
     "@types/mocha": "^5.2.7",
-    "@types/node": "^13.1.2",
+    "@types/node": "^13.1.6",
+    "@typescript-eslint/eslint-plugin": "^2.15.0",
+    "@typescript-eslint/parser": "^2.15.0",
     "@types/portscanner": "^2.1.0",
     "@types/wait-on": "^3.2.0",
-    "@types/xml": "^1.0.4",
-    "all-contributors-cli": "^6.11.2",
+    "all-contributors-cli": "^6.12.0",
     "browserstack-local": "^1.4.3",
     "chromedriver": "^79.0.0",
     "cpy-cli": "^3.0.0",
     "cross-env": "^6.0.3",
     "del-cli": "^3.0.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-mocha": "^6.2.2",
     "dotenv-safe": "^8.2.0",
+    "eslint-plugin-jsdoc": "^20.3.0",
     "expect": "^24.9.0",
+    "husky": "^4.0.6",
     "geckodriver": "^1.19.1",
     "iedriver": "^3.14.1",
-    "mocha": "^6.2.2",
-    "mocha-junit-reporter": "^1.23.1",
+    "mocha": "^7.0.0",
+    "mocha-junit-reporter": "^1.23.2",
+    "nyc": "^15.0.0",
+    "prettier": "^1.19.1",
+    "pretty-quick": "^2.0.1",
     "portscanner": "^2.2.0",
-    "promise-retry": "^1.1.1",
     "ts-mocha": "^6.0.0",
-    "tslint": "^5.20.1",
-    "tslint-config-airbnb": "^5.11.2",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-microsoft-contrib": "^6.2.0",
     "typescript": "^3.7.4",
     "typescript-documentation": "^1.0.1",
-    "wait-on": "^3.3.0",
-    "xml": "^1.0.1"
+    "wait-on": "^3.3.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   },
   "contributors": [
     {
