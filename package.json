@@ -1,6 +1,6 @@
 {
   "name": "w3c-webdriver",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "W3C WebDriver client",
   "license": "MIT",
   "main": "./lib/index.js",
