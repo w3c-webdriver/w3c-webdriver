@@ -57,7 +57,7 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
     driver: {
       name: 'Chromedriver',
       path: chromedriverPath,
-      args: ({ port }: { port: number }) => [`--port=${port}`],
+      args: ({ port }: { port: number }): string[] => [`--port=${port}`],
       host: WebDriverHost.Localhost
     }
   },
@@ -79,7 +79,7 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
     driver: {
       name: 'Geckodriver',
       path: geckodriverPath,
-      args: ({ port }: { port: number }) => [`--port=${port}`],
+      args: ({ port }: { port: number }): string[] => [`--port=${port}`],
       host: WebDriverHost.Localhost
     }
   },
@@ -93,7 +93,7 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
     driver: {
       name: 'SafariDriver',
       path: 'safaridriver',
-      args: ({ port }: { port: number }) => [`--port=${port}`],
+      args: ({ port }: { port: number }): string[] => [`--port=${port}`],
       host: WebDriverHost.Localhost
     }
   },
@@ -112,7 +112,10 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
     driver: {
       name: 'InternetExplorerDriver',
       path: iedriverPath,
-      args: ({ port }: { port: number }) => [`--port=${port}`, '--log-level=INFO'],
+      args: ({ port }: { port: number }): string[] => [
+        `--port=${port}`,
+        '--log-level=INFO'
+      ],
       host: WebDriverHost.Localhost
     }
   },
@@ -139,9 +142,12 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
       name: 'BrowserStack',
       host: WebDriverHost.BrowserStack,
       headers: new Headers({
-        Authorization: `Basic ${Buffer.from([process.env.BROWSERSTACK_USERNAME, process.env.BROWSERSTACK_ACCESS_KEY].join(':')).toString(
-          'base64'
-        )}`
+        Authorization: `Basic ${Buffer.from(
+          [
+            process.env.BROWSERSTACK_USERNAME,
+            process.env.BROWSERSTACK_ACCESS_KEY
+          ].join(':')
+        ).toString('base64')}`
       })
     }
   },
@@ -164,24 +170,33 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
       name: 'BrowserStack',
       host: WebDriverHost.BrowserStack,
       headers: new Headers({
-        Authorization: `Basic ${Buffer.from([process.env.BROWSERSTACK_USERNAME, process.env.BROWSERSTACK_ACCESS_KEY].join(':')).toString(
-          'base64'
-        )}`
+        Authorization: `Basic ${Buffer.from(
+          [
+            process.env.BROWSERSTACK_USERNAME,
+            process.env.BROWSERSTACK_ACCESS_KEY
+          ].join(':')
+        ).toString('base64')}`
       })
     }
   }
 ];
 
 function throwNoBrowserEnvironmentVariableError(): TestEnvironment {
-  throw new Error('Environment variable BROWSER is not set or is not matching the supported browsers.');
+  throw new Error(
+    'Environment variable BROWSER is not set or is not matching the supported browsers.'
+  );
 }
 
-const webDriverHost = process.env.BROWSERSTACK ? WebDriverHost.BrowserStack : WebDriverHost.Localhost;
+const webDriverHost = process.env.BROWSERSTACK
+  ? WebDriverHost.BrowserStack
+  : WebDriverHost.Localhost;
 const testEnv: TestEnvironment = {
   session: new Session('default', 'default'),
   headless: !!process.env.HEADLESS,
-  ...(testEnvironments.find(({ browser, driver }) => browser === process.env.BROWSER && driver.host === webDriverHost) ||
-    throwNoBrowserEnvironmentVariableError())
+  ...(testEnvironments.find(
+    ({ browser, driver }) =>
+      browser === process.env.BROWSER && driver.host === webDriverHost
+  ) || throwNoBrowserEnvironmentVariableError())
 };
 
 export default testEnv;

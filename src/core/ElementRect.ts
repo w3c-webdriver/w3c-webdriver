@@ -22,4 +22,4 @@ export type ElementRect = {
    * Width of the web element’s bounding rectangle in CSS pixels
    */
   height: number;
-}
+};

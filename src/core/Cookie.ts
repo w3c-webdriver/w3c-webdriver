@@ -39,4 +39,4 @@ export type Cookie = {
    * Defaults to 20 years into the future if omitted when adding a cookie.
    */
   expiry?: number;
-}
+};

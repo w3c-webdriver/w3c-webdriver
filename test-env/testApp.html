@@ -1,81 +1,96 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>The simple calculator</title>
-</head>
-<body>
-  <h2>Simple calculator</h2>
-  <h3>A: <input type="text" id="a" autofocus></h3>
-  <h3>B: <input type="text" id="b"></h3>
-  <h3 class="operations">
-    Operation:
-    <button id="add" class="test" value="add">Add</button>
-    <button id="subtract">Subtract</button>
-    <button id="divide">Divide</button>
-    <button id="multiply">Multiply</button>
-  </h3>
-  <h3>Result: <span id="result"></span></h3>
-  <h2><button id="confirm">Confirm</button></h2>
-  <h3>Confirm?<span id="confirmResult"></span></h3>
-  <h2><button id="prompt">Name?</button></h2></h2>
-  <h3><span id="promptName"></span></h3>
-  <iframe src="iframe.html"></iframe>
-  <p>
-    <label><input type="checkbox" id="agree"/> I agree</label>
-  </p>
-  <h3>Disabled: <input type="text" id="disabled" disabled></h3>
-  <div id="fixed-box"></div>
-  <style>
-    #result {
-      display: flex;
-    }
-
-    #fixed-box {
-      position: fixed;
-      top: 10px;
-      left: 300px;
-      width: 100px;
-      height: 50px;
-      background-color: cornsilk;
-    }
-  </style>
-  <script>
-    function calc(op) {
-      return function () {
-        var a = parseInt(document.querySelector('#a').value);
-        var b = parseInt(document.querySelector('#b').value);
-        document.querySelector('#result').innerText = op(a, b)
+  <head>
+    <meta charset="UTF-8" />
+    <title>The simple calculator</title>
+  </head>
+  <body>
+    <h2>Simple calculator</h2>
+    <h3>A: <input type="text" id="a" autofocus /></h3>
+    <h3>B: <input type="text" id="b" /></h3>
+    <h3 class="operations">
+      Operation:
+      <button id="add" class="test" value="add">Add</button>
+      <button id="subtract">Subtract</button>
+      <button id="divide">Divide</button>
+      <button id="multiply">Multiply</button>
+    </h3>
+    <h3>Result: <span id="result"></span></h3>
+    <h2><button id="confirm">Confirm</button></h2>
+    <h3>Confirm?<span id="confirmResult"></span></h3>
+    <h2><button id="prompt">Name?</button></h2>
+    <h3><span id="promptName"></span></h3>
+    <iframe src="iframe.html"></iframe>
+    <p>
+      <label><input type="checkbox" id="agree" /> I agree</label>
+    </p>
+    <h3>Disabled: <input type="text" id="disabled" disabled /></h3>
+    <div id="fixed-box"></div>
+    <style>
+      #result {
+        display: flex;
       }
-    }
 
-    function autorun () {
-      document.querySelector('#add').addEventListener('click', calc(function (a, b) {
-        return a + b;
-      }));
-      document.querySelector('#subtract').addEventListener('click', calc(function (a, b) {
-        return a - b;
-      }));
-      document.querySelector('#divide').addEventListener('click', calc(function (a, b) {
-        return a / b;
-      }));
-      document.querySelector('#multiply').addEventListener('click', calc(function (a, b) {
-        return a * b;
-      }));
-      document.querySelector('#confirm').addEventListener('click', function () {
-        if (confirm('This is an alert for test')){
-        document.querySelector('#confirmResult').innerText = 'Yes'
-        } else {
-        document.querySelector('#confirmResult').innerText = 'No'
-        }
-      });
-      document.querySelector('#prompt').addEventListener('click', function () {
-        let name = prompt();
-        document.querySelector('#promptName').innerText = 'Hello ' + name + '!';
-      });
-    }
+      #fixed-box {
+        position: fixed;
+        top: 10px;
+        left: 300px;
+        width: 100px;
+        height: 50px;
+        background-color: cornsilk;
+      }
+    </style>
+    <script>
+      function calc(op) {
+        return function() {
+          var a = parseInt(document.querySelector('#a').value);
+          var b = parseInt(document.querySelector('#b').value);
+          document.querySelector('#result').innerText = op(a, b);
+        };
+      }
 
-    document.addEventListener("DOMContentLoaded", autorun, false)
-  </script>
-</body>
+      function autorun() {
+        document.querySelector('#add').addEventListener(
+          'click',
+          calc(function(a, b) {
+            return a + b;
+          })
+        );
+        document.querySelector('#subtract').addEventListener(
+          'click',
+          calc(function(a, b) {
+            return a - b;
+          })
+        );
+        document.querySelector('#divide').addEventListener(
+          'click',
+          calc(function(a, b) {
+            return a / b;
+          })
+        );
+        document.querySelector('#multiply').addEventListener(
+          'click',
+          calc(function(a, b) {
+            return a * b;
+          })
+        );
+        document
+          .querySelector('#confirm')
+          .addEventListener('click', function() {
+            if (confirm('This is an alert for test')) {
+              document.querySelector('#confirmResult').innerText = 'Yes';
+            } else {
+              document.querySelector('#confirmResult').innerText = 'No';
+            }
+          });
+        document.querySelector('#prompt').addEventListener('click', function() {
+          let name = prompt();
+          document.querySelector('#promptName').innerText =
+            'Hello ' + name + '!';
+        });
+      }
+
+      document.addEventListener('DOMContentLoaded', autorun, false);
+    </script>
+  </body>
 </html>

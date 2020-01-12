@@ -49,7 +49,9 @@ let session;
 ```
 
 ```typescript
-const credentials = Buffer.from(['myusername', 'Password123'].join(':')).toString('base64');
+const credentials = Buffer.from(
+  ['myusername', 'Password123'].join(':')
+).toString('base64');
 const session = await newSession({
   headers: {
     Authorization: `Basic ${credentials}`

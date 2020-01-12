@@ -1,4 +1,10 @@
-import { ActionSequence, Cookie, LocatorStrategy, Timeouts, WindowRect } from './core';
+import {
+  ActionSequence,
+  Cookie,
+  LocatorStrategy,
+  Timeouts,
+  WindowRect
+} from './core';
 import { Element, WebElement } from './Element';
 import { DELETE, GET, POST } from './rest';
 
@@ -102,7 +108,9 @@ export class Session {
     // The URL to navigate to
     targetUrl: string
   ): Promise<void> {
-    await POST(`${this.host}/session/${this.sessionId}/url`, { url: targetUrl });
+    await POST(`${this.host}/session/${this.sessionId}/url`, {
+      url: targetUrl
+    });
   }
 
   /**
@@ -251,7 +259,9 @@ export class Session {
    * await session.getWindowRect();
    */
   public async getWindowRect(): Promise<WindowRect> {
-    return GET<WindowRect>(`${this.host}/session/${this.sessionId}/window/rect`);
+    return GET<WindowRect>(
+      `${this.host}/session/${this.sessionId}/window/rect`
+    );
   }
 
   /**
@@ -267,7 +277,10 @@ export class Session {
    * });
    */
   public async setWindowRect(windowRect: WindowRect): Promise<void> {
-    return POST(`${this.host}/session/${this.sessionId}/window/rect`, windowRect);
+    return POST(
+      `${this.host}/session/${this.sessionId}/window/rect`,
+      windowRect
+    );
   }
 
   /**
@@ -322,10 +335,13 @@ export class Session {
     // Selector string
     selector: string
   ): Promise<Element> {
-    const webElement = await POST<WebElement>(`${this.host}/session/${this.sessionId}/element`, {
-      using: strategy,
-      value: selector
-    });
+    const webElement = await POST<WebElement>(
+      `${this.host}/session/${this.sessionId}/element`,
+      {
+        using: strategy,
+        value: selector
+      }
+    );
 
     return new Element(this.host, this.sessionId, webElement);
   }
@@ -346,13 +362,18 @@ export class Session {
     strategy: LocatorStrategy,
     // Selector string
     selector: string
-  ) {
-    const webElements = await POST<WebElement[]>(`${this.host}/session/${this.sessionId}/elements`, {
-      using: strategy,
-      value: selector
-    });
+  ): Promise<Element[]> {
+    const webElements = await POST<WebElement[]>(
+      `${this.host}/session/${this.sessionId}/elements`,
+      {
+        using: strategy,
+        value: selector
+      }
+    );
 
-    return webElements.map(webElement => new Element(this.host, this.sessionId, webElement));
+    return webElements.map(
+      webElement => new Element(this.host, this.sessionId, webElement)
+    );
   }
 
   /**
@@ -364,7 +385,9 @@ export class Session {
    * // element = <webdriver element>
    */
   public async getActiveElement(): Promise<Element> {
-    const webElement = await GET<WebElement>(`${this.host}/session/${this.sessionId}/element/active`);
+    const webElement = await GET<WebElement>(
+      `${this.host}/session/${this.sessionId}/element/active`
+    );
 
     return new Element(this.host, this.sessionId, webElement);
   }
@@ -403,7 +426,7 @@ export class Session {
    * const message = await session.executeScript(script, ['WebDriver']);
    * // message = 'Hello from WebDriver!'
    */
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public async executeScript<T>(script: string, args: any[] = []): Promise<T> {
     return POST<T>(`${this.host}/session/${this.sessionId}/execute/sync`, {
       script,
@@ -427,8 +450,11 @@ export class Session {
    * const message = await session.executeAsyncScript(script, [5, 3]);
    * // message = 15
    */
-  // tslint:disable-next-line:no-any
-  public async executeAsyncScript<T>(script: string, args: any[] = []): Promise<T> {
+  public async executeAsyncScript<T>(
+    script: string,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    args: any[] = []
+  ): Promise<T> {
     return POST<T>(`${this.host}/session/${this.sessionId}/execute/async`, {
       script,
       args
@@ -475,7 +501,9 @@ export class Session {
    *
    */
   public async getNamedCookie(propertyName: string): Promise<Cookie> {
-    return GET<Cookie>(`${this.host}/session/${this.sessionId}/cookie/${propertyName}`);
+    return GET<Cookie>(
+      `${this.host}/session/${this.sessionId}/cookie/${propertyName}`
+    );
   }
 
   /**
@@ -486,7 +514,7 @@ export class Session {
    * @example
    * await session.addCookie({ name: 'test cookie', value: 'test value' });
    */
-  public async addCookie(cookie: Cookie) {
+  public async addCookie(cookie: Cookie): Promise<void> {
     await POST(`${this.host}/session/${this.sessionId}/cookie`, { cookie });
   }
 
@@ -500,7 +528,9 @@ export class Session {
    *
    */
   public async deleteCookie(propertyName: string): Promise<void> {
-    await DELETE(`${this.host}/session/${this.sessionId}/cookie/${propertyName}`);
+    await DELETE(
+      `${this.host}/session/${this.sessionId}/cookie/${propertyName}`
+    );
   }
 
   /**
@@ -593,7 +623,9 @@ export class Session {
    * ]);
    *
    */
-  public async performActions(actionSequences: ActionSequence[]): Promise<void> {
+  public async performActions(
+    actionSequences: ActionSequence[]
+  ): Promise<void> {
     await POST(`${this.host}/session/${this.sessionId}/actions`, {
       actions: actionSequences.map(actionSequence => {
         if (actionSequence.type !== 'pointer') {
@@ -603,7 +635,12 @@ export class Session {
         return {
           ...actionSequence,
           actions: actionSequence.actions.map(action => {
-            if (action.type !== 'pointerMove' || !action.origin || action.origin === 'viewport' || action.origin === 'pointer') {
+            if (
+              action.type !== 'pointerMove' ||
+              !action.origin ||
+              action.origin === 'viewport' ||
+              action.origin === 'pointer'
+            ) {
               return action;
             }
 
@@ -682,7 +719,9 @@ export class Session {
    * await session.sendAlertText('Test');
    */
   public async sendAlertText(propertyName: string): Promise<void> {
-    await POST(`${this.host}/session/${this.sessionId}/alert/text`, { text: propertyName });
+    await POST(`${this.host}/session/${this.sessionId}/alert/text`, {
+      text: propertyName
+    });
   }
 
   /****************************************************************************************************************
@@ -700,7 +739,9 @@ export class Session {
    * // screenshot = Buffer containing PNG
    */
   public async takeScreenshot(): Promise<Buffer> {
-    const screenshot = await GET<string>(`${this.host}/session/${this.sessionId}/screenshot`);
+    const screenshot = await GET<string>(
+      `${this.host}/session/${this.sessionId}/screenshot`
+    );
 
     return Buffer.from(screenshot, 'base64');
   }

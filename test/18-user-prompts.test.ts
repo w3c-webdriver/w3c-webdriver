@@ -10,7 +10,10 @@ describe('User Prompts', () => {
 
       await session.dismissAlert();
 
-      const result = await session.findElement('css selector', '#confirmResult');
+      const result = await session.findElement(
+        'css selector',
+        '#confirmResult'
+      );
       const resultText = await result.getText();
       expect(resultText).toEqual('No');
     });
@@ -24,7 +27,10 @@ describe('User Prompts', () => {
 
       await session.acceptAlert();
 
-      const result = await session.findElement('css selector', '#confirmResult');
+      const result = await session.findElement(
+        'css selector',
+        '#confirmResult'
+      );
       const resultText = await result.getText();
       expect(resultText).toEqual('Yes');
     });
@@ -49,7 +55,7 @@ describe('User Prompts', () => {
       const alertButton = await session.findElement('css selector', '#prompt');
       await alertButton.click();
 
-      await session.sendAlertText('Test')
+      await session.sendAlertText('Test');
       await session.acceptAlert();
       const result = await session.findElement('css selector', '#promptName');
       const resultText = await result.getText();

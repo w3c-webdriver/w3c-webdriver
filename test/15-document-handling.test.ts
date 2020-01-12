@@ -14,7 +14,10 @@ describe('Document Handling', () => {
   describe('executeScript method', () => {
     it('executes script in browser context', async () => {
       const { session } = testEnv;
-      const result = await session.executeScript<number>('return arguments[0] * arguments[1]', [3, 5]);
+      const result = await session.executeScript<number>(
+        'return arguments[0] * arguments[1]',
+        [3, 5]
+      );
 
       expect(result).toBe(15);
     });
