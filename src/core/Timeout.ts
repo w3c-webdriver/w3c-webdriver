@@ -20,4 +20,4 @@ export type Timeout = {
    * Gives the timeout of when to abort locating an element.
    */
   implicit?: number;
-}
+};

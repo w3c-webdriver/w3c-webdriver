@@ -1,5 +1,5 @@
 // tslint:disable: no-reserved-keywords
-import { Element } from "../Element";
+import { Element } from '../Element';
 
 /**
  * @section Actions
@@ -23,7 +23,7 @@ export type KeyDownAction = {
 export type KeyUpAction = {
   type: 'keyUp';
   value: Key | string;
-}
+};
 
 /**
  * @section Actions
@@ -65,7 +65,11 @@ export type KeyAction = PauseAction | KeyDownAction | KeyUpAction;
 /**
  * @section Actions
  */
-export type PointerAction = PauseAction | PointerMoveAction | PointerUpAction | PointerDownAction;
+export type PointerAction =
+  | PauseAction
+  | PointerMoveAction
+  | PointerUpAction
+  | PointerDownAction;
 
 /**
  * @section Actions
@@ -105,7 +109,10 @@ export type PointerActionSequence = {
 /**
  * @section Actions
  */
-export type ActionSequence = NullActionSequence | KeyActionSequence | PointerActionSequence;
+export type ActionSequence =
+  | NullActionSequence
+  | KeyActionSequence
+  | PointerActionSequence;
 
 /**
  * @section Actions
@@ -182,4 +189,3 @@ export enum Key {
   R_INSERT = '\uE05C',
   R_DELETE = '\uE05D'
 }
-

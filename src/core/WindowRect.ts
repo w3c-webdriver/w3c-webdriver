@@ -26,4 +26,4 @@ export type WindowRect = {
    * If there is no client window this attribute must return zero
    */
   height: number;
-}
+};

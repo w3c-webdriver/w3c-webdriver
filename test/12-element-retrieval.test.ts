@@ -24,7 +24,7 @@ describe('Element Retrieval', () => {
     it('finds element by CSS selector', async () => {
       const { session } = testEnv;
       const parent = await session.findElement('css selector', 'h3');
-      const element = await parent.findElement('css selector', 'input')
+      const element = await parent.findElement('css selector', 'input');
 
       expect(element).toBeDefined();
     });

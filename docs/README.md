@@ -51,7 +51,10 @@ let session;
       }
     });
     await session.navigateTo('http://localhost:8080');
-    const input = await session.findElement('css selector', '[name="first-name"]');
+    const input = await session.findElement(
+      'css selector',
+      '[name="first-name"]'
+    );
     await input.sendKeys('Hello World');
   } catch (err) {
     console.log(err.stack);

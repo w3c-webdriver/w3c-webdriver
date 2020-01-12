@@ -1,3 +1,6 @@
+/* eslint-disable mocha/no-sibling-hooks */
+/* eslint-disable mocha/no-hooks-for-single-case */
+/* eslint-disable mocha/no-top-level-hooks */
 import { newSession, WindowRect } from '../src';
 import { log } from '../src/logger';
 import testEnv, { Browser } from '../test-env';
@@ -11,7 +14,7 @@ let windowRect: WindowRect;
 before(async () => {
   await startDriver();
   await startTestApp();
-})
+});
 
 before(async () => {
   const { driver, capabilities, desiredCapabilities } = testEnv;
@@ -23,7 +26,7 @@ before(async () => {
       ...(capabilities && { capabilities }),
       ...(desiredCapabilities && { desiredCapabilities }),
       headers: driver.headers
-    })
+    });
     log(`Session created.`);
   } catch (error) {
     log(error);
@@ -59,4 +62,3 @@ after(async () => {
   await stopDriver();
   await stopTestApp();
 });
-

@@ -16,7 +16,7 @@ export type StatusOfOS = {
    * Operating system architecture
    */
   arch: string;
-}
+};
 
 /**
  * @section Sessions
@@ -26,7 +26,7 @@ export type StatusOfWebDriver = {
    * Version of driver
    */
   version: string;
-}
+};
 
 /**
  * WebDriver status object
@@ -37,4 +37,4 @@ export type Status = {
   ready: boolean;
   os: StatusOfOS;
   build: StatusOfWebDriver;
-}
+};

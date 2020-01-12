@@ -26,16 +26,13 @@ const capabilities = {
     browserName: 'firefox',
     browserVersion: '60'
   }
-}
+};
 ```
 
 ```typescript
 const capabilities = {
-  firstMatch: [
-    { browserName: 'chrome' },
-    { browserName: 'firefox' }
-  ]
-}
+  firstMatch: [{ browserName: 'chrome' }, { browserName: 'firefox' }]
+};
 ```
 
 **SEE ALSO**

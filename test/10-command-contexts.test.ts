@@ -6,7 +6,9 @@ async function createWindow(): Promise<string> {
   const handlesBefore = await session.getWindowHandles();
   await session.executeScript(`window.open()`);
   const handlesAfter = await session.getWindowHandles();
-  const newHandle = handlesAfter.find((handle: string) => !handlesBefore.includes(handle));
+  const newHandle = handlesAfter.find(
+    (handle: string) => !handlesBefore.includes(handle)
+  );
 
   if (!newHandle) {
     throw new Error('Creating new Window was not successful');
@@ -22,7 +24,7 @@ describe('Command Contexts', () => {
     it('return the current window handle', async () => {
       const { session } = testEnv;
       const handle = await session.getWindowHandle();
-      expect(handle).toMatch(/[a-zA-z0-9-]{2,}/)
+      expect(handle).toMatch(/[a-zA-z0-9-]{2,}/);
     });
   });
 
@@ -77,7 +79,9 @@ describe('Command Contexts', () => {
 
     it('switches to top-level browsing context if null is provided', async () => {
       const { session } = testEnv;
-      await session.switchToFrame(await session.findElement('css selector', 'iframe'));
+      await session.switchToFrame(
+        await session.findElement('css selector', 'iframe')
+      );
       expect(await session.getPageSource()).not.toContain('<iframe');
       await session.switchToFrame(null);
       expect(await session.getPageSource()).toContain('<iframe');
@@ -87,7 +91,9 @@ describe('Command Contexts', () => {
   describe('switchToParentFrame', () => {
     it('switches to parent browsing context ', async () => {
       const { session } = testEnv;
-      await session.switchToFrame(await session.findElement('css selector', 'iframe'));
+      await session.switchToFrame(
+        await session.findElement('css selector', 'iframe')
+      );
       expect(await session.getPageSource()).not.toContain('<iframe');
       await session.switchToParentFrame();
       expect(await session.getPageSource()).toContain('<iframe');
@@ -99,7 +105,7 @@ describe('Command Contexts', () => {
       const { session } = testEnv;
       const handles = await session.getWindowHandles();
       expect(handles).toHaveLength(1);
-      expect(handles[0]).toMatch(/[a-zA-z0-9-]{2,}/)
+      expect(handles[0]).toMatch(/[a-zA-z0-9-]{2,}/);
     });
   });
 
@@ -123,7 +129,7 @@ describe('Command Contexts', () => {
   describe('setWindowRect method', () => {
     it('set current window to specified rect', async () => {
       const { session } = testEnv;
-      const testRect = { x: 25, y: 25, width: 520, height: 520 }
+      const testRect = { x: 25, y: 25, width: 520, height: 520 };
 
       await session.setWindowRect(testRect);
 
@@ -163,5 +169,4 @@ describe('Command Contexts', () => {
       expect(rectBeforeFull).not.toEqual(rectAfterFull);
     });
   });
-
 });

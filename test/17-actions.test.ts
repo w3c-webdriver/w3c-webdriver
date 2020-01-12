@@ -42,7 +42,12 @@ describe('Actions', () => {
           id: 'click on a field',
           actions: [
             { type: 'pause', duration: 0 },
-            { type: 'pointerMove', x: 0, y: 0, origin: await session.findElement('css selector', '#a') },
+            {
+              type: 'pointerMove',
+              x: 0,
+              y: 0,
+              origin: await session.findElement('css selector', '#a')
+            },
             { type: 'pointerDown', button: 0 },
             { type: 'pointerUp', button: 0 }
           ]
@@ -63,7 +68,12 @@ describe('Actions', () => {
           type: 'pointer',
           id: 'click on add button',
           actions: [
-            { type: 'pointerMove', x: 1, y: 1, origin: await session.findElement('css selector', '#add') },
+            {
+              type: 'pointerMove',
+              x: 1,
+              y: 1,
+              origin: await session.findElement('css selector', '#add')
+            },
             { type: 'pointerDown', button: 0 },
             { type: 'pointerUp', button: 0 }
           ],

@@ -22,12 +22,14 @@ describe('Cookies', () => {
         expiry: Date.now() + 60000
       });
       const cookies = await session.getAllCookies();
-      expect(cookies).toEqual([expect.objectContaining({
-        ...testCookie,
-        httpOnly: false,
-        path: '/',
-        secure: false
-      })]);
+      expect(cookies).toEqual([
+        expect.objectContaining({
+          ...testCookie,
+          httpOnly: false,
+          path: '/',
+          secure: false
+        })
+      ]);
     });
   });
 
