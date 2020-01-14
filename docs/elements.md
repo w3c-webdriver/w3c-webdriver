@@ -129,7 +129,7 @@ const children = await child.findElements('css selector', '#child');
 
 **SEE ALSO**
 
-- [WebDriver spec](https://www.w3.org/TR/webdriver/#find-elements)
+- [WebDriver spec](https://www.w3.org/TR/webdriver/#find-elements-from-element)
 
 ## element.isSelected()
 
@@ -152,13 +152,13 @@ const selected = await checkbox.isSelected();
 
 - [WebDriver spec](https://www.w3.org/TR/webdriver/#is-element-selected)
 
-## element.getAttribute(propertyName)
+## element.getAttribute(attributeName)
 
 Returns the attribute of the referenced web element.
 
 **PARAMETERS**
 
-- `propertyName`: string
+- `attributeName`: string
 
 **RETURNS**
 
@@ -196,7 +196,7 @@ const backgroundColor = await button.getProperty('class');
 
 **SEE ALSO**
 
-- [WebDriver spec](https://www.w3.org/TR/webdriver/#get-element-attribute)
+- [WebDriver spec](https://www.w3.org/TR/webdriver/#get-element-property)
 
 ## element.getCssValue(propertyName)
 

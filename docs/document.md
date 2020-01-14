@@ -17,7 +17,7 @@ const source = await session.getPageSource();
 
 **SEE ALSO**
 
-- [WebDriver spec](https://www.w3.org/TR/webdriver/#getting-page-source)
+- [WebDriver spec](https://www.w3.org/TR/webdriver/#get-page-source)
 
 ## session.executeScript\<T\>(script, args)
 
