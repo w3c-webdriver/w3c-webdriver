@@ -49,12 +49,6 @@ jobs:
             browser: 'safari'
             browserStack: 'true'
     runs-on: ${{ matrix.os }}
-    env:
-      BROWSER: ${{ matrix.browser }}
-      HEADLESS: ${{ matrix.headless }}
-      BROWSERSTACK: ${{ matrix.browserStack }}
-      BROWSERSTACK_USERNAME: ${{ secrets.browserStackUsername }}
-      BROWSERSTACK_ACCESS_KEY: ${{ secrets.browserStackAccessKey }}
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
@@ -62,8 +56,16 @@ jobs:
           node-version: ${{ matrix.nodeVersion }}
       - name: Install dependencies
         run: npm ci
+        env:
+          CHROMEDRIVER_VERSION: '78.0.3904.105'
       - name: Run tests
         run: npm run test:coverage
+        env:
+          BROWSER: ${{ matrix.browser }}
+          HEADLESS: ${{ matrix.headless }}
+          BROWSERSTACK: ${{ matrix.browserStack }}
+          BROWSERSTACK_USERNAME: ${{ secrets.browserStackUsername }}
+          BROWSERSTACK_ACCESS_KEY: ${{ secrets.browserStackAccessKey }}
       - name: Upload coverage
         uses: codecov/codecov-action@v1
         with:
