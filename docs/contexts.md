@@ -121,7 +121,7 @@ await session.switchToParentFrame();
 
 **SEE ALSO**
 
-- [WebDriver spec](https://www.w3.org/TR/webdriver/#switch-to-frame)
+- [WebDriver spec](https://www.w3.org/TR/webdriver/#switch-to-parent-frame)
 
 ## session.getWindowRect()
 
@@ -156,7 +156,12 @@ Promise&lt;void&gt;
 **EXAMPLES**
 
 ```typescript
-await session.setWindowRect();
+await session.setWindowRect({
+  x: 10,
+  y: 10,
+  width: 320,
+  height: 600
+});
 ```
 
 **SEE ALSO**

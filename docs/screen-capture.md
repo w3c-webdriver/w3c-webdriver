@@ -36,4 +36,4 @@ const screenshot = await session.takeScreenshot();
 
 **SEE ALSO**
 
-- [WebDriver spec](https://www.w3.org/TR/webdriver/#take-screenshot)
+- [WebDriver spec](https://www.w3.org/TR/webdriver/#take-element-screenshot)

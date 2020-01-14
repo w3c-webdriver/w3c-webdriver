@@ -2,6 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/w3c-webdriver.svg)](https://badge.fury.io/js/w3c-webdriver)
 [![Build Status](https://github.com/w3c-webdriver/w3c-webdriver/workflows/Build/badge.svg)](https://github.com/w3c-webdriver/w3c-webdriver/actions?query=workflow%3ABuild+branch%3Amaster)
+[![codecov](https://codecov.io/gh/w3c-webdriver/w3c-webdriver/branch/master/graph/badge.svg)](https://codecov.io/gh/w3c-webdriver/w3c-webdriver)
 [![npm](https://img.shields.io/npm/dw/w3c-webdriver)](https://www.npmjs.com/package/w3c-webdriver)
 [![github](https://img.shields.io/badge/PRs-welcome-blue.svg)](https://github.com/w3c-webdriver/w3c-webdriver)
 
