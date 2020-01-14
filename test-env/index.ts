@@ -127,7 +127,7 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
         'bstack:options': {
           local: true,
           os: 'OS X',
-          osVersion: 'Catalina',
+          osVersion: 'Mojave',
           safari: {
             enablePopups: true,
             allowAllCookies: true
