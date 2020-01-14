@@ -20,3 +20,5 @@
 ## Resources
 
 - [GitHub](https://github.com/w3c-webdriver/w3c-webdriver)
+- [WebDriver spec](https://www.w3.org/TR/webdriver)
+- [MDN docs](https://developer.mozilla.org/en-US/docs/Web/WebDriver)
