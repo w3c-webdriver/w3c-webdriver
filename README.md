@@ -1,7 +1,7 @@
 # WebDriver client for JavaScript
 
 [![npm version](https://badge.fury.io/js/w3c-webdriver.svg)](https://badge.fury.io/js/w3c-webdriver)
-[![Build Status](https://dev.azure.com/w3c-webdriver/w3c-webdriver/_apis/build/status/w3c-webdriver.w3c-webdriver?branchName=master)](https://dev.azure.com/w3c-webdriver/w3c-webdriver/_build/latest?definitionId=1&branchName=master)
+[![Build Status](https://github.com/w3c-webdriver/w3c-webdriver/workflows/Build/badge.svg)](https://github.com/w3c-webdriver/w3c-webdriver/actions?query=workflow%3ABuild+branch%3Amaster)
 [![npm](https://img.shields.io/npm/dw/w3c-webdriver)](https://www.npmjs.com/package/w3c-webdriver)
 [![github](https://img.shields.io/badge/PRs-welcome-blue.svg)](https://github.com/w3c-webdriver/w3c-webdriver)
 

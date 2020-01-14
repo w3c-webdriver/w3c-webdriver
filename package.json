@@ -16,6 +16,7 @@
     "typecheck": "tsc --project . --noEmit",
     "test": "ts-mocha test/**/*.test.ts --timeout 60000",
     "test:debug": "node --inspect ./node_modules/jest/bin/jest.js --detectOpenHandles",
+    "test:coverage": "nyc npm test",
     "test:chrome": "cross-env BROWSER=chrome npm test",
     "test:chrome-headless": "cross-env BROWSER=chrome HEADLESS=true npm test",
     "test:firefox": "cross-env BROWSER=firefox npm test",
