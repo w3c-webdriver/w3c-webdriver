@@ -3,7 +3,7 @@
 /* eslint-disable mocha/no-top-level-hooks */
 import { newSession, WindowRect } from '../src';
 import { log } from '../src/logger';
-import testEnv, { Browser } from '../test-env';
+import testEnv, { WebDriverHost } from '../test-env';
 import { startDriver, stopDriver } from '../test-env/browserDriver';
 import { startTestApp, stopTestApp } from '../test-env/testApp';
 
@@ -36,24 +36,32 @@ before(async () => {
 });
 
 beforeEach(async () => {
-  const { session } = testEnv;
+  const { session, driver } = testEnv;
   const testAppPort = process.env.TEST_APP_PORT;
   await session.navigateTo(`http://localhost:${testAppPort}`);
   await session.setWindowRect(windowRect);
+  if (driver.host === WebDriverHost.BrowserStack) {
+    log(`Wait for 4 seconds...`);
+    await new Promise(resolve =>
+      setTimeout(() => {
+        resolve();
+      }, 4000)
+    );
+  }
 });
 
 after(async () => {
-  const { session, browser, driver } = testEnv;
+  const { session, driver } = testEnv;
   const url = process.env.WEB_DRIVER_URL;
   log(`Deleting session on ${url}.`);
   await session.close();
   log(`Session deleted.`);
-  if (browser === Browser.Safari || driver.host) {
-    log(`Wait for 2 seconds...`);
+  if (driver.host === WebDriverHost.BrowserStack) {
+    log(`Wait for 4 seconds...`);
     await new Promise(resolve =>
       setTimeout(() => {
         resolve();
-      }, 2000)
+      }, 4000)
     );
   }
 });
