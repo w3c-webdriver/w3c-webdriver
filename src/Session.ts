@@ -79,6 +79,7 @@ export class Session {
   /**
    * Configure the amount of time that a particular type of operation can execute for before
    * they are aborted and a Timeout error is returned to the client.
+   *
    * @see {@link https://www.w3.org/TR/webdriver/#set-timeouts|WebDriver spec}
    * @section Timeouts
    * @example
@@ -87,6 +88,7 @@ export class Session {
    *   pageLoad: 60000,
    *   implicit: 40000
    * });
+   * @param timeout Session timeout configuration object
    */
   public async setTimeouts(timeout: Timeouts): Promise<void> {
     await POST(`${this.host}/session/${this.sessionId}/timeouts`, timeout);
@@ -99,10 +101,12 @@ export class Session {
 
   /**
    * Navigate to a new URL.
+   *
    * @see {@link https://www.w3.org/TR/webdriver/#navigate-to|WebDriver spec}
    * @section Navigation
    * @example
    * await session.navigateTo('http://localhost:8080');
+   * @param targetUrl New URL to navigate
    */
   public async navigateTo(
     // The URL to navigate to
@@ -200,10 +204,12 @@ export class Session {
 
   /**
    * Change focus to another window. The window to change focus to may be specified by it's server assigned window handle.
+   *
    * @see {@link https://www.w3.org/TR/webdriver/#switch-to-window|WebDriver spec}
    * @section Contexts
    * @example
    * await session.switchToWindow('CDwindow-7321145136535301DE771CCBD9555CEA');
+   * @param handle Window handle to switch to
    */
   public async switchToWindow(handle: string): Promise<void> {
     await POST(`${this.host}/session/${this.sessionId}/window`, { handle });
@@ -223,14 +229,15 @@ export class Session {
 
   /**
    * Change focus to another frame on the page
+   *
    * @see {@link https://www.w3.org/TR/webdriver/#switch-to-frame|WebDriver spec}
    * @section Contexts
-   * @param id Identifier for the frame to change focus to.
    * @example
    * const iframe = await session.findElement('css selector', 'iframe');
    * await session.switchToFrame(iframe);
    * @example
    * await session.switchToFrame(null);
+   * @param target Identifier for the frame to change focus to
    */
   public async switchToFrame(target: null | number | Element): Promise<void> {
     const id = target instanceof Element ? target.getWebElement() : target;
@@ -242,7 +249,6 @@ export class Session {
    * Change focus to parent frame on the page
    * @see {@link https://www.w3.org/TR/webdriver/#switch-to-parent-frame|WebDriver spec}
    * @section Contexts
-   * @param id Identifier for the frame to change focus to.
    * @example
    * await session.switchToParentFrame();
    */
@@ -266,15 +272,17 @@ export class Session {
 
   /**
    * Set the size and position on the screen of the operating system window
+   *
    * @see {@link https://www.w3.org/TR/webdriver/#set-window-rect|WebDriver spec}
    * @section Contexts
    * @example
    * await session.setWindowRect({
-   *  x: 10,
-   *  y: 10,
-   *  width: 320,
-   *  height: 600
+   *   x: 10,
+   *   y: 10,
+   *   width: 320,
+   *   height: 600
    * });
+   * @param windowRect Window position and size
    */
   public async setWindowRect(windowRect: WindowRect): Promise<void> {
     return POST(
@@ -323,16 +331,17 @@ export class Session {
 
   /**
    * Search for an element on the page, starting from the document root.
+   *
    * @see {@link https://www.w3.org/TR/webdriver/#find-element|WebDriver spec}
    * @section Elements
    * @example
    * const element = await session.findElement('css selector', 'h2');
    * // element = <webdriver element>
+   * @param strategy Strategy for emelent lookup
+   * @param selector Selector string
    */
   public async findElement(
-    // Locator strategy
     strategy: LocatorStrategy,
-    // Selector string
     selector: string
   ): Promise<Element> {
     const webElement = await POST<WebElement>(
@@ -351,16 +360,17 @@ export class Session {
    * elements will be returned as a WebElement JSON objects. The table below lists the locator
    * strategies that each server should support. Elements should be returned in the order located
    * in the DOM.
+   *
    * @see {@link https://www.w3.org/TR/webdriver/#find-elements|WebDriver spec}
    * @section Elements
    * @example
    * const elements = await session.findElements('css selector', 'h2');
    * // elements = [<webdriver element>]
+   * @param strategy Strategy for emelent lookup
+   * @param selector Selector string
    */
   public async findElements(
-    // Locator strategy
     strategy: LocatorStrategy,
-    // Selector string
     selector: string
   ): Promise<Element[]> {
     const webElements = await POST<WebElement[]>(
@@ -425,6 +435,8 @@ export class Session {
    * `;
    * const message = await session.executeScript(script, ['WebDriver']);
    * // message = 'Hello from WebDriver!'
+   * @param script JavaScript to execute in browser context
+   * @param args Arguments to sent to executed script
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public async executeScript<T>(script: string, args: any[] = []): Promise<T> {
@@ -439,6 +451,7 @@ export class Session {
    * result of the function is ignored. Instead an additional argument is provided as the final
    * argument to the function. This is a function that, when called, returns its first argument
    * as the response.
+   *
    * @return The script result.
    * @see {@link https://www.w3.org/TR/webdriver/#execute-async-script|WebDriver spec}
    * @section Document
@@ -449,6 +462,8 @@ export class Session {
    * `;
    * const message = await session.executeAsyncScript(script, [5, 3]);
    * // message = 15
+   * @param script JavaScript to execute in browser context
+   * @param args Arguments to sent to executed script
    */
   public async executeAsyncScript<T>(
     script: string,
@@ -498,12 +513,10 @@ export class Session {
    * @section Cookies
    * @example
    * const cookie = await session.getNamedCookie('cookieName');
-   *
+   * @param name Name of the cookie object to be returned
    */
-  public async getNamedCookie(propertyName: string): Promise<Cookie> {
-    return GET<Cookie>(
-      `${this.host}/session/${this.sessionId}/cookie/${propertyName}`
-    );
+  public async getNamedCookie(name: string): Promise<Cookie> {
+    return GET<Cookie>(`${this.host}/session/${this.sessionId}/cookie/${name}`);
   }
 
   /**
@@ -513,6 +526,7 @@ export class Session {
    * @section Cookies
    * @example
    * await session.addCookie({ name: 'test cookie', value: 'test value' });
+   * @param cookie Cookie object to add in browser for current domain
    */
   public async addCookie(cookie: Cookie): Promise<void> {
     await POST(`${this.host}/session/${this.sessionId}/cookie`, { cookie });
@@ -525,7 +539,7 @@ export class Session {
    * @section Cookies
    * @example
    * await session.deleteCookie('cookieName');
-   *
+   * @param propertyName Cookie name to delete
    */
   public async deleteCookie(propertyName: string): Promise<void> {
     await DELETE(
@@ -621,7 +635,7 @@ export class Session {
    *     ]
    *   }
    * ]);
-   *
+   * @param actionSequences Array with actions to be performed on the current page
    */
   public async performActions(
     actionSequences: ActionSequence[]
@@ -713,10 +727,12 @@ export class Session {
 
   /**
    * Sets the text field of a prompt to the given value.
+   *
    * @see {@link https://www.w3.org/TR/webdriver/#send-alert-text|WebDriver spec}
    * @section User prompts
    * @example
    * await session.sendAlertText('Test');
+   * @param text Text to be set in the input area of alert
    */
   public async sendAlertText(text: string): Promise<void> {
     await POST(`${this.host}/session/${this.sessionId}/alert/text`, {

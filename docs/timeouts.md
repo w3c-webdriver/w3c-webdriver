@@ -30,7 +30,7 @@ they are aborted and a Timeout error is returned to the client.
 
 **PARAMETERS**
 
-- `timeout`: [Timeouts](#timeouts)
+- `timeout`: [Timeouts](#timeouts) - Session timeout configuration object
 
 **RETURNS**
 

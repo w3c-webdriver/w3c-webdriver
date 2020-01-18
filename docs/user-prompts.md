@@ -54,13 +54,13 @@ const alertText = await session.getAlertText();
 
 - [WebDriver spec](https://www.w3.org/TR/webdriver/#get-alert-text)
 
-## session.sendAlertText(propertyName)
+## session.sendAlertText(text)
 
 Sets the text field of a prompt to the given value.
 
 **PARAMETERS**
 
-- `propertyName`: string
+- `text`: string - Text to be set in the input area of alert
 
 **RETURNS**
 

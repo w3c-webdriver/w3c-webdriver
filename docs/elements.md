@@ -6,8 +6,8 @@ Search for an element on the page, starting from the document root.
 
 **PARAMETERS**
 
-- `strategy`: [LocatorStrategy](#locatorstrategy)
-- `selector`: string
+- `strategy`: [LocatorStrategy](#locatorstrategy) - Strategy for emelent lookup
+- `selector`: string - Selector string
 
 **RETURNS**
 
@@ -33,8 +33,8 @@ in the DOM.
 
 **PARAMETERS**
 
-- `strategy`: [LocatorStrategy](#locatorstrategy)
-- `selector`: string
+- `strategy`: [LocatorStrategy](#locatorstrategy) - Strategy for emelent lookup
+- `selector`: string - Selector string
 
 **RETURNS**
 
@@ -84,8 +84,8 @@ Search for an element on the page, starting from the referenced web element.
 
 **PARAMETERS**
 
-- `strategy`: [LocatorStrategy](#locatorstrategy)
-- `selector`: string
+- `strategy`: [LocatorStrategy](#locatorstrategy) - Strategy for element lookup
+- `selector`: string - Selector string
 
 **RETURNS**
 
@@ -112,8 +112,8 @@ in the DOM.
 
 **PARAMETERS**
 
-- `strategy`: [LocatorStrategy](#locatorstrategy)
-- `selector`: string
+- `strategy`: [LocatorStrategy](#locatorstrategy) - Strategy for emelent lookup
+- `selector`: string - Selector string
 
 **RETURNS**
 
@@ -154,11 +154,11 @@ const selected = await checkbox.isSelected();
 
 ## element.getAttribute(attributeName)
 
-Returns the attribute of the referenced web element.
+Returns the attribute value of the referenced web element.
 
 **PARAMETERS**
 
-- `attributeName`: string
+- `attributeName`: string - Element attribute name
 
 **RETURNS**
 
@@ -181,7 +181,7 @@ Returns the property of the referenced web element.
 
 **PARAMETERS**
 
-- `propertyName`: string
+- `propertyName`: string - Element property name
 
 **RETURNS**
 
@@ -204,7 +204,7 @@ Returns the computed value of the given CSS property for the element.
 
 **PARAMETERS**
 
-- `propertyName`: string
+- `propertyName`: string - Name of CSS property
 
 **RETURNS**
 
@@ -346,7 +346,7 @@ Send a sequence of key strokes to an element.
 
 **PARAMETERS**
 
-- `text`: string
+- `text`: string - Input text to be typed in element
 
 **RETURNS**
 

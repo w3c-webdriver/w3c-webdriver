@@ -29,13 +29,13 @@ const cookies = await session.getAllCookies();
 
 - [WebDriver spec](https://www.w3.org/TR/webdriver/#get-all-cookies)
 
-## session.getNamedCookie(propertyName)
+## session.getNamedCookie(name)
 
 Returns cookie based on the cookie name
 
 **PARAMETERS**
 
-- `propertyName`: string
+- `name`: string - Name of the cookie object to be returned
 
 **RETURNS**
 
@@ -57,7 +57,7 @@ Adds a single cookie to the cookie store associated with the active document’s
 
 **PARAMETERS**
 
-- `cookie`: [Cookie](#cookie)
+- `cookie`: [Cookie](#cookie) - Cookie object to add in browser for current domain
 
 **RETURNS**
 
@@ -79,7 +79,7 @@ Delete a cookie based on its name
 
 **PARAMETERS**
 
-- `propertyName`: string
+- `propertyName`: string - Cookie name to delete
 
 **RETURNS**
 

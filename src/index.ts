@@ -11,6 +11,7 @@ import { Session } from './Session';
  * This can be a locally running browser driver server ([Chromedriver](http://chromedriver.chromium.org), [Geckodriver](https://firefox-source-docs.mozilla.org/testing/geckodriver), etc.),
  * [Selenium Server or Grid](https://www.seleniumhq.org) or cloud provider url ([BrowserStack](https://www.browserstack.com), [Sauce Labs](https://saucelabs.com), .etc.).
  * Also we can set the browser and operating system parameters we want to interact with.
+ *
  * @section Sessions
  * @returns session
  * @see {@link https://www.w3.org/TR/webdriver/#new-session|WebDriver spec}
@@ -35,7 +36,6 @@ import { Session } from './Session';
  *     session.close();
  *   }
  * })();
- *
  * @example
  * const credentials = Buffer.from(['myusername', 'Password123'].join(':')).toString('base64');
  * const session = await newSession({
@@ -43,6 +43,7 @@ import { Session } from './Session';
  *     Authorization: `Basic ${credentials}`
  *   }
  * });
+ * @param options Object with configuration for new session creation
  */
 export async function newSession(options: {
   /**
@@ -95,6 +96,7 @@ export async function newSession(options: {
  * To be able to verify if the WebDriver server is ready for new session creation sometimes it can be useful to query it's status.
  * This function queries the WebDriver server's current status.
  * The status contains meta information about the WebDriver server and operating system.
+ *
  * @section Sessions
  * @returns status
  * @see {@link https://www.w3.org/TR/webdriver/#status|WebDriver spec}
@@ -106,11 +108,9 @@ export async function newSession(options: {
  * //   build: { version: '1.2.0' },
  * //   os: { name: 'mac', version: 'unknown', arch: '64bit' }
  * // }
+ * @param url Location of WebDriver API
  */
-export async function status(
-  // WebDriver server URL
-  url: string
-): Promise<Status> {
+export async function status(url: string): Promise<Status> {
   return GET<Status>(`${url}/status`);
 }
 

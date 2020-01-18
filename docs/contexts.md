@@ -43,7 +43,7 @@ Change focus to another window. The window to change focus to may be specified b
 
 **PARAMETERS**
 
-- `handle`: string
+- `handle`: string - Window handle to switch to
 
 **RETURNS**
 
@@ -84,7 +84,7 @@ Change focus to another frame on the page
 
 **PARAMETERS**
 
-- `target`: null | number | [Element](elements.md#element)
+- `target`: null | number | [Element](elements.md#element) - Identifier for the frame to change focus to
 
 **RETURNS**
 
@@ -147,7 +147,7 @@ Set the size and position on the screen of the operating system window
 
 **PARAMETERS**
 
-- `windowRect`: [WindowRect](#windowrect)
+- `windowRect`: [WindowRect](#windowrect) - Window position and size
 
 **RETURNS**
 
