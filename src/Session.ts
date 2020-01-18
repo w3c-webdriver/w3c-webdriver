@@ -718,9 +718,9 @@ export class Session {
    * @example
    * await session.sendAlertText('Test');
    */
-  public async sendAlertText(propertyName: string): Promise<void> {
+  public async sendAlertText(text: string): Promise<void> {
     await POST(`${this.host}/session/${this.sessionId}/alert/text`, {
-      text: propertyName
+      text
     });
   }
 
