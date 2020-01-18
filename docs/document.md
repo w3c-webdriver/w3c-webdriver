@@ -19,7 +19,7 @@ const source = await session.getPageSource();
 
 - [WebDriver spec](https://www.w3.org/TR/webdriver/#get-page-source)
 
-## session.executeScript\<T\>(script, args)
+## session.executeScript&lt;T&gt;(script, args)
 
 Inject a snippet of JavaScript into the page for execution in the context of the
 currently selected frame. The executed script is assumed to be synchronous and
@@ -49,7 +49,7 @@ const message = await session.executeScript(script, ['WebDriver']);
 
 - [WebDriver spec](https://www.w3.org/TR/webdriver/#execute-script)
 
-## session.executeAsyncScript\<T\>(script, args)
+## session.executeAsyncScript&lt;T&gt;(script, args)
 
 causes JavaScript to execute as an anonymous function. Unlike the Execute Script command, the
 result of the function is ignored. Instead an additional argument is provided as the final

@@ -12,12 +12,12 @@ Also we can set the browser and operating system parameters we want to interact 
 
 **PARAMETERS**
 
-- `options`: object
-  - `url`: string
-  - `capabilities`: [Capabilities](capabilities.md#capabilities)
-  - `desiredCapabilities?`: object
+- `options`: object - Object with configuration for new session creation
+  - `url`: string - WebDriver server URL
+  - `capabilities`: [Capabilities](capabilities.md#capabilities) - WebDriver capabilities
+  - `desiredCapabilities?`: object - Legacy WebDriver capabilities. Can be used to enable the new W3C dialect
     - `browserstack.use_w3c`: boolean
-  - `headers`: Headers | string[] | object - Object with configuration for new session creation
+  - `headers`: Headers | string[] | object - Session creation request headers. Can be used for authorization. See example
 
 **RETURNS**
 
@@ -158,12 +158,12 @@ WebDriver status object
 
 **PROPERTIES**
 
-- `name`: string
-- `version`: string
-- `arch`: string
+- `name`: string - Name of operating system
+- `version`: string - Version of operating system
+- `arch`: string - Operating system architecture
 
 ## StatusOfWebDriver
 
 **PROPERTIES**
 
-- `version`: string
+- `version`: string - Version of driver
