@@ -12,9 +12,11 @@
     "prettier/@typescript-eslint",
     "plugin:mocha/recommended"
   ],
-  "plugins": ["@typescript-eslint", "mocha"],
+  "plugins": ["@typescript-eslint", "mocha", "jsdoc"],
   "rules": {
     "mocha/no-mocha-arrows": "off",
-    "@typescript-eslint/ban-types": "off"
+    "@typescript-eslint/ban-types": "off",
+    "jsdoc/require-param": 1,
+    "jsdoc/require-param-description": 1
   }
 }

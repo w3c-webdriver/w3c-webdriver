@@ -46,11 +46,11 @@ export class Element {
    * const parent = await session.findElement('css selector', '#parent');
    * const child = await child.findElement('css selector', '#child');
    * // child = <webdriver element>
+   * @param strategy Strategy for emelent lookup
+   * @param selector Selector string
    */
   public async findElement(
-    // Locator strategy
     strategy: LocatorStrategy,
-    // Selector string
     selector: string
   ): Promise<Element> {
     const webElement = await POST<WebElement>(
@@ -69,17 +69,18 @@ export class Element {
    * elements will be returned as a WebElement JSON objects. The table below lists the locator
    * strategies that each server should support. Elements should be returned in the order located
    * in the DOM.
+   *
    * @see {@link https://www.w3.org/TR/webdriver/#find-elements-from-element|WebDriver spec}
    * @section Elements
    * @example
    * const parent = await session.findElement('css selector', '#parent');
    * const children = await child.findElements('css selector', '#child');
    * // elements = [<webdriver element>]
+   * @param strategy Strategy for emelent lookup
+   * @param selector Selector string
    */
   public async findElements(
-    // Locator strategy
     strategy: LocatorStrategy,
-    // Selector string
     selector: string
   ): Promise<Element[]> {
     const webElements = await POST<WebElement[]>(
@@ -112,12 +113,14 @@ export class Element {
   }
 
   /**
-   * Returns the attribute of the referenced web element.
+   * Returns the attribute value of the referenced web element.
+   *
    * @see {@link https://www.w3.org/TR/webdriver/#get-element-attribute|WebDriver spec}
    * @section Elements
    * @example
    * const button = await session.findElement('css selector', '#red-button');
    * const backgroundColor = await button.getAttribute('css');
+   * @param attributeName element attribute name
    */
   public async getAttribute(attributeName: string): Promise<string> {
     return GET<string>(
@@ -127,11 +130,13 @@ export class Element {
 
   /**
    * Returns the property of the referenced web element.
+   *
    * @see {@link https://www.w3.org/TR/webdriver/#get-element-property|WebDriver spec}
    * @section Elements
    * @example
    * const button = await session.findElement('css selector', '#red-button');
    * const backgroundColor = await button.getProperty('class');
+   * @param propertyName element property name
    */
   public async getProperty(propertyName: string): Promise<string> {
     return GET<string>(
@@ -141,12 +146,14 @@ export class Element {
 
   /**
    * Returns the computed value of the given CSS property for the element.
+   *
    * @see {@link https://www.w3.org/TR/webdriver/#get-element-css-value|WebDriver spec}
    * @section Elements
    * @example
    * const button = await session.findElement('css selector', '#red-button');
    * const backgroundColor = await button.getCssValue('background-color');
    * // backgroundColor = 'rgba(255, 0, 0, 1)'
+   * @param propertyName name of CSS property
    */
   public async getCssValue(propertyName: string): Promise<string> {
     return GET<string>(
@@ -243,11 +250,13 @@ export class Element {
 
   /**
    * Send a sequence of key strokes to an element.
+   *
    * @see {@link https://www.w3.org/TR/webdriver/#element-send-keys|WebDriver spec}
    * @section Elements
    * @example
    * const input = await session.findElement('css selector', '[name="first-name"]');
    * await input.sendKeys('Hello World');
+   * @param text input text to be typed in element
    */
   public async sendKeys(text: string): Promise<void> {
     await POST(

@@ -6,7 +6,7 @@ Sends virtualised device input to the web browser like keyboard or pointer event
 
 **PARAMETERS**
 
-- `actionSequences`: [ActionSequence](#actionsequence)[]
+- `actionSequences`: [ActionSequence](#actionsequence)[] - actions configuration array to perform on the current page
 
 **RETURNS**
 
