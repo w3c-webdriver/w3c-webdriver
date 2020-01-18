@@ -637,7 +637,7 @@ export class Session {
    *     ]
    *   }
    * ]);
-   * @param actionSequences Actions onfiguration array to perform on the current page
+   * @param actionSequences Array with actions to be performed on the current page
    */
   public async performActions(
     actionSequences: ActionSequence[]
@@ -734,7 +734,7 @@ export class Session {
    * @section User prompts
    * @example
    * await session.sendAlertText('Test');
-   * @param text Input text to type in the alert dialog
+   * @param text Text to be set in the input area of alert
    */
   public async sendAlertText(text: string): Promise<void> {
     await POST(`${this.host}/session/${this.sessionId}/alert/text`, {

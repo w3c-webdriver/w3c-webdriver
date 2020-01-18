@@ -36,19 +36,18 @@ before(async () => {
 });
 
 beforeEach(async () => {
-  const { session } = testEnv;
+  const { session, driver } = testEnv;
   const testAppPort = process.env.TEST_APP_PORT;
   await session.navigateTo(`http://localhost:${testAppPort}`);
   await session.setWindowRect(windowRect);
-  await session.executeAsyncScript(`
-    var callback = arguments[0];
-    var interval = setInterval(function() {
-      if(document.readyState === 'complete') {
-        clearInterval(interval);
-        callback();
-      }
-    }, 100);
-  `);
+  if (driver.host === WebDriverHost.BrowserStack) {
+    log(`Wait for 4 seconds...`);
+    await new Promise(resolve =>
+      setTimeout(() => {
+        resolve();
+      }, 4000)
+    );
+  }
 });
 
 after(async () => {

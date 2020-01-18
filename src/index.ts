@@ -43,7 +43,7 @@ import { Session } from './Session';
  *     Authorization: `Basic ${credentials}`
  *   }
  * });
- * @param options Session creations configuration
+ * @param options Object with configuration for new session creation
  */
 export async function newSession(options: {
   /**
