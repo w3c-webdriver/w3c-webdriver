@@ -29,13 +29,13 @@ const cookies = await session.getAllCookies();
 
 - [WebDriver spec](https://www.w3.org/TR/webdriver/#get-all-cookies)
 
-## session.getNamedCookie(propertyName)
+## session.getNamedCookie(name)
 
 Returns cookie based on the cookie name
 
 **PARAMETERS**
 
-- `propertyName`: string - Cookie name to return
+- `name`: string - Name of the cookie object to be returned
 
 **RETURNS**
 

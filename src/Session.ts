@@ -237,7 +237,7 @@ export class Session {
    * await session.switchToFrame(iframe);
    * @example
    * await session.switchToFrame(null);
-   * @param target Identifier for the frame to change focus to.
+   * @param target Identifier for the frame to change focus to
    */
   public async switchToFrame(target: null | number | Element): Promise<void> {
     const id = target instanceof Element ? target.getWebElement() : target;
@@ -513,12 +513,10 @@ export class Session {
    * @section Cookies
    * @example
    * const cookie = await session.getNamedCookie('cookieName');
-   * @param propertyName Cookie name to return
+   * @param name Name of the cookie object to be returned
    */
-  public async getNamedCookie(propertyName: string): Promise<Cookie> {
-    return GET<Cookie>(
-      `${this.host}/session/${this.sessionId}/cookie/${propertyName}`
-    );
+  public async getNamedCookie(name: string): Promise<Cookie> {
+    return GET<Cookie>(`${this.host}/session/${this.sessionId}/cookie/${name}`);
   }
 
   /**

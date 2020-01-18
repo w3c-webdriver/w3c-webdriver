@@ -84,7 +84,7 @@ Change focus to another frame on the page
 
 **PARAMETERS**
 
-- `target`: null | number | [Element](elements.md#element) - Identifier for the frame to change focus to.
+- `target`: null | number | [Element](elements.md#element) - Identifier for the frame to change focus to
 
 **RETURNS**
 
