@@ -108,12 +108,9 @@ export async function newSession(options: {
  * //   build: { version: '1.2.0' },
  * //   os: { name: 'mac', version: 'unknown', arch: '64bit' }
  * // }
- * @param url location of WebDriver API
+ * @param url Location of WebDriver API
  */
-export async function status(
-  // WebDriver server URL
-  url: string
-): Promise<Status> {
+export async function status(url: string): Promise<Status> {
   return GET<Status>(`${url}/status`);
 }
 

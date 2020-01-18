@@ -60,7 +60,7 @@ Sets the text field of a prompt to the given value.
 
 **PARAMETERS**
 
-- `text`: string - input text to type in the alert dialog
+- `text`: string - Input text to type in the alert dialog
 
 **RETURNS**
 

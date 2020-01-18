@@ -106,7 +106,7 @@ export class Session {
    * @section Navigation
    * @example
    * await session.navigateTo('http://localhost:8080');
-   * @param targetUrl new URL to navigate
+   * @param targetUrl New URL to navigate
    */
   public async navigateTo(
     // The URL to navigate to
@@ -282,7 +282,7 @@ export class Session {
    *   width: 320,
    *   height: 600
    * });
-   * @param windowRect window position and size
+   * @param windowRect Window position and size
    */
   public async setWindowRect(windowRect: WindowRect): Promise<void> {
     return POST(
@@ -637,7 +637,7 @@ export class Session {
    * ]
    * }
    * ]);
-   * @param actionSequences actions configuration array to perform on the current page
+   * @param actionSequences Actions onfiguration array to perform on the current page
    */
   public async performActions(
     actionSequences: ActionSequence[]
@@ -734,7 +734,7 @@ export class Session {
    * @section User prompts
    * @example
    * await session.sendAlertText('Test');
-   * @param text input text to type in the alert dialog
+   * @param text Input text to type in the alert dialog
    */
   public async sendAlertText(text: string): Promise<void> {
     await POST(`${this.host}/session/${this.sessionId}/alert/text`, {

@@ -158,7 +158,7 @@ Returns the attribute value of the referenced web element.
 
 **PARAMETERS**
 
-- `attributeName`: string - element attribute name
+- `attributeName`: string - Element attribute name
 
 **RETURNS**
 
@@ -181,7 +181,7 @@ Returns the property of the referenced web element.
 
 **PARAMETERS**
 
-- `propertyName`: string - element property name
+- `propertyName`: string - Element property name
 
 **RETURNS**
 
@@ -204,7 +204,7 @@ Returns the computed value of the given CSS property for the element.
 
 **PARAMETERS**
 
-- `propertyName`: string - name of CSS property
+- `propertyName`: string - Name of CSS property
 
 **RETURNS**
 
@@ -346,7 +346,7 @@ Send a sequence of key strokes to an element.
 
 **PARAMETERS**
 
-- `text`: string - input text to be typed in element
+- `text`: string - Input text to be typed in element
 
 **RETURNS**
 

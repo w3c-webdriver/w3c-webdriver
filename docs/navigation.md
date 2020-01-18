@@ -6,7 +6,7 @@ Navigate to a new URL.
 
 **PARAMETERS**
 
-- `targetUrl`: string - new URL to navigate
+- `targetUrl`: string - New URL to navigate
 
 **RETURNS**
 

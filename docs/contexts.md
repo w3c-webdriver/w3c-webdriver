@@ -147,7 +147,7 @@ Set the size and position on the screen of the operating system window
 
 **PARAMETERS**
 
-- `windowRect`: [WindowRect](#windowrect) - window position and size
+- `windowRect`: [WindowRect](#windowrect) - Window position and size
 
 **RETURNS**
 

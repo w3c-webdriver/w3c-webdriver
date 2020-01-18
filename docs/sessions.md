@@ -71,7 +71,7 @@ The status contains meta information about the WebDriver server and operating sy
 
 **PARAMETERS**
 
-- `url`: string - location of WebDriver API
+- `url`: string - Location of WebDriver API
 
 **RETURNS**
 

@@ -120,7 +120,7 @@ export class Element {
    * @example
    * const button = await session.findElement('css selector', '#red-button');
    * const backgroundColor = await button.getAttribute('css');
-   * @param attributeName element attribute name
+   * @param attributeName Element attribute name
    */
   public async getAttribute(attributeName: string): Promise<string> {
     return GET<string>(
@@ -136,7 +136,7 @@ export class Element {
    * @example
    * const button = await session.findElement('css selector', '#red-button');
    * const backgroundColor = await button.getProperty('class');
-   * @param propertyName element property name
+   * @param propertyName Element property name
    */
   public async getProperty(propertyName: string): Promise<string> {
     return GET<string>(
@@ -153,7 +153,7 @@ export class Element {
    * const button = await session.findElement('css selector', '#red-button');
    * const backgroundColor = await button.getCssValue('background-color');
    * // backgroundColor = 'rgba(255, 0, 0, 1)'
-   * @param propertyName name of CSS property
+   * @param propertyName Name of CSS property
    */
   public async getCssValue(propertyName: string): Promise<string> {
     return GET<string>(
@@ -256,7 +256,7 @@ export class Element {
    * @example
    * const input = await session.findElement('css selector', '[name="first-name"]');
    * await input.sendKeys('Hello World');
-   * @param text input text to be typed in element
+   * @param text Input text to be typed in element
    */
   public async sendKeys(text: string): Promise<void> {
     await POST(
