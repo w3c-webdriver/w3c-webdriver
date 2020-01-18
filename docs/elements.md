@@ -84,7 +84,7 @@ Search for an element on the page, starting from the referenced web element.
 
 **PARAMETERS**
 
-- `strategy`: [LocatorStrategy](#locatorstrategy) - Strategy for emelent lookup
+- `strategy`: [LocatorStrategy](#locatorstrategy) - Strategy for element lookup
 - `selector`: string - Selector string
 
 **RETURNS**

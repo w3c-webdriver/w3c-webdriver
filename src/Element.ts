@@ -46,7 +46,7 @@ export class Element {
    * const parent = await session.findElement('css selector', '#parent');
    * const child = await child.findElement('css selector', '#child');
    * // child = <webdriver element>
-   * @param strategy Strategy for emelent lookup
+   * @param strategy Strategy for element lookup
    * @param selector Selector string
    */
   public async findElement(

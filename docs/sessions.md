@@ -17,7 +17,7 @@ Also we can set the browser and operating system parameters we want to interact 
   - `capabilities`: [Capabilities](capabilities.md#capabilities)
   - `desiredCapabilities?`: object
     - `browserstack.use_w3c`: boolean
-  - `headers`: Headers | string[] | object - Session creations configuration
+  - `headers`: Headers | string[] | object - Object with configuration for new session creation
 
 **RETURNS**
 
