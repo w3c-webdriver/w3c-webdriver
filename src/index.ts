@@ -21,27 +21,27 @@ import { Session } from './Session';
  * let session;
  *
  * (async () => {
- * try {
- * session = await newSession({
- * url: 'http://localhost:4444',
- * capabilities: {
- * alwaysMatch: {
- * browserName: 'Chrome'
- * }
- * }
- * });
- * } catch (err) {
- * console.log(err.stack);
- * } finally {
- * session.close();
- * }
+ *   try {
+ *     session = await newSession({
+ *       url: 'http://localhost:4444',
+ *       capabilities: {
+ *         alwaysMatch: {
+ *           browserName: 'Chrome'
+ *         }
+ *       }
+ *     });
+ *   } catch (err) {
+ *     console.log(err.stack);
+ *   } finally {
+ *     session.close();
+ *   }
  * })();
  * @example
  * const credentials = Buffer.from(['myusername', 'Password123'].join(':')).toString('base64');
  * const session = await newSession({
- * headers: {
- * Authorization: `Basic ${credentials}`
- * }
+ *   headers: {
+ *     Authorization: `Basic ${credentials}`
+ *   }
  * });
  * @param options Session creations configuration
  */
