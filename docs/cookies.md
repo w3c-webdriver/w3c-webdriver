@@ -120,10 +120,12 @@ An object defining the cookie.
 
 **PROPERTIES**
 
-- `name`: string
-- `value`: string
-- `path?`: string
-- `domain?`: string
-- `secure?`: boolean
-- `httpOnly?`: boolean
-- `expiry?`: number
+- `name`: string - The name of the cookie.
+- `value`: string - The cookie value.
+- `path?`: string - The cookie path. Defaults to "/" if omitted when adding a cookie.
+- `domain?`: string - The domain the cookie is visible to.
+  Defaults to the current browsing context’s document’s URL domain if omitted when adding a cookie.
+- `secure?`: boolean - Whether the cookie is a secure cookie. Defaults to false if omitted when adding a cookie.
+- `httpOnly?`: boolean - Whether the cookie is an HTTP only cookie. Defaults to false if omitted when adding a cookie.
+- `expiry?`: number - When the cookie expires, specified in seconds since Unix Epoch.
+  Defaults to 20 years into the future if omitted when adding a cookie.

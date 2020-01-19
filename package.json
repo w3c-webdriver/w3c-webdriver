@@ -88,7 +88,7 @@
     "pretty-quick": "^2.0.1",
     "ts-mocha": "^6.0.0",
     "typescript": "^3.7.4",
-    "typescript-documentation": "^1.1.0",
+    "typescript-documentation": "^1.2.0",
     "wait-on": "^3.3.0"
   },
   "husky": {
