@@ -20,7 +20,7 @@ describe('Sessions', () => {
       } catch (e) {
         error = e;
       }
-      expect(error.message).toContain(`request to ${url}wrong/session failed`);
+      expect(error.message).toContain(`:3000wrong/session failed`);
     });
   });
 
