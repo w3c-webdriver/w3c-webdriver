@@ -64,7 +64,7 @@ describe('Command Contexts', () => {
           errorMessage = e.message;
         }
       }
-      expect(errorMessage).toContain('WebDriverError(no such window)');
+      expect(errorMessage).toContain('no such window');
     });
   });
 
