@@ -10,7 +10,7 @@ describe('Sessions', () => {
 
       try {
         await newSession({
-          url,
+          url: `${url}wrong`,
           capabilities: {
             alwaysMatch: {
               browserName: 'non existing browser'
@@ -20,9 +20,7 @@ describe('Sessions', () => {
       } catch (e) {
         error = e;
       }
-      expect(error.message).toEqual(
-        'session not created: No matching capabilities found'
-      );
+      expect(error.message).toContain(`request to ${url}wrong/session failed`);
     });
   });
 
