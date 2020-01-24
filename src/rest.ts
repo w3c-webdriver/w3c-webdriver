@@ -43,6 +43,7 @@ async function sendRequest<T>(
   try {
     bodyAsJson = JSON.parse(responseBodyAsText) as { value: T };
   } catch (err) {
+    /* istanbul ignore next */
     throw new Error(responseBodyAsText);
   }
 
@@ -51,9 +52,9 @@ async function sendRequest<T>(
   const { value } = bodyAsJson;
 
   if (isError(value)) {
-    const { message, error } = value;
+    const { message } = value;
 
-    throw new Error(`WebDriverError(${error}): ${message}`);
+    throw new Error(message);
   }
 
   return value;

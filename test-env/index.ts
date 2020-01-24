@@ -128,10 +128,13 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
           local: true,
           os: 'OS X',
           osVersion: 'Mojave',
+          seleniumVersion: '4.0.0-alpha-2',
           safari: {
             enablePopups: true,
             allowAllCookies: true
-          }
+          },
+          networkLogs: true,
+          console: 'error'
         }
       }
     },
@@ -159,7 +162,9 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
         'bstack:options': {
           local: true,
           os: 'Windows',
-          osVersion: '10'
+          osVersion: '10',
+          networkLogs: true,
+          console: 'error'
         }
       }
     },

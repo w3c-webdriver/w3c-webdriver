@@ -1,8 +1,31 @@
 import expect from 'expect';
-import { status, Timeouts } from '../src';
+import { newSession, status, Timeouts } from '../src';
 import testEnv, { Browser, WebDriverHost } from '../test-env';
 
 describe('Sessions', () => {
+  describe('newSession method', () => {
+    it('throws error if session creation was not successful', async () => {
+      const url = process.env.WEB_DRIVER_URL || '';
+      let error;
+
+      try {
+        await newSession({
+          url,
+          capabilities: {
+            alwaysMatch: {
+              browserName: 'non existing browser'
+            }
+          }
+        });
+      } catch (e) {
+        error = e;
+      }
+      expect(error.message).toEqual(
+        'session not created: No matching capabilities found'
+      );
+    });
+  });
+
   describe('status method', () => {
     it('returns server status', async () => {
       const { browser, driver } = testEnv;

@@ -40,8 +40,10 @@ export type BrowserStackOptions = {
   buildName?: string;
   projectName?: string;
   debug?: boolean;
+  console?: 'error';
   networkLogs?: boolean;
   local?: boolean;
+  seleniumVersion?: string;
   safari?: {
     enablePopups?: boolean;
     allowAllCookies?: boolean;
