@@ -54,7 +54,7 @@ describe('Command Contexts', () => {
       await session.switchToWindow(initialHandle);
     });
 
-    it('throws no such window Error if called with not existing handle', async () => {
+    it('throws error if called with not existing handle', async () => {
       const { session } = testEnv;
       let errorMessage;
       try {
@@ -64,7 +64,9 @@ describe('Command Contexts', () => {
           errorMessage = e.message;
         }
       }
-      expect(errorMessage).toContain('no such window');
+      expect(errorMessage).toMatch(
+        /no such window|Unable to locate window: not existing handle/
+      );
     });
   });
 
