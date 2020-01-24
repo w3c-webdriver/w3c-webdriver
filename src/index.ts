@@ -70,11 +70,11 @@ export async function newSession(options: {
 }): Promise<Session> {
   const { url, capabilities, desiredCapabilities, headers } = options;
   const {
-    sessionId: localSessionId
-    // 'webdriver.remote.sessionid': remoteSessionId
+    sessionId: localSessionId,
+    'webdriver.remote.sessionid': remoteSessionId
   } = await POST<{
     sessionId?: string;
-    // 'webdriver.remote.sessionid'?: string;
+    'webdriver.remote.sessionid'?: string;
   }>(
     `${url}/session`,
     {
@@ -84,8 +84,9 @@ export async function newSession(options: {
     headers
   );
 
-  const sessionId = localSessionId; /*|| remoteSessionId;*/
+  const sessionId = localSessionId || remoteSessionId;
 
+  /* istanbul ignore next */
   if (!sessionId) {
     throw new Error('Session creation was not successful.');
   }

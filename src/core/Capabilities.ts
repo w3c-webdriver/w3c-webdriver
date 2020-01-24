@@ -40,7 +40,6 @@ export type BrowserStackOptions = {
   buildName?: string;
   projectName?: string;
   debug?: boolean;
-  console?: 'error';
   networkLogs?: boolean;
   local?: boolean;
   seleniumVersion?: string;
