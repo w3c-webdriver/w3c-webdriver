@@ -133,8 +133,7 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
             enablePopups: true,
             allowAllCookies: true
           },
-          networkLogs: true,
-          console: 'error'
+          networkLogs: true
         }
       }
     },
@@ -163,8 +162,7 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
           local: true,
           os: 'Windows',
           osVersion: '10',
-          networkLogs: true,
-          console: 'error'
+          networkLogs: true
         }
       }
     },
