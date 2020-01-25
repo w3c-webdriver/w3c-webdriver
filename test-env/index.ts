@@ -127,13 +127,17 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
         'bstack:options': {
           local: true,
           os: 'OS X',
-          osVersion: 'Mojave',
+          osVersion: 'Catalina',
           seleniumVersion: '4.0.0-alpha-2',
           safari: {
             enablePopups: true,
             allowAllCookies: true
           },
-          networkLogs: true
+          networkLogs: true,
+          debug: true,
+          projectName: 'w3c-webdriver',
+          buildName: process.env.GITHUB_SHA || 'local build',
+          sessionName: 'Safari'
         }
       }
     },
