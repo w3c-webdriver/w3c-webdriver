@@ -124,6 +124,7 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
     capabilities: {
       alwaysMatch: {
         browserName: 'safari',
+        browserVersion: '13.0',
         'bstack:options': {
           local: true,
           os: 'OS X',
