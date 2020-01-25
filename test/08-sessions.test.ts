@@ -5,12 +5,11 @@ import testEnv, { Browser, WebDriverHost } from '../test-env';
 describe('Sessions', () => {
   describe('newSession method', () => {
     it('throws error if session creation was not successful', async () => {
-      const url = process.env.WEB_DRIVER_URL || '';
       let error;
 
       try {
         await newSession({
-          url: `${url}wrong`,
+          url: 'http://localhost:65535',
           capabilities: {
             alwaysMatch: {
               browserName: 'non existing browser'
@@ -20,7 +19,9 @@ describe('Sessions', () => {
       } catch (e) {
         error = e;
       }
-      expect(error.message).toContain(`:3000wrong/session failed`);
+      expect(error.message).toContain(
+        `request to http://localhost:65535/session failed`
+      );
     });
   });
 
