@@ -65,7 +65,7 @@ describe('Command Contexts', () => {
         }
       }
       expect(errorMessage).toMatch(
-        /no such window|Unable to locate window: not existing handle/
+        /no such window|Unable to locate window: not existing handle|No window found/
       );
     });
   });
