@@ -1,8 +1,8 @@
 import expect from 'expect';
-import { Browser, getTestEnv, WebDriverHost } from '../test-env';
+import testEnv, { Browser, getTestEnv, WebDriverHost } from '../test-env';
 
 async function createWindow(): Promise<string> {
-  const { session } = await getTestEnv(this);
+  const { session } = testEnv;
   const handlesBefore = await session.getWindowHandles();
   await session.executeScript(`window.open()`);
   const handlesAfter = await session.getWindowHandles();
@@ -113,9 +113,7 @@ describe('Command Contexts', function() {
 
   describe('getWindowRect/maximizeWindow method', function() {
     it('validates window rect before and after maximizing the window', async function() {
-      const { session, driver, headless } = await getTestEnv(
-        this.test.fullTitle()
-      );
+      const { session, driver, headless } = await getTestEnv(this);
 
       if (driver.host === WebDriverHost.BrowserStack || headless) {
         return;
@@ -144,9 +142,7 @@ describe('Command Contexts', function() {
 
   describe('minimizeWindow method', function() {
     it('minimizes the current window', async function() {
-      const { session, browser, headless } = await getTestEnv(
-        this.test.fullTitle()
-      );
+      const { session, browser, headless } = await getTestEnv(this);
       if (browser === Browser.Safari || headless) {
         return;
       }
@@ -162,9 +158,7 @@ describe('Command Contexts', function() {
 
   describe('fullScreenWindow method', function() {
     it('increases the current window to full screen', async function() {
-      const { session, browser, headless } = await getTestEnv(
-        this.test.fullTitle()
-      );
+      const { session, browser, headless } = await getTestEnv(this);
 
       if (browser === Browser.Safari || headless) {
         return;
