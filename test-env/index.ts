@@ -218,7 +218,9 @@ export async function getTestEnv(context?: Context): Promise<TestEnvironment> {
   const { session, driver } = testEnv;
   const testAppPort = process.env.TEST_APP_PORT;
   await session.navigateTo(
-    `http://localhost:${testAppPort}#${context?.test?.titlePath().join(' :: ')}`
+    `http://localhost:${testAppPort}#${context?.test
+      ?.titlePath()
+      .join('::')}`.replace(/ /g, '_')
   );
   await session.setWindowRect(initialWindowRect);
   if (driver.host === WebDriverHost.BrowserStack) {
