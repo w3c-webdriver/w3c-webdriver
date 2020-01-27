@@ -1,7 +1,7 @@
 /* eslint-disable mocha/no-sibling-hooks */
 /* eslint-disable mocha/no-hooks-for-single-case */
 /* eslint-disable mocha/no-top-level-hooks */
-import { newSession, WindowRect } from '../src';
+import { newSession } from '../src';
 import { log } from '../src/logger';
 import testEnv, { WebDriverHost } from '../test-env';
 import { startDriver, stopDriver } from '../test-env/browserDriver';
@@ -9,15 +9,18 @@ import { startTestApp, stopTestApp } from '../test-env/testApp';
 
 log.enabled = true;
 
-let windowRect: WindowRect;
-
-before(async () => {
+before(async function() {
   await startDriver();
   await startTestApp();
 });
 
-before(async () => {
-  const { driver, capabilities, desiredCapabilities } = testEnv;
+before(async function() {
+  const {
+    driver,
+    capabilities,
+    desiredCapabilities,
+    setInitialWindowRectangle
+  } = testEnv;
   const url = process.env.WEB_DRIVER_URL || '';
   log(`Creating session on ${url}.`);
   try {
@@ -32,25 +35,12 @@ before(async () => {
     log(error);
     throw error;
   }
-  windowRect = await testEnv.session.getWindowRect();
-});
-
-beforeEach(async () => {
-  const { session, driver } = testEnv;
-  const testAppPort = process.env.TEST_APP_PORT;
-  await session.navigateTo(`http://localhost:${testAppPort}`);
-  await session.setWindowRect(windowRect);
-  if (driver.host === WebDriverHost.BrowserStack) {
-    log(`Wait for 4 seconds...`);
-    await new Promise(resolve =>
-      setTimeout(() => {
-        resolve();
-      }, 4000)
-    );
+  if (setInitialWindowRectangle) {
+    setInitialWindowRectangle(await testEnv.session.getWindowRect());
   }
 });
 
-after(async () => {
+after(async function() {
   const { session, driver } = testEnv;
   const url = process.env.WEB_DRIVER_URL;
   log(`Deleting session on ${url}.`);
@@ -66,7 +56,7 @@ after(async () => {
   }
 });
 
-after(async () => {
+after(async function() {
   await stopDriver();
   await stopTestApp();
 });

@@ -1,10 +1,10 @@
 import expect from 'expect';
 import { newSession, status, Timeouts } from '../src';
-import testEnv, { Browser, WebDriverHost } from '../test-env';
+import { Browser, getTestEnv, WebDriverHost } from '../test-env';
 
-describe('Sessions', () => {
-  describe('newSession method', () => {
-    it('throws error if session creation was not successful', async () => {
+describe('Sessions', function() {
+  describe('newSession method', function() {
+    it('throws error if session creation was not successful', async function() {
       let error;
 
       try {
@@ -25,9 +25,9 @@ describe('Sessions', () => {
     });
   });
 
-  describe('status method', () => {
-    it('returns server status', async () => {
-      const { browser, driver } = testEnv;
+  describe('status method', function() {
+    it('returns server status', async function() {
+      const { browser, driver } = await getTestEnv(this);
       const result = await status(process.env.WEB_DRIVER_URL as string);
 
       if (driver.host === WebDriverHost.BrowserStack) {
@@ -54,9 +54,9 @@ describe('Sessions', () => {
     });
   });
 
-  describe('set/getTimeout methods', () => {
-    it('sets and retrieves session timeouts', async () => {
-      const { session, browser } = testEnv;
+  describe('set/getTimeout methods', function() {
+    it('sets and retrieves session timeouts', async function() {
+      const { session, browser } = await getTestEnv(this);
       const timeouts: Timeouts = {
         script: 30000,
         pageLoad: 60000,

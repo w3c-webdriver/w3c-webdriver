@@ -1,19 +1,19 @@
 import expect from 'expect';
-import testEnv from '../test-env';
+import { getTestEnv } from '../test-env';
 
-describe('Navigation', () => {
-  describe('getTitle method', () => {
-    it('returns page title', async () => {
-      const { session } = testEnv;
+describe('Navigation', function() {
+  describe('getTitle method', function() {
+    it('returns page title', async function() {
+      const { session } = await getTestEnv(this);
       const title = await session.getTitle();
 
       expect(title).toEqual('The simple calculator');
     });
   });
 
-  describe('getCurrentUrl method', () => {
-    it('returns current url', async () => {
-      const { session } = testEnv;
+  describe('getCurrentUrl method', function() {
+    it('returns current url', async function() {
+      const { session } = await getTestEnv(this);
       const currentUrl = await session.getCurrentUrl();
 
       expect(currentUrl).toEqual(
@@ -22,9 +22,9 @@ describe('Navigation', () => {
     });
   });
 
-  describe('back method', () => {
-    it('navigate to previous url from history', async () => {
-      const { session } = testEnv;
+  describe('back method', function() {
+    it('navigate to previous url from history', async function() {
+      const { session } = await getTestEnv(this);
       const currentUrlBefore = await session.getCurrentUrl();
       expect(currentUrlBefore).toEqual(
         `http://localhost:${process.env.TEST_APP_PORT}/`
@@ -38,9 +38,9 @@ describe('Navigation', () => {
     });
   });
 
-  describe('forward method', () => {
-    it('navigate forward to next url from history', async () => {
-      const { session } = testEnv;
+  describe('forward method', function() {
+    it('navigate forward to next url from history', async function() {
+      const { session } = await getTestEnv(this);
       const actualUrl = await session.getCurrentUrl();
       expect(actualUrl).toEqual(
         `http://localhost:${process.env.TEST_APP_PORT}/`
@@ -57,9 +57,9 @@ describe('Navigation', () => {
     });
   });
 
-  describe('refresh method', () => {
-    it('refresh the current page', async () => {
-      const { session } = testEnv;
+  describe('refresh method', function() {
+    it('refresh the current page', async function() {
+      const { session } = await getTestEnv(this);
       const currentUrlBefore = await session.getCurrentUrl();
       expect(currentUrlBefore).toEqual(
         `http://localhost:${process.env.TEST_APP_PORT}/`

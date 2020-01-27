@@ -3,8 +3,12 @@ import { path as chromedriverPath } from 'chromedriver';
 import { config } from 'dotenv-safe';
 import { path as geckodriverPath } from 'geckodriver';
 import { path as iedriverPath } from 'iedriver';
+import { Context } from 'mocha';
 import { HeaderInit, Headers } from 'node-fetch';
-import { Capabilities, Session } from '../src';
+import { log } from 'util';
+import { Capabilities, Session, WindowRect } from '../src';
+
+let initialWindowRect: WindowRect;
 
 config();
 
@@ -38,6 +42,7 @@ type TestEnvironment = {
   };
   driver: BrowserDriver;
   session: Session;
+  setInitialWindowRectangle?: (windowRect: WindowRect) => void;
 };
 
 const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
@@ -200,10 +205,32 @@ const webDriverHost = process.env.BROWSERSTACK
 const testEnv: TestEnvironment = {
   session: new Session('default', 'default'),
   headless: !!process.env.HEADLESS,
+  setInitialWindowRectangle(rect: WindowRect) {
+    initialWindowRect = rect;
+  },
   ...(testEnvironments.find(
     ({ browser, driver }) =>
       browser === process.env.BROWSER && driver.host === webDriverHost
   ) || throwNoBrowserEnvironmentVariableError())
 };
+
+export async function getTestEnv(context?: Context): Promise<TestEnvironment> {
+  const { session, driver } = testEnv;
+  const testAppPort = process.env.TEST_APP_PORT;
+  await session.navigateTo(
+    `http://localhost:${testAppPort}#${context?.test?.titlePath().join(' :: ')}`
+  );
+  await session.setWindowRect(initialWindowRect);
+  if (driver.host === WebDriverHost.BrowserStack) {
+    log(`Wait for 4 seconds...`);
+    await new Promise(resolve =>
+      setTimeout(() => {
+        resolve();
+      }, 4000)
+    );
+  }
+
+  return testEnv;
+}
 
 export default testEnv;

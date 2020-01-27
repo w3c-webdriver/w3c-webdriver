@@ -1,10 +1,10 @@
 import expect from 'expect';
-import testEnv from '../test-env';
+import { getTestEnv } from '../test-env';
 
-describe('User Prompts', () => {
-  describe('dismissAlert method', () => {
-    it('dismiss an alert in the current page', async () => {
-      const { session } = testEnv;
+describe('User Prompts', function() {
+  describe('dismissAlert method', function() {
+    it('dismiss an alert in the current page', async function() {
+      const { session } = await getTestEnv(this);
       const alertButton = await session.findElement('css selector', '#confirm');
       await alertButton.click();
 
@@ -19,9 +19,9 @@ describe('User Prompts', () => {
     });
   });
 
-  describe('acceptAlert method', () => {
-    it('accept an alert in the current page', async () => {
-      const { session } = testEnv;
+  describe('acceptAlert method', function() {
+    it('accept an alert in the current page', async function() {
+      const { session } = await getTestEnv(this);
       const alertButton = await session.findElement('css selector', '#confirm');
       await alertButton.click();
 
@@ -36,9 +36,9 @@ describe('User Prompts', () => {
     });
   });
 
-  describe('getAlertText method', () => {
-    it('get text from an alert in the current page', async () => {
-      const { session } = testEnv;
+  describe('getAlertText method', function() {
+    it('get text from an alert in the current page', async function() {
+      const { session } = await getTestEnv(this);
       const alertButton = await session.findElement('css selector', '#confirm');
       await alertButton.click();
 
@@ -49,9 +49,9 @@ describe('User Prompts', () => {
     });
   });
 
-  describe('sendAlertText method', () => {
-    it('Sets the text field of a prompt', async () => {
-      const { session } = testEnv;
+  describe('sendAlertText method', function() {
+    it('Sets the text field of a prompt', async function() {
+      const { session } = await getTestEnv(this);
       const alertButton = await session.findElement('css selector', '#prompt');
       await alertButton.click();
 

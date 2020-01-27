@@ -1,10 +1,10 @@
 import expect from 'expect';
-import testEnv from '../test-env';
+import { getTestEnv } from '../test-env';
 
-describe('Element Interaction', () => {
-  describe('click method', () => {
-    it('simulates mouse click on element', async () => {
-      const { session } = testEnv;
+describe('Element Interaction', function() {
+  describe('click method', function() {
+    it('simulates mouse click on element', async function() {
+      const { session } = await getTestEnv(this);
       const addButton = await session.findElement('css selector', '#add');
 
       await addButton.click();
@@ -16,9 +16,9 @@ describe('Element Interaction', () => {
     });
   });
 
-  describe('clear method', () => {
-    it('clears the content of an element', async () => {
-      const { session } = testEnv;
+  describe('clear method', function() {
+    it('clears the content of an element', async function() {
+      const { session } = await getTestEnv(this);
       const a = await session.findElement('css selector', '#a');
       await a.sendKeys('13');
 
@@ -34,9 +34,9 @@ describe('Element Interaction', () => {
     });
   });
 
-  describe('sendKeys method', () => {
-    it('simulates typing in element', async () => {
-      const { session } = testEnv;
+  describe('sendKeys method', function() {
+    it('simulates typing in element', async function() {
+      const { session } = await getTestEnv(this);
       const a = await session.findElement('css selector', '#a');
 
       await a.sendKeys('13');
