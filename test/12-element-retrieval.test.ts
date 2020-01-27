@@ -1,4 +1,5 @@
 import expect from 'expect';
+import { getTestEnv } from '../test-env';
 
 describe('Element Retrieval', function() {
   describe('findElement method', function() {
