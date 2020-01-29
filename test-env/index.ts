@@ -136,6 +136,7 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
           osVersion: 'Catalina',
           safari: {
             enablePopups: true,
+            handlesAlerts: true,
             allowAllCookies: true,
             driver: '2.48'
           },
