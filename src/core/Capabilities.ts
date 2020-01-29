@@ -46,6 +46,7 @@ export type BrowserStackOptions = {
   safari?: {
     enablePopups?: boolean;
     allowAllCookies?: boolean;
+    driver?: string;
   };
 };
 

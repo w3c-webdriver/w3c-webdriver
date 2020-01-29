@@ -134,10 +134,10 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
           local: true,
           os: 'OS X',
           osVersion: 'Catalina',
-          seleniumVersion: '4.0.0-alpha-2',
           safari: {
             enablePopups: true,
-            allowAllCookies: true
+            allowAllCookies: true,
+            driver: '2.48'
           },
           networkLogs: true,
           debug: true,
