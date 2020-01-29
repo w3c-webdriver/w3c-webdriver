@@ -129,11 +129,12 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
     capabilities: {
       alwaysMatch: {
         browserName: 'safari',
-        browserVersion: '12.1',
+        browserVersion: '13',
         'bstack:options': {
           local: true,
           os: 'OS X',
-          osVersion: 'Mojave',
+          osVersion: 'Catalina',
+          seleniumVersion: '4.0.0-alpha-2',
           safari: {
             enablePopups: true,
             allowAllCookies: true
