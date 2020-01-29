@@ -1,12 +1,16 @@
 import expect from 'expect';
-import { getTestEnv } from '../test-env';
+import { Browser, getTestEnv } from '../test-env';
 
 describe('User Prompts', function() {
   describe('dismissAlert method', function() {
     it('dismiss an alert in the current page', async function() {
-      const { session } = await getTestEnv(this);
+      const { session, browser } = await getTestEnv(this);
       const alertButton = await session.findElement('css selector', '#confirm');
       await alertButton.click();
+
+      if (browser === Browser.Safari) {
+        await new Promise(resolve => setTimeout(resolve, 3000));
+      }
 
       await session.dismissAlert();
 
