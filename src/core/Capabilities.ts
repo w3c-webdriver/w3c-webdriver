@@ -60,6 +60,12 @@ export type BrowserCapability = {
   platformName?: string;
   acceptInsecureCerts?: boolean;
   pageLoadStrategy?: 'none' | 'eager' | 'normal';
+  unhandledPromptBehavior?:
+    | 'dismiss'
+    | 'accept'
+    | 'dismiss and notify'
+    | 'accept and notify'
+    | 'ignore';
 
   'goog:chromeOptions'?: ChromeOptions;
   'moz:firefoxOptions'?: FirefoxOptions;

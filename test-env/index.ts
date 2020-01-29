@@ -131,6 +131,7 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
         browserName: 'safari',
         browserVersion: '13',
         pageLoadStrategy: 'eager',
+        unhandledPromptBehavior: 'ignore',
         'bstack:options': {
           local: true,
           os: 'OS X',
