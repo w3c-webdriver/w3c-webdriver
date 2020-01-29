@@ -45,7 +45,7 @@ export type BrowserStackOptions = {
   seleniumVersion?: string;
   safari?: {
     enablePopups?: boolean;
-    handlesAlerts?: boolean;
+    useSimulator?: boolean;
     allowAllCookies?: boolean;
     driver?: string;
   };
