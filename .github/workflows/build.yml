@@ -64,13 +64,11 @@ jobs:
           CHROMEDRIVER_VERSION: '79.0.3945.36'
       - name: Enable Safari Driver
         run: |
-          # Workaround for `sudo safardriver --enable` not working:
-          # https://github.com/web-platform-tests/wpt/issues/19845
-          # https://github.com/web-platform-tests/wpt/blob/master/tools/ci/azure/install_safari.yml
           mkdir -p ~/Library/WebDriver/
           curl https://raw.githubusercontent.com/web-platform-tests/wpt/master/tools/ci/azure/com.apple.Safari.plist -o ~/Library/WebDriver/com.apple.Safari.plist
           defaults write com.apple.Safari WebKitJavaScriptCanOpenWindowsAutomatically 1
-          # sudo safaridriver --enable
+          sudo safaridriver --enable
+          safaridriver -p 0 &
         if: matrix.browser == 'safari'
       - name: Run tests
         run: npm run test:coverage
