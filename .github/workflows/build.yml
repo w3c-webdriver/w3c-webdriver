@@ -69,7 +69,7 @@ jobs:
           defaults write com.apple.Safari WebKitJavaScriptCanOpenWindowsAutomatically 1
           sudo safaridriver --enable
           safaridriver -p 0 &
-        if: matrix.browser == 'safari'
+        # if: matrix.browser == 'safari'
       - name: Run tests
         run: npm run test:coverage
         env:
