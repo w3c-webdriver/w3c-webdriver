@@ -52,9 +52,9 @@ async function sendRequest<T>(
   const { value } = bodyAsJson;
 
   if (isError(value)) {
-    const { message } = value;
+    const { error, message } = value;
 
-    throw new Error(message);
+    throw new Error(message || error);
   }
 
   return value;
