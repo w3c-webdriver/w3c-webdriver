@@ -59,6 +59,7 @@ export type BrowserCapability = {
   browserVersion?: string;
   platformName?: string;
   acceptInsecureCerts?: boolean;
+  pageLoadStrategy?: 'none' | 'eager' | 'normal';
 
   'goog:chromeOptions'?: ChromeOptions;
   'moz:firefoxOptions'?: FirefoxOptions;
