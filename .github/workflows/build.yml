@@ -27,7 +27,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        environment: [Firefox, Chrome, Internet_Explorer, BrowserStack_Safari]
+        environment: [Firefox, Chrome, Internet_Explorer, Safari]
         include:
           - environment: Firefox
             os: 'ubuntu-latest'
@@ -67,9 +67,9 @@ jobs:
           mkdir -p ~/Library/WebDriver/
           curl https://raw.githubusercontent.com/web-platform-tests/wpt/master/tools/ci/azure/com.apple.Safari.plist -o ~/Library/WebDriver/com.apple.Safari.plist
           defaults write com.apple.Safari WebKitJavaScriptCanOpenWindowsAutomatically 1
-          sudo safaridriver --enable
-          safaridriver -p 0 &
-        # if: matrix.browser == 'safari'
+          # sudo safaridriver --enable
+          # safaridriver -p 0 &
+        if: matrix.browser == 'safari'
       - name: Run tests
         run: npm run test:coverage
         env:
