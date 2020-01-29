@@ -43,9 +43,10 @@ describe('Element Retrieval', function() {
   describe('getActiveElement method', function() {
     it('returns the currently focused element', async function() {
       const { session } = await getTestEnv(this);
+      const a = await session.findElement('css selector', '#a');
+      await a.click();
       const element = await session.getActiveElement();
-
-      expect(await element.getAttribute('autofocus')).toEqual('true');
+      expect(element.getWebElement()).toEqual(a.getWebElement());
     });
   });
 });

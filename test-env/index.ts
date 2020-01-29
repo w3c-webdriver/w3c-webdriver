@@ -217,8 +217,9 @@ const testEnv: TestEnvironment = {
 export async function getTestEnv(context?: Context): Promise<TestEnvironment> {
   const { session, driver } = testEnv;
   const testAppPort = process.env.TEST_APP_PORT;
+  await session.refresh();
   await session.navigateTo(
-    `http://localhost:${testAppPort}#${context?.test
+    `http://localhost:${testAppPort}/#${context?.test
       ?.titlePath()
       .join('::')}`.replace(/ /g, '_')
   );
