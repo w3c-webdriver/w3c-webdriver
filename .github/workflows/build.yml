@@ -27,7 +27,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        environment: [Firefox, Chrome, Internet_Explorer, BrowserStack_Safari]
+        environment:
+          [
+            Firefox,
+            Chrome,
+            Internet_Explorer,
+            BrowserStack_Safari,
+            BrowserStack_Firefox,
+          ]
         include:
           - environment: Firefox
             os: 'ubuntu-latest'
@@ -47,6 +54,11 @@ jobs:
             os: 'ubuntu-latest'
             nodeVersion: '12.x'
             browser: 'safari'
+            browserStack: 'true'
+          - environment: BrowserStack_Firefox
+            os: 'ubuntu-latest'
+            nodeVersion: '12.x'
+            browser: 'firefox'
             browserStack: 'true'
     runs-on: ${{ matrix.os }}
     steps:
