@@ -171,7 +171,11 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
           local: true,
           os: 'Windows',
           osVersion: '10',
-          networkLogs: true
+          networkLogs: true,
+          debug: true,
+          projectName: 'w3c-webdriver',
+          buildName: process.env.GITHUB_SHA || 'local build',
+          sessionName: 'Firefox'
         }
       }
     },
