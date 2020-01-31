@@ -42,10 +42,9 @@ jobs:
             browser: 'firefox'
             headless: 'true'
           - environment: Chrome
-            os: 'ubuntu-latest'
+            os: 'macos-latest'
             nodeVersion: '12.x'
             browser: 'chrome'
-            headless: 'true'
           - environment: Internet_Explorer
             os: 'windows-latest'
             nodeVersion: '12.x'
@@ -54,11 +53,6 @@ jobs:
             os: 'ubuntu-latest'
             nodeVersion: '12.x'
             browser: 'safari'
-            browserStack: 'true'
-          - environment: BrowserStack_Firefox
-            os: 'ubuntu-latest'
-            nodeVersion: '12.x'
-            browser: 'firefox'
             browserStack: 'true'
     runs-on: ${{ matrix.os }}
     steps:
