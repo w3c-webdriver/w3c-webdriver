@@ -27,14 +27,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        environment:
-          [
-            Firefox,
-            Chrome,
-            Internet_Explorer,
-            BrowserStack_Safari,
-            BrowserStack_Firefox,
-          ]
+        environment: [Firefox, Chrome, Internet_Explorer, BrowserStack_Safari]
         include:
           - environment: Firefox
             os: 'ubuntu-latest'
