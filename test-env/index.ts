@@ -225,7 +225,7 @@ export async function getTestEnv(context?: Context): Promise<TestEnvironment> {
 
   testEnv.testName = context?.test
     ?.titlePath()
-    .join('::')
+    .join('.')
     .replace(/ /g, '_');
 
   await session.refresh();
