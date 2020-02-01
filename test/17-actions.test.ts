@@ -7,7 +7,12 @@ describe('Actions', function() {
     it('performs actions', async function() {
       const { session } = await getTestEnv(this);
       const b = await session.findElement('css selector', '#b');
-      const bRect = await b.getRect();
+      const bRect = await session.executeScript<{
+        top: number;
+        left: number;
+        width: number;
+        height: number;
+      }>('return arguments[0].getBoundingClientRect()', [b]);
       await session.performActions([
         {
           type: 'none',
@@ -21,8 +26,8 @@ describe('Actions', function() {
             { type: 'pause', duration: 0 },
             {
               type: 'pointerMove',
-              x: Math.round(bRect.x + bRect.width / 2),
-              y: Math.round(bRect.y + bRect.height / 2)
+              x: Math.round(bRect.left + bRect.width / 2),
+              y: Math.round(bRect.top + bRect.height / 2)
             },
             { type: 'pointerDown', button: 0 },
             { type: 'pointerUp', button: 0 }
