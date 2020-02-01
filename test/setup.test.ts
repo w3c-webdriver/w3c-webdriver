@@ -1,6 +1,8 @@
 /* eslint-disable mocha/no-sibling-hooks */
 /* eslint-disable mocha/no-hooks-for-single-case */
 /* eslint-disable mocha/no-top-level-hooks */
+import { mkdirSync, writeFileSync } from 'fs';
+import { dirname, resolve } from 'path';
 import { newSession } from '../src';
 import { log } from '../src/logger';
 import testEnv, { WebDriverHost } from '../test-env';
@@ -59,4 +61,17 @@ after(async function() {
 after(async function() {
   await stopDriver();
   await stopTestApp();
+});
+
+afterEach(async function() {
+  if (this.currentTest?.state === 'failed') {
+    const { session, testName } = testEnv;
+    const screenshot = await session.takeScreenshot();
+    const fileName = resolve(__dirname, `../screenshots/${testName}.png`);
+    try {
+      mkdirSync(dirname(fileName));
+      // eslint-disable-next-line no-empty
+    } catch {}
+    writeFileSync(fileName, screenshot, 'base64');
+  }
 });

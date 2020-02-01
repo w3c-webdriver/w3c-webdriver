@@ -34,6 +34,7 @@ type BrowserDriver = {
 };
 
 type TestEnvironment = {
+  testName?: string;
   browser: Browser;
   headless: boolean;
   capabilities: Capabilities;
@@ -221,11 +222,15 @@ const testEnv: TestEnvironment = {
 export async function getTestEnv(context?: Context): Promise<TestEnvironment> {
   const { session, driver } = testEnv;
   const testAppPort = process.env.TEST_APP_PORT;
+
+  testEnv.testName = context?.test
+    ?.titlePath()
+    .join('::')
+    .replace(/ /g, '_');
+
   await session.refresh();
   await session.navigateTo(
-    `http://localhost:${testAppPort}/#${context?.test
-      ?.titlePath()
-      .join('::')}`.replace(/ /g, '_')
+    `http://localhost:${testAppPort}/#${testEnv.testName}`
   );
   await session.setWindowRect(initialWindowRect);
   if (driver.host === WebDriverHost.BrowserStack) {

@@ -10,6 +10,7 @@ on:
 
 jobs:
   lint-typecheck:
+    timeout-minutes: 3
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -23,6 +24,7 @@ jobs:
       - name: Check types
         run: npm run typecheck
   test:
+    timeout-minutes: 15
     needs: lint-typecheck
     strategy:
       fail-fast: false
@@ -65,6 +67,11 @@ jobs:
           BROWSERSTACK: ${{ matrix.browserStack }}
           BROWSERSTACK_USERNAME: ${{ secrets.browserStackUsername }}
           BROWSERSTACK_ACCESS_KEY: ${{ secrets.browserStackAccessKey }}
+      - uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: screenshots
+          path: screenshots
       - name: Upload coverage
         uses: codecov/codecov-action@v1
         with:
