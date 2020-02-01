@@ -81,7 +81,7 @@ describe('Element State', function() {
       const box = await session.findElement('css selector', '#fixed-box');
       const expectedRect = await session.executeScript(
         `
-        const rect = arguments[0].getBoundingClientRect();
+        var rect = arguments[0].getBoundingClientRect();
         return {
             x: rect.left + window.pageXOffset,
             y: rect.top + window.pageYOffset,
