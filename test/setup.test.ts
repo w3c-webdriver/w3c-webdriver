@@ -5,7 +5,7 @@ import { mkdirSync, writeFileSync } from 'fs';
 import { dirname, resolve } from 'path';
 import { newSession } from '../src';
 import { log } from '../src/logger';
-import testEnv, { WebDriverHost } from '../test-env';
+import testEnv from '../test-env';
 import { startDriver, stopDriver } from '../test-env/browserDriver';
 import { startTestApp, stopTestApp } from '../test-env/testApp';
 
@@ -56,7 +56,7 @@ afterEach(async function() {
 });
 
 after(async function() {
-  const { session, driver } = testEnv;
+  const { session } = testEnv;
   const url = process.env.WEB_DRIVER_URL;
   log(`Deleting session on ${url}.`);
   try {
@@ -64,14 +64,14 @@ after(async function() {
     // eslint-disable-next-line no-empty
   } catch {}
   log(`Session deleted.`);
-  if (driver.host === WebDriverHost.BrowserStack) {
-    log(`Wait for 4 seconds...`);
-    await new Promise(resolve =>
-      setTimeout(() => {
-        resolve();
-      }, 4000)
-    );
-  }
+  // if (driver.host === WebDriverHost.BrowserStack) {
+  //   log(`Wait for 4 seconds...`);
+  //   await new Promise(resolve =>
+  //     setTimeout(() => {
+  //       resolve();
+  //     }, 4000)
+  //   );
+  // }
 });
 
 after(async function() {
