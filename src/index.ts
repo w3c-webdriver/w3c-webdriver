@@ -69,12 +69,8 @@ export async function newSession(options: {
   headers?: HeaderInit;
 }): Promise<Session> {
   const { url, capabilities, desiredCapabilities, headers } = options;
-  const {
-    sessionId: localSessionId,
-    'webdriver.remote.sessionid': remoteSessionId
-  } = await POST<{
-    sessionId?: string;
-    'webdriver.remote.sessionid'?: string;
+  const { sessionId } = await POST<{
+    sessionId: string;
   }>(
     `${url}/session`,
     {
@@ -83,13 +79,6 @@ export async function newSession(options: {
     },
     headers
   );
-
-  const sessionId = localSessionId || remoteSessionId;
-
-  /* istanbul ignore next */
-  if (!sessionId) {
-    throw new Error('Session creation was not successful.');
-  }
 
   return new Session(url, sessionId);
 }

@@ -21,6 +21,16 @@ describe('Document Handling', function() {
 
       expect(result).toBe(15);
     });
+
+    it('supports passing elements as arguments', async function() {
+      const { session } = await getTestEnv(this);
+      const aField = await session.findElement('css selector', '#a');
+      const id = await session.executeScript<number>('return arguments[0].id', [
+        aField
+      ]);
+
+      expect(id).toBe('a');
+    });
   });
 
   describe('executeAsyncScript method', function() {
@@ -43,5 +53,16 @@ describe('Document Handling', function() {
       const result = await session.executeAsyncScript<number>(script, [3, 5]);
       expect(result).toBe(15);
     });
+  });
+
+  it('supports passing elements as arguments', async function() {
+    const { session } = await getTestEnv(this);
+    const aField = await session.findElement('css selector', '#a');
+    const id = await session.executeAsyncScript<number>(
+      'arguments[1](arguments[0].id)',
+      [aField]
+    );
+
+    expect(id).toBe('a');
   });
 });
