@@ -442,7 +442,13 @@ export class Session {
   public async executeScript<T>(script: string, args: any[] = []): Promise<T> {
     return POST<T>(`${this.host}/session/${this.sessionId}/execute/sync`, {
       script,
-      args
+      args: args.map(arg => {
+        if (arg instanceof Element) {
+          return arg.getWebElement();
+        }
+
+        return arg;
+      })
     });
   }
 
@@ -472,7 +478,13 @@ export class Session {
   ): Promise<T> {
     return POST<T>(`${this.host}/session/${this.sessionId}/execute/async`, {
       script,
-      args
+      args: args.map(arg => {
+        if (arg instanceof Element) {
+          return arg.getWebElement();
+        }
+
+        return arg;
+      })
     });
   }
 

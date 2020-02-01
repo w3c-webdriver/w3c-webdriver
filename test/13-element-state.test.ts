@@ -79,9 +79,21 @@ describe('Element State', function() {
     it('returns the dimensions and coordinates of an element', async function() {
       const { session } = await getTestEnv(this);
       const box = await session.findElement('css selector', '#fixed-box');
-      const rect = await box.getRect();
-
-      expect(rect).toEqual({ x: 300, y: 10, width: 100, height: 50 });
+      const expectedRect = await session.executeScript(
+        `
+        let element = arguments[0];
+        let rect = element.getBoundingClientRect();
+        return {
+            x: rect.left + window.pageXOffset,
+            y: rect.top + window.pageYOffset,
+            width: rect.width,
+            height: rect.height,
+        };
+      `,
+        [box]
+      );
+      const actualRect = await box.getRect();
+      expect(actualRect).toEqual(expectedRect);
     });
   });
 

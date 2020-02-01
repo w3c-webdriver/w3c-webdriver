@@ -1,5 +1,6 @@
 import expect from 'expect';
 import testEnv, { Browser, getTestEnv, WebDriverHost } from '../test-env';
+import { poll } from './utils';
 
 async function createWindow(): Promise<string> {
   const { session } = testEnv;
@@ -146,13 +147,13 @@ describe('Command Contexts', function() {
       if (browser === Browser.Safari || headless) {
         return;
       }
-      await session.maximizeWindow();
-      const rectBeforeMin = await session.getWindowRect();
 
       await session.minimizeWindow();
-
-      const rectAfterMin = await session.getWindowRect();
-      expect(rectBeforeMin).not.toEqual(rectAfterMin);
+      await poll({
+        timeout: 3000,
+        predicate: (): Promise<boolean> =>
+          session.executeScript<boolean>(`return document.hidden`)
+      });
     });
   });
 
@@ -163,12 +164,11 @@ describe('Command Contexts', function() {
       if (browser === Browser.Safari || headless) {
         return;
       }
-      const rectBeforeFull = await session.getWindowRect();
-
       await session.fullScreenWindow();
-
-      const rectAfterFull = await session.getWindowRect();
-      expect(rectBeforeFull).not.toEqual(rectAfterFull);
+      const isFullScreen = await session.executeScript<boolean>(
+        `return window.fullScreen`
+      );
+      expect(isFullScreen).toBe(true);
     });
   });
 });

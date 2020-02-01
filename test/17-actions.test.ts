@@ -6,6 +6,8 @@ describe('Actions', function() {
   describe('performActions method', function() {
     it('performs actions', async function() {
       const { session } = await getTestEnv(this);
+      const b = await session.findElement('css selector', '#b');
+      const bRect = await b.getRect();
       await session.performActions([
         {
           type: 'none',
@@ -17,7 +19,11 @@ describe('Actions', function() {
           id: 'click on b field',
           actions: [
             { type: 'pause', duration: 0 },
-            { type: 'pointerMove', x: 118, y: 121 },
+            {
+              type: 'pointerMove',
+              x: bRect.x + bRect.width / 2,
+              y: bRect.y + bRect.height / 2
+            },
             { type: 'pointerDown', button: 0 },
             { type: 'pointerUp', button: 0 }
           ]
