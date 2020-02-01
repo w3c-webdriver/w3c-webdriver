@@ -70,7 +70,7 @@ jobs:
       - uses: actions/upload-artifact@v1
         if: failure()
         with:
-          name: screenshots
+          name: join(${{ matrix.environment }}, ' screenshots')
           path: screenshots
       - name: Upload coverage
         uses: codecov/codecov-action@v1
