@@ -21,8 +21,8 @@ describe('Actions', function() {
             { type: 'pause', duration: 0 },
             {
               type: 'pointerMove',
-              x: bRect.x + bRect.width / 2,
-              y: bRect.y + bRect.height / 2
+              x: Math.round(bRect.x + bRect.width / 2),
+              y: Math.round(bRect.y + bRect.height / 2)
             },
             { type: 'pointerDown', button: 0 },
             { type: 'pointerUp', button: 0 }

@@ -164,10 +164,11 @@ describe('Command Contexts', function() {
       if (browser === Browser.Safari || headless) {
         return;
       }
+
       await session.fullScreenWindow();
-      const isFullScreen = await session.executeScript<boolean>(
-        `return window.fullScreen`
-      );
+      const isFullScreen = await session.executeScript(`
+        return window.outerWidth-screen.width == 0 && window.outerHeight-screen.height == 0
+      `);
       expect(isFullScreen).toBe(true);
     });
   });
