@@ -42,11 +42,27 @@ before(async function() {
   }
 });
 
+afterEach(async function() {
+  if (this.currentTest?.state === 'failed') {
+    const { session, testName } = testEnv;
+    const screenshot = await session.takeScreenshot();
+    const fileName = resolve(__dirname, `../screenshots/${testName}.png`);
+    try {
+      mkdirSync(dirname(fileName));
+      // eslint-disable-next-line no-empty
+    } catch {}
+    writeFileSync(fileName, screenshot, 'base64');
+  }
+});
+
 after(async function() {
   const { session, driver } = testEnv;
   const url = process.env.WEB_DRIVER_URL;
   log(`Deleting session on ${url}.`);
-  await session.close();
+  try {
+    await session.close();
+    // eslint-disable-next-line no-empty
+  } catch {}
   log(`Session deleted.`);
   if (driver.host === WebDriverHost.BrowserStack) {
     log(`Wait for 4 seconds...`);
@@ -61,17 +77,4 @@ after(async function() {
 after(async function() {
   await stopDriver();
   await stopTestApp();
-});
-
-afterEach(async function() {
-  if (this.currentTest?.state === 'failed') {
-    const { session, testName } = testEnv;
-    const screenshot = await session.takeScreenshot();
-    const fileName = resolve(__dirname, `../screenshots/${testName}.png`);
-    try {
-      mkdirSync(dirname(fileName));
-      // eslint-disable-next-line no-empty
-    } catch {}
-    writeFileSync(fileName, screenshot, 'base64');
-  }
 });
