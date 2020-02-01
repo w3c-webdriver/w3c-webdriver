@@ -5,7 +5,6 @@ import { path as geckodriverPath } from 'geckodriver';
 import { path as iedriverPath } from 'iedriver';
 import { Context } from 'mocha';
 import { HeaderInit, Headers } from 'node-fetch';
-import { log } from 'util';
 import { Capabilities, Session, WindowRect } from '../src';
 
 let initialWindowRect: WindowRect;
@@ -220,7 +219,7 @@ const testEnv: TestEnvironment = {
 };
 
 export async function getTestEnv(context?: Context): Promise<TestEnvironment> {
-  const { session, driver } = testEnv;
+  const { session } = testEnv;
   const testAppPort = process.env.TEST_APP_PORT;
 
   testEnv.testName = context?.test
@@ -233,14 +232,14 @@ export async function getTestEnv(context?: Context): Promise<TestEnvironment> {
     `http://localhost:${testAppPort}/#${testEnv.testName}`
   );
   await session.setWindowRect(initialWindowRect);
-  if (driver.host === WebDriverHost.BrowserStack) {
-    log(`Wait for 4 seconds...`);
-    await new Promise(resolve =>
-      setTimeout(() => {
-        resolve();
-      }, 4000)
-    );
-  }
+  // if (driver.host === WebDriverHost.BrowserStack) {
+  //   log(`Wait for 4 seconds...`);
+  //   await new Promise(resolve =>
+  //     setTimeout(() => {
+  //       resolve();
+  //     }, 4000)
+  //   );
+  // }
 
   return testEnv;
 }

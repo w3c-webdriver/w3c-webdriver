@@ -64,14 +64,6 @@ after(async function() {
     // eslint-disable-next-line no-empty
   } catch {}
   log(`Session deleted.`);
-  // if (driver.host === WebDriverHost.BrowserStack) {
-  //   log(`Wait for 4 seconds...`);
-  //   await new Promise(resolve =>
-  //     setTimeout(() => {
-  //       resolve();
-  //     }, 4000)
-  //   );
-  // }
 });
 
 after(async function() {
