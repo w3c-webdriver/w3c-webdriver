@@ -74,8 +74,8 @@ export async function newSession(options: {
   }>(
     `${url}/session`,
     {
-      capabilities,
-      desiredCapabilities
+      ...(capabilities && { capabilities }),
+      ...(desiredCapabilities && { desiredCapabilities })
     },
     headers
   );
