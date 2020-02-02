@@ -66,7 +66,7 @@ export async function startDriver(): Promise<void> {
   process.env.WEB_DRIVER_PORT = port.toString();
   process.env.WEB_DRIVER_URL =
     driver.host === WebDriverHost.Localhost
-      ? `http://localhost:${port}`
+      ? `http://localhost:8888`
       : driver.host;
 
   if (driver.host === WebDriverHost.BrowserStack) {

@@ -2,7 +2,7 @@ import { ChildProcess } from 'child_process';
 import { path as chromedriverPath } from 'chromedriver';
 import { config } from 'dotenv-safe';
 import { path as geckodriverPath } from 'geckodriver';
-import { path as iedriverPath } from 'iedriver';
+import { path32 as iedriverPath } from 'iedriver';
 import { Context } from 'mocha';
 import { HeaderInit, Headers } from 'node-fetch';
 import { Capabilities, Session, WindowRect } from '../src';
@@ -232,14 +232,6 @@ export async function getTestEnv(context?: Context): Promise<TestEnvironment> {
     `http://localhost:${testAppPort}/#${testEnv.testName}`
   );
   await session.setWindowRect(initialWindowRect);
-  // if (driver.host === WebDriverHost.BrowserStack) {
-  //   log(`Wait for 4 seconds...`);
-  //   await new Promise(resolve =>
-  //     setTimeout(() => {
-  //       resolve();
-  //     }, 4000)
-  //   );
-  // }
 
   return testEnv;
 }
