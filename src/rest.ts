@@ -37,7 +37,8 @@ async function sendRequest<T>(
         method,
         headers,
         body,
-        json: true
+        json: true,
+        encoding: 'utf8'
       },
       (error: Error, _response, body: { value: T }) => {
         if (error) {
