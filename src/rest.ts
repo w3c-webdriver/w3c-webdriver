@@ -31,7 +31,7 @@ async function sendRequest<T>(
   );
 
   const value = await new Promise<T>((resolve, reject) => {
-    const json = JSON.stringify(body);
+    const json = body ? JSON.stringify(body) : '';
     request(
       {
         url,
@@ -42,7 +42,7 @@ async function sendRequest<T>(
           'Content-Length': json.length,
           'Content-Type': 'application/json; charset=utf-8'
         },
-        body: json
+        ...(json && { body: json })
       },
       (error: Error, _response, body) => {
         if (error) {
