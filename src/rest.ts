@@ -39,10 +39,13 @@ async function sendRequest<T>(
         headers: {
           ...headers,
           // This can be removed in favour of using `json` property if https://github.com/SeleniumHQ/selenium/issues/7986 is resolved
-          'Content-Length': json.length,
-          'Content-Type': 'application/json; charset=utf-8'
+          ...(json.length && { 'Content-Type': 'text/plain;charset=UTF-8' }),
+          Accept: '*/*',
+          ...(json.length && { 'Content-Length': json.length }),
+          'User-Agent': 'w3c-webdriver',
+          'Accept-Encoding': 'gzip,deflate'
         },
-        ...(json && { body: json })
+        ...(json.length && { body: json })
       },
       (error: Error, _response, body) => {
         if (error) {
