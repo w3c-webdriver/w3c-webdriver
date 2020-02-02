@@ -19,9 +19,7 @@ describe('Sessions', function() {
       } catch (e) {
         error = e;
       }
-      expect(error.message).toContain(
-        `request to http://localhost:65535/session failed`
-      );
+      expect(error.message).toContain(`connect ECONNREFUSED 127.0.0.1:65535`);
     });
   });
 

@@ -1,4 +1,4 @@
-import { HeaderInit } from 'node-fetch';
+import { Headers } from 'request';
 import { Capabilities, Status } from './core';
 import { GET, POST } from './rest';
 import { Session } from './Session';
@@ -66,7 +66,7 @@ export async function newSession(options: {
   /**
    * Session creation request headers. Can be used for authorization. See example
    */
-  headers?: HeaderInit;
+  headers?: Headers;
 }): Promise<Session> {
   const { url, capabilities, desiredCapabilities, headers } = options;
   const { sessionId } = await POST<{

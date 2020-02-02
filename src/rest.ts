@@ -1,4 +1,4 @@
-import fetch, { HeaderInit } from 'node-fetch';
+import request, { Headers } from 'request';
 import util from 'util';
 import { log } from './logger';
 
@@ -22,7 +22,7 @@ async function sendRequest<T>(
   method: RequestMethod,
   url: string,
   body?: object,
-  headers?: HeaderInit
+  headers?: Headers
 ): Promise<T> {
   log(
     `WebDriver request: ${method} ${url} ${
@@ -30,26 +30,26 @@ async function sendRequest<T>(
     }`
   );
 
-  const response = await fetch(url, {
-    method,
-    headers,
-    body: body && JSON.stringify(body)
+  const value = await new Promise<T>((resolve, reject) => {
+    request(
+      {
+        url,
+        method,
+        headers,
+        body,
+        json: true
+      },
+      (error: Error, _response, body: { value: T }) => {
+        if (error) {
+          reject(error);
+          return;
+        }
+
+        log(`WebDriver response: ${util.inspect(body, false, 10)}`);
+        resolve(body.value);
+      }
+    );
   });
-
-  const responseBodyAsText = await response.text();
-
-  let bodyAsJson;
-
-  try {
-    bodyAsJson = JSON.parse(responseBodyAsText) as { value: T };
-  } catch (err) {
-    /* istanbul ignore next */
-    throw new Error(responseBodyAsText);
-  }
-
-  log(`WebDriver response: ${util.inspect(bodyAsJson, false, 10)}`);
-
-  const { value } = bodyAsJson;
 
   if (isError(value)) {
     const { error, message } = value;
@@ -65,7 +65,7 @@ export const GET = async <T>(url: string): Promise<T> =>
 export const POST = async <T>(
   url: string,
   body: object = {},
-  headers?: HeaderInit
+  headers?: Headers
 ): Promise<T> => sendRequest<T>('POST', url, body, headers);
 export const DELETE = async <T>(url: string, body?: object): Promise<T> =>
   sendRequest<T>('DELETE', url, body);

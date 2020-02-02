@@ -4,7 +4,7 @@ import { config } from 'dotenv-safe';
 import { path as geckodriverPath } from 'geckodriver';
 import { path as iedriverPath } from 'iedriver';
 import { Context } from 'mocha';
-import { HeaderInit, Headers } from 'node-fetch';
+import { Headers } from 'request';
 import { Capabilities, Session, WindowRect } from '../src';
 
 let initialWindowRect: WindowRect;
@@ -28,7 +28,7 @@ type BrowserDriver = {
   path?: string;
   instance?: ChildProcess;
   host: WebDriverHost;
-  headers?: HeaderInit;
+  headers?: Headers;
   args?({ port }: { port: number }): string[];
 };
 
@@ -152,14 +152,14 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
     driver: {
       name: 'BrowserStack',
       host: WebDriverHost.BrowserStack,
-      headers: new Headers({
+      headers: {
         Authorization: `Basic ${Buffer.from(
           [
             process.env.BROWSERSTACK_USERNAME,
             process.env.BROWSERSTACK_ACCESS_KEY
           ].join(':')
         ).toString('base64')}`
-      })
+      }
     }
   },
   {
@@ -185,14 +185,14 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
     driver: {
       name: 'BrowserStack',
       host: WebDriverHost.BrowserStack,
-      headers: new Headers({
+      headers: {
         Authorization: `Basic ${Buffer.from(
           [
             process.env.BROWSERSTACK_USERNAME,
             process.env.BROWSERSTACK_ACCESS_KEY
           ].join(':')
         ).toString('base64')}`
-      })
+      }
     }
   }
 ];
