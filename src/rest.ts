@@ -31,7 +31,7 @@ async function sendRequest<T>(
   );
 
   const value = await new Promise<T>((resolve, reject) => {
-    const json = body ? JSON.stringify(body) : '';
+    const json = new Buffer(body ? JSON.stringify(body) : '');
     request(
       {
         url,
