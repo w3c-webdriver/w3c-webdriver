@@ -31,23 +31,32 @@ async function sendRequest<T>(
   );
 
   const value = await new Promise<T>((resolve, reject) => {
+    const json = JSON.stringify(body);
     request(
       {
         url,
         method,
-        headers,
-        body,
-        json: true,
-        encoding: 'utf8'
+        headers: {
+          ...headers,
+          // This can be removed in favour of using `json` property if https://github.com/SeleniumHQ/selenium/issues/7986 is resolved
+          'Content-Length': json.length,
+          'Content-Type': 'application/json; charset=utf-8'
+        },
+        body: json
       },
-      (error: Error, _response, body: { value: T }) => {
+      (error: Error, _response, body) => {
         if (error) {
           reject(error);
           return;
         }
 
-        log(`WebDriver response: ${util.inspect(body, false, 10)}`);
-        resolve(body.value);
+        try {
+          const result = JSON.parse(body) as { value: T };
+          log(`WebDriver response: ${util.inspect(result, false, 10)}`);
+          resolve(result.value);
+        } catch (e) {
+          reject(body);
+        }
       }
     );
   });
