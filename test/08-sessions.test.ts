@@ -54,21 +54,16 @@ describe('Sessions', function() {
 
   describe('set/getTimeout methods', function() {
     it('sets and retrieves session timeouts', async function() {
-      const { session, browser } = await getTestEnv(this);
+      const { session } = await getTestEnv(this);
       const timeouts: Timeouts = {
-        script: 30000,
-        pageLoad: 60000,
-        implicit: 40000
+        script: 30001,
+        pageLoad: 60002,
+        implicit: 40003
       };
-      switch (browser) {
-        case Browser.Chrome: {
-          await session.setTimeouts(timeouts);
 
-          const retrievedTimeout = await session.getTimeouts();
-
-          expect(retrievedTimeout).toEqual(timeouts);
-        }
-      }
+      await session.setTimeouts(timeouts);
+      const retrievedTimeout = await session.getTimeouts();
+      expect(retrievedTimeout).toEqual(timeouts);
     });
   });
 });

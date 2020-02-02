@@ -58,6 +58,7 @@ async function sendRequest<T>(
           log(`WebDriver response: ${util.inspect(result, false, 10)}`);
           resolve(result.value);
         } catch (e) {
+          /* istanbul ignore next */
           reject(body);
         }
       }
