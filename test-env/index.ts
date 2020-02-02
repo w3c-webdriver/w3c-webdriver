@@ -119,7 +119,7 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
       path: iedriverPath,
       args: ({ port }: { port: number }): string[] => [
         `--port=${port}`,
-        '--log-level=TRACE'
+        '--log-level=INFO'
       ],
       host: WebDriverHost.Localhost
     }

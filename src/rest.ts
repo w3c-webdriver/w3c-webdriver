@@ -32,6 +32,7 @@ async function sendRequest<T>(
 
   const value = await new Promise<T>((resolve, reject) => {
     const json = Buffer.from(body ? JSON.stringify(body) : '', 'utf8');
+    const hasContent = !!json.length;
     request(
       {
         url,
@@ -39,13 +40,12 @@ async function sendRequest<T>(
         headers: {
           ...headers,
           // This can be removed in favour of using `json` property if https://github.com/SeleniumHQ/selenium/issues/7986 is resolved
-          ...(json.length && { 'Content-Type': 'text/plain;charset=UTF-8' }),
-          Accept: '*/*',
-          ...(json.length && { 'Content-Length': json.length }),
-          'User-Agent': 'w3c-webdriver',
-          'Accept-Encoding': 'gzip,deflate'
+          ...(hasContent && {
+            'Content-Type': 'text/plain;charset=UTF-8',
+            'Content-Length': json.length
+          })
         },
-        ...(json.length && { body: json })
+        ...(hasContent && { body: json })
       },
       (error: Error, _response, body) => {
         if (error) {
