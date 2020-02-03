@@ -36,12 +36,12 @@ describe('Document Handling', function() {
     it('supports passing elements as arguments', async function() {
       const { session } = await getTestEnv(this);
       const buttons = await session.findElements('css selector', 'button');
-      const count = await session.executeScript<number>(
+      const result = await session.executeScript<number>(
         'return arguments[0][2].id',
         [buttons]
       );
 
-      expect(count).toEqual('divide');
+      expect(result).toEqual('divide');
     });
 
     it('supports passing nested datastructures containing elements as arguments', async function() {
