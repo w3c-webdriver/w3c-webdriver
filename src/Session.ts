@@ -5,7 +5,8 @@ import {
   Timeouts,
   WindowRect
 } from './core';
-import { Element, WebElement } from './Element';
+import { deepMap } from './core/utils';
+import { Element, isWebElement, WebElement } from './Element';
 import { DELETE, GET, POST } from './rest';
 
 /**
@@ -440,15 +441,22 @@ export class Session {
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public async executeScript<T>(script: string, args: any[] = []): Promise<T> {
-    return POST<T>(`${this.host}/session/${this.sessionId}/execute/sync`, {
-      script,
-      args: args.map(arg => {
-        if (arg instanceof Element) {
-          return arg.getWebElement();
-        }
-
-        return arg;
-      })
+    const mappedArgs = deepMap(args, item => {
+      if (item instanceof Element) {
+        return item.getWebElement();
+      }
+    });
+    const result = await POST<T>(
+      `${this.host}/session/${this.sessionId}/execute/sync`,
+      {
+        script,
+        args: mappedArgs
+      }
+    );
+    return deepMap(result, item => {
+      if (isWebElement(item)) {
+        return new Element(this.host, this.sessionId, item);
+      }
     });
   }
 
@@ -476,15 +484,22 @@ export class Session {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     args: any[] = []
   ): Promise<T> {
-    return POST<T>(`${this.host}/session/${this.sessionId}/execute/async`, {
-      script,
-      args: args.map(arg => {
-        if (arg instanceof Element) {
-          return arg.getWebElement();
-        }
-
-        return arg;
-      })
+    const mappedArgs = deepMap(args, item => {
+      if (item instanceof Element) {
+        return item.getWebElement();
+      }
+    });
+    const result = await POST<T>(
+      `${this.host}/session/${this.sessionId}/execute/async`,
+      {
+        script,
+        args: mappedArgs
+      }
+    );
+    return deepMap(result, item => {
+      if (isWebElement(item)) {
+        return new Element(this.host, this.sessionId, item);
+      }
     });
   }
 
