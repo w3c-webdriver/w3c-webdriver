@@ -1,11 +1,25 @@
 import expect from 'expect';
 import { Key } from '../src';
-import testEnv, { Browser } from '../test-env';
+import { Browser, getTestEnv } from '../test-env';
 
-describe('Actions', () => {
-  describe('performActions method', () => {
-    it('performs actions', async () => {
-      const { session } = testEnv;
+describe('Actions', function() {
+  describe('performActions method', function() {
+    it('performs actions', async function() {
+      const { session } = await getTestEnv(this);
+      const b = await session.findElement('css selector', '#b');
+      const bCenter = await session.executeScript<{
+        x: number;
+        y: number;
+      }>(
+        `
+        var rect = arguments[0].getBoundingClientRect();
+        return {
+          x: Math.round(rect.left + rect.width / 2),
+          y: Math.round(rect.top + rect.height / 2)
+        };
+      `,
+        [b]
+      );
       await session.performActions([
         {
           type: 'none',
@@ -17,7 +31,10 @@ describe('Actions', () => {
           id: 'click on b field',
           actions: [
             { type: 'pause', duration: 0 },
-            { type: 'pointerMove', x: 118, y: 121 },
+            {
+              type: 'pointerMove',
+              ...bCenter
+            },
             { type: 'pointerDown', button: 0 },
             { type: 'pointerUp', button: 0 }
           ]
@@ -87,8 +104,8 @@ describe('Actions', () => {
       expect(resultText).toEqual('22');
     });
 
-    it('handles special keys', async () => {
-      const { session } = testEnv;
+    it('handles special keys', async function() {
+      const { session } = await getTestEnv(this);
       const aField = await session.findElement('css selector', '#a');
       await aField.click();
       await session.performActions([
@@ -116,9 +133,9 @@ describe('Actions', () => {
     });
   });
 
-  describe('releaseActions method', () => {
-    it('releases all the keys', async () => {
-      const { session } = testEnv;
+  describe('releaseActions method', function() {
+    it('releases all the keys', async function() {
+      const { session } = await getTestEnv(this);
       const aField = await session.findElement('css selector', '#a');
       await aField.click();
       await session.performActions([
@@ -133,8 +150,8 @@ describe('Actions', () => {
       expect(text).toEqual('a');
     });
 
-    it('releases all the pointer buttons', async () => {
-      const { session, browser } = testEnv;
+    it('releases all the pointer buttons', async function() {
+      const { session, browser } = await getTestEnv(this);
 
       if (browser === Browser.InternetExplorer || browser === Browser.Safari) {
         return;

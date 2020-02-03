@@ -3,3 +3,6 @@ node_modules
 *.log
 lib
 .env
+coverage/
+.nyc_output/
+screenshots/

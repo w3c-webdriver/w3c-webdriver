@@ -14,7 +14,6 @@
   ],
   "plugins": ["@typescript-eslint", "mocha", "jsdoc"],
   "rules": {
-    "mocha/no-mocha-arrows": "off",
     "@typescript-eslint/ban-types": "off",
     "jsdoc/require-param": "error",
     "jsdoc/require-param-description": "error"

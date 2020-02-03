@@ -42,9 +42,12 @@ export type BrowserStackOptions = {
   debug?: boolean;
   networkLogs?: boolean;
   local?: boolean;
+  seleniumVersion?: string;
   safari?: {
     enablePopups?: boolean;
+    useSimulator?: boolean;
     allowAllCookies?: boolean;
+    driver?: string;
   };
 };
 
@@ -56,6 +59,13 @@ export type BrowserCapability = {
   browserVersion?: string;
   platformName?: string;
   acceptInsecureCerts?: boolean;
+  pageLoadStrategy?: 'none' | 'eager' | 'normal';
+  unhandledPromptBehavior?:
+    | 'dismiss'
+    | 'accept'
+    | 'dismiss and notify'
+    | 'accept and notify'
+    | 'ignore';
 
   'goog:chromeOptions'?: ChromeOptions;
   'moz:firefoxOptions'?: FirefoxOptions;

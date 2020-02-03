@@ -10,6 +10,7 @@ on:
 
 jobs:
   lint-typecheck:
+    timeout-minutes: 3
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -23,6 +24,7 @@ jobs:
       - name: Check types
         run: npm run typecheck
   test:
+    timeout-minutes: 15
     needs: lint-typecheck
     strategy:
       fail-fast: false
@@ -35,10 +37,9 @@ jobs:
             browser: 'firefox'
             headless: 'true'
           - environment: Chrome
-            os: 'ubuntu-latest'
+            os: 'macos-latest'
             nodeVersion: '12.x'
             browser: 'chrome'
-            headless: 'true'
           - environment: Internet_Explorer
             os: 'windows-latest'
             nodeVersion: '12.x'
@@ -57,7 +58,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
         env:
-          CHROMEDRIVER_VERSION: '78.0.3904.105'
+          CHROMEDRIVER_VERSION: '79.0.3945.36'
       - name: Run tests
         run: npm run test:coverage
         env:
@@ -66,6 +67,11 @@ jobs:
           BROWSERSTACK: ${{ matrix.browserStack }}
           BROWSERSTACK_USERNAME: ${{ secrets.browserStackUsername }}
           BROWSERSTACK_ACCESS_KEY: ${{ secrets.browserStackAccessKey }}
+      - uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: ${{ matrix.environment }}
+          path: screenshots
       - name: Upload coverage
         uses: codecov/codecov-action@v1
         with:

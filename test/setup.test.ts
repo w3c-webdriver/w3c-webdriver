@@ -1,23 +1,28 @@
 /* eslint-disable mocha/no-sibling-hooks */
 /* eslint-disable mocha/no-hooks-for-single-case */
 /* eslint-disable mocha/no-top-level-hooks */
-import { newSession, WindowRect } from '../src';
+import { mkdirSync, writeFileSync } from 'fs';
+import { dirname, resolve } from 'path';
+import { newSession } from '../src';
 import { log } from '../src/logger';
-import testEnv, { WebDriverHost } from '../test-env';
+import testEnv from '../test-env';
 import { startDriver, stopDriver } from '../test-env/browserDriver';
 import { startTestApp, stopTestApp } from '../test-env/testApp';
 
 log.enabled = true;
 
-let windowRect: WindowRect;
-
-before(async () => {
+before(async function() {
   await startDriver();
   await startTestApp();
 });
 
-before(async () => {
-  const { driver, capabilities, desiredCapabilities } = testEnv;
+before(async function() {
+  const {
+    driver,
+    capabilities,
+    desiredCapabilities,
+    setInitialWindowRectangle
+  } = testEnv;
   const url = process.env.WEB_DRIVER_URL || '';
   log(`Creating session on ${url}.`);
   try {
@@ -32,41 +37,36 @@ before(async () => {
     log(error);
     throw error;
   }
-  windowRect = await testEnv.session.getWindowRect();
-});
-
-beforeEach(async () => {
-  const { session, driver } = testEnv;
-  const testAppPort = process.env.TEST_APP_PORT;
-  await session.navigateTo(`http://localhost:${testAppPort}`);
-  await session.setWindowRect(windowRect);
-  if (driver.host === WebDriverHost.BrowserStack) {
-    log(`Wait for 4 seconds...`);
-    await new Promise(resolve =>
-      setTimeout(() => {
-        resolve();
-      }, 4000)
-    );
+  if (setInitialWindowRectangle) {
+    setInitialWindowRectangle(await testEnv.session.getWindowRect());
   }
 });
 
-after(async () => {
-  const { session, driver } = testEnv;
+afterEach(async function() {
+  if (this.currentTest?.state === 'failed') {
+    const { session, testName } = testEnv;
+    const screenshot = await session.takeScreenshot();
+    const fileName = resolve(__dirname, `../screenshots/${testName}.png`);
+    try {
+      mkdirSync(dirname(fileName));
+      // eslint-disable-next-line no-empty
+    } catch {}
+    writeFileSync(fileName, screenshot, 'base64');
+  }
+});
+
+after(async function() {
+  const { session } = testEnv;
   const url = process.env.WEB_DRIVER_URL;
   log(`Deleting session on ${url}.`);
-  await session.close();
+  try {
+    await session.close();
+    // eslint-disable-next-line no-empty
+  } catch {}
   log(`Session deleted.`);
-  if (driver.host === WebDriverHost.BrowserStack) {
-    log(`Wait for 4 seconds...`);
-    await new Promise(resolve =>
-      setTimeout(() => {
-        resolve();
-      }, 4000)
-    );
-  }
 });
 
-after(async () => {
+after(async function() {
   await stopDriver();
   await stopTestApp();
 });

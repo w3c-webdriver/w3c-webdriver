@@ -1,15 +1,15 @@
 import expect from 'expect';
-import testEnv, { Browser } from '../test-env';
+import { Browser, getTestEnv } from '../test-env';
 
 const testCookie = {
   name: 'test_cookie',
   value: 'test_value'
 };
 
-describe('Cookies', () => {
-  describe('addCookie/getAllCookies methods', () => {
-    it('adds and retrieves all cookies visible to the current page', async () => {
-      const { session, browser } = testEnv;
+describe('Cookies', function() {
+  describe('addCookie/getAllCookies methods', function() {
+    it('adds and retrieves all cookies visible to the current page', async function() {
+      const { session, browser } = await getTestEnv(this);
 
       // See:
       // https://github.com/seleniumhq/selenium/issues/962
@@ -33,9 +33,9 @@ describe('Cookies', () => {
     });
   });
 
-  describe('getNamedCookie method', () => {
-    it('adds and retrieves a cookie by name', async () => {
-      const { session, browser } = testEnv;
+  describe('getNamedCookie method', function() {
+    it('adds and retrieves a cookie by name', async function() {
+      const { session, browser } = await getTestEnv(this);
 
       // See:
       // https://github.com/seleniumhq/selenium/issues/962
@@ -48,9 +48,9 @@ describe('Cookies', () => {
     });
   });
 
-  describe('deleteCookie method', () => {
-    it('delete a cookie by name', async () => {
-      const { session, browser } = testEnv;
+  describe('deleteCookie method', function() {
+    it('delete a cookie by name', async function() {
+      const { session, browser } = await getTestEnv(this);
 
       // See:
       // https://github.com/seleniumhq/selenium/issues/962
@@ -65,9 +65,9 @@ describe('Cookies', () => {
     });
   });
 
-  describe('deleteAllCookies method', () => {
-    it('delete all cookies', async () => {
-      const { session, browser } = testEnv;
+  describe('deleteAllCookies method', function() {
+    it('delete all cookies', async function() {
+      const { session, browser } = await getTestEnv(this);
 
       // See:
       // https://github.com/seleniumhq/selenium/issues/962

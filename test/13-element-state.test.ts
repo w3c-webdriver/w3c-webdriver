@@ -1,10 +1,10 @@
 import expect from 'expect';
-import testEnv, { Browser } from '../test-env';
+import { Browser, getTestEnv } from '../test-env';
 
-describe('Element State', () => {
-  describe('isSelected method', () => {
-    it('returns true for selected checkbox', async () => {
-      const { session } = testEnv;
+describe('Element State', function() {
+  describe('isSelected method', function() {
+    it('returns true for selected checkbox', async function() {
+      const { session } = await getTestEnv(this);
       const checkBox = await session.findElement('css selector', '#agree');
       await checkBox.click();
       const selected = await checkBox.isSelected();
@@ -12,8 +12,8 @@ describe('Element State', () => {
       expect(selected).toBe(true);
     });
 
-    it('returns false for not selected checkbox', async () => {
-      const { session } = testEnv;
+    it('returns false for not selected checkbox', async function() {
+      const { session } = await getTestEnv(this);
       const checkBox = await session.findElement('css selector', '#agree');
       const selected = await checkBox.isSelected();
 
@@ -21,9 +21,9 @@ describe('Element State', () => {
     });
   });
 
-  describe('getAttribute method', () => {
-    it('returns attribute of an element', async () => {
-      const { session } = testEnv;
+  describe('getAttribute method', function() {
+    it('returns attribute of an element', async function() {
+      const { session } = await getTestEnv(this);
       const element = await session.findElement('css selector', '#add');
       const elementAttribute = await element.getAttribute('class');
 
@@ -31,9 +31,9 @@ describe('Element State', () => {
     });
   });
 
-  describe('getProperty method', () => {
-    it('returns property of an element', async () => {
-      const { session } = testEnv;
+  describe('getProperty method', function() {
+    it('returns property of an element', async function() {
+      const { session } = await getTestEnv(this);
       const element = await session.findElement('css selector', '#add');
       const elementProperty = await element.getProperty('value');
 
@@ -41,9 +41,9 @@ describe('Element State', () => {
     });
   });
 
-  describe('getCssValue method', () => {
-    it('returns the provided style property of an element', async () => {
-      const { session } = testEnv;
+  describe('getCssValue method', function() {
+    it('returns the provided style property of an element', async function() {
+      const { session } = await getTestEnv(this);
       const result = await session.findElement('css selector', '#result');
       const displayMode = await result.getCssValue('display');
 
@@ -51,9 +51,9 @@ describe('Element State', () => {
     });
   });
 
-  describe('getText method', () => {
-    it('returns text from element', async () => {
-      const { session } = testEnv;
+  describe('getText method', function() {
+    it('returns text from element', async function() {
+      const { session } = await getTestEnv(this);
       const element = await session.findElement('css selector', 'h2');
       const text = await element.getText();
 
@@ -61,9 +61,9 @@ describe('Element State', () => {
     });
   });
 
-  describe('getTagName method', () => {
-    it('returns tagName of an element', async () => {
-      const { session, browser } = testEnv;
+  describe('getTagName method', function() {
+    it('returns tagName of an element', async function() {
+      const { session, browser } = await getTestEnv(this);
       const element = await session.findElement('css selector', '#add');
       const elementTagName = await element.getTagName();
 
@@ -75,27 +75,38 @@ describe('Element State', () => {
     });
   });
 
-  describe('getRect method', () => {
-    it('returns the dimensions and coordinates of an element', async () => {
-      const { session } = testEnv;
+  describe('getRect method', function() {
+    it('returns the dimensions and coordinates of an element', async function() {
+      const { session } = await getTestEnv(this);
       const box = await session.findElement('css selector', '#fixed-box');
-      const rect = await box.getRect();
-
-      expect(rect).toEqual({ x: 300, y: 10, width: 100, height: 50 });
+      const expectedRect = await session.executeScript(
+        `
+        var rect = arguments[0].getBoundingClientRect();
+        return {
+            x: rect.left + window.pageXOffset,
+            y: rect.top + window.pageYOffset,
+            width: rect.width,
+            height: rect.height,
+        };
+      `,
+        [box]
+      );
+      const actualRect = await box.getRect();
+      expect(actualRect).toEqual(expectedRect);
     });
   });
 
-  describe('isEnabled method', () => {
-    it('returns true if input field is enabled', async () => {
-      const { session } = testEnv;
+  describe('isEnabled method', function() {
+    it('returns true if input field is enabled', async function() {
+      const { session } = await getTestEnv(this);
       const inputA = await session.findElement('css selector', '#a');
       const selected = await inputA.isEnabled();
 
       expect(selected).toBe(true);
     });
 
-    it('returns false if input field is disabled', async () => {
-      const { session } = testEnv;
+    it('returns false if input field is disabled', async function() {
+      const { session } = await getTestEnv(this);
       const disabledInput = await session.findElement(
         'css selector',
         '#disabled'

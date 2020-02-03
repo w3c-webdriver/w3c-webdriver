@@ -1,4 +1,4 @@
-import { HeaderInit } from 'node-fetch';
+import { Headers } from 'request';
 import { Capabilities, Status } from './core';
 import { GET, POST } from './rest';
 import { Session } from './Session';
@@ -66,29 +66,19 @@ export async function newSession(options: {
   /**
    * Session creation request headers. Can be used for authorization. See example
    */
-  headers?: HeaderInit;
+  headers?: Headers;
 }): Promise<Session> {
   const { url, capabilities, desiredCapabilities, headers } = options;
-  const {
-    sessionId: localSessionId,
-    'webdriver.remote.sessionid': remoteSessionId
-  } = await POST<{
-    sessionId?: string;
-    'webdriver.remote.sessionid'?: string;
+  const { sessionId } = await POST<{
+    sessionId: string;
   }>(
     `${url}/session`,
     {
-      capabilities,
-      desiredCapabilities
+      ...(capabilities && { capabilities }),
+      ...(desiredCapabilities && { desiredCapabilities })
     },
     headers
   );
-
-  const sessionId = localSessionId || remoteSessionId;
-
-  if (!sessionId) {
-    throw new Error('Session creation was not successful.');
-  }
 
   return new Session(url, sessionId);
 }
