@@ -73,7 +73,7 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
         browserName: 'firefox',
         'moz:firefoxOptions': {
           log: {
-            level: 'debug'
+            level: 'trace'
           },
           ...(process.env.HEADLESS && {
             args: ['-headless']
