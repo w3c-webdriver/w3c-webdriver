@@ -54,7 +54,12 @@ describe('Sessions', function() {
 
   describe('set/getTimeout methods', function() {
     it('sets and retrieves session timeouts', async function() {
-      const { session } = await getTestEnv(this);
+      const { session, driver } = await getTestEnv(this);
+
+      if (driver.host === WebDriverHost.BrowserStack) {
+        return;
+      }
+
       const timeouts: Timeouts = {
         script: 30001,
         pageLoad: 60002,

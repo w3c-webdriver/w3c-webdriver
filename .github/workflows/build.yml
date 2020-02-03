@@ -62,7 +62,6 @@ jobs:
       - name: Run tests
         run: npm run test:coverage
         env:
-          NODE_DEBUG: 'request'
           BROWSER: ${{ matrix.browser }}
           HEADLESS: ${{ matrix.headless }}
           BROWSERSTACK: ${{ matrix.browserStack }}
