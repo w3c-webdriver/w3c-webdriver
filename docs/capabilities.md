@@ -47,6 +47,8 @@ const capabilities = {
 - `browserVersion?`: string
 - `platformName?`: string
 - `acceptInsecureCerts?`: boolean
+- `pageLoadStrategy`: `'none'` | `'eager'` | `'normal'`
+- `unhandledPromptBehavior`: `'dismiss'` | `'accept'` | `'dismiss and notify'` | `'accept and notify'` | `'ignore'`
 - `goog:chromeOptions?`: [ChromeOptions](#chromeoptions)
 - `moz:firefoxOptions?`: [FirefoxOptions](#firefoxoptions)
 - `se:ieOptions?`: [InternetExplorerOptions](#internetexploreroptions)
@@ -95,6 +97,9 @@ const capabilities = {
 - `debug?`: boolean
 - `networkLogs?`: boolean
 - `local?`: boolean
+- `seleniumVersion?`: string
 - `safari?`: object
   - `enablePopups?`: boolean
+  - `useSimulator?`: boolean
   - `allowAllCookies?`: boolean
+  - `driver?`: string

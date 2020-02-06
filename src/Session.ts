@@ -431,11 +431,26 @@ export class Session {
    * @section Document
    * @example
    * const script = `
-   *   const [from] = arguments;
-   *   return `Hello from ${from}!`;
+   *   const [name] = arguments;
+   *   return `Hello from ${name}!`;
    * `;
    * const message = await session.executeScript(script, ['WebDriver']);
    * // message = 'Hello from WebDriver!'
+   * @example
+   * const button = await session.findElement('css selector', '#red-button');
+   * const script = `
+   *    const [element] = arguments;
+   *    return element.id;
+   * `;
+   * const id = await session.executeScript(script, [button]);
+   * // id = 'red-button'
+   * @example
+   * const script = `
+   *    return document.querySelector('#red-button');
+   * `;
+   * const button = await session.executeScript(script);
+   * const id = await button.getProperty('id');
+   * // id = 'red-button'
    * @param script JavaScript to execute in browser context
    * @param args Arguments to sent to executed script
    */
@@ -476,6 +491,22 @@ export class Session {
    * `;
    * const message = await session.executeAsyncScript(script, [5, 3]);
    * // message = 15
+   * @example
+   * const button = await session.findElement('css selector', '#red-button');
+   * const script = `
+   *    const [element, callback] = arguments;
+   *    callback(element.id);
+   * `;
+   * const id = await session.executeAsyncScript(script, [button]);
+   * // id = 'red-button'
+   * @example
+   * const script = `
+   *    const [callback] = arguments;
+   *    callback(document.querySelector('#red-button'));
+   * `;
+   * const button = await session.executeAsyncScript(script);
+   * const id = await button.getProperty('id');
+   * // id = 'red-button'
    * @param script JavaScript to execute in browser context
    * @param args Arguments to sent to executed script
    */

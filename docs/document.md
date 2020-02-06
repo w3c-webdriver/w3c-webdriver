@@ -38,11 +38,30 @@ Promise&lt;T&gt;
 
 ```typescript
 const script = `
-  const [from] = arguments;
-  return `Hello from ${from}!`;
+  const [name] = arguments;
+  return `Hello from ${name}!`;
 `;
 const message = await session.executeScript(script, ['WebDriver']);
 // message = 'Hello from WebDriver!'
+```
+
+```typescript
+const button = await session.findElement('css selector', '#red-button');
+const script = `
+   const [element] = arguments;
+   return element.id;
+`;
+const id = await session.executeScript(script, [button]);
+// id = 'red-button'
+```
+
+```typescript
+const script = `
+   return document.querySelector('#red-button');
+`;
+const button = await session.executeScript(script);
+const id = await button.getProperty('id');
+// id = 'red-button'
 ```
 
 **SEE ALSO**
@@ -74,6 +93,26 @@ const script = `
 `;
 const message = await session.executeAsyncScript(script, [5, 3]);
 // message = 15
+```
+
+```typescript
+const button = await session.findElement('css selector', '#red-button');
+const script = `
+   const [element, callback] = arguments;
+   callback(element.id);
+`;
+const id = await session.executeAsyncScript(script, [button]);
+// id = 'red-button'
+```
+
+```typescript
+const script = `
+   const [callback] = arguments;
+   callback(document.querySelector('#red-button'));
+`;
+const button = await session.executeAsyncScript(script);
+const id = await button.getProperty('id');
+// id = 'red-button'
 ```
 
 **SEE ALSO**

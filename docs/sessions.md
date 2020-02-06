@@ -17,7 +17,8 @@ Also we can set the browser and operating system parameters we want to interact 
   - `capabilities`: [Capabilities](capabilities.md#capabilities) - WebDriver capabilities
   - `desiredCapabilities?`: object - Legacy WebDriver capabilities. Can be used to enable the new W3C dialect
     - `browserstack.use_w3c`: boolean
-  - `headers`: Headers | string[] | object - Session creation request headers. Can be used for authorization. See example
+  - `headers?`: Headers - Session creation request headers. Can be used for authorization. See example
+    - `__index`: any
 
 **RETURNS**
 
