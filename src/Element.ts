@@ -10,6 +10,10 @@ export type WebElement = {
   'element-6066-11e4-a52e-4f735466cecf': string;
 };
 
+/**
+ * @internal
+ * @param item element to check
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function isWebElement(item: any): item is WebElement {
   return item && typeof item === 'object' && item[WEB_ELEMENT_IDENTIFIER];
