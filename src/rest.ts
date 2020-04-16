@@ -1,5 +1,6 @@
 import request, { Headers } from 'request';
 import util from 'util';
+import { WebdriverError } from './core';
 import { log } from './logger';
 
 interface ErrorValue {
@@ -68,7 +69,7 @@ async function sendRequest<T>(
   if (isError(value)) {
     const { error, message } = value;
 
-    throw new Error(message || error);
+    throw new WebdriverError(error, message);
   }
 
   return value;
