@@ -1,5 +1,6 @@
 import {
   ActionSequence,
+  BrowserCapability,
   Cookie,
   LocatorStrategy,
   Timeouts,
@@ -16,10 +17,12 @@ import { DELETE, GET, POST } from './rest';
 export class Session {
   private readonly host: string;
   private readonly sessionId: string;
+  public readonly capabilities: BrowserCapability;
 
-  constructor(host: string, sessionId: string) {
+  constructor(host: string, sessionId: string, capabilities: BrowserCapability) {
     this.host = host;
     this.sessionId = sessionId;
+    this.capabilities = capabilities;
   }
 
   /****************************************************************************************************************

@@ -1,5 +1,5 @@
 import { Headers } from 'request';
-import { Capabilities, Status } from './core';
+import { BrowserCapability, Capabilities, Status } from './core';
 import { GET, POST } from './rest';
 import { Session } from './Session';
 
@@ -69,8 +69,9 @@ export async function newSession(options: {
   headers?: Headers;
 }): Promise<Session> {
   const { url, capabilities, desiredCapabilities, headers } = options;
-  const { sessionId } = await POST<{
+  const { sessionId, capabilities: capabilitiesResponse } = await POST<{
     sessionId: string;
+    capabilities: BrowserCapability;
   }>(
     `${url}/session`,
     {
@@ -80,7 +81,7 @@ export async function newSession(options: {
     headers
   );
 
-  return new Session(url, sessionId);
+  return new Session(url, sessionId, capabilitiesResponse);
 }
 /**
  * To be able to verify if the WebDriver server is ready for new session creation sometimes it can be useful to query it's status.

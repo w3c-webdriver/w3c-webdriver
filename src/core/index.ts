@@ -5,4 +5,5 @@ export * from './ElementRect';
 export * from './LocatorStrategy';
 export * from './Status';
 export * from './Timeout';
+export * from './WebdriverError';
 export * from './WindowRect';
