@@ -207,7 +207,7 @@ const webDriverHost = process.env.BROWSERSTACK
   ? WebDriverHost.BrowserStack
   : WebDriverHost.Localhost;
 const testEnv: TestEnvironment = {
-  session: new Session('default', 'default'),
+  session: new Session('default', 'default', {}),
   headless: !!process.env.HEADLESS,
   setInitialWindowRectangle(rect: WindowRect) {
     initialWindowRect = rect;
