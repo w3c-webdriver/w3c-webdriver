@@ -36,13 +36,14 @@ async function sendRequest<T>(
       {
         url,
         method,
+        json: true,
         headers: {
           ...headers,
-          // This can be removed in favour of using `json` property if https://github.com/SeleniumHQ/selenium/issues/7986 is resolved
-          ...(hasContent && {
-            'Content-Type': 'text/plain;charset=UTF-8',
-            'Content-Length': json.length,
-          }),
+          // // This can be removed in favour of using `json` property if https://github.com/SeleniumHQ/selenium/issues/7986 is resolved
+          // ...(hasContent && {
+          //   'Content-Type': 'application/json;charset=UTF-8',
+          //   'Content-Length': json.length,
+          // }),
         },
         ...(hasContent && { body: json }),
       },
