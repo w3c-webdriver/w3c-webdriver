@@ -38,14 +38,13 @@ async function sendRequest<T>(
         ...(headers && { headers }),
         ...(body && { body }),
       },
-      (error: Error, _response, body) => {
+      (error: Error, _response, result: { value: T }) => {
         if (error) {
           reject(error);
           return;
         }
 
         try {
-          const result = JSON.parse(body) as { value: T };
           log(`WebDriver response: ${util.inspect(result, false, 10)}`);
           resolve(result.value);
         } catch (e) {
