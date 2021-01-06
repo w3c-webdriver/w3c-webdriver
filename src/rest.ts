@@ -1,6 +1,8 @@
-import request, { Headers } from 'request';
-import util from 'util';
+import requestWithCallback, { Headers } from 'request';
+import util, { promisify } from 'util';
 import { log } from './logger';
+
+const request = promisify(requestWithCallback);
 
 interface ErrorValue {
   error: string;
@@ -29,31 +31,17 @@ async function sendRequest<T>(
     }`
   );
 
-  const value = await new Promise<T>((resolve, reject) => {
-    request(
-      {
-        url,
-        method,
-        json: true,
-        ...(headers && { headers }),
-        ...(body && { body }),
-      },
-      (error: Error, _response, result: { value: T }) => {
-        if (error) {
-          reject(error);
-          return;
-        }
+  const { body: result } = (await request({
+    url,
+    method,
+    json: true,
+    ...(headers && { headers }),
+    ...(body && { body }),
+  })) as { body: { value: T } };
 
-        try {
-          log(`WebDriver response: ${util.inspect(result, false, 10)}`);
-          resolve(result.value);
-        } catch (e) {
-          /* istanbul ignore next */
-          reject(body);
-        }
-      }
-    );
-  });
+  log(`WebDriver response: ${util.inspect(result, false, 10)}`);
+
+  const { value } = result;
 
   if (isError(value)) {
     const { error, message } = value;
