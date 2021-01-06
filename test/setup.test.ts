@@ -11,17 +11,17 @@ import { startTestApp, stopTestApp } from '../test-env/testApp';
 
 log.enabled = true;
 
-before(async function() {
+before(async function () {
   await startDriver();
   await startTestApp();
 });
 
-before(async function() {
+before(async function () {
   const {
     driver,
     capabilities,
     desiredCapabilities,
-    setInitialWindowRectangle
+    setInitialWindowRectangle,
   } = testEnv;
   const url = process.env.WEB_DRIVER_URL || '';
   log(`Creating session on ${url}.`);
@@ -30,7 +30,7 @@ before(async function() {
       url,
       ...(capabilities && { capabilities }),
       ...(desiredCapabilities && { desiredCapabilities }),
-      headers: driver.headers
+      headers: driver.headers,
     });
     log(`Session created.`);
   } catch (error) {
@@ -42,9 +42,14 @@ before(async function() {
   }
 });
 
-afterEach(async function() {
+afterEach(async function () {
   if (this.currentTest?.state === 'failed') {
     const { session, testName } = testEnv;
+
+    if (!testName) {
+      return;
+    }
+
     const screenshot = await session.takeScreenshot();
     const fileName = resolve(__dirname, `../screenshots/${testName}.png`);
     try {
@@ -55,9 +60,14 @@ afterEach(async function() {
   }
 });
 
-after(async function() {
+after(async function () {
   const { session } = testEnv;
   const url = process.env.WEB_DRIVER_URL;
+
+  if (!url) {
+    return;
+  }
+
   log(`Deleting session on ${url}.`);
   try {
     await session.close();
@@ -66,7 +76,7 @@ after(async function() {
   log(`Session deleted.`);
 });
 
-after(async function() {
+after(async function () {
   await stopDriver();
   await stopTestApp();
 });

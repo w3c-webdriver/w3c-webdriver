@@ -1,7 +1,9 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function deepMap(source: any, transformer: (item: any) => any): any {
+export function deepMap(
+  source: unknown,
+  transformer: (item: unknown) => unknown
+): unknown {
   if (Array.isArray(source)) {
-    return source.map(item => deepMap(item, transformer));
+    return source.map((item) => deepMap(item, transformer));
   }
 
   const target = transformer(source);
@@ -14,7 +16,7 @@ export function deepMap(source: any, transformer: (item: any) => any): any {
     return Object.keys(source).reduce(
       (acc, key) => ({
         ...acc,
-        [key]: deepMap(source[key], transformer)
+        [key]: deepMap((source as Record<string, unknown>)[key], transformer),
       }),
       {}
     );

@@ -15,12 +15,12 @@ export enum Browser {
   Chrome = 'chrome',
   Firefox = 'firefox',
   Safari = 'safari',
-  InternetExplorer = 'internet-explorer'
+  InternetExplorer = 'internet-explorer',
 }
 
 export enum WebDriverHost {
   Localhost,
-  BrowserStack = 'https://hub-cloud.browserstack.com/wd/hub'
+  BrowserStack = 'https://hub-cloud.browserstack.com/wd/hub',
 }
 
 type BrowserDriver = {
@@ -54,17 +54,17 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
         'goog:chromeOptions': {
           w3c: true,
           ...(process.env.HEADLESS && {
-            args: ['--headless']
-          })
-        }
-      }
+            args: ['--headless'],
+          }),
+        },
+      },
     },
     driver: {
       name: 'Chromedriver',
       path: chromedriverPath,
       args: ({ port }: { port: number }): string[] => [`--port=${port}`],
-      host: WebDriverHost.Localhost
-    }
+      host: WebDriverHost.Localhost,
+    },
   },
   {
     browser: Browser.Firefox,
@@ -73,34 +73,34 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
         browserName: 'firefox',
         'moz:firefoxOptions': {
           log: {
-            level: 'warn'
+            level: 'warn',
           },
           ...(process.env.HEADLESS && {
-            args: ['-headless']
-          })
-        }
-      }
+            args: ['-headless'],
+          }),
+        },
+      },
     },
     driver: {
       name: 'Geckodriver',
       path: geckodriverPath,
       args: ({ port }: { port: number }): string[] => [`--port=${port}`],
-      host: WebDriverHost.Localhost
-    }
+      host: WebDriverHost.Localhost,
+    },
   },
   {
     browser: Browser.Safari,
     capabilities: {
       alwaysMatch: {
-        browserName: 'safari'
-      }
+        browserName: 'safari',
+      },
     },
     driver: {
       name: 'SafariDriver',
       path: 'safaridriver',
       args: ({ port }: { port: number }): string[] => [`--port=${port}`],
-      host: WebDriverHost.Localhost
-    }
+      host: WebDriverHost.Localhost,
+    },
   },
   {
     browser: Browser.InternetExplorer,
@@ -110,19 +110,19 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
         'se:ieOptions': {
           ignoreProtectedModeSettings: true,
           ignoreZoomSetting: true,
-          'ie.ensureCleanSession': true
-        }
-      }
+          'ie.ensureCleanSession': true,
+        },
+      },
     },
     driver: {
       name: 'InternetExplorerDriver',
       path: iedriverPath,
       args: ({ port }: { port: number }): string[] => [
         `--port=${port}`,
-        '--log-level=INFO'
+        '--log-level=INFO',
       ],
-      host: WebDriverHost.Localhost
-    }
+      host: WebDriverHost.Localhost,
+    },
   },
   {
     browser: Browser.Safari,
@@ -136,18 +136,18 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
           osVersion: 'Mojave',
           safari: {
             enablePopups: true,
-            allowAllCookies: true
+            allowAllCookies: true,
           },
           networkLogs: true,
           debug: true,
           projectName: 'w3c-webdriver',
           buildName: process.env.GITHUB_SHA || 'local build',
-          sessionName: 'Safari'
-        }
-      }
+          sessionName: 'Safari',
+        },
+      },
     },
     desiredCapabilities: {
-      'browserstack.use_w3c': true
+      'browserstack.use_w3c': true,
     },
     driver: {
       name: 'BrowserStack',
@@ -156,11 +156,11 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
         Authorization: `Basic ${Buffer.from(
           [
             process.env.BROWSERSTACK_USERNAME,
-            process.env.BROWSERSTACK_ACCESS_KEY
+            process.env.BROWSERSTACK_ACCESS_KEY,
           ].join(':')
-        ).toString('base64')}`
-      }
-    }
+        ).toString('base64')}`,
+      },
+    },
   },
   {
     browser: Browser.Firefox,
@@ -175,12 +175,12 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
           debug: true,
           projectName: 'w3c-webdriver',
           buildName: process.env.GITHUB_SHA || 'local build',
-          sessionName: 'Firefox'
-        }
-      }
+          sessionName: 'Firefox',
+        },
+      },
     },
     desiredCapabilities: {
-      'browserstack.use_w3c': true
+      'browserstack.use_w3c': true,
     },
     driver: {
       name: 'BrowserStack',
@@ -189,12 +189,12 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
         Authorization: `Basic ${Buffer.from(
           [
             process.env.BROWSERSTACK_USERNAME,
-            process.env.BROWSERSTACK_ACCESS_KEY
+            process.env.BROWSERSTACK_ACCESS_KEY,
           ].join(':')
-        ).toString('base64')}`
-      }
-    }
-  }
+        ).toString('base64')}`,
+      },
+    },
+  },
 ];
 
 function throwNoBrowserEnvironmentVariableError(): TestEnvironment {
@@ -215,17 +215,15 @@ const testEnv: TestEnvironment = {
   ...(testEnvironments.find(
     ({ browser, driver }) =>
       browser === process.env.BROWSER && driver.host === webDriverHost
-  ) || throwNoBrowserEnvironmentVariableError())
+  ) || throwNoBrowserEnvironmentVariableError()),
 };
 
 export async function getTestEnv(context?: Context): Promise<TestEnvironment> {
   const { session } = testEnv;
-  const testAppPort = process.env.TEST_APP_PORT;
+  const testAppPort = process.env.TEST_APP_PORT ?? 0;
 
-  testEnv.testName = context?.test
-    ?.titlePath()
-    .join('.')
-    .replace(/ /g, '_');
+  testEnv.testName =
+    context?.test?.titlePath().join('.').replace(/ /g, '_') ?? '';
 
   await session.refresh();
   await session.navigateTo(

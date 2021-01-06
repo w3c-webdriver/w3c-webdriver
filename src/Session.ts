@@ -3,7 +3,7 @@ import {
   Cookie,
   LocatorStrategy,
   Timeouts,
-  WindowRect
+  WindowRect,
 } from './core';
 import { deepMap } from './core/utils';
 import { Element, isWebElement, WebElement } from './Element';
@@ -114,7 +114,7 @@ export class Session {
     targetUrl: string
   ): Promise<void> {
     await POST(`${this.host}/session/${this.sessionId}/url`, {
-      url: targetUrl
+      url: targetUrl,
     });
   }
 
@@ -349,7 +349,7 @@ export class Session {
       `${this.host}/session/${this.sessionId}/element`,
       {
         using: strategy,
-        value: selector
+        value: selector,
       }
     );
 
@@ -378,12 +378,12 @@ export class Session {
       `${this.host}/session/${this.sessionId}/elements`,
       {
         using: strategy,
-        value: selector
+        value: selector,
       }
     );
 
     return webElements.map(
-      webElement => new Element(this.host, this.sessionId, webElement)
+      (webElement) => new Element(this.host, this.sessionId, webElement)
     );
   }
 
@@ -454,9 +454,11 @@ export class Session {
    * @param script JavaScript to execute in browser context
    * @param args Arguments to sent to executed script
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public async executeScript<T>(script: string, args: any[] = []): Promise<T> {
-    const mappedArgs = deepMap(args, item => {
+  public async executeScript<T>(
+    script: string,
+    args: unknown[] = []
+  ): Promise<T> {
+    const mappedArgs = deepMap(args, (item) => {
       if (item instanceof Element) {
         return item.getWebElement();
       }
@@ -465,14 +467,14 @@ export class Session {
       `${this.host}/session/${this.sessionId}/execute/sync`,
       {
         script,
-        args: mappedArgs
+        args: mappedArgs,
       }
     );
-    return deepMap(result, item => {
+    return deepMap(result, (item) => {
       if (isWebElement(item)) {
         return new Element(this.host, this.sessionId, item);
       }
-    });
+    }) as T;
   }
 
   /**
@@ -512,10 +514,9 @@ export class Session {
    */
   public async executeAsyncScript<T>(
     script: string,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    args: any[] = []
+    args: unknown[] = []
   ): Promise<T> {
-    const mappedArgs = deepMap(args, item => {
+    const mappedArgs = deepMap(args, (item) => {
       if (item instanceof Element) {
         return item.getWebElement();
       }
@@ -524,14 +525,14 @@ export class Session {
       `${this.host}/session/${this.sessionId}/execute/async`,
       {
         script,
-        args: mappedArgs
+        args: mappedArgs,
       }
     );
-    return deepMap(result, item => {
+    return deepMap(result, (item) => {
       if (isWebElement(item)) {
         return new Element(this.host, this.sessionId, item);
       }
-    });
+    }) as T;
   }
 
   /****************************************************************************************************************
@@ -699,14 +700,14 @@ export class Session {
     actionSequences: ActionSequence[]
   ): Promise<void> {
     await POST(`${this.host}/session/${this.sessionId}/actions`, {
-      actions: actionSequences.map(actionSequence => {
+      actions: actionSequences.map((actionSequence) => {
         if (actionSequence.type !== 'pointer') {
           return actionSequence;
         }
 
         return {
           ...actionSequence,
-          actions: actionSequence.actions.map(action => {
+          actions: actionSequence.actions.map((action) => {
             if (
               action.type !== 'pointerMove' ||
               !action.origin ||
@@ -718,11 +719,11 @@ export class Session {
 
             return {
               ...action,
-              origin: action.origin.getWebElement()
+              origin: action.origin.getWebElement(),
             };
-          })
+          }),
         };
-      })
+      }),
     });
   }
 
@@ -794,7 +795,7 @@ export class Session {
    */
   public async sendAlertText(text: string): Promise<void> {
     await POST(`${this.host}/session/${this.sessionId}/alert/text`, {
-      text
+      text,
     });
   }
 

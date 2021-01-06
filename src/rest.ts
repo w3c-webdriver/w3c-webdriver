@@ -7,8 +7,7 @@ interface ErrorValue {
   message: string;
 }
 
-//eslint-disable-next-line @typescript-eslint/no-explicit-any
-function isError(value: any): value is ErrorValue {
+function isError(value: unknown): value is ErrorValue {
   return (
     typeof value === 'object' &&
     value !== null &&
@@ -42,10 +41,10 @@ async function sendRequest<T>(
           // This can be removed in favour of using `json` property if https://github.com/SeleniumHQ/selenium/issues/7986 is resolved
           ...(hasContent && {
             'Content-Type': 'text/plain;charset=UTF-8',
-            'Content-Length': json.length
-          })
+            'Content-Length': json.length,
+          }),
         },
-        ...(hasContent && { body: json })
+        ...(hasContent && { body: json }),
       },
       (error: Error, _response, body) => {
         if (error) {

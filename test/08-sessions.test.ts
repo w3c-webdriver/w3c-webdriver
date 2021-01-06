@@ -2,9 +2,9 @@ import expect from 'expect';
 import { newSession, status, Timeouts } from '../src';
 import { Browser, getTestEnv, WebDriverHost } from '../test-env';
 
-describe('Sessions', function() {
-  describe('newSession method', function() {
-    it('throws error if session creation was not successful', async function() {
+describe('Sessions', function () {
+  describe('newSession method', function () {
+    it('throws error if session creation was not successful', async function () {
       let error;
 
       try {
@@ -12,19 +12,21 @@ describe('Sessions', function() {
           url: 'http://localhost:65535',
           capabilities: {
             alwaysMatch: {
-              browserName: 'non existing browser'
-            }
-          }
+              browserName: 'non existing browser',
+            },
+          },
         });
-      } catch (e) {
+      } catch (e: unknown) {
         error = e;
       }
-      expect(error.message).toContain(`connect ECONNREFUSED 127.0.0.1:65535`);
+      expect((error as Error).message).toContain(
+        `connect ECONNREFUSED 127.0.0.1:65535`
+      );
     });
   });
 
-  describe('status method', function() {
-    it('returns server status', async function() {
+  describe('status method', function () {
+    it('returns server status', async function () {
       const { browser, driver } = await getTestEnv(this);
       const result = await status(process.env.WEB_DRIVER_URL as string);
 
@@ -52,8 +54,8 @@ describe('Sessions', function() {
     });
   });
 
-  describe('set/getTimeout methods', function() {
-    it('sets and retrieves session timeouts', async function() {
+  describe('set/getTimeout methods', function () {
+    it('sets and retrieves session timeouts', async function () {
       const { session, driver } = await getTestEnv(this);
 
       if (driver.host === WebDriverHost.BrowserStack) {
@@ -63,7 +65,7 @@ describe('Sessions', function() {
       const timeouts: Timeouts = {
         script: 30001,
         pageLoad: 60002,
-        implicit: 40003
+        implicit: 40003,
       };
 
       await session.setTimeouts(timeouts);

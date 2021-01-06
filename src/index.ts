@@ -11,61 +11,49 @@ import { Session } from './Session';
  * This can be a locally running browser driver server ([Chromedriver](http://chromedriver.chromium.org), [Geckodriver](https://firefox-source-docs.mozilla.org/testing/geckodriver), etc.),
  * [Selenium Server or Grid](https://www.seleniumhq.org) or cloud provider url ([BrowserStack](https://www.browserstack.com), [Sauce Labs](https://saucelabs.com), .etc.).
  * Also we can set the browser and operating system parameters we want to interact with.
- *
  * @section Sessions
  * @returns session
  * @see {@link https://www.w3.org/TR/webdriver/#new-session|WebDriver spec}
+ * @param options Object with configuration for new session creation
+ * @param options.url WebDriver server URL
+ * @param options.capabilities WebDriver capabilities
+ * @param options.desiredCapabilities Legacy WebDriver capabilities. Can be used to enable the new W3C dialect
+ * @param options.headers Session creation request headers. Can be used for authorization. See example
  * @example
  * import { newSession } from 'w3c-webdriver';
  *
  * let session;
  *
  * (async () => {
- *   try {
- *     session = await newSession({
- *       url: 'http://localhost:4444',
- *       capabilities: {
- *         alwaysMatch: {
- *           browserName: 'Chrome'
- *         }
- *       }
- *     });
- *   } catch (err) {
- *     console.log(err.stack);
- *   } finally {
- *     session.close();
- *   }
+ * try {
+ * session = await newSession({
+ * url: 'http://localhost:4444',
+ * capabilities: {
+ * alwaysMatch: {
+ * browserName: 'Chrome'
+ * }
+ * }
+ * });
+ * } catch (err) {
+ * console.log(err.stack);
+ * } finally {
+ * session.close();
+ * }
  * })();
  * @example
  * const credentials = Buffer.from(['myusername', 'Password123'].join(':')).toString('base64');
  * const session = await newSession({
- *   headers: {
- *     Authorization: `Basic ${credentials}`
- *   }
+ * headers: {
+ * Authorization: `Basic ${credentials}`
+ * }
  * });
- * @param options Object with configuration for new session creation
  */
 export async function newSession(options: {
-  /**
-   * WebDriver server URL
-   */
   url: string;
-
-  /**
-   * WebDriver capabilities
-   */
   capabilities: Capabilities;
-
-  /**
-   * Legacy WebDriver capabilities. Can be used to enable the new W3C dialect
-   */
   desiredCapabilities?: {
     'browserstack.use_w3c': boolean;
   };
-
-  /**
-   * Session creation request headers. Can be used for authorization. See example
-   */
   headers?: Headers;
 }): Promise<Session> {
   const { url, capabilities, desiredCapabilities, headers } = options;
@@ -75,7 +63,7 @@ export async function newSession(options: {
     `${url}/session`,
     {
       ...(capabilities && { capabilities }),
-      ...(desiredCapabilities && { desiredCapabilities })
+      ...(desiredCapabilities && { desiredCapabilities }),
     },
     headers
   );

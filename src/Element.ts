@@ -14,9 +14,13 @@ export type WebElement = {
  * @internal
  * @param item element to check
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function isWebElement(item: any): item is WebElement {
-  return item && typeof item === 'object' && item[WEB_ELEMENT_IDENTIFIER];
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export function isWebElement(item: unknown): item is WebElement {
+  if (!item || typeof item !== 'object' || item === null) {
+    return false;
+  }
+
+  return WEB_ELEMENT_IDENTIFIER in item;
 }
 
 /**
@@ -66,7 +70,7 @@ export class Element {
       `${this.host}/session/${this.sessionId}/element/${this.elementId}/element`,
       {
         using: strategy,
-        value: selector
+        value: selector,
       }
     );
 
@@ -96,12 +100,12 @@ export class Element {
       `${this.host}/session/${this.sessionId}/element/${this.elementId}/elements`,
       {
         using: strategy,
-        value: selector
+        value: selector,
       }
     );
 
     return webElements.map(
-      webElement => new Element(this.host, this.sessionId, webElement)
+      (webElement) => new Element(this.host, this.sessionId, webElement)
     );
   }
 
