@@ -30,22 +30,13 @@ async function sendRequest<T>(
   );
 
   const value = await new Promise<T>((resolve, reject) => {
-    const json = Buffer.from(body ? JSON.stringify(body) : '', 'utf8');
-    const hasContent = !!json.length;
     request(
       {
         url,
         method,
         json: true,
-        headers: {
-          ...headers,
-          // // This can be removed in favour of using `json` property if https://github.com/SeleniumHQ/selenium/issues/7986 is resolved
-          // ...(hasContent && {
-          //   'Content-Type': 'application/json;charset=UTF-8',
-          //   'Content-Length': json.length,
-          // }),
-        },
-        ...(hasContent && { body: json }),
+        ...(headers && { headers }),
+        ...(body && { body }),
       },
       (error: Error, _response, body) => {
         if (error) {
