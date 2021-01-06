@@ -11,7 +11,7 @@ const mimeTypes: { [extension: string]: string } = {
   jpg: 'image/jpeg',
   png: 'image/png',
   js: 'text/javascript',
-  css: 'text/css'
+  css: 'text/css',
 };
 
 const server = http.createServer((req, res) => {
@@ -20,7 +20,7 @@ const server = http.createServer((req, res) => {
   if (uri === '/') uri = '/testApp.html';
 
   const filename = path.join(__dirname, uri);
-  fs.exists(filename, exists => {
+  fs.exists(filename, (exists) => {
     if (!exists) {
       res.writeHead(404, { 'Content-Type': 'text/plain' });
       res.write('404 Not Found\n');
@@ -39,20 +39,20 @@ const server = http.createServer((req, res) => {
 export async function startTestApp(): Promise<void> {
   const port = await findAPortNotInUse(3000, 3050, '127.0.0.1');
   process.env.TEST_APP_PORT = port.toString();
-  await new Promise(resolve => {
+  await new Promise<void>((resolve) => {
     server.listen(port, resolve);
   });
   log(`Test app started on port ${port}`);
 }
 
 export async function stopTestApp(): Promise<void> {
-  await new Promise(resolve => {
+  await new Promise((resolve) => {
     server.close(resolve);
   });
 }
 
 if (require.main === module) {
-  startTestApp().catch(err => {
+  startTestApp().catch((err) => {
     log(err);
   });
 }
