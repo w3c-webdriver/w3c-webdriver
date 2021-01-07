@@ -67,11 +67,19 @@ jobs:
           BROWSERSTACK: ${{ matrix.browserStack }}
           BROWSERSTACK_USERNAME: ${{ secrets.browserStackUsername }}
           BROWSERSTACK_ACCESS_KEY: ${{ secrets.browserStackAccessKey }}
-      - uses: actions/upload-artifact@v2
+      - name: Publish screenshots
+        uses: actions/upload-artifact@v2
         if: failure()
         with:
           name: ${{ matrix.environment }}
           path: screenshots
+      - name: Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1.6
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          report_individual_runs: true
+          files: test-results.xml
+          check_name: ${{ matrix.environment }}
       - name: Upload coverage
         uses: codecov/codecov-action@v1
         with:

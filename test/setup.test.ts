@@ -9,7 +9,36 @@ import testEnv from '../test-env';
 import { startDriver, stopDriver } from '../test-env/browserDriver';
 import { startTestApp, stopTestApp } from '../test-env/testApp';
 
+type Test = Mocha.Test & {
+  consoleOutputs: string[];
+  consoleErrors: string[];
+};
+
 log.enabled = true;
+let currentTest: Test | undefined;
+const originalLogFunction = process.stdout.write.bind(process.stdout);
+const originalErrorFunction = process.stderr.write.bind(process.stderr);
+
+process.stdout.write = (message: string): boolean => {
+  if (currentTest) {
+    currentTest.consoleOutputs = [
+      ...(currentTest?.consoleOutputs ?? []),
+      message,
+    ];
+  }
+
+  return originalLogFunction(message);
+};
+process.stderr.write = (message: string): boolean => {
+  if (currentTest) {
+    currentTest.consoleErrors = [
+      ...(currentTest?.consoleErrors ?? []),
+      message,
+    ];
+  }
+
+  return originalErrorFunction(message);
+};
 
 before(async function () {
   await startDriver();
@@ -40,6 +69,10 @@ before(async function () {
   if (setInitialWindowRectangle) {
     setInitialWindowRectangle(await testEnv.session.getWindowRect());
   }
+});
+
+beforeEach(function () {
+  currentTest = this.currentTest as Test;
 });
 
 afterEach(async function () {

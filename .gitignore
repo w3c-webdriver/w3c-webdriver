@@ -6,3 +6,4 @@ lib
 coverage/
 .nyc_output/
 screenshots/
+test-results.xml
