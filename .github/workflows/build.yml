@@ -81,6 +81,7 @@ jobs:
           report_individual_runs: true
           files: test-results.xml
           check_name: test (${{ matrix.environment }})
+          comment_on_pr: false
       - name: Upload coverage
         uses: codecov/codecov-action@v1
         with:
