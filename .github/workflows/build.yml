@@ -58,7 +58,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
         env:
-          CHROMEDRIVER_VERSION: '87.0.4280.88'
+          CHROMEDRIVER_VERSION: '88.0.4324.96'
       - name: Run tests
         run: npm run test:coverage
         env:
