@@ -20,17 +20,17 @@ async function createWindow(): Promise<string> {
   return newHandle;
 }
 
-describe('Command Contexts', function() {
-  describe('getWindowHandle', function() {
-    it('return the current window handle', async function() {
+describe('Command Contexts', function () {
+  describe('getWindowHandle', function () {
+    it('return the current window handle', async function () {
       const { session } = await getTestEnv(this);
       const handle = await session.getWindowHandle();
       expect(handle).toMatch(/[a-zA-z0-9-]{2,}/);
     });
   });
 
-  describe('closeWindow', function() {
-    it('closes current browsing context', async function() {
+  describe('closeWindow', function () {
+    it('closes current browsing context', async function () {
       const { session } = await getTestEnv(this);
       const initialHandle = await session.getWindowHandle();
       const handlesBefore = await session.getWindowHandles();
@@ -43,8 +43,8 @@ describe('Command Contexts', function() {
     });
   });
 
-  describe('switchToWindow', function() {
-    it('Switches to different browsing context', async function() {
+  describe('switchToWindow', function () {
+    it('Switches to different browsing context', async function () {
       const { session } = await getTestEnv(this);
       const initialHandle = await session.getWindowHandle();
       expect(await session.getTitle()).not.toEqual('');
@@ -55,7 +55,7 @@ describe('Command Contexts', function() {
       await session.switchToWindow(initialHandle);
     });
 
-    it('throws error if called with not existing handle', async function() {
+    it('throws error if called with not existing handle', async function () {
       const { session } = await getTestEnv(this);
       let errorMessage;
       try {
@@ -71,8 +71,8 @@ describe('Command Contexts', function() {
     });
   });
 
-  describe('switchToFrame', function() {
-    it('switches browsing context to iframe specified by Element', async function() {
+  describe('switchToFrame', function () {
+    it('switches browsing context to iframe specified by Element', async function () {
       const { session } = await getTestEnv(this);
       const iframe = await session.findElement('css selector', 'iframe');
       await session.switchToFrame(iframe);
@@ -80,7 +80,7 @@ describe('Command Contexts', function() {
       expect(await paragraph.getText()).toEqual('The content of the iframe');
     });
 
-    it('switches to top-level browsing context if null is provided', async function() {
+    it('switches to top-level browsing context if null is provided', async function () {
       const { session } = await getTestEnv(this);
       await session.switchToFrame(
         await session.findElement('css selector', 'iframe')
@@ -91,8 +91,8 @@ describe('Command Contexts', function() {
     });
   });
 
-  describe('switchToParentFrame', function() {
-    it('switches to parent browsing context ', async function() {
+  describe('switchToParentFrame', function () {
+    it('switches to parent browsing context ', async function () {
       const { session } = await getTestEnv(this);
       await session.switchToFrame(
         await session.findElement('css selector', 'iframe')
@@ -103,8 +103,8 @@ describe('Command Contexts', function() {
     });
   });
 
-  describe('getWindowHandles', function() {
-    it('return all window handles', async function() {
+  describe('getWindowHandles', function () {
+    it('return all window handles', async function () {
       const { session } = await getTestEnv(this);
       const handles = await session.getWindowHandles();
       expect(handles).toHaveLength(1);
@@ -112,8 +112,8 @@ describe('Command Contexts', function() {
     });
   });
 
-  describe('getWindowRect/maximizeWindow method', function() {
-    it('validates window rect before and after maximizing the window', async function() {
+  describe('getWindowRect/maximizeWindow method', function () {
+    it('validates window rect before and after maximizing the window', async function () {
       const { session, driver, headless } = await getTestEnv(this);
 
       if (driver.host === WebDriverHost.BrowserStack || headless) {
@@ -129,8 +129,8 @@ describe('Command Contexts', function() {
     });
   });
 
-  describe('setWindowRect method', function() {
-    it('set current window to specified rect', async function() {
+  describe('setWindowRect method', function () {
+    it('set current window to specified rect', async function () {
       const { session } = await getTestEnv(this);
       const testRect = { x: 25, y: 25, width: 520, height: 520 };
 
@@ -141,8 +141,8 @@ describe('Command Contexts', function() {
     });
   });
 
-  describe('minimizeWindow method', function() {
-    it('minimizes the current window', async function() {
+  describe('minimizeWindow method', function () {
+    it('minimizes the current window', async function () {
       const { session, browser, headless } = await getTestEnv(this);
       if (browser === Browser.Safari || headless) {
         return;
@@ -152,13 +152,13 @@ describe('Command Contexts', function() {
       await poll({
         timeout: 3000,
         predicate: (): Promise<boolean> =>
-          session.executeScript<boolean>(`return document.hidden`)
+          session.executeScript<boolean>(`return document.hidden`),
       });
     });
   });
 
-  describe('fullScreenWindow method', function() {
-    it('increases the current window to full screen', async function() {
+  describe('fullScreenWindow method', function () {
+    it('increases the current window to full screen', async function () {
       const { session, browser, headless } = await getTestEnv(this);
 
       if (browser === Browser.Safari || headless) {
@@ -166,10 +166,26 @@ describe('Command Contexts', function() {
       }
 
       await session.fullScreenWindow();
-      const isFullScreen = await session.executeScript(`
-        return window.outerWidth-screen.width == 0 && window.outerHeight-screen.height == 0
+      const {
+        outerWidth,
+        screenWidth,
+        outerHeight,
+        screenHeight,
+      } = await session.executeScript<{
+        outerWidth: number;
+        screenWidth: number;
+        outerHeight: number;
+        screenHeight: number;
+      }>(`
+        return {
+          outerWidth: window.outerWidth,
+          screenWidth: screen.width,
+          outerHeight: window.outerHeight,
+          screenHeight: screen.height,
+        }
       `);
-      expect(isFullScreen).toBe(true);
+      expect(outerWidth).toEqual(screenWidth);
+      expect(outerHeight - screenHeight).toBeLessThan(50);
     });
   });
 });
