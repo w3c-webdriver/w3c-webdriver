@@ -1,8 +1,6 @@
-import requestWithCallback, { Headers } from 'request';
-import util, { promisify } from 'util';
+import got from 'got';
 import { log } from './logger';
-
-const request = promisify(requestWithCallback);
+import util from 'util';
 
 interface ErrorValue {
   error: string;
@@ -23,7 +21,7 @@ async function sendRequest<T>(
   method: RequestMethod,
   url: string,
   body?: object,
-  headers?: Headers
+  headers?: Record<string, string | string[] | undefined>
 ): Promise<T> {
   log(
     `WebDriver request: ${method} ${url} ${
@@ -31,13 +29,11 @@ async function sendRequest<T>(
     }`
   );
 
-  const { body: result } = (await request({
-    url,
+  const result = await got(url, {
     method,
-    json: true,
+    ...(body && { json: body }),
     ...(headers && { headers }),
-    ...(body && { body }),
-  })) as { body: { value: T } };
+  }).json<{ value: T }>();
 
   log(`WebDriver response: ${util.inspect(result, false, 10)}`);
 
@@ -57,7 +53,7 @@ export const GET = async <T>(url: string): Promise<T> =>
 export const POST = async <T>(
   url: string,
   body: object = {},
-  headers?: Headers
+  headers?: Record<string, string | string[] | undefined>
 ): Promise<T> => sendRequest<T>('POST', url, body, headers);
 export const DELETE = async <T>(url: string, body?: object): Promise<T> =>
   sendRequest<T>('DELETE', url, body);

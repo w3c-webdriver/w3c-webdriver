@@ -48,7 +48,7 @@
     "@types/debug": "^4.1.7",
     "@types/request": "^2.48.7",
     "debug": "^4.3.2",
-    "request": "^2.88.2"
+    "got": "^11.8.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.15.7",
