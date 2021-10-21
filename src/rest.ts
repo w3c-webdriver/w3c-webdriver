@@ -40,7 +40,7 @@ async function sendRequest<T>(
     headers: body
       ? {
           ...headers,
-          'content-length': Buffer.byteLength(jsonBody, 'utf8'),
+          'Content-Length': Buffer.byteLength(jsonBody, 'utf8'),
           'Content-Type': 'application/json',
         }
       : headers,
