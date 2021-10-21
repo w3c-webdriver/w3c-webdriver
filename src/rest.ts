@@ -1,4 +1,5 @@
-import got from 'got';
+import http from 'http';
+import { URL } from 'url';
 import { log } from './logger';
 import util from 'util';
 
@@ -29,11 +30,45 @@ async function sendRequest<T>(
     }`
   );
 
-  const result = await got(url, {
+  const jsonBody = JSON.stringify(body);
+  const { hostname, port, pathname: path } = new URL(url);
+  const options = {
     method,
-    ...(body && { json: body }),
-    ...(headers && { headers }),
-  }).json<{ value: T }>();
+    hostname,
+    port,
+    path,
+    headers: body
+      ? {
+          ...headers,
+          'content-length': Buffer.byteLength(jsonBody, 'utf8'),
+          'Content-Type': 'application/json',
+        }
+      : headers,
+  };
+
+  const result = await new Promise<{ value: T }>((resolve, reject) => {
+    const request = http.request(options, (response) => {
+      const chunks: string[] = [];
+      response.setEncoding('utf8');
+      response.on('data', (chunk: string) => {
+        chunks.push(chunk);
+      });
+      response.on('end', () => {
+        try {
+          resolve(JSON.parse(chunks.join('')) as { value: T });
+        } catch (err) {
+          reject(err);
+        }
+      });
+    });
+
+    request.on('error', reject);
+
+    if (body) {
+      request.write(jsonBody);
+    }
+    request.end();
+  });
 
   log(`WebDriver response: ${util.inspect(result, false, 10)}`);
 
