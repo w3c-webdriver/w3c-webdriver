@@ -21,7 +21,7 @@
     "test:firefox": "cross-env BROWSER=firefox npm test",
     "test:firefox-headless": "cross-env BROWSER=firefox HEADLESS=true npm test",
     "test:internet-explorer": "cross-env BROWSER=internet-explorer npm test",
-    "test:browserstack": "cross-env BROWSER=firefox BROWSERSTACK=true npm test",
+    "test:browserstack": "cross-env BROWSER=safari BROWSERSTACK=true npm test",
     "test:safari": "cross-env BROWSER=safari npm test",
     "build": "del-cli lib && tsc --emitDeclarationOnly -p tsconfig.build.json && babel src --out-dir lib --extensions \".ts\"",
     "prepack": "npm run build",
@@ -45,12 +45,10 @@
   "repository": "git@github.com:mucsi96/w3c-webdriver.git",
   "author": "Igor Mucsicska <mucsi_96@yahoo.com>",
   "dependencies": {
-    "@types/debug": "^4.1.7",
-    "@types/request": "^2.48.7",
-    "debug": "^4.3.2",
-    "got": "^11.8.2"
+    "debug": "^4.3.2"
   },
   "devDependencies": {
+    "@types/debug": "^4.1.7",
     "@babel/cli": "^7.15.7",
     "@babel/core": "^7.15.8",
     "@babel/preset-env": "^7.15.8",
@@ -59,7 +57,7 @@
     "@types/dotenv-safe": "^8.1.2",
     "@types/expect": "^24.3.0",
     "@types/mocha": "^9.0.0",
-    "@types/node": "^16.11.1",
+    "@types/node": "^16.11.2",
     "@types/portscanner": "^2.1.1",
     "@types/wait-on": "^5.3.1",
     "@typescript-eslint/eslint-plugin": "^5.1.0",

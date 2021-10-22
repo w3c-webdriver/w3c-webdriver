@@ -1,4 +1,5 @@
 import http from 'http';
+import https from 'https';
 import { URL } from 'url';
 import { log } from './logger';
 import util from 'util';
@@ -31,11 +32,12 @@ async function sendRequest<T>(
   );
 
   const jsonBody = JSON.stringify(body);
-  const { hostname, port, pathname: path } = new URL(url);
+  const { hostname, port, pathname: path, protocol } = new URL(url);
+  const protocolBasedPort = protocol === 'https:' ? 443 : 80;
   const options = {
     method,
     hostname,
-    port,
+    port: port || protocolBasedPort,
     path,
     headers: body
       ? {
@@ -47,20 +49,23 @@ async function sendRequest<T>(
   };
 
   const result = await new Promise<{ value: T }>((resolve, reject) => {
-    const request = http.request(options, (response) => {
-      const chunks: string[] = [];
-      response.setEncoding('utf8');
-      response.on('data', (chunk: string) => {
-        chunks.push(chunk);
-      });
-      response.on('end', () => {
-        try {
-          resolve(JSON.parse(chunks.join('')) as { value: T });
-        } catch (err) {
-          reject(err);
-        }
-      });
-    });
+    const request = (protocol === 'https:' ? https : http).request(
+      options,
+      (response) => {
+        const chunks: string[] = [];
+        response.setEncoding('utf8');
+        response.on('data', (chunk: string) => {
+          chunks.push(chunk);
+        });
+        response.on('end', () => {
+          try {
+            resolve(JSON.parse(chunks.join('')) as { value: T });
+          } catch (err) {
+            reject(err);
+          }
+        });
+      }
+    );
 
     request.on('error', reject);
 
