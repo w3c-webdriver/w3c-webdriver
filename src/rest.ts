@@ -19,11 +19,13 @@ function isError(value: unknown): value is ErrorValue {
 
 export type RequestMethod = 'GET' | 'POST' | 'DELETE';
 
+export type Headers = Record<string, string | string[] | undefined>;
+
 async function sendRequest<T>(
   method: RequestMethod,
   url: string,
   body?: object,
-  headers?: Record<string, string | string[] | undefined>
+  headers?: Headers
 ): Promise<T> {
   log(
     `WebDriver request: ${method} ${url} ${
@@ -93,7 +95,7 @@ export const GET = async <T>(url: string): Promise<T> =>
 export const POST = async <T>(
   url: string,
   body: object = {},
-  headers?: Record<string, string | string[] | undefined>
+  headers?: Headers
 ): Promise<T> => sendRequest<T>('POST', url, body, headers);
 export const DELETE = async <T>(url: string, body?: object): Promise<T> =>
   sendRequest<T>('DELETE', url, body);

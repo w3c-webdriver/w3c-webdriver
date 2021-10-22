@@ -4,8 +4,8 @@ import { config } from 'dotenv-safe';
 import { path as geckodriverPath } from 'geckodriver';
 import { path32 as iedriverPath } from 'iedriver';
 import { Context } from 'mocha';
-import { Headers } from 'request';
 import { Capabilities, Session, WindowRect } from '../src';
+import { Headers } from '../src/rest';
 
 let initialWindowRect: WindowRect;
 
@@ -129,11 +129,11 @@ const testEnvironments: Omit<TestEnvironment, 'session' | 'headless'>[] = [
     capabilities: {
       alwaysMatch: {
         browserName: 'safari',
-        browserVersion: '12.1',
+        browserVersion: '14.1',
         'bstack:options': {
           local: true,
           os: 'OS X',
-          osVersion: 'Mojave',
+          osVersion: 'Big Sur',
           safari: {
             enablePopups: true,
             allowAllCookies: true,
