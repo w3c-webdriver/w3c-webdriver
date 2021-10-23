@@ -13,10 +13,10 @@ jobs:
     timeout-minutes: 3
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
         with:
-          node-version: '12.x'
+          node-version: '14'
       - name: Install dependencies
         run: npm ci
       - name: Check code style
@@ -33,32 +33,32 @@ jobs:
         include:
           - environment: Firefox
             os: 'ubuntu-latest'
-            nodeVersion: '8.x'
+            nodeVersion: '12'
             browser: 'firefox'
             headless: 'true'
           - environment: Chrome
             os: 'macos-latest'
-            nodeVersion: '12.x'
+            nodeVersion: '14'
             browser: 'chrome'
           - environment: Internet_Explorer
             os: 'windows-latest'
-            nodeVersion: '12.x'
+            nodeVersion: '14'
             browser: 'internet-explorer'
           - environment: BrowserStack_Safari
             os: 'ubuntu-latest'
-            nodeVersion: '12.x'
+            nodeVersion: '14'
             browser: 'safari'
             browserStack: 'true'
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.nodeVersion }}
       - name: Install dependencies
         run: npm ci
         env:
-          CHROMEDRIVER_VERSION: '79.0.3945.36'
+          CHROMEDRIVER_VERSION: '94.0.4606.61'
       - name: Run tests
         run: npm run test:coverage
         env:
@@ -67,12 +67,37 @@ jobs:
           BROWSERSTACK: ${{ matrix.browserStack }}
           BROWSERSTACK_USERNAME: ${{ secrets.browserStackUsername }}
           BROWSERSTACK_ACCESS_KEY: ${{ secrets.browserStackAccessKey }}
-      - uses: actions/upload-artifact@v1
+      - name: Publish screenshots
+        uses: actions/upload-artifact@v2
         if: failure()
         with:
           name: ${{ matrix.environment }}
           path: screenshots
+      - name: Upload Unit Test Results
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: Unit Test Results (${{ matrix.environment }})
+          path: test-results.xml
       - name: Upload coverage
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.codeCovUploadToken }} #required
+  publish-test-results:
+    name: 'Publish Unit Tests Results'
+    needs: test
+    runs-on: ubuntu-latest
+    # the build-and-test job might be skipped, we don't need to run this job then
+    if: success() || failure()
+
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          path: artifacts
+      - name: Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1.6
+        with:
+          check_name: Unit Test Results
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          files: artifacts/**/*.xml

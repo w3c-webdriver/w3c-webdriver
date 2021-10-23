@@ -9,11 +9,11 @@ const browserStackInstance = new browserstack.Local();
 
 export async function startBrowserStackLocal(): Promise<void> {
   log('Starting BrowserStack Local...');
-  await new Promise(resolve => {
+  await new Promise<void>((resolve) => {
     browserStackInstance.start(
       {
         key: process.env.BROWSERSTACK_ACCESS_KEY,
-        verbose: true
+        verbose: true,
       },
       () => {
         resolve();
@@ -25,7 +25,7 @@ export async function startBrowserStackLocal(): Promise<void> {
 
 export async function stopBrowserStackLocal(): Promise<void> {
   log('Shutting down BrowserStack Local...');
-  await new Promise(resolve => {
+  await new Promise<void>((resolve) => {
     browserStackInstance.stop(() => {
       resolve();
     });
@@ -35,7 +35,7 @@ export async function stopBrowserStackLocal(): Promise<void> {
 
 async function waitForBusyPort(port: number): Promise<void> {
   return new Promise((resolve, reject) => {
-    waitOn({ resources: [`tcp:127.0.0.1:${port}`], timeout: 5000 }, err => {
+    waitOn({ resources: [`tcp:127.0.0.1:${port}`], timeout: 5000 }, (err) => {
       if (err) {
         reject(err);
       } else {
@@ -49,7 +49,7 @@ async function waitForFreePort(port: number): Promise<void> {
   return new Promise((resolve, reject) => {
     waitOn(
       { resources: [`tcp:127.0.0.1:${port}`], reverse: true, timeout: 5000 },
-      err => {
+      (err) => {
         if (err) {
           reject(err);
         } else {
@@ -75,9 +75,9 @@ export async function startDriver(): Promise<void> {
     return;
   }
 
-  const { args = (): string[] => [], path = '', name } = driver;
+  const { path = '', name } = driver;
 
-  const childArgs = args({ port });
+  const childArgs = driver.args?.({ port }) ?? [];
   const onClose = (code: number, signal: string): void => {
     if (code !== 0) {
       return;

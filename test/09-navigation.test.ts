@@ -5,9 +5,9 @@ function removeHash(url: string): string {
   return url.replace(/#.*$/, '');
 }
 
-describe('Navigation', function() {
-  describe('getTitle method', function() {
-    it('returns page title', async function() {
+describe('Navigation', function () {
+  describe('getTitle method', function () {
+    it('returns page title', async function () {
       const { session } = await getTestEnv(this);
       const title = await session.getTitle();
 
@@ -15,19 +15,19 @@ describe('Navigation', function() {
     });
   });
 
-  describe('getCurrentUrl method', function() {
-    it('returns current url', async function() {
+  describe('getCurrentUrl method', function () {
+    it('returns current url', async function () {
       const { session } = await getTestEnv(this);
       const currentUrl = removeHash(await session.getCurrentUrl());
 
       expect(currentUrl).toEqual(
-        `http://localhost:${process.env.TEST_APP_PORT}/`
+        `http://localhost:${process.env.TEST_APP_PORT ?? ''}/`
       );
     });
   });
 
-  describe('back method', function() {
-    it('navigate to previous url from history', async function() {
+  describe('back method', function () {
+    it('navigate to previous url from history', async function () {
       const { session } = await getTestEnv(this);
       const currentUrlBefore = removeHash(await session.getCurrentUrl());
       await session.navigateTo(`${currentUrlBefore}#test`);
@@ -37,8 +37,8 @@ describe('Navigation', function() {
     });
   });
 
-  describe('forward method', function() {
-    it('navigate forward to next url from history', async function() {
+  describe('forward method', function () {
+    it('navigate forward to next url from history', async function () {
       const { session } = await getTestEnv(this);
       const actualUrl = removeHash(await session.getCurrentUrl());
       await session.navigateTo(`${actualUrl}#test`);
@@ -49,8 +49,8 @@ describe('Navigation', function() {
     });
   });
 
-  describe('refresh method', function() {
-    it('refresh the current page', async function() {
+  describe('refresh method', function () {
+    it('refresh the current page', async function () {
       const { session } = await getTestEnv(this);
 
       const a = await session.findElement('css selector', '#a');
@@ -62,7 +62,7 @@ describe('Navigation', function() {
       await session.refresh();
       const currentUrl = removeHash(await session.getCurrentUrl());
       expect(currentUrl).toEqual(
-        `http://localhost:${process.env.TEST_APP_PORT}/`
+        `http://localhost:${process.env.TEST_APP_PORT ?? ''}/`
       );
       const result = await session.findElement('css selector', '#result');
       const resultText = await result.getText();

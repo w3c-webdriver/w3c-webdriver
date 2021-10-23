@@ -1,14 +1,15 @@
-import request, { Headers } from 'request';
-import util from 'util';
+import http from 'http';
+import https from 'https';
+import { URL } from 'url';
 import { log } from './logger';
+import util from 'util';
 
 interface ErrorValue {
   error: string;
   message: string;
 }
 
-//eslint-disable-next-line @typescript-eslint/no-explicit-any
-function isError(value: any): value is ErrorValue {
+function isError(value: unknown): value is ErrorValue {
   return (
     typeof value === 'object' &&
     value !== null &&
@@ -17,6 +18,8 @@ function isError(value: any): value is ErrorValue {
 }
 
 export type RequestMethod = 'GET' | 'POST' | 'DELETE';
+
+export type Headers = Record<string, string | string[] | undefined>;
 
 async function sendRequest<T>(
   method: RequestMethod,
@@ -30,40 +33,53 @@ async function sendRequest<T>(
     }`
   );
 
-  const value = await new Promise<T>((resolve, reject) => {
-    const json = Buffer.from(body ? JSON.stringify(body) : '', 'utf8');
-    const hasContent = !!json.length;
-    request(
-      {
-        url,
-        method,
-        headers: {
+  const jsonBody = JSON.stringify(body);
+  const { hostname, port, pathname: path, protocol } = new URL(url);
+  const protocolBasedPort = protocol === 'https:' ? 443 : 80;
+  const options = {
+    method,
+    hostname,
+    port: port || protocolBasedPort,
+    path,
+    headers: body
+      ? {
           ...headers,
-          // This can be removed in favour of using `json` property if https://github.com/SeleniumHQ/selenium/issues/7986 is resolved
-          ...(hasContent && {
-            'Content-Type': 'text/plain;charset=UTF-8',
-            'Content-Length': json.length
-          })
-        },
-        ...(hasContent && { body: json })
-      },
-      (error: Error, _response, body) => {
-        if (error) {
-          reject(error);
-          return;
+          'Content-Length': Buffer.byteLength(jsonBody, 'utf8'),
+          'Content-Type': 'application/json',
         }
+      : headers,
+  };
 
-        try {
-          const result = JSON.parse(body) as { value: T };
-          log(`WebDriver response: ${util.inspect(result, false, 10)}`);
-          resolve(result.value);
-        } catch (e) {
-          /* istanbul ignore next */
-          reject(body);
-        }
+  const result = await new Promise<{ value: T }>((resolve, reject) => {
+    const request = (protocol === 'https:' ? https : http).request(
+      options,
+      (response) => {
+        const chunks: string[] = [];
+        response.setEncoding('utf8');
+        response.on('data', (chunk: string) => {
+          chunks.push(chunk);
+        });
+        response.on('end', () => {
+          try {
+            resolve(JSON.parse(chunks.join('')) as { value: T });
+          } catch (err) {
+            reject(err);
+          }
+        });
       }
     );
+
+    request.on('error', reject);
+
+    if (body) {
+      request.write(jsonBody);
+    }
+    request.end();
   });
+
+  log(`WebDriver response: ${util.inspect(result, false, 10)}`);
+
+  const { value } = result;
 
   if (isError(value)) {
     const { error, message } = value;

@@ -1,7 +1,7 @@
 export async function poll({
   timeout = 5000,
   interval = 100,
-  predicate
+  predicate,
 }: {
   timeout?: number;
   interval?: number;
@@ -17,10 +17,10 @@ export async function poll({
           reject(new Error(`Condition was not met it ${timeout}ms`));
         }, timeout);
       }),
-      new Promise((resolve, reject) => {
+      new Promise<void>((resolve, reject) => {
         pollTimeout = setInterval(() => {
           predicate()
-            .then(result => {
+            .then((result) => {
               if (!result) {
                 return;
               }
@@ -29,7 +29,7 @@ export async function poll({
             })
             .catch(reject);
         }, interval);
-      })
+      }),
     ]);
   } finally {
     if (timeoutTimer) {
