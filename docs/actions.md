@@ -56,12 +56,7 @@ await session.performActions([
     type: 'pointer',
     id: 'click on add button',
     actions: [
-      {
-        type: 'pointerMove',
-        x: 1,
-        y: 1,
-        origin: await session.findElement('css selector', '#add')
-      },
+      { type: 'pointerMove', x: 1, y: 1, origin: await session.findElement('css selector', '#add') },
       { type: 'pointerDown', button: 0 },
       { type: 'pointerUp', button: 0 }
     ],

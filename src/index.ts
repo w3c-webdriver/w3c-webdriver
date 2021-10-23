@@ -1,5 +1,5 @@
-import { Headers } from 'request';
-import { Capabilities, Status } from './core';
+import { Status } from './core';
+import { SessionOptions } from './core/SessionOptions';
 import { GET, POST } from './rest';
 import { Session } from './Session';
 
@@ -15,47 +15,36 @@ import { Session } from './Session';
  * @returns session
  * @see {@link https://www.w3.org/TR/webdriver/#new-session|WebDriver spec}
  * @param options Object with configuration for new session creation
- * @param options.url WebDriver server URL
- * @param options.capabilities WebDriver capabilities
- * @param options.desiredCapabilities Legacy WebDriver capabilities. Can be used to enable the new W3C dialect
- * @param options.headers Session creation request headers. Can be used for authorization. See example
  * @example
  * import { newSession } from 'w3c-webdriver';
  *
  * let session;
  *
  * (async () => {
- * try {
- * session = await newSession({
- * url: 'http://localhost:4444',
- * capabilities: {
- * alwaysMatch: {
- * browserName: 'Chrome'
- * }
- * }
- * });
- * } catch (err) {
- * console.log(err.stack);
- * } finally {
- * session.close();
- * }
+ *   try {
+ *     session = await newSession({
+ *       url: 'http://localhost:4444',
+ *       capabilities: {
+ *         alwaysMatch: {
+ *           browserName: 'Chrome'
+ *         }
+ *       }
+ *     });
+ *   } catch (err) {
+ *     console.log(err.stack);
+ *   } finally {
+ *     session.close();
+ *   }
  * })();
  * @example
  * const credentials = Buffer.from(['myusername', 'Password123'].join(':')).toString('base64');
  * const session = await newSession({
- * headers: {
- * Authorization: `Basic ${credentials}`
- * }
+ *   headers: {
+ *     Authorization: `Basic ${credentials}`
+ *   }
  * });
  */
-export async function newSession(options: {
-  url: string;
-  capabilities: Capabilities;
-  desiredCapabilities?: {
-    'browserstack.use_w3c': boolean;
-  };
-  headers?: Headers;
-}): Promise<Session> {
+export async function newSession(options: SessionOptions): Promise<Session> {
   const { url, capabilities, desiredCapabilities, headers } = options;
   const { sessionId } = await POST<{
     sessionId: string;
@@ -95,3 +84,4 @@ export async function status(url: string): Promise<Status> {
 export * from './core';
 export * from './Element';
 export * from './Session';
+

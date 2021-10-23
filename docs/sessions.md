@@ -12,12 +12,7 @@ Also we can set the browser and operating system parameters we want to interact 
 
 **PARAMETERS**
 
-- `options`: object - Object with configuration for new session creation
-  - `url`: string - WebDriver server URL
-  - `capabilities`: [Capabilities](capabilities.md#capabilities) - WebDriver capabilities
-  - `desiredCapabilities?`: object - Legacy WebDriver capabilities. Can be used to enable the new W3C dialect
-    - `browserstack.use_w3c`: boolean
-  - `headers?`: Headers - Session creation request headers. Can be used for authorization. See example
+- `options`: [SessionOptions](#sessionoptions) - Object with configuration for new session creation
 
 **RETURNS**
 
@@ -49,9 +44,7 @@ let session;
 ```
 
 ```typescript
-const credentials = Buffer.from(
-  ['myusername', 'Password123'].join(':')
-).toString('base64');
+const credentials = Buffer.from(['myusername', 'Password123'].join(':')).toString('base64');
 const session = await newSession({
   headers: {
     Authorization: `Basic ${credentials}`
@@ -142,6 +135,16 @@ let session;
 **SEE ALSO**
 
 - [WebDriver spec](https://www.w3.org/TR/webdriver/#delete-session)
+
+## SessionOptions
+
+**PROPERTIES**
+
+- `url`: string - WebDriver server URL
+- `capabilities`: [Capabilities](capabilities.md#capabilities) - WebDriver capabilities
+- `desiredCapabilities?`: object - Legacy WebDriver capabilities. Can be used to enable the new W3C dialect
+  - `browserstack.use_w3c`: boolean
+- `headers?`: Headers - Session creation request headers. Can be used for authorization.
 
 ## Status
 

@@ -310,10 +310,7 @@ Promise&lt;void&gt;
 **EXAMPLES**
 
 ```typescript
-const submitButton = await session.findElement(
-  'css selector',
-  'button[type="submit"]'
-);
+const submitButton = await session.findElement('css selector', 'button[type="submit"]');
 await submitButton.click();
 ```
 

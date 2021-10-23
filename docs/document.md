@@ -28,7 +28,7 @@ the result of evaluating the script is returned to the client.
 **PARAMETERS**
 
 - `script`: string - JavaScript to execute in browser context
-- `args`: any[] - Arguments to sent to executed script
+- `args`: unknown[] - Arguments to sent to executed script
 
 **RETURNS**
 
@@ -78,7 +78,7 @@ as the response.
 **PARAMETERS**
 
 - `script`: string - JavaScript to execute in browser context
-- `args`: any[] - Arguments to sent to executed script
+- `args`: unknown[] - Arguments to sent to executed script
 
 **RETURNS**
 
